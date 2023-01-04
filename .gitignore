@@ -32,5 +32,9 @@
 *.app
 *.elf
 
+# Build output
+bin/
+build/
+
 # Editors
 .vscode/
