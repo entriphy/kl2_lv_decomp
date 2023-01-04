@@ -2,7 +2,6 @@
 #define CAM_H
 
 #include <libvux.h>
-#include <tamtypes.h>
 #include "types.h"
 
 typedef struct {

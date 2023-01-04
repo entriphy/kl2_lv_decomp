@@ -2,7 +2,7 @@
 #define GBL_H
 
 #include <libgs.h>
-#include <tamtypes.h>
+#include "types.h"
 #include "cam.h"
 #include "common.h"
 #include "kazuya.h"

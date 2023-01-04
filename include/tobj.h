@@ -3,7 +3,6 @@
 
 #include "hoshino.h"
 #include "p.h"
-#include <tamtypes.h>
 
 typedef struct tCOORD {
     FVECTOR Rot;

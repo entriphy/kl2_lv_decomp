@@ -1,7 +1,7 @@
 #ifndef NAKANO_H
 #define NAKANO_H
 
-#include <tamtypes.h>
+#include "types.h"
 
 typedef struct {
     s32 map_draw_flag;

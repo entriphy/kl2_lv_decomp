@@ -1,7 +1,6 @@
 #ifndef ROUTE_H
 #define ROUTE_H
 
-#include <tamtypes.h>
 #include "types.h"
 
 typedef struct {

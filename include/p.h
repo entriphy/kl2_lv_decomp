@@ -1,7 +1,7 @@
 #ifndef P_H
 #define P_H
 
-#include <tamtypes.h>
+#include "types.h"
 
 typedef struct {} PPARTS;
 

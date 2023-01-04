@@ -1,7 +1,6 @@
 #ifndef VPO_H
 #define VPO_H
 
-#include <tamtypes.h>
 #include "types.h"
 
 typedef struct {

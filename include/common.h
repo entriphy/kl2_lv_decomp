@@ -1,11 +1,9 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <libvux.h>
 #include "gim.h"
 #include "tobj.h"
 #include "types.h"
-
 
 typedef struct OBJWORK OBJWORK;
 

@@ -1,7 +1,7 @@
 #ifndef HATO_H
 #define HATO_H
 
-#include <tamtypes.h>
+#include "types.h"
 
 void htInitRand(int seed);
 int htGetRand();

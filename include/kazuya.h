@@ -1,7 +1,7 @@
 #ifndef KAZUYA_H
 #define KAZUYA_H
 
-#include <tamtypes.h>
+#include "types.h"
 
 // This not might be a Kazuya struct
 typedef struct {

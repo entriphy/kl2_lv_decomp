@@ -1,7 +1,6 @@
 #ifndef GIM_H
 #define GIM_H
 
-#include <libvux.h>
 #include "route.h"
 #include "vpo.h"
 
