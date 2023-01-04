@@ -1,15 +1,32 @@
 #include <iostream>
+#include <ostream>
+#include <stdio.h>
 #include <math.h>
 
 #include <GLFW/glfw3.h>
 #include <imgui.h>
+#include "pine.h"
 
-#include "../vendor/imgui_impl_glfw.h"
-#include "../vendor/imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 #define GLSL_VERSION "#version 330"
+#define stringify( name ) #name
+static const char* EmuStatuses[] = { "Running", "Paused", "Shutdown" };
+static const ImVec4 EmuStatusColors[] = { ImVec4(0.0, 1.0, 0.0, 1.0), ImVec4(1.0, 1.0, 0.0, 1.0), ImVec4(1.0, 0.0, 0.0, 1.0) };
 
 int main() {
+    // Initialize PINE
+    PINE::PCSX2 *ipc = new PINE::PCSX2();
+    try {
+        // Attempt connection
+        ipc->Status();
+    } catch (PINE::Shared::IPCStatus status) {
+        std::cout << "PINE connection to PCSX2 failed (status " << status << ")\n";
+        glfwTerminate();
+        return -1;
+    }
+
     // Initialize GLFW
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -49,6 +66,8 @@ int main() {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
+    float color[] = { 1.0, 1.0, 1.0, 1.0 };
+
     // ImGui loop
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
@@ -66,17 +85,26 @@ int main() {
         ImGui::SetNextWindowPos(ImVec2(0, 0));
         ImGui::SetNextWindowSize(ImVec2(640, 480));
 
-        float color[] = { 1.0, 1.0, 1.0, 1.0 };
-        ImGui::Begin("Window", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+        
+        ImGui::Begin("Window", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
         {
             if (ImGui::BeginMenuBar()) {
-                ImGui::Text("stuff goes here");
+                // Show PINE status
+                ImGui::Text("PINE:");
+                PINE::PCSX2::EmuStatus status;
+                try {
+                    status = ipc->Status();
+                } catch (PINE::Shared::IPCStatus ex) {
+                    status = PINE::PCSX2::EmuStatus::Shutdown;
+                }
+                ImGui::PushStyleColor(ImGuiCol_Text, EmuStatusColors[status]);
+                ImGui::Text("%s", EmuStatuses[status]);
+                ImGui::PopStyleColor();
+
                 ImGui::EndMenuBar();
             }
             ImGui::Text("Hello, Dear ImGUI!");
-            if (ImGui::ColorEdit4("Color", color)) {
-
-            }
+            ImGui::ColorEdit4("Color", color);
             float samples[100];
             for (int n = 0; n < 100; n++)
                 samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 10.0f);
@@ -97,5 +125,8 @@ int main() {
 
     glfwDestroyWindow(window);
     glfwTerminate();
+
+    delete ipc;
+
     return 0;
 }
