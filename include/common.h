@@ -47,12 +47,12 @@ struct OBJWORK {
     s16 pad1; // 0x2A
     s16 live; // 0x2C
     s16 stat; // 0x2E
-    VU_VECTOR posi; // 0x30
-    VU_VECTOR spd; // 0x40
-    VU_VECTOR muki; // 0x50
-    VU_VECTOR ang; // 0x60
-    VU_VECTOR rot; // 0x70
-    VU_VECTOR rtw; // 0x80
+    FVECTOR posi; // 0x30
+    FVECTOR spd; // 0x40
+    FVECTOR muki; // 0x50
+    FVECTOR ang; // 0x60
+    FVECTOR rot; // 0x70
+    FVECTOR rtw; // 0x80
     s32 reg0; // 0x90
     s32 reg1; // 0x94
     s32 reg2; // 0x98

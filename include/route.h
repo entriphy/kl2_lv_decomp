@@ -5,8 +5,8 @@
 #include "types.h"
 
 typedef struct {
-    VU_SVECTOR vec;
-    VU_IVECTOR posi;
+    SVECTOR vec;
+    IVECTOR posi;
     u16 co;
     u16 DUMMY;
 } ROUTE;

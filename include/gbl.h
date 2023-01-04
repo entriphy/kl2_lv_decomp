@@ -2,7 +2,6 @@
 #define GBL_H
 
 #include <libgs.h>
-#include <libvux.h>
 #include <tamtypes.h>
 #include "cam.h"
 #include "common.h"
@@ -119,12 +118,12 @@ typedef struct {
     s32 retry_bun1;
     s32 retry_muki;
     s32 tokurom_cnt;
-    VU_MATRIX wsm;
-    VU_MATRIX wvm;
-    VU_MATRIX vsm;
-    VU_MATRIX d_wsm;
-    VU_MATRIX d_wvm;
-    VU_MATRIX d_vsm;
+    FMATRIX wsm;
+    FMATRIX wvm;
+    FMATRIX vsm;
+    FMATRIX d_wsm;
+    FMATRIX d_wvm;
+    FMATRIX d_vsm;
     CAM_WORK cam();
     CAM_WORK d_cam();
 } GAME_WORK;

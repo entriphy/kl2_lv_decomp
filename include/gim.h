@@ -8,8 +8,8 @@
 // Size: 0x80
 typedef struct {
     VPOINFO* vpo;
-    VU_MATRIX hpo_mat;
-    VU_VECTOR scale;
+    FMATRIX hpo_mat;
+    FVECTOR scale;
     s32 tblidx;
     s32 time;
     u8* hpo;
@@ -19,5 +19,7 @@ typedef struct {
     s32 pad0;
     s32 pad1;
 } GIMWORK;
+
+GIMWORK* GetGimWork();
 
 #endif

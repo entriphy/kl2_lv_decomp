@@ -1,17 +1,16 @@
 #ifndef P_H
 #define P_H
 
-#include <libvux.h>
 #include <tamtypes.h>
 
 typedef struct {} PPARTS;
 
 // Size: 0xB0
 typedef struct PCOORD {
-    VU_VECTOR Rot; // 0x00
-    VU_VECTOR Trans; // 0x10
-    VU_MATRIX Mtx; // 0x20
-    VU_MATRIX MtxSav; // 0x60
+    FVECTOR Rot; // 0x00
+    FVECTOR Trans; // 0x10
+    FMATRIX Mtx; // 0x20
+    FMATRIX MtxSav; // 0x60
     float WipCnt; // 0xA0
     struct PCOORD* Super; // 0xA4
     s32 Flag; // 0xA8
@@ -79,10 +78,10 @@ typedef struct {
 } PMOTION;
 
 typedef struct PSFXOBJ {
-    VU_VECTOR ScaleVector; // 0x00
+    FVECTOR ScaleVector; // 0x00
     PMOTION* pMot; // 0x10
-    VU_MATRIX* pLightColor;
-    VU_MATRIX* pNormalLight;
+    FMATRIX* pLightColor;
+    FMATRIX* pNormalLight;
     s32 PartsNum;
     s32 GmsNum; // 0x38, TODO: short or int?
     float scale;

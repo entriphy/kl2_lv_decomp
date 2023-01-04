@@ -6,7 +6,7 @@
 
 typedef struct {
     u32 ntag;
-    VU_IVECTOR* dmatag;
+    IVECTOR* dmatag;
     u8* data_top;
     u32 pad0;
 } VPOINFO;
