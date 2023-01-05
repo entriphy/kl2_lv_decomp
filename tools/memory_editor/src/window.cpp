@@ -15,7 +15,7 @@ Window::Window() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    window = glfwCreateWindow(640, 480, "Klonoa 2 Thing", nullptr, nullptr);
+    window = glfwCreateWindow(720, 720, "Klonoa 2 Thing", nullptr, nullptr);
     if (window == nullptr) {
         glfwTerminate();
         throw "Could not create GLFW window";
@@ -63,7 +63,7 @@ void Window::loop() {
         ImGui::NewFrame();
 
         ImGui::SetNextWindowPos(ImVec2(0, 0));
-        ImGui::SetNextWindowSize(ImVec2(640, 480));
+        ImGui::SetNextWindowSize(ImVec2(720, 720));
 
         draw();
 

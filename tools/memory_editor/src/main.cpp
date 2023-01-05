@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ostream>
+#include <string>
 #include <stdio.h>
 #include <math.h>
 
@@ -28,18 +29,8 @@ void draw() {
     uint vtWaveAddr = memory.read<uint>(KlonoaMemory::VT_WAVE_ADDRESS);
 
     uint pKlonoa = memory.read<uint>(KlonoaMemory::GAMEGBL_KLONOA_ADDRESS); // GameGbl.klonoa
-    OBJWORK* klonoa = memory.read_obj<OBJWORK>(pKlonoa);
-
-    uint pModel = klonoa->prim;
-    klMODEL* model = memory.read_obj<klMODEL>(pModel);
-
-    uint pLevelPack = memory.read<uint>(KlonoaMemory::LEVEL_PACK_PTR_ADDRESS);
-    KlonoaMemory::FHM* levelPack = memory.read_FHM(pLevelPack);
-    KlonoaMemory::FHM* nakanoPack = levelPack->read_FHM(&memory, 0);
-    KlonoaMemory::FHM* chrPack = nakanoPack->read_FHM(&memory, 1);
-    KlonoaMemory::FHM* klonoaPack = chrPack->read_FHM(&memory, 371);
-    KlonoaMemory::FHM* klmPack = klonoaPack->read_FHM(&memory, 0);
-    KlonoaMemory::FHM* klonoaAnimationPack = klmPack->read_FHM(&memory, 3);
+    OBJWORK<klMODEL>* klonoa = memory.read_obj<OBJWORK<klMODEL>>(pKlonoa);
+    klMODEL* model = klonoa->prim.Get(&memory);
     
     ImGui::Begin("Window", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
     {
@@ -74,27 +65,38 @@ void draw() {
         ImGui::Text("vision:        %04x", vision);
         ImGui::Text("");
 
-        ImGui::Text("klonoa->posi:  %.2f %.2f %.2f %.2f", klonoa->posi.x, klonoa->posi.y, klonoa->posi.z, klonoa->posi.w);
-        ImGui::Text("klonoa->spd:   %.4f %.4f %.4f %.4f", klonoa->spd.x, klonoa->spd.y, klonoa->spd.z, klonoa->spd.w);
-        ImGui::Text("klonoa->muki:  %.2f %.2f %.2f %.2f", klonoa->muki.x, klonoa->muki.y, klonoa->muki.z, klonoa->muki.w);
-        ImGui::Text("klonoa->ang:   %.2f %.2f %.2f %.2f", klonoa->ang.x, klonoa->ang.y, klonoa->ang.z, klonoa->ang.w);
-        // ImGui::Text("klonoa->rot:   %.2f %.2f %.2f %.2f", objw->rot.x, objw->rot.y, objw->rot.z, objw->rot.w);
-        ImGui::Text("");
+        if (ImGui::TreeNode("Klonoa")) {
+            klonoa->drawObj(&memory);
 
-        if (KlonoaMemory::isValidPointer(klonoaAnimationPack->get_address(&memory))) {
-            uint nameAddress = klonoaAnimationPack->get_file_address(&memory, model->klm.ActNum) + 8;
-            if (!KlonoaMemory::isValidPointer(nameAddress)) return;
-            char* animation = (char *)(memory.read_obj<ulong>(nameAddress));
-            ImGui::Text("klonoa->ActNum  %d (%s)", model->klm.ActNum, animation);
-            ImGui::Text("");
+            uint pLevelPack = memory.read<uint>(KlonoaMemory::LEVEL_PACK_PTR_ADDRESS);
+            KlonoaMemory::FHM* levelPack = memory.read_FHM(pLevelPack);
+            KlonoaMemory::FHM* nakanoPack = levelPack->read_FHM(&memory, 0);
+            KlonoaMemory::FHM* chrPack = nakanoPack->read_FHM(&memory, 1);
+            KlonoaMemory::FHM* klonoaPack = chrPack->read_FHM(&memory, 371);
+            KlonoaMemory::FHM* klmPack = klonoaPack->read_FHM(&memory, 0);
+            KlonoaMemory::FHM* klonoaAnimationPack = klmPack->read_FHM(&memory, 3);
+
+            if (KlonoaMemory::isValidPointer(klonoaAnimationPack->get_address(&memory))) {
+                uint nameAddress = klonoaAnimationPack->get_file_address(&memory, model->klm.ActNum) + 8;
+                if (!KlonoaMemory::isValidPointer(nameAddress)) return;
+                char* animation = (char *)(memory.read_obj<ulong>(nameAddress));
+                ImGui::Text("ActNum  %d (%s)", model->klm.ActNum, animation);
+            }
+
+            ImGui::TreePop();
         }
 
         if (KlonoaMemory::isValidPointer(vtWaveAddr)) {
-            kitWaveParam* wave = memory.read_obj<kitWaveParam>(vtWaveAddr + 0x10);
-            if (ImGui::SliderFloat("wave->speedx", &wave->speedx, 1, 200)) {
-                memory.ipc->Write<float>(vtWaveAddr + 0x10 + offsetof(kitWaveParam, speedx), wave->speedx);
+            uint waveCount = memory.read<uint>(vtWaveAddr);
+            for (int i = 0; i < waveCount; i++) {
+                std::string name = "Wave_";
+                name.push_back('0' + i);
+                if (ImGui::TreeNode(name.c_str())) {
+                    kitWaveParam* wave = memory.read_obj<kitWaveParam>(vtWaveAddr + 0x10 + i * sizeof(kitWaveParam));
+                    wave->draw(&memory);
+                    ImGui::TreePop();
+                }
             }
-            ImGui::Text("");
         }
 
         // gp_value: 0x3FE070

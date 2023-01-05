@@ -2,7 +2,6 @@
 #define KLONOA_MEM_H
 
 #include "pine.h"
-#include "types.h"
 
 class KlonoaMemory {
 public:
@@ -17,11 +16,11 @@ public:
     }
 
     PINE::PCSX2* ipc;
-    u8* ps2_ram;
+    char* ps2_ram;
 
     KlonoaMemory()  {
         ipc = new PINE::PCSX2();
-        ps2_ram = (u8*)malloc(0x2000000);
+        ps2_ram = (char*)malloc(0x2000000);
     }
 
     ~KlonoaMemory() {
@@ -36,9 +35,8 @@ public:
 
     template <class T>
     T* read_obj(uint address) {
-        uint size = sizeof(T);
-        for (int i = 0; i < size; i++) {
-            ps2_ram[address + i] = ipc->Read<u8>(address + i);
+        for (int i = 0; i < sizeof(T); i++) {
+            ps2_ram[address + i] = ipc->Read<char>(address + i);
         }
         return (T*)(ps2_ram + address);
     }
@@ -48,11 +46,18 @@ public:
         ipc->Write<T>(address, value);
     }
 
+    template <class T>
+    inline void write_obj(uint address) {
+        for (int i = 0; i < sizeof(T); i++) {
+            ipc->Write<char>(address + i, *(ps2_ram + address + i));
+        }
+    }
+
     // Class to traverse the game's archive files
     class FHM {
     public:
         inline uint get_address(KlonoaMemory* mem) {
-            return ((u8*)this - mem->ps2_ram);
+            return ((char*)this - mem->ps2_ram);
         }
 
         uint get_count(KlonoaMemory* mem) {
