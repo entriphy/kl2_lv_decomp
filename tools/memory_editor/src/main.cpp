@@ -83,6 +83,7 @@ void draw() {
 
         if (KlonoaMemory::isValidPointer(klonoaAnimationPack->get_address(&memory))) {
             uint nameAddress = klonoaAnimationPack->get_file_address(&memory, model->klm.ActNum) + 8;
+            if (!KlonoaMemory::isValidPointer(nameAddress)) return;
             char* animation = (char *)(memory.read_obj<ulong>(nameAddress));
             ImGui::Text("klonoa->ActNum  %d (%s)", model->klm.ActNum, animation);
             ImGui::Text("");
