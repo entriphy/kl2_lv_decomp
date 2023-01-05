@@ -12,4 +12,5 @@ include_directories(include)
 add_executable(${PROJECT_NAME}
         src/imgui_impl_glfw.cpp
         src/imgui_impl_opengl3.cpp
+        src/window.cpp
         src/main.cpp)
