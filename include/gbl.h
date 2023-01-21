@@ -8,6 +8,9 @@
 #include "kazuya.h"
 #include "nakano.h"
 
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 224
+
 typedef struct {
     u32 irqc;
     u32 drawhc;
@@ -53,14 +56,12 @@ typedef struct {
 } GsDrawEnv;
 
 typedef struct {
-    GsDispEnv disp[2];
+    GS_DISPENV disp[2];
     GS_GIF_TAG giftag0;
-    GsDrawEnv draw01;
-    GsDrawEnv draw02;
+    GsDrawEnv draw0[2];
     void* clear0;
     GS_GIF_TAG giftag1;
-    GsDrawEnv draw11;
-    GsDrawEnv draw12;
+    GsDrawEnv draw1[2];
     void* clear1;
 } GsDBuffDc;
 
@@ -124,8 +125,8 @@ typedef struct {
     FMATRIX d_wsm;
     FMATRIX d_wvm;
     FMATRIX d_vsm;
-    CAM_WORK cam();
-    CAM_WORK d_cam();
+    CAM_WORK cam;
+    CAM_WORK d_cam;
 } GAME_WORK;
 
 inline SYSGBL SysGbl;

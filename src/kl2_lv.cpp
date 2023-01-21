@@ -15,5 +15,6 @@ int main(int argc, char *argv[]) {
     SysGbl.fmode = 1;
     GameGbl.vision = 0x1e00;
     nkDG.opflag |= 6;
+    sleep(5);
     return 0;
 }

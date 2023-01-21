@@ -77,5 +77,10 @@ struct OBJWORK {
 };
 
 void sce_print(const char* fmt, ...);
+void* GetFHMAddress(void* pAddr, int nNum);
+
+inline int roundSizeToSector(int size) {
+	return size + 0x7FF & 0xFFFFF800;
+}
 
 #endif

@@ -10,3 +10,7 @@ void sce_print(const char* fmt, ...) {
 	va_end(ap);
 	sio_puts(buf);
 }
+
+void* GetFHMAddress(void* pAddr, int nNum) {
+	return (void*)((char*)pAddr + *(int*)((char*)pAddr + 4 + nNum * 4));
+}
