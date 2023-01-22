@@ -5,7 +5,7 @@
 
 typedef struct {
     SVECTOR vec;
-    IVECTOR posi;
+    IVECTOR_UA posi;
     u16 co;
     u16 DUMMY;
 } ROUTE;

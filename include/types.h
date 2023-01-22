@@ -41,11 +41,18 @@ typedef struct {
 } IVECTOR __attribute__((aligned(16)));
 
 typedef struct {
+	int	x;
+	int	y;
+	int	z;
+	int	w;
+} IVECTOR_UA; // Unaligned
+
+typedef struct {
 	short	x;
 	short	y;
 	short	z;
 	short	w;
-} SVECTOR __attribute__((aligned(16)));
+} SVECTOR;
 
 typedef struct {
 	FVECTOR m[4];
