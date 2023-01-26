@@ -1,6 +1,8 @@
 #include <math.h>
 #include <sifrpc.h>
 #include "hoshino.h"
+#include "data_symbols.h"
+#include "function_symbols.h"
 
 void hSndSetMVol(float vol) {
     sD->MVol = hSndFader(vol);

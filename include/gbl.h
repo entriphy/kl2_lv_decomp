@@ -2,11 +2,11 @@
 #define GBL_H
 
 #include <libgs.h>
-#include "types.h"
 #include "cam.h"
-#include "common.h"
 #include "kazuya.h"
 #include "nakano.h"
+#include "objwork.h"
+#include "structs.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 224
@@ -128,8 +128,5 @@ typedef struct {
     CAM_WORK cam;
     CAM_WORK d_cam;
 } GAME_WORK;
-
-inline SYSGBL SysGbl;
-inline GAME_WORK GameGbl;
 
 #endif

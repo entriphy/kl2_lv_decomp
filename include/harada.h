@@ -3,6 +3,4 @@
 
 #include "types.h"
 
-inline s16 hrpt_deb;
-
 #endif

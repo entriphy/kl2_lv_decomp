@@ -1,9 +1,9 @@
 #ifndef HOSHINO_H
 #define HOSHINO_H
 
+#include <libcdvd.h>
 #include <sifcmd.h>
 #include <sifrpc.h>
-#include <libcdvd.h>
 
 typedef enum {
     hKEI_L,
@@ -290,76 +290,5 @@ typedef struct{
 typedef struct {
     sceCdlFILE file;
 } hSTRDATA; // ?
-
-static const char* modules[8] = {
-    "cdrom:\\M\\SIFCMD.IRX;1",
-    "cdrom:\\M\\SIO2MAN.IRX;1",
-    "cdrom:\\M\\MCMAN.IRX;1",
-    "cdrom:\\M\\MCSERV.IRX;1",
-    "cdrom:\\M\\PADMAN.IRX;1",
-    "cdrom:\\M\\LIBSD.IRX;1",
-    "cdrom:\\M\\SDRDRV.IRX;1",
-    "cdrom:\\M\\KL2.IRX;1"
-}; // DAT_00348970
-
-inline hCDDATA CdData; // DAT_00338390
-inline u8 EeCb[0x2000]; // DAT_00338670
-inline hSNDDATA SndData; // DAT_0034b140
-inline hBGMDATA BgmData; // DAT_0034bb58
-inline hPPTDATA PptData; // DAT_0034bc00
-inline hAC3DATA Ac3Data; // DAT_0034bd50
-inline hSTRDATA StrData; // DAT_003bfed0
-
-inline SifRpcClientData_t rpc__003d9718; // DAT_003d9718
-
-inline hCDDATA* cD; // DAT_003fa808
-inline hCDCUE* cQ; // DAT_003fa80c
-
-inline int* kldataHead; // DAT_003fa830
-inline int* pptpackHead; // DAT_003fa834
-inline int* bgmpackHead; // DAT_003fa838
-
-inline hSNDDATA* sD; // DAT_003fa83c
-inline hBGMDATA* bD; // DAT_003fa840
-inline hPPTDATA* pD; // DAT_003fa844
-inline hAC3DATA* aD; // DAT_003fa844
-
-inline u8 pptEeAddrs[4][0x40000]; // DAT_00417700
-static void* buffstartptr = (void*)0x00A00000; // DAT_003fbb3c
-
-inline hSTRDATA* strD; // DAT_003bfed0
-
-inline int RpcArg[16]; // DAT_0040efa0
-inline int RpcRecvBuf[2][16]; // DAT_00417200
-inline int SndMainBuffer[16]; // DAT_00417300
-inline SifRpcClientData_t sndRpc; // DAT_00417280
-
-inline int boot_flag; // ?, DAT_0061ad0
-
-void* hReadFile(const char* name); // FUN_00165ae0
-void hCdInit(); // FUN_00166248
-void hSeLock(int i); // FUN_00168e48
-void hSeInitGrp(int stage); // FUN_00168fd8
-void hInitBoot(); // FUN_0016ac00
-int FUN_0016c778();
-void FUN_0016c798();
-int* hIopDispatch(u32 param); // FUN_0016c830
-void hSndPkEffect(); // FUN_0016ca30
-void hSndPkSetMVol(int voll, int volr); // FUN_0016cb40
-void hSndPkSetEVol(int vol); // FUN_0016cbc8
-void hSndSetMVol(float vol); // FUN_0016cfe0
-int hSndFader(float vol); // FUN_0016d008
-void FUN_00196c00();
-void hBgmWorkClear(); // FUN_0016e350
-int hSndPkGetSize(); // FUN_0016cec8
-void hSndInit(); // FUN_003fc0c8
-void init_config_system(); // FUN_001994e0
-int FUN_001d1c08(const char* name);
-int FUN_001d1c78(const char* name, void* buf);
-void* getBuff(int type, int byte_, const char* name, int* ret); // FUN_001d3748
-void hStrInit(); // FUN_002da268
-int FUN_0030dad0();
-void FUN_00318a80();
-void FUN_003189d0();
 
 #endif

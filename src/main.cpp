@@ -1,12 +1,9 @@
 #include <stdio.h>
-#include <tamtypes.h>
-#include <sifrpc.h>
-#include <debug.h>
 #include <unistd.h>
-#include "gbl.h"
-#include "harada.h"
-#include "hoshino.h"
-#include "nakano.h"
+#include "common.h"
+
+SYSGBL SysGbl;
+GAME_WORK GameGbl;
 
 int main(int argc, char *argv[]) {
     hInitBoot();

@@ -13,10 +13,43 @@
 #include <unistd.h>
 #include <vif_registers.h>
 
-#include "hoshino.h"
 #include "common.h"
-#include "gbl.h"
-#include "ps2.h"
+
+hCDDATA CdData;
+u8 EeCb[0x2000];
+const char* modules[8] = {
+    "cdrom:\\M\\SIFCMD.IRX;1",
+    "cdrom:\\M\\SIO2MAN.IRX;1",
+    "cdrom:\\M\\MCMAN.IRX;1",
+    "cdrom:\\M\\MCSERV.IRX;1",
+    "cdrom:\\M\\PADMAN.IRX;1",
+    "cdrom:\\M\\LIBSD.IRX;1",
+    "cdrom:\\M\\SDRDRV.IRX;1",
+    "cdrom:\\M\\KL2.IRX;1"
+};
+hSNDDATA SndData;
+hBGMDATA BgmData;
+hPPTDATA PptData;
+hAC3DATA Ac3Data;
+hSTRDATA StrData;
+SifRpcClientData_t rpc__003d9718;
+hCDDATA* cD;
+hCDCUE* cQ;
+int* kldataHead;
+int* pptpackHead;
+int* bgmpackHead;
+hSNDDATA* sD;
+hBGMDATA* bD;
+hPPTDATA* pD;
+hAC3DATA* aD;
+u8 pptEeAddrs[4][0x40000];
+void* buffstartptr = (void*)0x00A00000;
+hSTRDATA* strD;
+int RpcArg[16];
+int RpcRecvBuf[2][16];
+int SndMainBuffer[16];
+SifRpcClientData_t sndRpc;
+int boot_flag; // ?
 
 void* hReadFile(const char* name) {
     sceCdlFILE file;
