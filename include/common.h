@@ -5,34 +5,16 @@
 #include "tobj.h"
 #include "types.h"
 
-typedef struct OBJWORK OBJWORK;
-
-typedef void (*OBJWORK__delegatePers)();
-typedef void (*OBJWORK__delegateDraw)(OBJWORK*);
-typedef void (*OBJWORK__delegateDrMir)(OBJWORK*);
-typedef void (*OBJWORK__delegateDrMirEf)(OBJWORK*);
-typedef void (*OBJWORK__delegateDrEff)(OBJWORK*);
-
 typedef struct {} GeneralWork;
 typedef struct {} Prim;
 
-// public const int DATA_OKANOYO = 1;
-// public const int DATA_NAKANO = 0;
-// public const int DATA_OKANO = 1;
-// public const int DATA_HOSHINO = 2;
-// public const int DATA_HARADA = 3;
-// public const int DATA_ABE = 4;
-// public const int DATA_HATO = 5;
-// public const int DATA_TAKE = 6;
-// public const int DATA_KAZUYA = 7;
-
 // Size: 0xF0
-struct OBJWORK {
-    OBJWORK__delegatePers pers; // 0x00
-    OBJWORK__delegateDraw draw; // 0x04
-    OBJWORK__delegateDrMir drmir; // 0x08
-    OBJWORK__delegateDrMirEf drmiref; // 0x0C
-    OBJWORK__delegateDrEff dreff; // 0x10
+typedef struct OBJWORK {
+    void (*pers)(struct OBJWORK *); // 0x00
+    void (*draw)(struct OBJWORK *); // 0x04
+    void (*drmir)(struct OBJWORK *); // 0x08
+    void (*drmiref)(struct OBJWORK *); // 0x0C
+    void (*dreff)(struct OBJWORK *); // 0x10
     Prim* prim; // 0x14, klMODEL, 
     GeneralWork* work; // 0x18
     s16 stat0; // 0x1C
@@ -74,7 +56,7 @@ struct OBJWORK {
     u8* hpo; // 0xE4
     GIMWORK* gimmick; // 0xE8
     tOBJECT* _hOp; // 0xEC
-};
+} OBJWORK;
 
 void sce_print(const char* fmt, ...);
 void* GetFHMAddress(void* pAddr, int nNum);
