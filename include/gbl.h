@@ -89,7 +89,7 @@ typedef struct {
     s32 Re_st_klomode;
     s32 Re_st_muki;
     float Re_st_height;
-    bool Re_st_zanki_flag;
+    s32 Re_st_zanki_flag;
     s32 Re_st_zanki_count;
     OBJWORK* klonoa;
     OBJWORK* kazd;

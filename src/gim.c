@@ -11,7 +11,7 @@ GIMWORK* GetGimWork() {
 
 int gmGetGimType(OBJWORK* objw) {
     GIMWORK* gim = objw->gimmick;
-    if (gim != nullptr) {
+    if (gim != NULL) {
         if (gim->type & 2 == 0) {
             return (gim->type >> 1) & 2;
         }

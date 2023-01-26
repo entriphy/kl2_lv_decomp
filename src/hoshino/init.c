@@ -57,7 +57,7 @@ void* hReadFile(const char* name) {
 
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&file, name));
-    void* buf = getBuff(1, roundSizeToSector(file.size), nullptr, &ret);
+    void* buf = getBuff(1, roundSizeToSector(file.size), NULL, &ret);
 
     while (!sceCdRead(file.lsn, file.size >> 0xB, buf, &cD->mode));
     do {
@@ -347,7 +347,7 @@ int FUN_001d1c08(const char* name) {
     int ret;
     FILE* file = fopen(name, "r");
 
-    if (file == nullptr) {
+    if (file == NULL) {
         fclose(file); // fclose on a null pointer? Is that allowed with sceClose?
         ret = -1;
     } else {
@@ -360,7 +360,7 @@ int FUN_001d1c08(const char* name) {
 
 int FUN_001d1c78(const char* name, void* buf) {
     FILE* file = fopen(name, "r");
-    if (file != nullptr) {
+    if (file != NULL) {
         int size = fseek(file, 0, SEEK_END);
         if (size > 0) {
             fseek(file, 0, SEEK_SET);
@@ -379,7 +379,7 @@ void* getBuff(int type, int byte_, const char* name, int* ret) {
         byte_ = FUN_001d1c08(name);
         *ret = -1;
         if (byte_ == -1) {
-            return nullptr;
+            return NULL;
         }
         *ret = FUN_001d1c78(name, buffstartptr);
     }

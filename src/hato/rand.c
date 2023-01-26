@@ -1,5 +1,7 @@
 #include "hato.h"
 
+int ht_g_rand;
+
 void htInitRand(int seed) {
     if (seed == 0) {
         ht_g_rand = 1;

@@ -1,10 +1,12 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <stdbool.h>
 #include "gbl.h"
 #include "gim.h"
 #include "hoshino.h"
 #include "harada.h"
+#include "nakano.h"
 #include "objwork.h"
 #include "ps2.h"
 #include "tobj.h"

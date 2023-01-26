@@ -27,6 +27,4 @@ typedef struct {
     s32 fdata;
 } nkWIPE_WRK;
 
-inline NKDEBGBL nkDG;
-
 #endif

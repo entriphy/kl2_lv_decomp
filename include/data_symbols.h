@@ -12,9 +12,11 @@
 /* DAT_0034bd50 */ extern hAC3DATA Ac3Data;
 /* DAT_0036ead8 */ extern SYSGBL SysGbl;
 /* DAT_00366450 */ extern GAME_WORK GameGbl;
+/* DAT_0036ea60 */ extern NKDEBGBL nkDG;
 /* DAT_003bfed0 */ extern hSTRDATA StrData;
 /* DAT_003d9718 */ extern SifRpcClientData_t rpc__003d9718;
 /* DAT_003fa6de */ extern s16 hrpt_deb;
+/* DAT_003fa804 */ extern s32 ht_g_rand;
 /* DAT_003fa808 */ extern hCDDATA* cD;
 /* DAT_003fa80c */ extern hCDCUE* cQ;
 /* DAT_003fa830 */ extern int* kldataHead;
