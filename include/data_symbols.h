@@ -20,19 +20,19 @@
 /* DAT_003fa808 */ extern hCDDATA* cD;
 /* DAT_003fa80c */ extern hCDCUE* cQ;
 /* DAT_003fa830 */ extern int* kldataHead;
-/* DAT_003fa834 */ extern int* pptpackHead;
-/* DAT_003fa838 */ extern int* bgmpackHead;
+/* DAT_003fa834 */ extern PPTTABLE* PptTable;
+/* DAT_003fa838 */ extern BGMTABLE* BgmTable;
 /* DAT_003fa83c */ extern hSNDDATA* sD;
 /* DAT_003fa840 */ extern hBGMDATA* bD;
 /* DAT_003fa844 */ extern hPPTDATA* pD;
 /* DAT_003fa848 */ extern hAC3DATA* aD;
-/* DAT_00417700 */ extern u8 pptEeAddrs[4][0x40000];
 /* DAT_003fbb3c */ extern void* buffstartptr;
 /* DAT_003bfed0 */ extern hSTRDATA* strD;
 /* DAT_0040efa0 */ extern int RpcArg[16];
 /* DAT_00417200 */ extern int RpcRecvBuf[2][16];
-/* DAT_00417300 */ extern int SndMainBuffer[16];
 /* DAT_00417280 */ extern SifRpcClientData_t sndRpc;
+/* DAT_00417300 */ extern int SndMainBuffer[16];
+/* DAT_00417700 */ extern u8 pptEeAddrs[4][0x40000];
 /* DAT_00661ad0 */ extern int boot_flag; // ?
 
 #endif

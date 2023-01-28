@@ -291,4 +291,34 @@ typedef struct {
     sceCdlFILE file;
 } hSTRDATA; // ?
 
+typedef struct {
+    int eeCnt;
+    int Command;
+    SND_MODE BGMstereo;
+    int BGMlength;
+    int BGMskipsize;
+    int BGMvol;
+    s8 BGMch;
+    s8 BGMchmax;
+    s8 BGMok[2];
+    int BGMfinetop[2];
+    int BGMfine[2];
+    int PPTvol[4];
+    int PPTsize[4];
+    s8 PPTstop[4];
+    int work0;
+    int idk;
+} STRINFO;
+
+typedef struct {
+    int start;
+    int chsize;
+    int chnum;
+} BGMTABLE;
+
+typedef struct {
+    int top;
+    int nsector;
+} PPTTABLE;
+
 #endif

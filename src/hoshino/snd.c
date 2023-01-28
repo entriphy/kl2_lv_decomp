@@ -27,6 +27,34 @@ int hSndFader(float vol) {
     return n;
 }
 
+float hSndFader2(float vol) {
+    if (vol != 0.0f) {
+        if (vol > 1.0f) {
+            vol = 1.0f;
+        }
+        float f = powf(10.0, ((1.0f - vol) * sD->dBfader) * 20.0f);
+        return f;
+    }
+    return 0.0f;
+}
+
+int hBgmGetStat() {
+    if (cD->BGMplay != 0) {
+        switch (bD->fadeFlag) {
+            case 1:
+                return 3;
+            case 2:
+                return 2;
+            case 3:
+                return 3;
+            default:
+                return 1;
+        }
+    } else {
+        return 0;
+    }    
+}
+
 void hSndPkSetMVol(int voll, int volr) {
     sD->PkMax++;
     *sD->PkNum++ = 7;

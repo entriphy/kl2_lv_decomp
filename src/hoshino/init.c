@@ -36,8 +36,8 @@ SifRpcClientData_t rpc__003d9718;
 hCDDATA* cD;
 hCDCUE* cQ;
 int* kldataHead;
-int* pptpackHead;
-int* bgmpackHead;
+PPTTABLE* PptTable;
+BGMTABLE* BgmTable;
 hSNDDATA* sD;
 hBGMDATA* bD;
 hPPTDATA* pD;
@@ -96,13 +96,13 @@ void hCdInit() {
     void* addr = GetFHMAddress(buf, 0);
     kldataHead = (int*)((char*)addr + 4);
     addr = GetFHMAddress(buf, 1);
-    pptpackHead = (int*)((char*)addr + 4);
+    PptTable = (PPTTABLE*)((char*)addr + 4);
     addr = GetFHMAddress(buf, 2);
-    bgmpackHead = (int*)((char*)addr + 4);
+    BgmTable = (BGMTABLE*)((char*)addr + 4);
 
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&cD->file, "\\KLDATA.BIN;1"));
-    sce_print("%08x %08x %08x", kldataHead, pptpackHead, bgmpackHead);
+    sce_print("%08x %08x %08x", kldataHead, PptTable, BgmTable);
 }
 
 void hSeLock(int i) {
@@ -296,8 +296,9 @@ void hSndInit() {
     }
     aD->field_0xB4 = n;
     aD->field_0xB8 = n + 0x3000;
-    // TODO: hStrInfo();
-    while (FUN_0016c778());
+    hStrInfo();
+    // while (FUN_0016c778());
+    FUN_0016c6e8();
 
     bD->iopID = bD->iopNext;
     sceCdDiskReady(0);

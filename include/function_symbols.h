@@ -16,10 +16,14 @@
 /* FUN_0016cbc8 */ extern void hSndPkSetEVol(int vol);
 /* FUN_0016cfe0 */ extern void hSndSetMVol(float vol);
 /* FUN_0016d008 */ extern int hSndFader(float vol);
-/* FUN_00196c00 */ extern void FUN_00196c00();
+/* FUN_0016d0b8 */ extern float hSndFader2(float vol);
+/* FUN_0016e878 */ extern int hBgmGetStat();
+/* FUN_0016ef10 */ extern void hStrInfo();
+/* FUN_0016c6e8 */ extern void FUN_0016c6e8();
 /* FUN_0016e350 */ extern void hBgmWorkClear();
 /* FUN_0016cec8 */ extern int hSndPkGetSize();
 /* FUN_0016d4a8 */ extern void hSndInit();
+/* FUN_00196c00 */ extern void FUN_00196c00();
 /* FUN_00198a28 */ extern void FUN_00198a28(DecompressionStructure *scratchpad);
 /* FUN_001990c0 */ extern u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2);
 /* FUN_00199100 */ extern void FUN_00199100(DecompressionStructure *scratchpad, u16 param_2);
