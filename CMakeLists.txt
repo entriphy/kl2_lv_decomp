@@ -27,7 +27,7 @@ link_directories(${PS2SDK}/ee/lib)
 link_libraries(vux debug cdvd xcdvd dma gs)
 
 # Decomp
-set(EXECUTABLES src/main.c src/common.c src/gim.c)
+set(EXECUTABLES src/main.c src/common.c src/compression.c src/gim.c)
 set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo ps2)
 foreach (SUBDIR IN LISTS SUBDIRS)
     file(GLOB files src/${SUBDIR}/*.c)

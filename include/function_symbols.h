@@ -1,7 +1,7 @@
 #ifndef FUNCIONS_H
 #define FUNCIONS_H
 
-#include "types.h"
+#include "common.h"
 
 /* FUN_00165ae0 */ extern void* hReadFile(const char* name); 
 /* FUN_00166248 */ extern void hCdInit();
@@ -20,6 +20,9 @@
 /* FUN_0016e350 */ extern void hBgmWorkClear();
 /* FUN_0016cec8 */ extern int hSndPkGetSize();
 /* FUN_0016d4a8 */ extern void hSndInit();
+/* FUN_00198a28 */ extern void FUN_00198a28(DecompressionStructure *scratchpad);
+/* FUN_001990c0 */ extern u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2);
+/* FUN_00199100 */ extern void FUN_00199100(DecompressionStructure *scratchpad, u16 param_2);
 /* FUN_001994e0 */ extern void init_config_system();
 /* FUN_001d1c08 */ extern int FUN_001d1c08(const char* name);
 /* FUN_001d1c78 */ extern int FUN_001d1c78(const char* name, void* buf);
