@@ -19,4 +19,9 @@ typedef struct {
     u32 looks;
 } kPadDATA;
 
+typedef struct {
+    int offset;
+    int count;
+} KLTABLE;
+
 #endif

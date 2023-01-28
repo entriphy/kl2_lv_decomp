@@ -3,8 +3,14 @@
 
 #include "common.h"
 
+/* FUN_001227b0 */ extern void htInitRand(int seed);
+/* FUN_001227c8 */ extern int htGetRand();
 /* FUN_00165ae0 */ extern void* hReadFile(const char* name); 
+/* FUN_00166128 */ extern int FUN_00166128(int param_1);
+/* FUN_00166140 */ extern void FUN_00166140(int param_1, void *param_2);
 /* FUN_00166248 */ extern void hCdInit();
+/* FUN_00166248 */ extern void FUN_00167c20(void *buf);
+/* FUN_00167bd0 */ extern int FUN_00167bd0(int param_1);
 /* FUN_00168e48 */ extern void hSeLock(int i);
 /* FUN_00168fd8 */ extern void hSeInitGrp(int stage);
 /* FUN_0016ac00 */ extern void hInitBoot();
@@ -30,6 +36,7 @@
 /* FUN_001994e0 */ extern void init_config_system();
 /* FUN_001d1c08 */ extern int FUN_001d1c08(const char* name);
 /* FUN_001d1c78 */ extern int FUN_001d1c78(const char* name, void* buf);
+/* FUN_001d31a0 */ extern void FUN_001d31a0();
 /* FUN_001d3748 */ extern void* getBuff(int type, int byte_, const char* name, int* ret);
 /* FUN_002da268 */ extern void hStrInit();
 /* FUN_0030dad0 */ extern int FUN_0030dad0();

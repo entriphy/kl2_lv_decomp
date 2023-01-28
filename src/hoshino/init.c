@@ -35,7 +35,7 @@ hSTRDATA StrData;
 SifRpcClientData_t rpc__003d9718;
 hCDDATA* cD;
 hCDCUE* cQ;
-int* kldataHead;
+KLTABLE* KlTable;
 PPTTABLE* PptTable;
 BGMTABLE* BgmTable;
 hSNDDATA* sD;
@@ -44,6 +44,8 @@ hPPTDATA* pD;
 hAC3DATA* aD;
 u8 pptEeAddrs[4][0x40000];
 void* buffstartptr = (void*)0x00A00000;
+void* buffstagetop;
+void* areaBuff;
 hSTRDATA* strD;
 int RpcArg[16];
 int RpcRecvBuf[2][16];
@@ -67,6 +69,10 @@ void* hReadFile(const char* name) {
     } while (sceCdSync(1));
 
     return buf;
+}
+
+int FUN_00166128(int file) {
+    return KlTable[file].count;
 }
 
 void hCdInit() {
@@ -94,7 +100,7 @@ void hCdInit() {
     cD->DiscType = sceCdGetDiskType();
     void* buf = hReadFile("\\HEADPACK.BIN;1");
     void* addr = GetFHMAddress(buf, 0);
-    kldataHead = (int*)((char*)addr + 4);
+    KlTable = (KLTABLE*)((char*)addr + 4);
     addr = GetFHMAddress(buf, 1);
     PptTable = (PPTTABLE*)((char*)addr + 4);
     addr = GetFHMAddress(buf, 2);
@@ -102,7 +108,15 @@ void hCdInit() {
 
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&cD->file, "\\KLDATA.BIN;1"));
-    sce_print("%08x %08x %08x", kldataHead, PptTable, BgmTable);
+}
+
+void FUN_00167c20(void *param_1) {
+    areaBuff = param_1;
+    FUN_00166140(199, param_1);
+}
+
+int FUN_00167bd0(int param_1) {
+    return FUN_00166128((GameGbl.vision >> 7 & 0x1FE) + param_1) << 0xB;
 }
 
 void hSeLock(int i) {
@@ -131,7 +145,7 @@ void hInitBoot() {
             while (!sceCdMmode(SCECdMmodeDvd));
             // sceFsReset?
         }
-        sce_print("@ %s: %d\n", modules[i], id);
+        sce_print("@ Loading module %s: %d\n", modules[i], id);
     }
 
     hIopDispatch(0x8000000); // Call IopInit
@@ -141,6 +155,10 @@ void hInitBoot() {
     hSndInit();
     
     GameGbl.vision = 0x6300;
+    int ret;
+    FUN_00167c20(getBuff(1, FUN_00167bd0(1), NULL, &ret));
+    FUN_001d31a0();
+    htInitRand(0x399);
 }
 
 int FUN_0016c778() {
@@ -375,6 +393,10 @@ int FUN_001d1c78(const char* name, void* buf) {
     return -1;
 }
 
+void FUN_001d31a0() {
+    buffstagetop = buffstartptr;
+}
+
 void* getBuff(int type, int byte_, const char* name, int* ret) {
     if (type == 0) {
         byte_ = FUN_001d1c08(name);
@@ -386,7 +408,7 @@ void* getBuff(int type, int byte_, const char* name, int* ret) {
     }
     void* ptr = buffstartptr;
     buffstartptr = (void*)((char*)buffstartptr + byte_);
-    sce_print("%08x %08x %d\n", ptr, buffstartptr, byte_);
+    sce_print("@@@ Old buff: %08x, new buff: %08x (%d)\n", ptr, buffstartptr, byte_);
     return ptr;
 }
 
