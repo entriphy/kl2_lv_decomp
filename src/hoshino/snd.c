@@ -64,6 +64,14 @@ void hSndPkSetMVol(int voll, int volr) {
     *sD->PkNum++ = (u8)(((u32)volr >> 8) & 0x7F);
 }
 
+u32 JamGetHdSize(void *hdaddr) {
+    return *((u32 *)hdaddr + 4);
+}
+
+u32 JamGetBdSize(void *hdaddr) {
+    return *((u32 *)hdaddr + 8);
+}
+
 void hSndPkEffect() {
     sD->effChange = 1;
     for (int i = 0; i < 2; i++) {

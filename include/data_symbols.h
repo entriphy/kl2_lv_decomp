@@ -1,6 +1,7 @@
 #ifndef DATA_H
 #define DATA_H
 
+#include <sifdma.h>
 #include "gbl.h"
 
 /* DAT_00338390 */ extern hCDDATA CdData;
@@ -31,6 +32,7 @@
 /* DAT_003fc2ec */ extern void* areaBuff;
 /* DAT_003bfed0 */ extern hSTRDATA* strD;
 /* DAT_0040efa0 */ extern int RpcArg[16];
+/* DAT_004171c0 */ extern SifDmaTransfer_t sifdma_004171c0;
 /* DAT_00417200 */ extern int RpcRecvBuf[2][16];
 /* DAT_00417280 */ extern SifRpcClientData_t sndRpc;
 /* DAT_00417300 */ extern int SndMainBuffer[16];

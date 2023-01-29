@@ -48,6 +48,7 @@ void* buffstagetop;
 void* areaBuff;
 hSTRDATA* strD;
 int RpcArg[16];
+SifDmaTransfer_t sifdma_004171c0;
 int RpcRecvBuf[2][16];
 int SndMainBuffer[16];
 SifRpcClientData_t sndRpc;
@@ -156,6 +157,7 @@ void hInitBoot() {
     
     GameGbl.vision = 0x6300;
     int ret;
+    FUN_0016d710();
     FUN_00167c20(getBuff(1, FUN_00167bd0(1), NULL, &ret));
     FUN_001d31a0();
     htInitRand(0x399);
@@ -237,6 +239,24 @@ int* hIopDispatch(u32 param) {
         // TODO
     }
     return receive;
+}
+
+s32 FUN_0016c9b8(void *dest, void *src, u32 size) {
+    u32 id;
+
+    sifdma_004171c0.src = src;
+    sifdma_004171c0.dest = dest;
+    sifdma_004171c0.size = size;
+    sifdma_004171c0.attr = 0;
+
+    FlushCache(0);
+    id = SifSetDma(&sifdma_004171c0, 1);
+    if (id != 0) {
+        while (SifDmaStat(id) >= 0);
+        return 0;
+    } else {
+        return -1;
+    }
 }
 
 void FUN_00196c00() {
@@ -343,6 +363,21 @@ void hSndInit() {
     while (!sceCdSearchFile(&aD->files[3], "\\BGM003.AC3;1"));
 }
 
+int* FUN_0016d5f0(u8 *param_1, int param_2) {
+    // don't feel like doing this rn lol
+    return NULL;
+}
+
+void FUN_0016d710() {
+    int ret;
+
+    void *buf = getBuff(1, 0x200000, NULL, &ret);
+    FUN_00166140(0xC6, buf);
+    buf = GetFHMAddress(buf, 2);
+    FUN_0016d5f0(buf, 0);
+    FUN_001d37f8(1, 0x200000, NULL);
+}
+
 void init_config_system() {
     DevVif0Reset();
     DevVu0Reset();
@@ -410,6 +445,24 @@ void* getBuff(int type, int byte_, const char* name, int* ret) {
     buffstartptr = (void*)((char*)buffstartptr + byte_);
     sce_print("@@@ Old buff: %08x, new buff: %08x (%d)\n", ptr, buffstartptr, byte_);
     return ptr;
+}
+
+void FUN_001d37f8(int param_1, int param_2, const char *param_3) {
+    void *buff = buffstartptr;
+    
+    if (param_1 == 0) {
+        param_2 = FUN_001d1c08(param_3);
+        if (param_2 == -1)
+            return;
+    }
+
+    param_2 += 0xF;
+    int i = param_2 + 0xF;
+    if (-1 < param_2) {
+        i = param_2;
+    }
+
+    buffstartptr = buff - ((i >> 4) << 4);
 }
 
 void hStrInit() {

@@ -17,6 +17,9 @@
 /* FUN_0016c778 */ extern int FUN_0016c778();
 /* FUN_0016c798 */ extern void FUN_0016c798();
 /* FUN_0016c830 */ extern int* hIopDispatch(u32 param);
+/* FUN_0016c9b8 */ extern s32 FUN_0016c9b8(void *dest, void *src, u32 size);
+/* FUN_0016ca20 */ extern u32 JamGetHdSize(void *hdaddr);
+/* FUN_0016ca28 */ extern u32 JamGetBdSize(void *hdaddr);
 /* FUN_0016ca30 */ extern void hSndPkEffect();
 /* FUN_0016cb40 */ extern void hSndPkSetMVol(int voll, int volr);
 /* FUN_0016cbc8 */ extern void hSndPkSetEVol(int vol);
@@ -29,6 +32,8 @@
 /* FUN_0016e350 */ extern void hBgmWorkClear();
 /* FUN_0016cec8 */ extern int hSndPkGetSize();
 /* FUN_0016d4a8 */ extern void hSndInit();
+/* FUN_0016d5f0 */ extern int* FUN_0016d5f0(u8 *param_1, int param_2);
+/* FUN_0016d710 */ extern void FUN_0016d710();
 /* FUN_00196c00 */ extern void FUN_00196c00();
 /* FUN_00198a28 */ extern void FUN_00198a28(DecompressionStructure *scratchpad);
 /* FUN_001990c0 */ extern u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2);
@@ -38,6 +43,7 @@
 /* FUN_001d1c78 */ extern int FUN_001d1c78(const char* name, void* buf);
 /* FUN_001d31a0 */ extern void FUN_001d31a0();
 /* FUN_001d3748 */ extern void* getBuff(int type, int byte_, const char* name, int* ret);
+/* FUN_001d37f8 */ extern void FUN_001d37f8(int param_1, int param_2, const char *param_3);
 /* FUN_002da268 */ extern void hStrInit();
 /* FUN_0030dad0 */ extern int FUN_0030dad0();
 /* FUN_00318a80 */ extern void FUN_00318a80();
