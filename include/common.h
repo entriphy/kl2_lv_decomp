@@ -1,7 +1,10 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "cam.h"
 #include "compression.h"
 #include "gbl.h"
@@ -10,6 +13,7 @@
 #include "harada.h"
 #include "nakano.h"
 #include "objwork.h"
+#include "okanoyo.h"
 #include "ps2.h"
 #include "tobj.h"
 #include "types.h"

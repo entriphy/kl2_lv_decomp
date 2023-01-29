@@ -43,8 +43,6 @@ hBGMDATA* bD;
 hPPTDATA* pD;
 hAC3DATA* aD;
 u8 pptEeAddrs[4][0x40000];
-void* buffstartptr = (void*)0x00A00000;
-void* buffstagetop;
 void* areaBuff;
 hSTRDATA* strD;
 int RpcArg[16];

@@ -3,6 +3,13 @@
 
 #include "common.h"
 
+/* FUN_00102808 */ extern void hr_cold_start();
+/* FUN_00110dc0 */ extern void hr_pt_set(short flag, short scene, short view, short th);
+/* FUN_00110e08 */ extern void hr_pt_fclear();
+/* FUN_00113408 */ extern void hr_pflag_initAr();
+/* FUN_00113420 */ extern void hr_pflag_initSt();
+/* FUN_00113448 */ extern void hr_pflag_init();
+/* FUN_001137f8 */ extern PT hr_pflag_get_id();
 /* FUN_001227b0 */ extern void htInitRand(int seed);
 /* FUN_001227c8 */ extern int htGetRand();
 /* FUN_00165ae0 */ extern void* hReadFile(const char* name); 
@@ -39,12 +46,19 @@
 /* FUN_001990c0 */ extern u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2);
 /* FUN_00199100 */ extern void FUN_00199100(DecompressionStructure *scratchpad, u16 param_2);
 /* FUN_001994e0 */ extern void init_config_system();
+/* FUN_00199560 */ extern void nkInitSys();
+/* FUN_001d1a60 */ extern void OkMainInit();
 /* FUN_001d1c08 */ extern int FUN_001d1c08(const char* name);
 /* FUN_001d1c78 */ extern int FUN_001d1c78(const char* name, void* buf);
+/* FUN_001d3170 */ extern void memorySysFormat();
 /* FUN_001d31a0 */ extern void FUN_001d31a0();
+/* FUN_001d3638 */ extern void FUN_001d3638(int i);
+/* FUN_001d3710 */ extern void FUN_001d3710();
 /* FUN_001d3748 */ extern void* getBuff(int type, int byte_, const char* name, int* ret);
 /* FUN_001d37f8 */ extern void FUN_001d37f8(int param_1, int param_2, const char *param_3);
+/* FUN_001da5e8 */ extern void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth);
 /* FUN_002da268 */ extern void hStrInit();
+/* FUN_002db4a0 */ extern void nkInitPad();
 /* FUN_0030dad0 */ extern int FUN_0030dad0();
 /* FUN_00318a80 */ extern void FUN_00318a80();
 /* FUN_003189d0 */ extern void FUN_003189d0();
