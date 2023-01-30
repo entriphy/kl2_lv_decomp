@@ -21,6 +21,7 @@
 /* FUN_00168e48 */ extern void hSeLock(int i);
 /* FUN_00168fd8 */ extern void hSeInitGrp(int stage);
 /* FUN_0016ac00 */ extern void hInitBoot();
+/* FUN_0016ad90 */ extern void hLoopTop();
 /* FUN_0016c778 */ extern int FUN_0016c778();
 /* FUN_0016c798 */ extern void FUN_0016c798();
 /* FUN_0016c830 */ extern int* hIopDispatch(u32 param);
@@ -47,6 +48,10 @@
 /* FUN_00199100 */ extern void FUN_00199100(DecompressionStructure *scratchpad, u16 param_2);
 /* FUN_001994e0 */ extern void init_config_system();
 /* FUN_00199560 */ extern void nkInitSys();
+/* FUN_001a2e20 */ extern int main(int argc, char *argv[]);
+/* FUN_001a50b8 */ extern void MainFunc();
+/* FUN_001a56e0 */ extern int nkInit();
+/* FUN_001a5700 */ extern int nkMain();
 /* FUN_001d1a60 */ extern void OkMainInit();
 /* FUN_001d1c08 */ extern int FUN_001d1c08(const char* name);
 /* FUN_001d1c78 */ extern int FUN_001d1c78(const char* name, void* buf);
@@ -56,6 +61,7 @@
 /* FUN_001d3710 */ extern void FUN_001d3710();
 /* FUN_001d3748 */ extern void* getBuff(int type, int byte_, const char* name, int* ret);
 /* FUN_001d37f8 */ extern void FUN_001d37f8(int param_1, int param_2, const char *param_3);
+/* FUN_001da5a0 */ extern void OkPrintSysInit(int personal_id, int screenw, int screenh, int fontw, int fonth);
 /* FUN_001da5e8 */ extern void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth);
 /* FUN_002da268 */ extern void hStrInit();
 /* FUN_002db4a0 */ extern void nkInitPad();

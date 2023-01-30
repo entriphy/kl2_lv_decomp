@@ -24,4 +24,9 @@ typedef struct {
     int count;
 } KLTABLE;
 
+typedef struct {
+    int (**func)();
+    int mod;
+} FUNCTBL;
+
 #endif

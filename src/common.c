@@ -1,7 +1,11 @@
-#include <kernel.h>
 #include <stdio.h>
-#include <sio.h>
 
+#ifndef SCE
+#include <kernel.h>
+#include <sio.h>
+#endif
+
+#ifndef SCE
 void sce_print(const char* fmt, ...) {
 	char buf[128];
 	va_list ap;
@@ -10,7 +14,12 @@ void sce_print(const char* fmt, ...) {
 	va_end(ap);
 	sio_puts(buf);
 }
+#endif
 
 void* GetFHMAddress(void* pAddr, int nNum) {
 	return (void*)((char*)pAddr + *(int*)((char*)pAddr + 4 + nNum * 4));
+}
+
+inline int roundSizeToSector(int size) {
+	return size + 0x7FF & 0xFFFFF800;
 }

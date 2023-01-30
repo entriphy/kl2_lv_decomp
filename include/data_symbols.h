@@ -1,10 +1,10 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include <sifdma.h>
 #include "gbl.h"
 #include "okanoyo.h"
 #include "harada.h"
+#include "ps2.h"
 
 /* DAT_00336100 */ extern int ptflag_buff[4];
 /* DAT_00336110 */ extern int ptflag_st[4];
@@ -21,6 +21,8 @@
 /* DAT_0036ead8 */ extern SYSGBL SysGbl;
 /* DAT_00366450 */ extern GAME_WORK GameGbl;
 /* DAT_0036ea60 */ extern NKDEBGBL nkDG;
+/* DAT_00375b90 */ extern FUNCTBL functbl[8];
+/* DAT_00375bf8 */ extern int (*nkFuncTbl[2])();
 /* DAT_00376798 */ extern OKDEBDATAEX testdb;
 /* DAT_0038a108 */ extern PROFILE profile;
 /* DAT_0038a138 */ extern void* DAT_0038a138;
@@ -29,7 +31,7 @@
 /* DAT_0038a330 */ extern PERSONAL_DEB PDbuf[9];
 /* DAT_00395028 */ extern OKPROFILE okProfile;
 /* DAT_003bfed0 */ extern hSTRDATA StrData;
-/* DAT_003d9718 */ extern SifRpcClientData_t rpc__003d9718;
+/* DAT_003d9718 */ extern SifClientData rpc__003d9718;
 /* DAT_003fa3c8 */ extern int hr_abeoff;
 /* DAT_003fa6cc */ extern void* hrpt_addr;
 /* DAT_003fa6d0 */ extern void* hrptm_addr;
@@ -62,9 +64,9 @@
 /* DAT_003fc2ec */ extern void* areaBuff;
 /* DAT_003bfed0 */ extern hSTRDATA* strD;
 /* DAT_0040efa0 */ extern int RpcArg[16];
-/* DAT_004171c0 */ extern SifDmaTransfer_t sifdma_004171c0;
+/* DAT_004171c0 */ extern SifDmaData sifdma_004171c0;
 /* DAT_00417200 */ extern int RpcRecvBuf[2][16];
-/* DAT_00417280 */ extern SifRpcClientData_t sndRpc;
+/* DAT_00417280 */ extern SifClientData sndRpc;
 /* DAT_00417300 */ extern int SndMainBuffer[16];
 /* DAT_00417700 */ extern u8 pptEeAddrs[4][0x40000];
 /* DAT_00661ad0 */ extern int boot_flag; // ?

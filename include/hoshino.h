@@ -1,9 +1,8 @@
 #ifndef HOSHINO_H
 #define HOSHINO_H
 
-#include <libcdvd.h>
-#include <sifcmd.h>
-#include <sifrpc.h>
+#include "ps2.h"
+#include "types.h"
 
 typedef enum {
     hKEI_L,

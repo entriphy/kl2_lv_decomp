@@ -1,18 +1,7 @@
-#include <dma.h>
-#include <iopcontrol.h>
-#include <iopheap.h>
-#include <kernel.h>
-#include <libcdvd.h>
-#include <loadfile.h>
 #include <math.h>
-#include <sifrpc.h>
-#include <sifdma.h>
-#include <sifcmd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <vif_registers.h>
-
 #include "common.h"
 
 hCDDATA CdData;
@@ -32,7 +21,7 @@ hBGMDATA BgmData;
 hPPTDATA PptData;
 hAC3DATA Ac3Data;
 hSTRDATA StrData;
-SifRpcClientData_t rpc__003d9718;
+SifClientData rpc__003d9718;
 hCDDATA* cD;
 hCDCUE* cQ;
 KLTABLE* KlTable;
@@ -46,10 +35,10 @@ u8 pptEeAddrs[4][0x40000];
 void* areaBuff;
 hSTRDATA* strD;
 int RpcArg[16];
-SifDmaTransfer_t sifdma_004171c0;
+SifDmaData sifdma_004171c0;
 int RpcRecvBuf[2][16];
 int SndMainBuffer[16];
-SifRpcClientData_t sndRpc;
+SifClientData sndRpc;
 int boot_flag; // ?
 
 void* hReadFile(const char* name) {
@@ -129,7 +118,11 @@ void hSeInitGrp(int stage) {
 void hInitBoot() {
     SifInitRpc(0);
     while (!sceCdInit(SCECdINIT));
+#ifdef SCE
+    while (!SifIopReboot("host0:ioprp300.img"));
+#else
     while (!SifIopReboot("cdrom:\\M\\IOPRP213.IMG;1"));
+#endif
     while (!SifIopSync());
     SifInitRpc(0);
     SifInitIopHeap();
@@ -162,7 +155,11 @@ void hInitBoot() {
 }
 
 int FUN_0016c778() {
+#ifdef SCE
+    return SifCheckStatRpc(&sndRpc.rpcd);
+#else
     return SifCheckStatRpc(&sndRpc);
+#endif
 }
 
 void FUN_0016c798() {
@@ -173,7 +170,12 @@ void FUN_0016c798() {
         for (int i = 10000; i > 0; i--) {
             // Do nothing
         }
-    } while (!sndRpc.server);
+    }
+#ifdef SCE
+    while (!sndRpc.serve);
+#else
+    while (!sndRpc.server);
+#endif
 }
 
 // TODO: Fix this
@@ -242,10 +244,17 @@ int* hIopDispatch(u32 param) {
 s32 FUN_0016c9b8(void *dest, void *src, u32 size) {
     u32 id;
 
+#ifdef SCE
+    sifdma_004171c0.data = (int)src;
+    sifdma_004171c0.addr = (int)dest;
+    sifdma_004171c0.size = size;
+    sifdma_004171c0.mode = 0;
+#else
     sifdma_004171c0.src = src;
     sifdma_004171c0.dest = dest;
     sifdma_004171c0.size = size;
     sifdma_004171c0.attr = 0;
+#endif
 
     FlushCache(0);
     id = SifSetDma(&sifdma_004171c0, 1);
@@ -259,7 +268,13 @@ s32 FUN_0016c9b8(void *dest, void *src, u32 size) {
 
 void FUN_00196c00() {
     GsResetGraph(GS_INIT_RESET, GS_INTERLACED, GS_MODE_NTSC, GS_FFMD_FRAME);
-    // TODO: Setup display environment
+#ifdef SCE
+    sceGsSetDefDBuffDc(&GameGbl.db, SCE_GS_PSMCT32, 640, 224, SCE_GS_ZGREATER, 49, SCE_GS_CLEAR);
+    sceGsSetDefClear(&GameGbl.db.clear0, 3, 1728, 1936, 640, 224, 0, 0, 0, 128, 0);
+    sceGsSetDefClear(&GameGbl.db.clear1, 3, 1728, 1936, 640, 224, 0, 0, 0, 128, 0);
+#else
+    // How do you do this in ps2sdk?
+#endif
     FlushCache(WRITEBACK_DCACHE);
 }
 
@@ -380,7 +395,11 @@ void init_config_system() {
     DevVif0Reset();
     DevVu0Reset();
     GsResetPath();
+#ifdef SCE
+    sceDmaReset(1);
+#else
     dma_reset();
+#endif
     SysGbl.nmode = 0;
     SysGbl.nsmode = 0;
     SysGbl.fmode = 0;
@@ -479,7 +498,11 @@ int FUN_0030dad0() {
         for (int i = 10000; i > 0; i--) {
             // Do nothing
         }
+#ifdef SCE
+    } while (!rpc__003d9718.serve);
+#else
     } while (!rpc__003d9718.server);
+#endif
     FlushCache(0);
     return 1;
 }

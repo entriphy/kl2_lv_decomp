@@ -10,6 +10,13 @@ int OkZakoFuncOn;
 long profileFlag;
 int fontDispID;
 
+void OkPrintSysInit(int personal_id, int screenw, int screenh, int fontw, int fonth) {
+    PDbuf[personal_id].fsz_x = fontw;
+    PDbuf[personal_id].fsz_y = fonth;
+    PDbuf[personal_id].scr_x = screenw / fontw;
+    PDbuf[personal_id].scr_y = screenh / fonth;
+}
+
 void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth) {
     for (int i = 0; i < 9; i++) {
         PDbuf[i].fsz_x = fontw;

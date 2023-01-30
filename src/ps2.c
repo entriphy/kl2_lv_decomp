@@ -1,7 +1,7 @@
-#include <vif_registers.h>
-#include <debug.h>
+#ifndef SCE
 #include "ps2.h"
-#include "types.h"
+#include <debug.h>
+#include <vif_registers.h>
 
 void DevVif0Reset() {
     VIF0_FBRST = 1;
@@ -15,3 +15,4 @@ void DevVu0Reset() {
         "ctc2 $v0, $vi28\n"
     );
 }
+#endif

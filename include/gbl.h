@@ -1,7 +1,12 @@
 #ifndef GBL_H
 #define GBL_H
 
+#ifdef SCE
+#include <libgraph.h>
+#else
 #include <libgs.h>
+#endif
+
 #include "cam.h"
 #include "kazuya.h"
 #include "nakano.h"
@@ -28,6 +33,9 @@ typedef struct {
     s32 TVSystem;
 } SYSGBL;
 
+#ifdef SCE
+#define GsDBuffDc sceGsDBuffDc
+#else
 typedef struct {
     GS_PMODE pmode;
     GS_SMODE2 smode2;
@@ -64,6 +72,7 @@ typedef struct {
     GsDrawEnv draw1[2];
     void* clear1;
 } GsDBuffDc;
+#endif
 
 typedef struct {
     s32 mode;
