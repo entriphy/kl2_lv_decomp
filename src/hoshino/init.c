@@ -140,7 +140,7 @@ void hInitBoot() {
         sce_print("@ Loading module %s: %d\n", modules[i], id);
     }
 
-    hIopDispatch(0x8000000); // Call IopInit
+    hIopDispatch(IOP_IopInit);
     init_config_system();
     hCdInit();
     hStrInit();
@@ -297,10 +297,10 @@ void hSndInit() {
     sD = &SndData;
     sD->PkNum = (u8*)&SndMainBuffer[2];
     sD->PkMax = 0;
-    sD->iopBankAddr = hIopDispatch(0x24000000);
+    sD->iopBankAddr = hIopDispatch(IOP_SndInit);
     RpcArg[0] = 0xFFFFFF;
     RpcArg[1] = 0xFFFF;
-    hIopDispatch(0x22000002);
+    hIopDispatch(IOP_SndMask);
     
     sD->pad = 0;
     sD->Stereo = SND_MODE_STEREO;
@@ -332,7 +332,7 @@ void hSndInit() {
     hBgmWorkClear();
     bD->Command = 0;
     bD->bgmVol = 0.78740156f;
-    int* iopAddr = hIopDispatch(0x14000000);
+    int* iopAddr = hIopDispatch(IOP_StrInit);
     bD->iopAddr[0] = iopAddr;
     bD->iopAddr[1] = iopAddr + 0x20000;
     int* n = bD->iopAddr[1] + 0x20000;
