@@ -129,13 +129,18 @@ void hInitBoot() {
     SifLoadFileInit();
     while (!sceCdInit(SCECdINIT));
     while (!sceCdMmode(SCECdMmodeDvd));
+#ifdef SCE
+    sceFsReset();
+#endif
     for (int i = 0; i < 8; i++) {
         int id = SifLoadModule(modules[i], 0, 0);
         if (id < -1) {
             while (!sceCdInit(SCECdINIT));
             sceCdDiskReady(0);
             while (!sceCdMmode(SCECdMmodeDvd));
-            // sceFsReset?
+#ifdef SCE
+            sceFsReset();
+#endif
         }
         sce_print("@ Loading module %s: %d\n", modules[i], id);
     }
