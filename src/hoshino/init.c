@@ -478,13 +478,13 @@ void FUN_001d37f8(int param_1, int param_2, const char *param_3) {
             return;
     }
 
-    param_2 += 0xF;
-    int i = param_2 + 0xF;
+    param_2 = ((param_2 + 0xF) << 4) >> 4;
+    buff -= param_2;
     if (-1 < param_2) {
         i = param_2;
     }
-
-    buffstartptr = buff - ((i >> 4) << 4);
+    
+    buffstartptr = buff;
 }
 
 void hStrInit() {
