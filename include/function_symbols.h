@@ -42,6 +42,7 @@
 /* FUN_0016d4a8 */ extern void hSndInit();
 /* FUN_0016d5f0 */ extern int* FUN_0016d5f0(u8 *param_1, int param_2);
 /* FUN_0016d710 */ extern void FUN_0016d710();
+/* FUN_0018d9e8 */ extern void nkInitDma();
 /* FUN_00196c00 */ extern void FUN_00196c00();
 /* FUN_00198a28 */ extern void FUN_00198a28(DecompressionStructure *scratchpad);
 /* FUN_001990c0 */ extern u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2);
@@ -49,6 +50,8 @@
 /* FUN_001994e0 */ extern void init_config_system();
 /* FUN_00199560 */ extern void nkInitSys();
 /* FUN_001a2e20 */ extern int main(int argc, char *argv[]);
+/* FUN_001a4fc0 */ extern int nkInitAtrInit(); // i made up this name idk
+/* FUN_001a50b0 */ extern int nkInitAtrMain();
 /* FUN_001a50b8 */ extern void MainFunc();
 /* FUN_001a56e0 */ extern int nkInit();
 /* FUN_001a5700 */ extern int nkMain();
@@ -65,6 +68,8 @@
 /* FUN_001da5e8 */ extern void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth);
 /* FUN_002da268 */ extern void hStrInit();
 /* FUN_002db4a0 */ extern void nkInitPad();
+/* FUN_00302e58 */ extern int FUN_00302e58();
+/* FUN_00302df0 */ extern void FUN_00302df0(int param_1);
 /* FUN_0030dad0 */ extern int FUN_0030dad0();
 /* FUN_00318a80 */ extern void FUN_00318a80();
 /* FUN_003189d0 */ extern void FUN_003189d0();

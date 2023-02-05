@@ -274,9 +274,9 @@ s32 FUN_0016c9b8(void *dest, void *src, u32 size) {
 void FUN_00196c00() {
     GsResetGraph(GS_INIT_RESET, GS_INTERLACED, GS_MODE_NTSC, GS_FFMD_FRAME);
 #ifdef SCE
-    sceGsSetDefDBuffDc(&GameGbl.db, SCE_GS_PSMCT32, 640, 224, SCE_GS_ZGREATER, 49, SCE_GS_CLEAR);
-    sceGsSetDefClear(&GameGbl.db.clear0, 3, 1728, 1936, 640, 224, 0, 0, 0, 128, 0);
-    sceGsSetDefClear(&GameGbl.db.clear1, 3, 1728, 1936, 640, 224, 0, 0, 0, 128, 0);
+    sceGsSetDefDBuffDc(&GameGbl.db, SCE_GS_PSMCT32, SCR_WIDTH, SCR_HEIGHT, SCE_GS_ZGREATER, SCE_GS_PSMZ24, SCE_GS_CLEAR);
+    sceGsSetDefClear(&GameGbl.db.clear0, 3, 1728, 1936, SCR_WIDTH, SCR_HEIGHT, 0, 0, 0, 128, 0);
+    sceGsSetDefClear(&GameGbl.db.clear1, 3, 1728, 1936, SCR_WIDTH, SCR_HEIGHT, 0, 0, 0, 128, 0);
 #else
     // How do you do this in ps2sdk?
 #endif
@@ -284,7 +284,7 @@ void FUN_00196c00() {
 }
 
 void hBgmWorkClear() {
-    bD->nextNo = (BGM)~BGM000;
+    bD->nextNo = -1;
     bD->bgmCh = 0;
     bD->bgmChMax = 2;
     bD->iopOK[0] = 0;
@@ -480,9 +480,6 @@ void FUN_001d37f8(int param_1, int param_2, const char *param_3) {
 
     param_2 = ((param_2 + 0xF) << 4) >> 4;
     buff -= param_2;
-    if (-1 < param_2) {
-        i = param_2;
-    }
     
     buffstartptr = buff;
 }

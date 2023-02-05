@@ -28,11 +28,11 @@ int main(int argc, char *argv[]) {
 #else
     GsVSync(0);
 #endif
-    // while (true) {
-    //     // hLoopTop();
-    //     MainFunc();
-    //     SysGbl.irqc++;
-    // }
+    while (true) {
+        // hLoopTop();
+        MainFunc();
+        SysGbl.irqc++;
+    }
     return 0;
 }
 

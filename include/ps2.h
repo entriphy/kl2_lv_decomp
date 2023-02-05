@@ -1,6 +1,11 @@
 #ifndef PS2_H
 #define PS2_H
 
+#include "types.h"
+
+#define SCR_WIDTH  640
+#define SCR_HEIGHT 224
+
 #ifdef SCE
 #include <eekernel.h>
 #include <devvif0.h>
@@ -11,6 +16,7 @@
 #include <eeregs.h>
 #include <libcdvd.h>
 #include <libgraph.h>
+#include <libvu0.h>
 #include <sif.h>
 #include <sifcmd.h>
 #include <sifdev.h>

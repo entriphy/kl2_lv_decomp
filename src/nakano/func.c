@@ -1,5 +1,14 @@
 #include "common.h"
 
+FUNCTBL nkFuncs[5] = {
+    {nkInitAtrTbl, -1},
+    // {GameFuncTbl, -1},
+    {NULL, 0},
+    {NULL, 0},
+    {NULL, 0},
+    {NULL, 0}
+};
+
 int (*nkFuncTbl[2])() = {
     nkInit,
     nkMain
@@ -11,6 +20,10 @@ int nkInit() {
 }
 
 int nkMain() {
-    // TODO
-    return 0;
+    if (nkFuncs[SysGbl.fmode].func == NULL) {
+        SysGbl.fmode = 0;
+        SysGbl.smode = 0;
+    } else {
+        nkFuncs[SysGbl.fmode].func[SysGbl.smode]();
+    }
 }
