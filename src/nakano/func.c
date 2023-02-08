@@ -2,8 +2,7 @@
 
 FUNCTBL nkFuncs[5] = {
     {nkInitAtrTbl, -1},
-    // {GameFuncTbl, -1},
-    {NULL, 0},
+    {GameFuncTbl, -1},
     {NULL, 0},
     {NULL, 0},
     {NULL, 0}

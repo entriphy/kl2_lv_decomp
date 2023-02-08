@@ -43,6 +43,9 @@
 /* FUN_0016d5f0 */ extern int* FUN_0016d5f0(u8 *param_1, int param_2);
 /* FUN_0016d710 */ extern void FUN_0016d710();
 /* FUN_0018d9e8 */ extern void nkInitDma();
+/* FUN_0018fca0 */ extern int GameInit();
+/* FUN_0018fd28 */ extern int GameLoad();
+/* FUN_0018ff58 */ extern int GameMain();
 /* FUN_00196c00 */ extern void FUN_00196c00();
 /* FUN_00198a28 */ extern void FUN_00198a28(DecompressionStructure *scratchpad);
 /* FUN_001990c0 */ extern u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2);
