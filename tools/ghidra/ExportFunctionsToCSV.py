@@ -4,15 +4,15 @@ import os
 directory = askDirectory("Select output directory", "Ok")
 f = open(os.path.join(directory.absolutePath, "functions.csv"), "w")
 
-for i in list(getCurrentProgram().getSymbolTable().getAllSymbols(False)):
-    if i.symbolType.equals(i.symbolType.FUNCTION):
-        address = i.address.unsignedOffset
-        function = getFunctionAt(i.address)
-        name = None if i.name.startswith("FUN") else i.name
+for symbol in list(getCurrentProgram().getSymbolTable().getAllSymbols(False)):
+    if symbol.symbolType.equals(symbol.symbolType.FUNCTION):
+        address = symbol.address.unsignedOffset
+        function = getFunctionAt(symbol.address)
+        name = None if symbol.name.startswith("FUN") else symbol.name
         params = function.getParameters(None)
         return_type = function.getReturnType().getName()
 
-        # Address (dec), Address (hex), Name, Return, Parameters
-        f.write('%d,,%s,%s,"%s"\n' % (address, name or "", return_type, ", ".join([(param.getDataType().getName()) + " " + (param.getName() or "") for param in params])))
+        # Address (dec), Address (hex), Name, Return, Parameters, Reference Count
+        f.write('%d,,%s,%s,"%s",%d\n' % (address, name or "", return_type, ", ".join([(param.getDataType().getName()) + " " + (param.getName() or "") for param in params]), symbol.getReferenceCount()))
 
 f.close()

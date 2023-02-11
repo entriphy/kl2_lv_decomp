@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     update = [[] for _ in range(10000)]
     with open(csv_file, "r") as f:
-        # Address,,Name,Return Type,Parameters
+        # Address,,Name,Return Type,Parameters,Reference Count
         csv_reader = csv.reader(f, delimiter=',')
         for function in csv_reader:
             address = int(function[0])
