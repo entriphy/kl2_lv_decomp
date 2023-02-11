@@ -21,6 +21,7 @@
 /* DAT_0036ead8 */ extern SYSGBL SysGbl;
 /* DAT_00366440 */ extern int (*GameFuncTbl[3])();
 /* DAT_00366450 */ extern GAME_WORK GameGbl;
+/* DAT_00366bb0 */ extern OBJWORK ObjWorkBuff[128];
 /* DAT_0036ea60 */ extern NKDEBGBL nkDG;
 /* DAT_00375b90 */ extern int (*nkInitAtrTbl[2])();
 /* DAT_00375b90 */ extern FUNCTBL functbl[8];
@@ -62,6 +63,13 @@
 /* DAT_003fa840 */ extern hBGMDATA* bD;
 /* DAT_003fa844 */ extern hPPTDATA* pD;
 /* DAT_003fa848 */ extern hAC3DATA* aD;
+/* DAT_003fad80 */ extern int klworks_flag;
+/* DAT_003fad84 */ extern DL_STATUS dl_status;
+/* DAT_003fad88 */ extern int ret_gameread;
+/* DAT_003fadcc */ extern int DAT_003fadcc;
+/* DAT_003fb8ec */ extern int nkLoadTimer;
+/* DAT_003fb8f0 */ extern int nkLoadStat;
+/* DAT_003fb8f4 */ extern int DAT_003fb8f4;
 /* DAT_003fbaec */ extern void* texdeb;
 /* DAT_003fbb38 */ extern void* buffstartptrORG;
 /* DAT_003fbb3c */ extern void* buffstartptr;
@@ -70,6 +78,11 @@
 /* DAT_003fbc90 */ extern long profileFlag;
 /* DAT_003fbaf4 */ extern int fontDispID;
 /* DAT_003fc2ec */ extern void* areaBuff;
+/* DAT_003fc468 */ extern void *DAT_003fc468;
+/* DAT_003fc46c */ extern int key_data_top_index;
+/* DAT_003fc470 */ extern int key_frame_cnt;
+/* DAT_003fc474 */ extern int key_frame_max;
+/* DAT_003fc478 */ extern int kf_mode;
 /* DAT_003bfed0 */ extern hSTRDATA* strD;
 /* DAT_0040efa0 */ extern int RpcArg[16];
 /* DAT_004171c0 */ extern SifDmaData sifdma_004171c0;

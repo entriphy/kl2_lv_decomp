@@ -27,4 +27,12 @@ typedef struct {
     s32 fdata;
 } nkWIPE_WRK;
 
+typedef union {
+    u128 ul128;
+    u64 ul64[2];
+    u32 ul32[4];
+    IVECTOR vect;
+    FVECTOR fvct;
+} nkQWdata;
+
 #endif

@@ -11,6 +11,7 @@
 #include "gim.h"
 #include "hoshino.h"
 #include "harada.h"
+#include "kazuya.h"
 #include "nakano.h"
 #include "objwork.h"
 #include "okanoyo.h"

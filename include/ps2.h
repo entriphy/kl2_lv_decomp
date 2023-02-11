@@ -8,6 +8,8 @@
 
 #ifdef SCE
 #include <eekernel.h>
+#include <eestruct.h>
+#include <devgif.h>
 #include <devvif0.h>
 #include <devvif1.h>
 #include <devvu0.h>

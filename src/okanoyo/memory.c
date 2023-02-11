@@ -15,6 +15,11 @@ void memorySysFormat() {
     FUN_001d31a0();
 }
 
+void memoryStageFormat() {
+    buffstartptr = buffstagetop;
+    texdeb = NULL;
+}
+
 void FUN_001d3638(int i) {
     u32 tops[] = {
         0x0000000, 0x2000000, 0x2100000, 0x2300000,
