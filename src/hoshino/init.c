@@ -20,7 +20,7 @@ hSNDDATA SndData;
 hBGMDATA BgmData;
 hPPTDATA PptData;
 hAC3DATA Ac3Data;
-hSTRDATA StrData;
+hMOVDATA MovData;
 SifClientData rpc__003d9718;
 hCDDATA* cD;
 hCDCUE* cQ;
@@ -33,7 +33,7 @@ hPPTDATA* pD;
 hAC3DATA* aD;
 u8 pptEeAddrs[4][0x40000];
 void* areaBuff;
-hSTRDATA* strD;
+hMOVDATA* mD;
 int RpcArg[16];
 SifDmaData sifdma_004171c0;
 int RpcRecvBuf[2][16];
@@ -148,7 +148,7 @@ void hInitBoot() {
     hIopDispatch(IOP_IopInit);
     init_config_system();
     hCdInit();
-    hStrInit();
+    hMovInit();
     hSndInit();
     
     GameGbl.vision = 0x6300;
@@ -297,40 +297,7 @@ void hBgmWorkClear() {
     cD->BGMplay = 0;
 }
 
-void hSndInit() {
-    FUN_0030dad0();
-    sD = &SndData;
-    sD->PkNum = (u8*)&SndMainBuffer[2];
-    sD->PkMax = 0;
-    sD->iopBankAddr = hIopDispatch(IOP_SndInit);
-    RpcArg[0] = 0xFFFFFF;
-    RpcArg[1] = 0xFFFF;
-    hIopDispatch(IOP_SndMask);
-    
-    sD->pad = 0;
-    sD->Stereo = SND_MODE_STEREO;
-    sD->Mute = 0;
-    sD->stageBank = 0;
-    sD->dBfader = -30.0f;
-    sD->log10Volume = log10f(16367.0f) * 20.0f;
-    hSndSetMVol(0.0f);
-    hSndPkSetMVol(0, 0);
-    sD->effMode = 0;
-    sD->effDepth = 0;
-    sD->effDelay = 0;
-    sD->effFeed = 0;
-    sD->effMix = 3;
-    hSndPkEffect();
-    sD->effVolBak = 0.0f;
-    sD->effVol = 0.0f;
-    hSndPkSetEVol(0);
-    sD->envNum = 0;
-    hSeLock(0);
-    hSeInitGrp(0);
-    sD->seMVol = 1.43f;
-    sD->bgmMVol = 0.708661437f;
-    sD->pptMVol = 0.314960629f;
-    sD->TitleDelayCnt = 0;
+void hStrInit() {
     bD = &BgmData;
     pD = &PptData;
     aD = &Ac3Data;
@@ -379,6 +346,44 @@ void hSndInit() {
     while (!sceCdSearchFile(&aD->files[2], "\\BGM002.AC3;1"));
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&aD->files[3], "\\BGM003.AC3;1"));
+}
+
+void hSndInit() {
+    FUN_0030dad0();
+    sD = &SndData;
+    sD->PkNum = (u8*)&SndMainBuffer[2];
+    sD->PkMax = 0;
+    sD->iopBankAddr = hIopDispatch(IOP_SndInit);
+    RpcArg[0] = 0xFFFFFF;
+    RpcArg[1] = 0xFFFF;
+    hIopDispatch(IOP_SndMask);
+    
+    sD->pad = 0;
+    sD->Stereo = SND_MODE_STEREO;
+    sD->Mute = 0;
+    sD->stageBank = 0;
+    sD->dBfader = -30.0f;
+    sD->log10Volume = log10f(16367.0f) * 20.0f;
+    hSndSetMVol(0.0f);
+    hSndPkSetMVol(0, 0);
+    sD->effMode = 0;
+    sD->effDepth = 0;
+    sD->effDelay = 0;
+    sD->effFeed = 0;
+    sD->effMix = 3;
+    hSndPkEffect();
+    sD->effVolBak = 0.0f;
+    sD->effVol = 0.0f;
+    hSndPkSetEVol(0);
+    sD->envNum = 0;
+    hSeLock(0);
+    hSeInitGrp(0);
+    sD->seMVol = 1.43f;
+    sD->bgmMVol = 0.708661437f;
+    sD->pptMVol = 0.314960629f;
+    sD->TitleDelayCnt = 0;
+
+    hStrInit();
 }
 
 int* FUN_0016d5f0(u8 *param_1, int param_2) {
@@ -484,10 +489,10 @@ void FUN_001d37f8(int param_1, int param_2, const char *param_3) {
     buffstartptr = buff;
 }
 
-void hStrInit() {
-    strD = &StrData;
+void hMovInit() {
+    mD = &MovData;
     sceCdDiskReady(0);
-    while (!sceCdSearchFile(&strD->file, "\\SR.SMV;1"));
+    while (!sceCdSearchFile(&mD->file, "\\SR.SMV;1"));
 }
 
 int FUN_0030dad0() {

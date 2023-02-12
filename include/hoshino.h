@@ -299,7 +299,7 @@ typedef struct{
 
 typedef struct {
     sceCdlFILE file;
-} hSTRDATA; // ?
+} hMOVDATA; // ?
 
 typedef struct {
     int eeCnt;

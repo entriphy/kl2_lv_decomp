@@ -36,6 +36,7 @@
 /* FUN_0016d0b8 */ extern float hSndFader2(float vol);
 /* FUN_0016e878 */ extern int hBgmGetStat();
 /* FUN_0016ef10 */ extern void hStrInfo();
+/* FUN_0016f360 */ extern void hStrInit();
 /* FUN_0016c6e8 */ extern void FUN_0016c6e8();
 /* FUN_0016e350 */ extern void hBgmWorkClear();
 /* FUN_0016cec8 */ extern int hSndPkGetSize();
@@ -77,7 +78,7 @@
 /* FUN_001d37f8 */ extern void FUN_001d37f8(int param_1, int param_2, const char *param_3);
 /* FUN_001da5a0 */ extern void OkPrintSysInit(int personal_id, int screenw, int screenh, int fontw, int fonth);
 /* FUN_001da5e8 */ extern void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth);
-/* FUN_002da268 */ extern void hStrInit();
+/* FUN_002da268 */ extern void hMovInit();
 /* FUN_002db4a0 */ extern void nkInitPad();
 /* FUN_00302e58 */ extern int FUN_00302e58();
 /* FUN_00302df0 */ extern void FUN_00302df0(int param_1);

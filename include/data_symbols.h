@@ -34,7 +34,7 @@
 /* DAT_0038a308 */ extern OKDEBDATA okDebData;
 /* DAT_0038a330 */ extern PERSONAL_DEB PDbuf[9];
 /* DAT_00395028 */ extern OKPROFILE okProfile;
-/* DAT_003bfed0 */ extern hSTRDATA StrData;
+/* DAT_003bfed0 */ extern hMOVDATA MovData;
 /* DAT_003d9718 */ extern SifClientData rpc__003d9718;
 /* DAT_003fb900 */ extern sceDmaChan* DmaChVIF0;
 /* DAT_003fb904 */ extern sceDmaChan* DmaChVIF1;
@@ -83,7 +83,7 @@
 /* DAT_003fc470 */ extern int key_frame_cnt;
 /* DAT_003fc474 */ extern int key_frame_max;
 /* DAT_003fc478 */ extern int kf_mode;
-/* DAT_003bfed0 */ extern hSTRDATA* strD;
+/* DAT_003bfed0 */ extern hMOVDATA* mD;
 /* DAT_0040efa0 */ extern int RpcArg[16];
 /* DAT_004171c0 */ extern SifDmaData sifdma_004171c0;
 /* DAT_00417200 */ extern int RpcRecvBuf[2][16];
