@@ -10,7 +10,7 @@ OBJWORK ObjWorkBuff[128];
 
 void nkInitDma() {
     sceDmaReset(1);
-    FUN_00302df0(0);
+    sceDevGifPutImtMode(0);
     DmaChVIF0 = sceDmaGetChan(0);
     DmaChVIF0->chcr = (tD_CHCR){ .MOD = 1, .TTE = 1 };
     DmaChVIF1 = sceDmaGetChan(1);
@@ -74,16 +74,3 @@ void nkInitSys() {
     nkDG.opflag = 0;
     hrpt_deb = 0;
 }
-
-int FUN_00302e58() {
-    return (*GIF_STAT & 4) >> 2;
-}
-
-void FUN_00302df0(int param_1) {
-    if (param_1 == 0) {
-        *GIF_MODE = FUN_00302e58() & 0xfffffffb;
-    } else {
-        *GIF_MODE = FUN_00302e58() | 4;
-    }
-}
-

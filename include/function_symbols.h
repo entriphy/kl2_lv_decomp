@@ -80,8 +80,6 @@
 /* FUN_001da5e8 */ extern void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth);
 /* FUN_002da268 */ extern void hMovInit();
 /* FUN_002db4a0 */ extern void nkInitPad();
-/* FUN_00302e58 */ extern int FUN_00302e58();
-/* FUN_00302df0 */ extern void FUN_00302df0(int param_1);
 /* FUN_0030dad0 */ extern int FUN_0030dad0();
 /* FUN_00318a80 */ extern void FUN_00318a80();
 /* FUN_003189d0 */ extern void FUN_003189d0();
