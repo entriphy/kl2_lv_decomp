@@ -70,6 +70,8 @@
 /* DAT_003fb8ec */ extern int nkLoadTimer;
 /* DAT_003fb8f0 */ extern int nkLoadStat;
 /* DAT_003fb8f4 */ extern int DAT_003fb8f4;
+/* DAT_003fb934 */ extern void *NakanoPackAddr;
+/* DAT_003fb93c */ extern void *DAT_003fb93c;
 /* DAT_003fbaec */ extern void* texdeb;
 /* DAT_003fbb38 */ extern void* buffstartptrORG;
 /* DAT_003fbb3c */ extern void* buffstartptr;
@@ -77,7 +79,8 @@
 /* DAT_003fbba8 */ extern int OkZakoFuncOn;
 /* DAT_003fbc90 */ extern long profileFlag;
 /* DAT_003fbaf4 */ extern int fontDispID;
-/* DAT_003fc2ec */ extern void* areaBuff;
+/* DAT_003fc2e8 */ extern void *DAT_003fc2e8; // tblMax?
+/* DAT_003fc2ec */ extern void *areaBuff;
 /* DAT_003fc468 */ extern void *DAT_003fc468;
 /* DAT_003fc46c */ extern int key_data_top_index;
 /* DAT_003fc470 */ extern int key_frame_cnt;

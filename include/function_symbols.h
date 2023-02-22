@@ -13,11 +13,14 @@
 /* FUN_001227b0 */ extern void htInitRand(int seed);
 /* FUN_001227c8 */ extern int htGetRand();
 /* FUN_00165ae0 */ extern void* hReadFile(const char* name); 
+/* FUN_00165c08 */ extern void hCdCuePush(int arg0, int arg1, int arg2, int arg3, int arg4);
 /* FUN_00166128 */ extern int FUN_00166128(int param_1);
 /* FUN_00166140 */ extern void FUN_00166140(int param_1, void *param_2);
+/* FUN_001661e0 */ extern void FUN_001661e0(int param_1, void *param_2);
 /* FUN_00166248 */ extern void hCdInit();
 /* FUN_00166248 */ extern void FUN_00167c20(void *buf);
 /* FUN_00167bd0 */ extern int FUN_00167bd0(int param_1);
+/* FUN_00167c00 */ void FUN_00167c00(int param_1, void *param_2);
 /* FUN_00168e48 */ extern void hSeLock(int i);
 /* FUN_00168fd8 */ extern void hSeInitGrp(int stage);
 /* FUN_0016ac00 */ extern void hInitBoot();
@@ -45,6 +48,8 @@
 /* FUN_0016d710 */ extern void FUN_0016d710();
 /* FUN_00175630 */ extern void kzInitNowload();
 /* FUN_0018d9e8 */ extern void nkInitDma();
+/* FUN_0018dc78 */ extern void FUN_0018dc78(void *param_1);
+/* FUN_0018dcb0 */ extern void FUN_0018dcb0(void *param_1);
 /* FUN_0018fc18 */ extern void nkInitPS2();
 /* FUN_0018fca0 */ extern int GameInit();
 /* FUN_0018fd28 */ extern int GameLoad();
@@ -78,8 +83,11 @@
 /* FUN_001d37f8 */ extern void FUN_001d37f8(int param_1, int param_2, const char *param_3);
 /* FUN_001da5a0 */ extern void OkPrintSysInit(int personal_id, int screenw, int screenh, int fontw, int fonth);
 /* FUN_001da5e8 */ extern void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth);
+/* FUN_001dabd0 */ extern void FUN_001dabd0(short param_1);
+/* FUN_00278c70 */ extern void abStageInitA();
 /* FUN_002da268 */ extern void hMovInit();
 /* FUN_002db4a0 */ extern void nkInitPad();
+/* FUN_002edfe0 */ extern void TkMainLoop(int tick);
 /* FUN_0030dad0 */ extern int FUN_0030dad0();
 /* FUN_00318a80 */ extern void FUN_00318a80();
 /* FUN_003189d0 */ extern void FUN_003189d0();

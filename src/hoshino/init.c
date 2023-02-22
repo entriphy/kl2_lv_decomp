@@ -32,6 +32,7 @@ hBGMDATA* bD;
 hPPTDATA* pD;
 hAC3DATA* aD;
 u8 pptEeAddrs[4][0x40000];
+void *DAT_003fc2e8;
 void* areaBuff;
 hMOVDATA* mD;
 int RpcArg[16];
@@ -61,6 +62,10 @@ void* hReadFile(const char* name) {
 
 int FUN_00166128(int file) {
     return KlTable[file].count;
+}
+
+void FUN_001661e0(int param_1, void *param_2) {
+    hCdCuePush((cD->file).lsn + KlTable[param_1].offset, KlTable[param_1].count, (int)param_2, 4, cD->eeCnt);
 }
 
 void hCdInit() {
@@ -98,13 +103,18 @@ void hCdInit() {
     while (!sceCdSearchFile(&cD->file, "\\KLDATA.BIN;1"));
 }
 
+int FUN_00167bd0(int param_1) {
+    return FUN_00166128((GameGbl.vision >> 7 & 0x1FE) + param_1) << 0xB;
+}
+
+void FUN_00167c00(int param_1, void *param_2) {
+    DAT_003fc2e8 = param_2;
+    FUN_001661e0((GameGbl.vision >> 7) + param_1, param_2);
+}
+
 void FUN_00167c20(void *param_1) {
     areaBuff = param_1;
     FUN_00166140(199, param_1);
-}
-
-int FUN_00167bd0(int param_1) {
-    return FUN_00166128((GameGbl.vision >> 7 & 0x1FE) + param_1) << 0xB;
 }
 
 void hSeLock(int i) {
@@ -483,7 +493,7 @@ void FUN_001d37f8(int param_1, int param_2, const char *param_3) {
             return;
     }
 
-    param_2 = ((param_2 + 0xF) << 4) >> 4;
+    param_2 = ((param_2 + 0xF) / 16) * 16;
     buff -= param_2;
     
     buffstartptr = buff;
