@@ -32,6 +32,8 @@ This repository does not contain any game assets, thus a legal copy of the game 
 ## Contributing
 (todo)
 
+[Decompilation Progress (Google Sheets)](https://docs.google.com/spreadsheets/d/190e6yPZklUfM2ye2Pkpta4B5KNp9lJFB0Ldx90eCVzU/edit?usp=sharing)
+
 ## Other Tools
 * [kl2_pine](https://github.com/entriphy/kl2_pine): Memory editor/visualizer for Klonoa 2 using [PINE](https://github.com/GovanifY/pine)
 * [BinarySerializer.Klonoa](https://github.com/BinarySerializer/BinarySerializer.Klonoa): Serializes various file formats from Klonoa 2 (in addition to other Klonoa games)
