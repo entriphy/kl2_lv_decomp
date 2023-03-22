@@ -43,7 +43,7 @@ int nkInitAtrInit() {
     DAT_006397d8 = 0;
     DAT_006397dc = 0;
     DAT_006397e0 = 1000.0f;
-    DAT_006397e8 = 0.034906585f;
+    DAT_006397e8 = M_PI / 90.0f;
     DAT_006397ec = -0.017453292f;
     DAT_006397f0 = 0.017453292f;
     return 0;

@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
+
 #include "cam.h"
 #include "compression.h"
 #include "gbl.h"

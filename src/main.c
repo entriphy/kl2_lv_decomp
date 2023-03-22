@@ -14,9 +14,9 @@ int main(int argc, char *argv[]) {
     hInitBoot();
     SysGbl.irqc = 0;
     init_config_system();
-    *R_EE_T0_MODE = 0x83;
+    *T0_MODE = T_MODE_CLKS_M | T_MODE_CUE_M;
     nkInitPad();
-    OkMainInit();
+    OkMainInit(argc, argv);
     nkInitSys();
     hr_cold_start();
     hrpt_deb = 1;
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     GsVSync(0);
 #endif
     while (true) {
-        // hLoopTop();
+        hLoopTop();
         MainFunc();
         SysGbl.irqc++;
     }

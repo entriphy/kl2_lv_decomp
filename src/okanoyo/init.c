@@ -29,7 +29,7 @@ void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth) {
     }
 }
 
-void OkMainInit() {
+void OkMainInit(int argc, char **argv) {
     // TODO
     OkZakoFuncOn = 1;
     DAT_0038a138 = NULL;

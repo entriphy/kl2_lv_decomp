@@ -17,8 +17,10 @@
 /* FUN_00166128 */ extern int FUN_00166128(int param_1);
 /* FUN_00166140 */ extern void FUN_00166140(int param_1, void *param_2);
 /* FUN_001661e0 */ extern void FUN_001661e0(int param_1, void *param_2);
+/* FUN_00166210 */ extern int isLoading();
 /* FUN_00166248 */ extern void hCdInit();
-/* FUN_00166248 */ extern void FUN_00167c20(void *buf);
+/* FUN_00167c20 */ extern void FUN_00167c20(void *buf);
+/* FUN_00167c30 */ extern int hGameReadOK();
 /* FUN_00167bd0 */ extern int FUN_00167bd0(int param_1);
 /* FUN_00167c00 */ void FUN_00167c00(int param_1, void *param_2);
 /* FUN_00168e48 */ extern void hSeLock(int i);
@@ -47,6 +49,7 @@
 /* FUN_0016d5f0 */ extern int* FUN_0016d5f0(u8 *param_1, int param_2);
 /* FUN_0016d710 */ extern void FUN_0016d710();
 /* FUN_00175630 */ extern void kzInitNowload();
+/* FUN_00175690 */ extern void kzDrawNowload();
 /* FUN_0018d9e8 */ extern void nkInitDma();
 /* FUN_0018dc78 */ extern void FUN_0018dc78(void *param_1);
 /* FUN_0018dcb0 */ extern void FUN_0018dcb0(void *param_1);
@@ -71,7 +74,7 @@
 /* FUN_001a56e0 */ extern int nkInit();
 /* FUN_001a5700 */ extern int nkMain();
 /* FUN_001b52a8 */ extern void nkWipeEffBClear();
-/* FUN_001d1a60 */ extern void OkMainInit();
+/* FUN_001d1a60 */ extern void OkMainInit(int argc, char **argv);
 /* FUN_001d1c08 */ extern int FUN_001d1c08(const char* name);
 /* FUN_001d1c78 */ extern int FUN_001d1c78(const char* name, void* buf);
 /* FUN_001d3170 */ extern void memorySysFormat();

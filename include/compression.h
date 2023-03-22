@@ -10,7 +10,7 @@ typedef struct {
     u16 s3;
     u8 *stream_pos;
     s32 finished;
-    u64 count;
+    u64 cycles;
     u8 buffer0[20]; // 0x14
     u8 buffer1[510]; // 0x1FE
     u16 buffer2[256]; // 0x100

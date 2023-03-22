@@ -68,6 +68,14 @@ void FUN_001661e0(int param_1, void *param_2) {
     hCdCuePush((cD->file).lsn + KlTable[param_1].offset, KlTable[param_1].count, (int)param_2, 4, cD->eeCnt);
 }
 
+int isLoading() {
+    int ret = 0;
+    if (cD->dataFlag == CDREAD_DATA) {
+        ret = cD->dataStat == 2;
+    }
+    return ret;
+}
+
 void hCdInit() {
     cD = &CdData;
     cQ = &cD->Cue;
@@ -115,6 +123,11 @@ void FUN_00167c00(int param_1, void *param_2) {
 void FUN_00167c20(void *param_1) {
     areaBuff = param_1;
     FUN_00166140(199, param_1);
+}
+
+int hGameReadOK() {
+    int ret = isLoading();
+    return ret;
 }
 
 void hSeLock(int i) {
@@ -469,32 +482,34 @@ void FUN_001d31a0() {
     buffstagetop = buffstartptr;
 }
 
-void* getBuff(int type, int byte_, const char* name, int* ret) {
+void *getBuff(s32 type, s32 size, const char *name, s32 *ret) {
+    u8 *buff = buffstartptr;
+    u8 *newBuff = buffstartptr;
+    
     if (type == 0) {
-        byte_ = FUN_001d1c08(name);
+        size = FUN_001D1C08(name);
         *ret = -1;
-        if (byte_ == -1) {
-            return NULL;
-        }
-        *ret = FUN_001d1c78(name, buffstartptr);
+        if (size == -1)
+            return (u8 *)-1;
+        *ret = FUN_001D1C78(name, buff);
     }
-    void* ptr = buffstartptr;
-    buffstartptr = (void*)((char*)buffstartptr + byte_);
-    sce_print("@@@ Old buff: %08x, new buff: %08x (%d)\n", ptr, buffstartptr, byte_);
-    return ptr;
+    
+    size = ((size + 0x0F) / 0x10) * 0x10;
+    buffstartptr = newBuff + size;
+    return buff;
 }
 
-void FUN_001d37f8(int param_1, int param_2, const char *param_3) {
+void FUN_001d37f8(s32 type, s32 size, const char *name) {
     void *buff = buffstartptr;
     
-    if (param_1 == 0) {
-        param_2 = FUN_001d1c08(param_3);
-        if (param_2 == -1)
+    if (type == 0) {
+        size = FUN_001d1c08(name);
+        if (size == -1)
             return;
     }
 
-    param_2 = ((param_2 + 0xF) / 16) * 16;
-    buff -= param_2;
+    size = ((size + 0xF) / 16) * 16;
+    buff -= size;
     
     buffstartptr = buff;
 }
