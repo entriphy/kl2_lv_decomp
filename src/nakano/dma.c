@@ -1,13 +1,13 @@
 #include "common.h"
 
-void *DAT_003fb93c;
+u8 *DAT_003fb93c;
 
-void FUN_0018dc78(void *tag) {
+void FUN_0018dc78(u8 *tag) {
     sceDmaSync(DmaChGIF, 0, 0);
     sceDmaSend(DmaChGIF, tag);
 }
 
-void FUN_0018dcb0(void *tag) {
+void FUN_0018dcb0(u8 *tag) {
     FlushCache(WRITEBACK_DCACHE);
     FUN_0018dc78(tag);
     sceGsSyncPath(0, 0);

@@ -13,6 +13,7 @@
 /* DAT_00336bb0 */ extern PTDATA scene_table[90];
 /* DAT_00338390 */ extern hCDDATA CdData;
 /* DAT_00338670 */ extern u8 EeCb[0x2000];
+/* DAT_00341460 */ extern hGAMEDATA GameData;
 /* DAT_00348970 */ extern const char* modules[8];
 /* DAT_0034b140 */ extern hSNDDATA SndData;
 /* DAT_0034bb58 */ extern hBGMDATA BgmData;
@@ -29,7 +30,7 @@
 /* DAT_00375bf8 */ extern int (*nkFuncTbl[2])();
 /* DAT_00376798 */ extern OKDEBDATAEX testdb;
 /* DAT_0038a108 */ extern PROFILE profile;
-/* DAT_0038a138 */ extern void* DAT_0038a138;
+/* DAT_0038a138 */ extern u8 *DAT_0038a138;
 /* DAT_0038a268 */ extern DEBMEM OkDebMem[10];
 /* DAT_0038a308 */ extern OKDEBDATA okDebData;
 /* DAT_0038a330 */ extern PERSONAL_DEB PDbuf[9];
@@ -42,8 +43,8 @@
 /* DAT_003fb914 */ extern sceDmaChan* DmaChfromSPR;
 /* DAT_003fb918 */ extern sceDmaChan* DmaChtoSPR;
 /* DAT_003fa3c8 */ extern int hr_abeoff;
-/* DAT_003fa6cc */ extern void* hrpt_addr;
-/* DAT_003fa6d0 */ extern void* hrptm_addr;
+/* DAT_003fa6cc */ extern u8 *hrpt_addr;
+/* DAT_003fa6d0 */ extern u8 *hrptm_addr;
 /* DAT_003fa6d4 */ extern short hrpt_flag;
 /* DAT_003fa6d6 */ extern short hrpt_scene;
 /* DAT_003fa6d8 */ extern short hrpt_view;
@@ -56,6 +57,7 @@
 /* DAT_003fa804 */ extern s32 ht_g_rand;
 /* DAT_003fa808 */ extern hCDDATA* cD;
 /* DAT_003fa80c */ extern hCDCUE* cQ;
+/* DAT_003fa810 */ extern hGAMEDATA *gD;
 /* DAT_003fa830 */ extern KLTABLE* KlTable;
 /* DAT_003fa834 */ extern PPTTABLE* PptTable;
 /* DAT_003fa838 */ extern BGMTABLE* BgmTable;
@@ -70,18 +72,18 @@
 /* DAT_003fb8ec */ extern int nkLoadTimer;
 /* DAT_003fb8f0 */ extern int nkLoadStat;
 /* DAT_003fb8f4 */ extern int DAT_003fb8f4;
-/* DAT_003fb934 */ extern void *NakanoPackAddr;
-/* DAT_003fb93c */ extern void *DAT_003fb93c;
-/* DAT_003fbaec */ extern void* texdeb;
-/* DAT_003fbb38 */ extern void* buffstartptrORG;
-/* DAT_003fbb3c */ extern void* buffstartptr;
-/* DAT_003fbb40 */ extern void* buffstagetop;
+/* DAT_003fb934 */ extern u8 *NakanoPackAddr;
+/* DAT_003fb93c */ extern u8 *DAT_003fb93c;
+/* DAT_003fbaec */ extern u8 *texdeb;
+/* DAT_003fbb38 */ extern u8 *buffstartptrORG;
+/* DAT_003fbb3c */ extern u8 *buffstartptr;
+/* DAT_003fbb40 */ extern u8 *buffstagetop;
 /* DAT_003fbba8 */ extern int OkZakoFuncOn;
 /* DAT_003fbc90 */ extern long profileFlag;
 /* DAT_003fbaf4 */ extern int fontDispID;
-/* DAT_003fc2e8 */ extern void *DAT_003fc2e8; // tblMax?
-/* DAT_003fc2ec */ extern void *areaBuff;
-/* DAT_003fc468 */ extern void *DAT_003fc468;
+/* DAT_003fc2e8 */ extern u8 *tblMax;
+/* DAT_003fc2ec */ extern u8 *areaBuff;
+/* DAT_003fc468 */ extern u8 *DAT_003fc468;
 /* DAT_003fc46c */ extern int key_data_top_index;
 /* DAT_003fc470 */ extern int key_frame_cnt;
 /* DAT_003fc474 */ extern int key_frame_max;

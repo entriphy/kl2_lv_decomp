@@ -69,7 +69,7 @@ typedef struct {
     int csr_dbkey;
     int csr_wtkey;
     int csr_dbcnt;
-    void* ITEMDataBuffp;
+    u8 *ITEMDataBuffp;
     int itemdataflag;
     int OkDebDPcnt;
     int OkDebHTcnt;
@@ -120,18 +120,5 @@ typedef struct {
     int pad1;
     long pad0;
 } PROFILE;
-
-typedef union {
-    u128 ul128;
-    u64 ul64[2];
-    u32 ul32[4];
-    IVECTOR vect;
-    FVECTOR fvct;
-} nkQWdata;
-
-typedef struct {
-    nkQWdata *buf;
-    u32 size;
-} nkGifPacket;
 
 #endif

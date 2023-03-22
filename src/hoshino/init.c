@@ -6,6 +6,7 @@
 
 hCDDATA CdData;
 u8 EeCb[0x2000];
+hGAMEDATA GameData;
 const char* modules[8] = {
     "cdrom:\\M\\SIFCMD.IRX;1",
     "cdrom:\\M\\SIO2MAN.IRX;1",
@@ -24,6 +25,7 @@ hMOVDATA MovData;
 SifClientData rpc__003d9718;
 hCDDATA* cD;
 hCDCUE* cQ;
+hGAMEDATA *gD;
 KLTABLE* KlTable;
 PPTTABLE* PptTable;
 BGMTABLE* BgmTable;
@@ -32,8 +34,8 @@ hBGMDATA* bD;
 hPPTDATA* pD;
 hAC3DATA* aD;
 u8 pptEeAddrs[4][0x40000];
-void *DAT_003fc2e8;
-void* areaBuff;
+u8 *tblMax;
+u8 *areaBuff;
 hMOVDATA* mD;
 int RpcArg[16];
 SifDmaData sifdma_004171c0;
@@ -42,13 +44,13 @@ int SndMainBuffer[16];
 SifClientData sndRpc;
 int boot_flag; // ?
 
-void* hReadFile(const char* name) {
+u8 *hReadFile(const char* name) {
     sceCdlFILE file;
     int ret;
 
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&file, name));
-    void* buf = getBuff(1, roundSizeToSector(file.size), NULL, &ret);
+    u8 *buf = getBuff(1, roundSizeToSector(file.size), NULL, &ret);
 
     while (!sceCdRead(file.lsn, file.size >> 0xB, buf, &cD->mode));
     do {
@@ -60,67 +62,27 @@ void* hReadFile(const char* name) {
     return buf;
 }
 
-int FUN_00166128(int file) {
-    return KlTable[file].count;
-}
-
-void FUN_001661e0(int param_1, void *param_2) {
-    hCdCuePush((cD->file).lsn + KlTable[param_1].offset, KlTable[param_1].count, (int)param_2, 4, cD->eeCnt);
-}
-
-int isLoading() {
-    int ret = 0;
-    if (cD->dataFlag == CDREAD_DATA) {
-        ret = cD->dataStat == 2;
-    }
-    return ret;
-}
-
-void hCdInit() {
-    cD = &CdData;
-    cQ = &cD->Cue;
-
-    cQ->Num = 0;
-    cQ->Exe = 0;
-    cQ->Reg = 0;
-
-    cD->eeCnt = 0;
-    cD->dataFlag = CDREAD_IDLE;
-    cD->BGMplay = 0;
-    cD->mode.trycount = 0;
-    cD->mode.spindlctrl = 0;
-    cD->mode.datapattern = 0;
-    cD->mode.pad = 0;
-    
-    sceCdInitEeCB(0, EeCb, 0x2000);
-    int threadId = GetThreadId();
-    cD->ThID = threadId;
-    ChangeThreadPriority(threadId, 1);
-
-    sceCdDiskReady(0);
-    cD->DiscType = sceCdGetDiskType();
-    void* buf = hReadFile("\\HEADPACK.BIN;1");
-    void* addr = GetFHMAddress(buf, 0);
-    KlTable = (KLTABLE*)((char*)addr + 4);
-    addr = GetFHMAddress(buf, 1);
-    PptTable = (PPTTABLE*)((char*)addr + 4);
-    addr = GetFHMAddress(buf, 2);
-    BgmTable = (BGMTABLE*)((char*)addr + 4);
-
-    sceCdDiskReady(0);
-    while (!sceCdSearchFile(&cD->file, "\\KLDATA.BIN;1"));
-}
-
 int FUN_00167bd0(int param_1) {
     return FUN_00166128((GameGbl.vision >> 7 & 0x1FE) + param_1) << 0xB;
 }
 
-void FUN_00167c00(int param_1, void *param_2) {
-    DAT_003fc2e8 = param_2;
+void FUN_00167c00(int param_1, u8 *param_2) {
+    tblMax = param_2;
     FUN_001661e0((GameGbl.vision >> 7) + param_1, param_2);
 }
 
-void FUN_00167c20(void *param_1) {
+void hInitStage0() {
+    gD = &GameData;
+    hSndReset();
+    hSeLock(0);
+    hSndBankSetStage();
+    hSndSetMVol(0.0f);
+    gD->BGMmode = BGMMODE_TOP;
+    gD->BGMppt = 0;
+    gD->resFlag = 0;
+}
+
+void FUN_00167c20(u8 *param_1) {
     areaBuff = param_1;
     FUN_00166140(199, param_1);
 }
@@ -128,14 +90,6 @@ void FUN_00167c20(void *param_1) {
 int hGameReadOK() {
     int ret = isLoading();
     return ret;
-}
-
-void hSeLock(int i) {
-    sD->seLock = i;
-}
-
-void hSeInitGrp(int stage) {
-    // TODO
 }
 
 void hInitBoot() {
@@ -168,7 +122,7 @@ void hInitBoot() {
         sce_print("@ Loading module %s: %d\n", modules[i], id);
     }
 
-    hIopDispatch(IOP_IopInit);
+    hRpc(IOP_IopInit);
     init_config_system();
     hCdInit();
     hMovInit();
@@ -180,118 +134,6 @@ void hInitBoot() {
     FUN_00167c20(getBuff(1, FUN_00167bd0(1), NULL, &ret));
     FUN_001d31a0();
     htInitRand(0x399);
-}
-
-int FUN_0016c778() {
-#ifdef SCE
-    return SifCheckStatRpc(&sndRpc.rpcd);
-#else
-    return SifCheckStatRpc(&sndRpc);
-#endif
-}
-
-void FUN_0016c798() {
-    do {
-        if (SifBindRpc(&sndRpc, 0x12346, 0) < 0) {
-            while (true);
-        }
-        for (int i = 10000; i > 0; i--) {
-            // Do nothing
-        }
-    }
-#ifdef SCE
-    while (!sndRpc.serve);
-#else
-    while (!sndRpc.server);
-#endif
-}
-
-// TODO: Fix this
-int* hIopDispatch(u32 param) {
-    // 0x08000000: IopInit(),        r = 64, s = 0
-    // 0x08000001: return RpcInfo,   r = 64, s = 0
-    // 0x10000003: StrKick(),        r = 0,  s = 0
-    // 0x14000000: StrInit(),        r = 16, s = 0
-    // 0x1b000001: StrInfo(data),    r = 64, s = 128
-    // 0x20000004: JamBdTrans(),     r = 0,  s = 0
-    // 0x21000003: JamBankSet(data), r = 0,  s = 16
-    // 0x22000002: SndMask(data),    r = 0,  s = 64
-    // 0x24000000: SndInit(),        r = 16, s = 0
-    // 0x2a000001: SndMain(data),    r = 64, s = 64
-
-    int rsize;
-    switch (param & 0xc000000) {
-        case 0x4000000:
-            rsize = 16;
-            break;
-        case 0x8000000:
-            rsize = 64;
-            break;
-        case 0xc000000:
-            rsize = 128;
-            break;
-        default:
-            rsize = 0;
-            break;
-    }
-
-    int ssize;
-    switch (param & 0x3000000) {
-        case 0x1000000:
-            ssize = 16;
-            break;
-        case 0x2000000:
-            ssize = 64;
-            break;
-        case 0x3000000:
-            ssize = 128;
-            break;
-        default:
-            ssize = 0;
-            break;
-    }
-
-    int mode = 0;
-    int* send = RpcArg;
-    int* receive = RpcRecvBuf[0];
-    if (param == 0x2a000001) {
-        send = SndMainBuffer;
-        ssize = hSndPkGetSize();
-        receive = RpcRecvBuf[1];
-    } else {
-        mode = SIF_RPC_M_NOWAIT;
-    }
-
-    SifCallRpc(&sndRpc, param, mode, send, ssize, receive, rsize, 0, 0);
-    if ((param & 0xc000000) == 0x4000000) {
-        // TODO
-    }
-    return receive;
-}
-
-s32 FUN_0016c9b8(void *dest, void *src, u32 size) {
-    u32 id;
-
-#ifdef SCE
-    sifdma_004171c0.data = (int)src;
-    sifdma_004171c0.addr = (int)dest;
-    sifdma_004171c0.size = size;
-    sifdma_004171c0.mode = 0;
-#else
-    sifdma_004171c0.src = src;
-    sifdma_004171c0.dest = dest;
-    sifdma_004171c0.size = size;
-    sifdma_004171c0.attr = 0;
-#endif
-
-    FlushCache(0);
-    id = SifSetDma(&sifdma_004171c0, 1);
-    if (id != 0) {
-        while (SifDmaStat(id) >= 0);
-        return 0;
-    } else {
-        return -1;
-    }
 }
 
 void FUN_00196c00() {
@@ -306,20 +148,6 @@ void FUN_00196c00() {
     FlushCache(WRITEBACK_DCACHE);
 }
 
-void hBgmWorkClear() {
-    bD->nextNo = -1;
-    bD->bgmCh = 0;
-    bD->bgmChMax = 2;
-    bD->iopOK[0] = 0;
-    bD->iopOK[1] = 0;
-    bD->iopID = 0;
-    bD->cdReq = 0;
-    bD->fadeFlag = 0;
-    bD->bgmVol = 0.0;
-    bD->bgmMute = 0;
-    cD->BGMplay = 0;
-}
-
 void hStrInit() {
     bD = &BgmData;
     pD = &PptData;
@@ -327,7 +155,7 @@ void hStrInit() {
     hBgmWorkClear();
     bD->Command = 0;
     bD->bgmVol = 0.78740156f;
-    int* iopAddr = hIopDispatch(IOP_StrInit);
+    int* iopAddr = hRpc(IOP_StrInit);
     bD->iopAddr[0] = iopAddr;
     bD->iopAddr[1] = iopAddr + 0x20000;
     int* n = bD->iopAddr[1] + 0x20000;
@@ -376,10 +204,10 @@ void hSndInit() {
     sD = &SndData;
     sD->PkNum = (u8*)&SndMainBuffer[2];
     sD->PkMax = 0;
-    sD->iopBankAddr = hIopDispatch(IOP_SndInit);
+    sD->iopBankAddr = hRpc(IOP_SndInit);
     RpcArg[0] = 0xFFFFFF;
     RpcArg[1] = 0xFFFF;
-    hIopDispatch(IOP_SndMask);
+    hRpc(IOP_SndMask);
     
     sD->pad = 0;
     sD->Stereo = SND_MODE_STEREO;
@@ -417,7 +245,7 @@ int* FUN_0016d5f0(u8 *param_1, int param_2) {
 void FUN_0016d710() {
     int ret;
 
-    void *buf = getBuff(1, 0x200000, NULL, &ret);
+    u8 *buf = getBuff(1, 0x200000, NULL, &ret);
     FUN_00166140(0xC6, buf);
     buf = GetFHMAddress(buf, 2);
     FUN_0016d5f0(buf, 0);
@@ -462,7 +290,7 @@ int FUN_001d1c08(const char* name) {
     return ret;
 }
 
-int FUN_001d1c78(const char* name, void* buf) {
+int FUN_001d1c78(const char* name, u8 *buf) {
     FILE* file = fopen(name, "r");
     if (file != NULL) {
         int size = fseek(file, 0, SEEK_END);
@@ -482,16 +310,16 @@ void FUN_001d31a0() {
     buffstagetop = buffstartptr;
 }
 
-void *getBuff(s32 type, s32 size, const char *name, s32 *ret) {
+u8 *getBuff(s32 type, s32 size, const char *name, s32 *ret) {
     u8 *buff = buffstartptr;
     u8 *newBuff = buffstartptr;
     
     if (type == 0) {
-        size = FUN_001D1C08(name);
+        size = FUN_001d1c08(name);
         *ret = -1;
         if (size == -1)
             return (u8 *)-1;
-        *ret = FUN_001D1C78(name, buff);
+        *ret = FUN_001d1c78(name, buff);
     }
     
     size = ((size + 0x0F) / 0x10) * 0x10;
@@ -500,7 +328,7 @@ void *getBuff(s32 type, s32 size, const char *name, s32 *ret) {
 }
 
 void FUN_001d37f8(s32 type, s32 size, const char *name) {
-    void *buff = buffstartptr;
+    u8 *buff = buffstartptr;
     
     if (type == 0) {
         size = FUN_001d1c08(name);

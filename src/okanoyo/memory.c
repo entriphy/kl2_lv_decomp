@@ -1,16 +1,16 @@
 #include "common.h"
 
 DEBMEM OkDebMem[10];
-void* texdeb;
-void* buffstartptrORG;
-void* buffstartptr;
-void* buffstagetop;
+u8 *texdeb;
+u8 *buffstartptrORG;
+u8 *buffstartptr;
+u8 *buffstagetop;
 
 
 void memorySysFormat() {
     FUN_001d3710();
-    buffstartptrORG = (void *)0x00A00000;
-    buffstartptr = (void *)0x00A00000;
+    buffstartptrORG = (u8 *)0x00A00000;
+    buffstartptr = (u8 *)0x00A00000;
     texdeb = NULL;
     FUN_001d31a0();
 }

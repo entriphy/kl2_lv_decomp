@@ -38,23 +38,6 @@ float hSndFader2(float vol) {
     return 0.0f;
 }
 
-int hBgmGetStat() {
-    if (cD->BGMplay != 0) {
-        switch (bD->fadeFlag) {
-            case 1:
-                return 3;
-            case 2:
-                return 2;
-            case 3:
-                return 3;
-            default:
-                return 1;
-        }
-    } else {
-        return 0;
-    }    
-}
-
 void hSndPkSetMVol(int voll, int volr) {
     sD->PkMax++;
     *sD->PkNum++ = 7;
@@ -62,14 +45,6 @@ void hSndPkSetMVol(int voll, int volr) {
     *sD->PkNum++ = (u8)(((u32)voll >> 8) & 0x7F);
     *sD->PkNum++ = (u8)volr;
     *sD->PkNum++ = (u8)(((u32)volr >> 8) & 0x7F);
-}
-
-u32 JamGetHdSize(void *hdaddr) {
-    return *((u32 *)hdaddr + 4);
-}
-
-u32 JamGetBdSize(void *hdaddr) {
-    return *((u32 *)hdaddr + 8);
 }
 
 void hSndPkEffect() {
@@ -93,6 +68,16 @@ void hSndPkSetEVol(int vol) {
     *sD->PkNum++ = 9;
     *sD->PkNum++ = (u8)vol;
     *sD->PkNum++ = (u8)((u32)vol >> 8);
+}
+
+void hSndReset() {
+    hBgmReset();
+    hPptReset();
+    hSndPkKeyOffAll();
+    hSeInitGrp(0);
+    hSndSetMVol(1.0f);
+    sD->fadeFlag = 0;
+    sD->Mute = 0;
 }
 
 int hSndPkGetSize() {

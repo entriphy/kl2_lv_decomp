@@ -65,8 +65,34 @@ u32 FUN_00198a68(DecompressionStructure *scratchpad) {
     return uVar1;
 }
 
-void FUN_00198c40(DecompressionStructure *scratchpad, s16 param_2, s16 param_3, s16 param_4) {
+u32 FUN_00198b80(DecompressionStructure *scratchpad) {
+    u32 mask;
+    u32 uVar4;
+    
+    uVar4 = scratchpad->buffer2[scratchpad->s1 >> 8];
+    if (uVar4 >= 0x10) {
+        mask = 0x80;
+        while (uVar4 >= 0x10) {
+            uVar4 = scratchpad->s1 & mask ? scratchpad->buffer5[uVar4] : scratchpad->buffer4[uVar4];
+            mask >>= 1;
+        }
+    }
 
+    FUN_00199100(scratchpad, scratchpad->buffer0[uVar4]);
+    if (uVar4 != 0) {
+        mask = FUN_001990c0(scratchpad, uVar4 - 1);
+        uVar4 = mask + (1 << (uVar4 - 1)) & 0xFFFF;
+    }
+
+    return uVar4;
+}
+
+void FUN_00198c40(DecompressionStructure *scratchpad, s16 param_2, s16 param_3, s16 param_4) {
+    // TODO
+}
+
+void FUN_00198e90(DecompressionStructure *scratchpad) {
+    // TODO
 }
 
 u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2) {
@@ -76,5 +102,5 @@ u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2) {
 }
 
 void FUN_00199100(DecompressionStructure *scratchpad, u16 param_2) {
-    // something
+    // TODO
 }

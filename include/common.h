@@ -25,7 +25,7 @@
 #include "data_symbols.h"
 #include "function_symbols.h"
 
-void* GetFHMAddress(void* pAddr, int nNum);
+u8 *GetFHMAddress(u8 *pAddr, int nNum);
 
 #ifdef SCE
 inline int roundSizeToSector(int size);

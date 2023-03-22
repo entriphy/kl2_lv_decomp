@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "types.h"
 
 #ifndef SCE
 #include <kernel.h>
@@ -16,8 +17,8 @@ void sce_print(const char* fmt, ...) {
 }
 #endif
 
-void* GetFHMAddress(void* pAddr, int nNum) {
-	return (void*)((char*)pAddr + *(int*)((char*)pAddr + 4 + nNum * 4));
+u8 *GetFHMAddress(u8 *pAddr, int nNum) {
+	return (u8*)(pAddr + *(int*)(pAddr + 4 + nNum * 4));
 }
 
 inline int roundSizeToSector(int size) {

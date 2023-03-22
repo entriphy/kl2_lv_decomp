@@ -35,4 +35,9 @@ typedef union {
     FVECTOR fvct;
 } nkQWdata;
 
+typedef struct {
+    nkQWdata *buf;
+    u32 size;
+} nkGifPacket;
+
 #endif

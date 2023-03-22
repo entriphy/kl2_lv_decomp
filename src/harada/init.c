@@ -6,8 +6,8 @@ int ptflag_ar[4];
 int ptflag_th[4];
 PTDATA scene_table[90];
 int hr_abeoff;
-void* hrpt_addr;
-void* hrptm_addr;
+u8 *hrpt_addr;
+u8 *hrptm_addr;
 short hrpt_flag;
 short hrpt_scene;
 short hrpt_view;
@@ -42,7 +42,7 @@ void hr_pt_set(short flag, short scene, short view, short th) {
 void hr_pt_fclear() {
     hr_pt_set(0, 0, 0, 0);
     hrpt_vt = 0;
-    hrpt_addr = (void *)-1;
+    hrpt_addr = (u8 *)-1;
 }
 
 void hr_pflag_initAr() {

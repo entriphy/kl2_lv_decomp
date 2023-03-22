@@ -3,8 +3,8 @@
 int nkLoadTimer;
 int nkLoadStat;
 int DAT_003fb8f4;
-void *NakanoPackAddr;
-void *DAT_003fc468;
+u8 *NakanoPackAddr;
+u8 *DAT_003fc468;
 
 int (*GameFuncTbl[3])() = {
     GameInit,

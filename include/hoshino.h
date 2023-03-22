@@ -331,4 +331,29 @@ typedef struct {
     int nsector;
 } PPTTABLE;
 
+typedef enum {
+    BGMMODE_TOP,
+    BGMMODE_START,
+    BGMMODE_GAME,
+    BGMMODE_END,
+} BGMMODE;
+
+typedef struct {
+    BGMMODE BGMmode;
+    int BGMppt;
+    int BGMpptcnt;
+    int BGMid;
+    int BGMchgreq;
+    int BGMchgid;
+    int BGMchgmode;
+    int nextVision;
+    int areaTime;
+    int resFlag;
+    int resBGM;
+    int resVision;
+    float resEVol;
+    int deadFlag;
+    int deadCnt;
+} hGAMEDATA;
+
 #endif

@@ -97,14 +97,14 @@ void hStrInfo() {
     }
 
     str->idk = aD->field_0x94;
-    hIopDispatch(IOP_StrInfo);
+    hRpc(IOP_StrInfo);
     bD->Command = 0;
     bD->iopOK[0] = 0;
     bD->iopOK[1] = 0;
 }
 
 void FUN_0016c6e8() {
-    int *ret = hIopDispatch(IOP_RpcInfo);
+    int *ret = hRpc(IOP_RpcInfo);
     sD->VoiceStat[0] = ret[0];
     sD->VoiceStat[1] = ret[1];
     bD->iopPoint = ret[3];

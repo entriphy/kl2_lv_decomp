@@ -1,6 +1,6 @@
 #include "common.h"
 
-void* DAT_0038a138;
+u8 *DAT_0038a138;
 OKDEBDATAEX testdb;
 PROFILE profile;
 OKDEBDATA okDebData;
