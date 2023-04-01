@@ -1,7 +1,8 @@
 # Klonoa 2: Lunatea's Veil (PS2) Decompilation
 Decompilation project for Klonoa 2: Lunatea's Veil (`SLUS_201.51`).
 
-Structs, function names, and variable names are taken from decompiling the C# assembly of Klonoa Phantasy Reverie Series. Decompilation is done using [Ghidra](https://ghidra-sre.org/) with the [ghidra-emotionengine](https://github.com/chaoticgd/ghidra-emotionengine-reloaded) extension. This is **not** a matching decompilation, as there is no publicly available compiler to do so.
+Structs, classes, and function names are taken from decompiling the C# assembly of Klonoa Phantasy Reverie Series. 
+While this does not aim to be a fully matching decompilation, `ee-gcc 2.9-991111` (available on [decomp.me](https://decomp.me)) seems to produce matching code most of the time, though it is not 100% certain if this was the compiler used.
 
 Support the series by purchasing & playing [Klonoa Phantasy Reverie Series](https://klonoa-at-blog.tumblr.com/post/145593146333/here-are-the-current-ways-you-can-officially)! :D
 
@@ -9,6 +10,8 @@ Support the series by purchasing & playing [Klonoa Phantasy Reverie Series](http
 This repository does not contain any game assets, thus a legal copy of the game is required for this decompilation to work. Do not request for these files to be provided.
 
 ## Building
+**NOTE: This project is in VERY early stages and may fail to build.**
+
 1. Setup environment:
     * ~~Ensure the `PS2DEV` and `PS2SDK` environment variables are properly set.~~
         * PS2SDK is currently unsupported.
@@ -37,4 +40,7 @@ This repository does not contain any game assets, thus a legal copy of the game 
 ## Other Tools
 * [kl2_pine](https://github.com/entriphy/kl2_pine): Memory editor/visualizer for Klonoa 2 using [PINE](https://github.com/GovanifY/pine)
 * [BinarySerializer.Klonoa](https://github.com/BinarySerializer/BinarySerializer.Klonoa): Serializes various file formats from Klonoa 2 (in addition to other Klonoa games)
-* [klonoa2_tools](https://github.com/entriphy/klonoa2-tools): KLDATA unpacker and model extractor
+* [klonoa2-tools](https://github.com/entriphy/klonoa2-tools): KLDATA unpacker and model extractor
+* [spimdisasm](https://github.com/Decompollaborate/spimdisasm): MIPS disassembler
+* [m2c](https://github.com/matt-kempster/m2c): MIPS decompiler
+* [ghidra-emotionengine-reloaded](https://github.com/chaoticgd/ghidra-emotionengine-reloaded): Ghidra extension for Playstation 2 executables
