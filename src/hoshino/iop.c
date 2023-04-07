@@ -1,6 +1,32 @@
 #include "common.h"
 
-int FUN_0016c778() {
+void hRpc_0016c6e8() {
+    int i;
+    int *ret = hRpc(IOP_RpcInfo);
+    int *ret2;
+    int *ret3;
+    int *ret4;
+    
+    int *iopNext;
+    sD->VoiceStat[0] = ret[0];
+    sD->VoiceStat[1] = ret[1];
+
+    ret2 = ret + 2;
+    bD->iopPoint = ret2[1];
+    bD->iopNext = ret[2];
+
+    i = 0;
+    iopNext = pD->iopNext;
+    ret3 = ret2 + 2;
+    for (; i < 4; i++) {
+        iopNext[i] = ret3[i];
+    }
+
+    ret4 = ret2 + 2;
+    aD->field_0xAC = ret4[4];
+}
+
+int hRpcStat() {
 #ifdef SCE
     return SifCheckStatRpc(&sndRpc.rpcd);
 #else
@@ -8,7 +34,7 @@ int FUN_0016c778() {
 #endif
 }
 
-void FUN_0016c798() {
+void hRpc_0016c798() {
     do {
         if (SifBindRpc(&sndRpc, 0x12346, 0) < 0) {
             while (true);
@@ -87,7 +113,7 @@ int *hRpc(u32 param) {
     return receive;
 }
 
-s32 FUN_0016c9b8(u8 *dest, u8 *src, u32 size) {
+s32 hRpc_0016c9b8(u8 *dest, u8 *src, u32 size) {
     u32 id;
 
 #ifdef SCE

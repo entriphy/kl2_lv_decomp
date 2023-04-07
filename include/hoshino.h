@@ -264,7 +264,7 @@ typedef struct {
     int eeStat[4];
 } hPPTDATA;
 
-typedef struct{
+typedef struct {
     sceCdlFILE files[4];
     int field_0x80;
     int field_0x84;

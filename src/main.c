@@ -29,11 +29,17 @@ int main(int argc, char *argv[]) {
     GsVSync(0);
 #endif
     while (true) {
-        hLoopTop();
+        // hLoopTop will cause the game to stall since the IOP module is currently unimplemented
+        // hLoopTop();
         MainFunc();
         SysGbl.irqc++;
     }
     return 0;
+}
+
+void hLoopTop() {
+    while (hRpcStat() != 0);
+    hRpc_0016c6e8();
 }
 
 void MainFunc() {
