@@ -26,6 +26,9 @@ typedef volatile u128 vu128 __attribute__((mode(TI)));
 typedef signed int s128 __attribute__((mode(TI)));
 typedef volatile s128 vs128 __attribute__((mode(TI)));
 
+typedef float f32;
+typedef double f64;
+
 typedef struct {
 	float x;
 	float y;

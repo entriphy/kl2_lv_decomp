@@ -1,5 +1,5 @@
-#ifndef P_H
-#define P_H
+#ifndef PSFX_H
+#define PSFX_H
 
 #include "types.h"
 #include "ps2.h"

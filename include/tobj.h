@@ -2,7 +2,7 @@
 #define TOBJ_H
 
 #include "hoshino.h"
-#include "p.h"
+#include "psfx.h"
 
 typedef struct tCOORD {
     FVECTOR Rot;
