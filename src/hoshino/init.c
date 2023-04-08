@@ -152,7 +152,7 @@ void hStrInit() {
 }
 
 void hSndInit() {
-    FUN_0030dad0();
+    sceSdRemoteInit();
     sD = &SndData;
     sD->PkNum = (u8*)&SndMainBuffer[2];
     sD->PkMax = 0;
@@ -333,25 +333,6 @@ void hMovInit() {
     mD = &MovData;
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&mD->file, "\\SR.SMV;1"));
-}
-
-int FUN_0030dad0() {
-    SifInitRpc(0);
-    do {
-        if (SifBindRpc(&rpc__003d9718, 0x80000701, 0) < 0) {
-            sce_print("error \n");
-            while (true);
-        }
-        for (int i = 10000; i > 0; i--) {
-            // Do nothing
-        }
-#ifdef SCE
-    } while (!rpc__003d9718.serve);
-#else
-    } while (!rpc__003d9718.server);
-#endif
-    FlushCache(0);
-    return 1;
 }
 
 void FUN_00318a80() {

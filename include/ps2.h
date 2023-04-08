@@ -18,6 +18,7 @@
 #include <eeregs.h>
 #include <libcdvd.h>
 #include <libgraph.h>
+#include <libsdr.h>
 #include <libvu0.h>
 #include <sif.h>
 #include <sifcmd.h>

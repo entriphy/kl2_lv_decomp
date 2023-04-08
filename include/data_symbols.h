@@ -36,7 +36,6 @@
 /* DAT_0038a330 */ extern PERSONAL_DEB PDbuf[9];
 /* DAT_00395028 */ extern OKPROFILE okProfile;
 /* DAT_003bfed0 */ extern hMOVDATA MovData;
-/* DAT_003d9718 */ extern SifClientData rpc__003d9718;
 /* DAT_003fb900 */ extern sceDmaChan* DmaChVIF0;
 /* DAT_003fb904 */ extern sceDmaChan* DmaChVIF1;
 /* DAT_003fb908 */ extern sceDmaChan* DmaChGIF;
