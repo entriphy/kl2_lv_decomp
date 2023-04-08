@@ -1,5 +1,18 @@
 #include "common.h"
 
+void hBgmReset() {
+    if (cD->dataFlag == CDREAD_BGM && cD->dataStat != 2) {
+        while (!sceCdBreak());
+        cD->dataStat = 0;
+    }
+    hBgmWorkClear();
+    bD->Command |= 0x4;
+    hCdCueFlushBGM();
+    if (sD->Stereo == SND_MODE_5P1CH && aD->field_0x80 != 0) {
+        hStr_0016f6e8();
+    }
+}
+
 int hBgmGetStat() {
     if (cD->BGMplay != 0) {
         switch (bD->fadeFlag) {

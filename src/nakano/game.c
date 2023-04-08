@@ -59,7 +59,7 @@ int GameLoad() {
     sceGsSwapDBuffDc(&GameGbl.db, GameGbl.fr);
     GameGbl.fr++;
 
-    if (kzDrawLoadNow() == 1) {
+    if (kzDrawNowload() == 1) {
         if (nkLoadStat == 0) {
             abStageInitA();
             hInitStage0();
@@ -84,5 +84,6 @@ int GameLoad() {
 }
 
 int GameMain() {
+    // TODO
     return 0;
 }

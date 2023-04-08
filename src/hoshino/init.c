@@ -44,54 +44,6 @@ int SndMainBuffer[16];
 SifClientData sndRpc;
 int boot_flag; // ?
 
-u8 *hReadFile(const char* name) {
-    sceCdlFILE file;
-    int ret;
-
-    sceCdDiskReady(0);
-    while (!sceCdSearchFile(&file, name));
-    u8 *buf = getBuff(1, roundSizeToSector(file.size), NULL, &ret);
-
-    while (!sceCdRead(file.lsn, file.size >> 0xB, buf, &cD->mode));
-    do {
-        for (int i = 0; i < 0x100000; i++) {
-            // Do nothing
-        }
-    } while (sceCdSync(1));
-
-    return buf;
-}
-
-int FUN_00167bd0(int param_1) {
-    return FUN_00166128((GameGbl.vision >> 7 & 0x1FE) + param_1) << 0xB;
-}
-
-void FUN_00167c00(int param_1, u8 *param_2) {
-    tblMax = param_2;
-    FUN_001661e0((GameGbl.vision >> 7) + param_1, param_2);
-}
-
-void hInitStage0() {
-    gD = &GameData;
-    hSndReset();
-    hSeLock(0);
-    hSndBankSetStage();
-    hSndSetMVol(0.0f);
-    gD->BGMmode = BGMMODE_TOP;
-    gD->BGMppt = 0;
-    gD->resFlag = 0;
-}
-
-void FUN_00167c20(u8 *param_1) {
-    areaBuff = param_1;
-    FUN_00166140(199, param_1);
-}
-
-int hGameReadOK() {
-    int ret = isLoading();
-    return ret;
-}
-
 void hInitBoot() {
     SifInitRpc(0);
     while (!sceCdInit(SCECdINIT));
@@ -130,7 +82,7 @@ void hInitBoot() {
     
     GameGbl.vision = 0x6300;
     int ret;
-    FUN_0016d710();
+    hSnd_0016d710();
     FUN_00167c20(getBuff(1, FUN_00167bd0(1), NULL, &ret));
     FUN_001d31a0();
     htInitRand(0x399);
@@ -171,8 +123,8 @@ void hStrInit() {
     aD->field_0xB4 = n;
     aD->field_0xB8 = n + 0x3000;
     hStrInfo();
-    // while (FUN_0016c778());
-    FUN_0016c6e8();
+    // while (hRpcStat());
+    hStr_0016c6e8();
 
     bD->iopID = bD->iopNext;
     sceCdDiskReady(0);
@@ -237,18 +189,53 @@ void hSndInit() {
     hStrInit();
 }
 
-int* FUN_0016d5f0(u8 *param_1, int param_2) {
-    // don't feel like doing this rn lol
-    return NULL;
+s32 *hSnd_0016d5f0(u8 *param_1, int param_2) {
+    u8 *hdaddr;
+    u8 *bdaddr;
+    s32 hdsize;
+    s32 bdsize;
+    s32 *rpc;
+    u8 stackShiz[16];
+    
+    if (param_2 != 0) {
+        s16 *fhm = (s16 *)GetFHMAddress(param_1, 2);
+        s16 tblNum = *fhm;
+        sD->stageTblNum = tblNum;
+        memcpy(sD->stageTbl, fhm + 1, tblNum * 2);
+    }
+
+    hdaddr = GetFHMAddress(param_1, 0);
+    bdaddr = GetFHMAddress(param_1, 1);
+    hdsize = JamGetHdSize(hdaddr);
+    bdsize = JamGetBdSize(hdaddr);
+    hRpc_0016c9b8((u8 *)(sD->iopBankAddr + param_2 * 0x2000), hdaddr, hdsize); // addr, data, size
+    RpcArg[0] = param_2;
+    rpc = hRpc(IOP_JamBankSet);
+    
+    while (bdsize > 0) {
+        s32 transsize;
+        if (bdsize < 0x10000) {
+            transsize = bdsize;
+        } else {
+            transsize = 0x10000;
+        }
+        
+        hRpc_0016c9b8((u8 *)(sD->iopBankAddr + 0x4000), bdaddr, transsize);
+        bdsize -= 0x10000;
+        bdaddr += 0x10000;
+        rpc = hRpc(IOP_JamBdTrans);
+    }
+    
+    return rpc;
 }
 
-void FUN_0016d710() {
+void hSnd_0016d710() {
     int ret;
 
     u8 *buf = getBuff(1, 0x200000, NULL, &ret);
-    FUN_00166140(0xC6, buf);
+    hCdReadKlPack(0xC6, buf);
     buf = GetFHMAddress(buf, 2);
-    FUN_0016d5f0(buf, 0);
+    hSnd_0016d5f0(buf, 0);
     FUN_001d37f8(1, 0x200000, NULL);
 }
 

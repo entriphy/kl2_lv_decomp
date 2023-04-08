@@ -70,6 +70,11 @@ void hSndPkSetEVol(int vol) {
     *sD->PkNum++ = (u8)((u32)vol >> 8);
 }
 
+void hSndPkKeyOffAll() {
+    sD->PkMax++;
+    *sD->PkNum++ = 2;
+}
+
 void hSndReset() {
     hBgmReset();
     hPptReset();
@@ -87,4 +92,14 @@ int hSndPkGetSize() {
         size = (int)(sD->PkNum - 4289250);
     }
     return size;
+}
+
+void hSndBankSetStage() {
+    u8 *soundbank = hGetDataAddr(2);
+    if (soundbank != NULL) {
+        sD->stageBank = 1;
+        hSnd_0016d5f0(soundbank, 1);
+    } else {
+        sD->stageBank = 0;
+    }
 }

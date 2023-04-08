@@ -103,7 +103,7 @@ void hStrInfo() {
     bD->iopOK[1] = 0;
 }
 
-void FUN_0016c6e8() {
+void hStr_0016c6e8() {
     int *ret = hRpc(IOP_RpcInfo);
     sD->VoiceStat[0] = ret[0];
     sD->VoiceStat[1] = ret[1];
@@ -113,4 +113,12 @@ void FUN_0016c6e8() {
         pD->iopNext[i] = ret[4 + i];
     }
     aD->field_0xAC = ret[8];
+}
+
+void hStr_0016f6e8() {
+    bD->Command |= 0x200;
+    aD->field_0x8C = 0;
+    aD->field_0x9C = 0;
+    aD->field_0x90 = -1;
+    aD->field_0x80 = 0;
 }

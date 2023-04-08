@@ -40,4 +40,6 @@ typedef struct {
     u32 size;
 } nkGifPacket;
 
+#define nkSPR (nkQWdata *)0x70000000
+
 #endif

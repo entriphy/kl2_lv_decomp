@@ -50,3 +50,4 @@ void MainFunc() {
         functbl[SysGbl.nmode].func[SysGbl.nsmode]();
     }
 }
+

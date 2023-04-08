@@ -42,7 +42,7 @@ void FUN_001979b0(int fba) {
     nkGifPacket pk;
     
     pk.size = 0;
-    pk.buf = (nkQWdata *)0x70000000;
+    pk.buf = nkSPR;
     
     SCE_GIF_CLEAR_TAG(pk.buf);
     pk.buf[pk.size++].ul32[0] = 0x70000000 | 0x2;
@@ -75,4 +75,14 @@ void nkInitSys() {
     nkDG.map_draw_flag = 0;
     nkDG.opflag = 0;
     hrpt_deb = 0;
+}
+
+void nkStageInit0() {
+    if ((GameGbl.vision >> 8) - 15 > 5) {
+        u8 *gms = hGetDataAddr(0);
+        if (gms != NULL) {
+            FUN_0018dcb0(gms + ((s32 *)gms)[1]);
+            sceGsSyncPath(0, 0);
+        }
+    }
 }

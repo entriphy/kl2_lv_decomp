@@ -1,6 +1,25 @@
 #include <libcdvd.h>
 #include "common.h"
 
+u8 * hCdReadFile(const char *name) {
+    sceCdlFILE file;
+    u8 *buf;
+    s32 ret;
+    s32 sectors;
+    
+    sceCdDiskReady(0);
+    while (!sceCdSearchFile(&file, name));
+    sectors = ((file.size + 0x7FF) / 0x800);
+    buf = (u8 *)getBuff(1, sectors * 0x800, NULL, &ret);
+    while (!sceCdRead(file.lsn, sectors, buf, &cD->mode));
+    do {
+        s32 i;
+        for (i = 0; i < 0x100000; i++);
+    } while (sceCdSync(1));
+
+    return buf;
+}
+
 void hCdCuePush(int arg0, int arg1, int arg2, int arg3, int arg4) {
     int reg = cQ->Reg;
     cQ->Arg[reg][0] = arg0;
@@ -14,15 +33,70 @@ void hCdCuePush(int arg0, int arg1, int arg2, int arg3, int arg4) {
     cQ->Num++;
 }
 
-int FUN_00166128(int file) {
-    return KlTable[file].count;
+void hCdCue_00165c60(int *arr) {
+    s32 i = cQ->Exe;
+    arr[0] = cQ->Arg[i][0];
+    arr[1] = cQ->Arg[i][1];
+    arr[2] = cQ->Arg[i][2];
+    arr[3] = cQ->Arg[i][3];
+    arr[4] = cQ->Arg[i][4];
+
+    cQ->Exe++;
+    if (cQ->Exe == 32) {
+        cQ->Exe = 0;
+    }
+    cQ->Num--;
 }
 
-void FUN_00166140(int file, u8 *buf) {
-    sce_print("@@@ reading file %d to 0x%08x\n", file, buf);
+s32 hCdCueNum() {
+    return cQ->Num;
+}
+
+void hCdCueFlushBGM() {
+    s32 i;
+    s32 iVar2;
+    s32 cue;
+    u32 arr[32][5];
+
+    i = 0;
+    while ((cue = hCdCueNum()) != 0) {
+        hCdCue_00165c60(arr[i++]);
+    }
+    
+    for (iVar2 = 0; iVar2 < i; iVar2++) {
+        if (arr[iVar2][3] - 1 > 1) {
+            hCdCuePush(arr[iVar2][0], arr[iVar2][1], arr[iVar2][2], arr[iVar2][3], arr[iVar2][4]);
+        }
+    }
+}
+
+void hCdCueFlushPPT() {
+    s32 i;
+    s32 iVar2;
+    s32 cue;
+    u32 arr[32][5];
+
+    i = 0;
+    while ((cue = hCdCueNum()) != 0) {
+        hCdCue_00165c60(arr[i++]);
+    }
+    
+    for (iVar2 = 0; iVar2 < i; iVar2++) {
+        if (arr[iVar2][3] != 3) { // this is the only change from hCdCueFlushBGM lol
+            hCdCuePush(arr[iVar2][0], arr[iVar2][1], arr[iVar2][2], arr[iVar2][3], arr[iVar2][4]);
+        }
+    }
+}
+
+int FUN_00166128(int index) {
+    return KlTable[index].count;
+}
+
+void hCdReadKlPack(int index, u8 *buf) {
+    sce_print("@@@ reading file %d to 0x%08x\n", index, buf);
 
     sceCdDiskReady(0);
-    while (!sceCdRead(KlTable[file].offset + cD->file.lsn, KlTable[file].count, buf, &cD->mode));
+    while (!sceCdRead(KlTable[index].offset + cD->file.lsn, KlTable[index].count, buf, &cD->mode));
     do {
         for (int i = 0; i < 0x10000; i++) {
             // Do nothing
@@ -65,7 +139,7 @@ void hCdInit() {
 
     sceCdDiskReady(0);
     cD->DiscType = sceCdGetDiskType();
-    u8 *buf = hReadFile("\\HEADPACK.BIN;1");
+    u8 *buf = hCdReadFile("\\HEADPACK.BIN;1");
     u8 *addr = GetFHMAddress(buf, 0);
     KlTable = (KLTABLE *)(addr + 4);
     addr = GetFHMAddress(buf, 1);
