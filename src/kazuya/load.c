@@ -23,8 +23,9 @@ void kzInitNowload() {
 }
 
 int kzDrawNowload() {
+    // TODO
     int iVar3;
-
+    
     if (ret_gameread == 0) {
         ret_gameread = hGameReadOK();
     }
@@ -52,4 +53,6 @@ int kzDrawNowload() {
     if (klworks_flag != 0) {
         
     }
+    
+    return ret_gameread;
 }

@@ -86,3 +86,7 @@ void nkStageInit0() {
         }
     }
 }
+
+void nkStageInit1() {
+    // TODO
+}

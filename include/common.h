@@ -18,6 +18,7 @@
 #include "objwork.h"
 #include "okanoyo.h"
 #include "ps2.h"
+#include "psfx.h"
 #include "tobj.h"
 #include "types.h"
 

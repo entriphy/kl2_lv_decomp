@@ -27,7 +27,7 @@
 /* FUN_00165e50 */ extern void hCdCueFlushPPT();
 /* FUN_00166128 */ extern int FUN_00166128(int param_1);
 /* FUN_00166140 */ extern void hCdReadKlPack(int param_1, u8 *param_2);
-/* FUN_001661e0 */ extern void FUN_001661e0(int param_1, u8 *param_2);
+/* FUN_001661e0 */ extern void hCdPushKlPack(int param_1, u8 *param_2);
 /* FUN_00166210 */ extern int isLoading();
 /* FUN_00166248 */ extern void hCdInit();
 /* FUN_00167c20 */ extern void FUN_00167c20(u8 *buf);
@@ -90,6 +90,8 @@
 /* FUN_00174da0 */ extern void kzLoadCommonGms();
 /* FUN_00175630 */ extern void kzInitNowload();
 /* FUN_00175690 */ extern int kzDrawNowload();
+/* FUN_00175a58 */ extern void kzSetDispMaskOn();
+/* FUN_00175a68 */ extern void kzSetDispMaskOff();
 /* FUN_0017b7c8 */ extern void kzStageInit0();
 
 // Nakano functions
@@ -125,6 +127,7 @@
 /* FUN_001a56e0 */ extern int nkInit();
 /* FUN_001a5700 */ extern int nkMain();
 /* FUN_001b4570 */ extern void nkStageInit0();
+/* FUN_001b4ab0 */ extern void nkStageInit1();
 /* FUN_001b52a8 */ extern void nkWipeEffBClear();
 
 // Okano functions

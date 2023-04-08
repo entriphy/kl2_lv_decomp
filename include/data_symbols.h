@@ -35,6 +35,7 @@
 /* DAT_0038a308 */ extern OKDEBDATA okDebData;
 /* DAT_0038a330 */ extern PERSONAL_DEB PDbuf[9];
 /* DAT_00395028 */ extern OKPROFILE okProfile;
+/* DAT_00398c00 */ extern SCRENV Scr;
 /* DAT_003bfed0 */ extern hMOVDATA MovData;
 /* DAT_003fb900 */ extern sceDmaChan* DmaChVIF0;
 /* DAT_003fb904 */ extern sceDmaChan* DmaChVIF1;
@@ -68,6 +69,7 @@
 /* DAT_003fad84 */ extern DL_STATUS dl_status;
 /* DAT_003fad88 */ extern int ret_gameread;
 /* DAT_003fadcc */ extern int DAT_003fadcc;
+/* DAT_003faf2c */ extern int disp_mask_flag;
 /* DAT_003fb8ec */ extern int nkLoadTimer;
 /* DAT_003fb8f0 */ extern int nkLoadStat;
 /* DAT_003fb8f4 */ extern int DAT_003fb8f4;
@@ -82,7 +84,7 @@
 /* DAT_003fbaf4 */ extern int fontDispID;
 /* DAT_003fc2e8 */ extern u8 *tblMax;
 /* DAT_003fc2ec */ extern u8 *areaBuff;
-/* DAT_003fc468 */ extern u8 *DAT_003fc468;
+/* DAT_003fc468 */ extern u8 *nkLoadBuff;
 /* DAT_003fc46c */ extern int key_data_top_index;
 /* DAT_003fc470 */ extern int key_frame_cnt;
 /* DAT_003fc474 */ extern int key_frame_max;

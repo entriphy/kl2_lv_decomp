@@ -104,16 +104,17 @@ void hCdReadKlPack(int index, u8 *buf) {
     } while (sceCdSync(1));
 }
 
-void FUN_001661e0(int param_1, u8 *param_2) {
-    hCdCuePush((cD->file).lsn + KlTable[param_1].offset, KlTable[param_1].count, (int)param_2, 4, cD->eeCnt);
+void hCdPushKlPack(int index, u8 *param_2) {
+    hCdCuePush((cD->file).lsn + KlTable[index].offset, KlTable[index].count, (int)param_2, 4, cD->eeCnt);
 }
 
 int isLoading() {
-    int ret = 0;
-    if (cD->dataFlag == CDREAD_DATA) {
-        ret = cD->dataStat == 2;
-    }
-    return ret;
+    // int ret = 0;
+    // if (cD->dataFlag == CDREAD_DATA) {
+    //     ret = cD->dataStat == 2;
+    // }
+    // return ret;
+    return cD->dataFlag == CDREAD_DATA && cD->dataStat == 2;
 }
 
 void hCdInit() {

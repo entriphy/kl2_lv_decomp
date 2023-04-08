@@ -1,8 +1,7 @@
 #include "common.h"
 
 int hGameReadOK() {
-    int ret = isLoading();
-    return ret;
+    return isLoading();
 }
 
 u8 *hGetDataAddr(int i) {
@@ -21,7 +20,7 @@ int FUN_00167bd0(int param_1) {
 
 void FUN_00167c00(int param_1, u8 *param_2) {
     tblMax = param_2;
-    FUN_001661e0((GameGbl.vision >> 7) + param_1, param_2);
+    hCdPushKlPack((GameGbl.vision >> 7) + param_1, param_2);
 }
 
 void hInitStage0() {

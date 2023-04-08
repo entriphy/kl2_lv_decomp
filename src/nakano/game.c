@@ -4,7 +4,7 @@ int nkLoadTimer;
 int nkLoadStat;
 int DAT_003fb8f4;
 u8 *NakanoPackAddr;
-u8 *DAT_003fc468;
+u8 *nkLoadBuff;
 
 int (*GameFuncTbl[3])() = {
     GameInit,
@@ -23,7 +23,7 @@ int GameInit() {
     nkLoadTimer = 0;
     nkLoadStat = 0;
     DAT_003fb8f4 = 0;
-    DAT_003fc468 = getBuff(1, FUN_00167bd0(1), NULL, &ret);
+    nkLoadBuff = getBuff(1, FUN_00167bd0(1), NULL, &ret);
     kzInitNowload();
     nkKeyFrameStart();
     SysGbl.smode++;
@@ -33,10 +33,10 @@ int GameInit() {
 int GameLoad() {
     if (DAT_003fb8f4 == 0) {
         if (nkLoadStat == 0) {
-            FUN_00167c00(0, DAT_003fc468);
+            FUN_00167c00(0, nkLoadBuff);
         }
         else if (nkLoadStat == 1) {
-            FUN_00167c00(1, DAT_003fc468);
+            FUN_00167c00(1, nkLoadBuff);
         }
         DAT_003fb8f4++;
     }
@@ -73,7 +73,7 @@ int GameLoad() {
             SysGbl.smode++;
             nkGsSetNormalFZ2_0();
             nkWipeEffBClear();
-            nkGsSetNormalFZ2();
+            nkGsSetNormalFZ2_1();
             nkWipeEffBClear();
         }
         DAT_003fb8f4 = 0;

@@ -54,7 +54,7 @@ void OkMainInit(int argc, char **argv) {
     OkDefaultSysInit(640, 224, 16, 8);
     // FUN_001dacb0();
     fontDispID = 0;
-    GameGbl.vision = 0x100;
+    GameGbl.vision = 0x0100;
     okDebData.debp->zak_com.tetton2_upspd = 0x1600;
     okDebData.debp->zak_com.tetton2_upmax = 0x5000;
     okDebData.debp->zak_com.tetton2_dwspd = 0x200;
