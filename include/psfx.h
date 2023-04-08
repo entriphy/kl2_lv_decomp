@@ -191,4 +191,15 @@ typedef struct PSFXOBJ {
     s32 actNum;
 } PSFXOBJ;
 
+typedef struct {
+    sceVu0FVECTOR Trans; // 0x00
+    sceVu0FVECTOR Rot; // 0x10
+    sceVu0FVECTOR Scale; // 0x20
+    PSFXOBJ *pObj; // 0x30
+    int ActNum; // 0x34
+    int old_muki; // 0x38
+    int wip_timer; // 0x3C
+    int dummy[4]; // 0x40
+} PsfxMODEL;
+
 #endif

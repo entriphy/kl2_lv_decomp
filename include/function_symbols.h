@@ -102,6 +102,8 @@
 /* FUN_0018fd28 */ extern int GameLoad();
 /* FUN_0018ff58 */ extern int GameMain();
 /* FUN_00196c00 */ extern void FUN_00196c00();
+/* FUN_00197570 */ extern void nkGsSetNormalFZ2_0();
+/* FUN_001976d0 */ extern void nkGsSetNormalFZ2_1();
 /* FUN_00197830 */ extern void nkGsSetNormalFZ2();
 /* FUN_001979b0 */ extern void FUN_001979b0(int param_1);
 /* FUN_00197a88 */ extern void FUN_00197a88();

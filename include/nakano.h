@@ -2,6 +2,7 @@
 #define NAKANO_H
 
 #include "types.h"
+#include "ps2.h"
 
 typedef struct {
     s32 map_draw_flag;
@@ -39,6 +40,25 @@ typedef struct {
     nkQWdata *buf;
     u32 size;
 } nkGifPacket;
+
+typedef struct {
+    float SrcZ;
+    float AspectX;
+    float AspectY;
+    float CenterX;
+    float CenterY;
+    float MinZ;
+    float MaxZ;
+    float NearZ;
+    float FarZ;
+    float pad[3];
+    sceVu0FVECTOR camera_p;
+    sceVu0FVECTOR camera_zd;
+    sceVu0FVECTOR camera_yd;
+    sceVu0FMATRIX WvMtx;
+    sceVu0FMATRIX VsMtx;
+    sceVu0FMATRIX WsMtx;
+} SCRENV;
 
 #define nkSPR (nkQWdata *)0x70000000
 
