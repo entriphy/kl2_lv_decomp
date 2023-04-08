@@ -7,7 +7,6 @@
 
 class CTexManager {
     protected:
-        static CTexManager m_instance;
         s32 m_texID[672];
     
     public:
