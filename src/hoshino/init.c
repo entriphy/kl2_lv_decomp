@@ -302,15 +302,16 @@ u8 *getBuff(s32 type, s32 size, const char *name, s32 *ret) {
     u8 *newBuff = buffstartptr;
     
     if (type == 0) {
-        size = FUN_001d1c08(name);
+        size = FUN_001d1c08(name); // Gets filesize
         *ret = -1;
         if (size == -1)
             return (u8 *)-1;
-        *ret = FUN_001d1c78(name, buff);
+        *ret = FUN_001d1c78(name, newBuff);
     }
     
     size = ((size + 0x0F) / 0x10) * 0x10;
-    buffstartptr = newBuff + size;
+    newBuff += size;
+    buffstartptr = newBuff;
     return buff;
 }
 
