@@ -38,9 +38,36 @@
 	/* -0x10(sp) */ int i;
 }
 
-/* 00000fb4 00001218 */ void StrCross() {
-	/* -0x18(sp) */ BGMDATA *p;
-	/* -0x14(sp) */ u_int cnt;
+void StrCross() {
+	BGMDATA *p;
+    u32 cnt;
+
+    cnt = pSTR->eeCnt - pSTR->BGMcnt;
+    pBGM2->Ch = pSTR->BGMch2;
+    pBGM2->iopOffset = pBGM->iopOffset;
+
+    if (cnt >= 0x2e) {
+        pBGM2->Vol = (pSTR->BGMbasevol * (cnt - 0x2d)) / 0x2d;
+        
+    } else {
+        pBGM2->Vol = 0;
+    }
+    pBGM->Vol = (pSTR->BGMbasevol * (0x5a - cnt)) / 0x5a;
+
+    if (pSTR->BGMstat == 1) {
+        pSTR->BGMcnt++;
+    }
+
+    if (cnt > 0x59) {
+        pSTR->BGMsp = 0;
+        pBGM2->iopID = pBGM->iopID;
+        pBGM2->iopIDnext = pBGM->iopIDnext;
+        pBGM->Vol = 0;
+        pBGM->iopID = -1;
+        p = pBGM;
+        pBGM = pBGM2;
+        pBGM2 = p;
+    }
 }
 
 /* 00001218 00002608 */ int StrMain(/* 0x0(sp) */ int status) {
