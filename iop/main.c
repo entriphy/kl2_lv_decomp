@@ -16,8 +16,18 @@
 	/* -0x10(sp) */ int *arg;
 }
 
-/* 00007fc8 00008090 */ int MainThread() {
-	/* bss 200 */ static u_int arg[256];
-	/* -0x68(sp) */ sceSifQueueData qd;
-	/* -0x50(sp) */ sceSifServeData sd;
+int MainThread() {
+    static u32 arg[256];
+    sceSifQueueData qd;
+    sceSifServeData sd;
+
+    CpuEnableIntr();
+    EnableIntr(0x24);
+    EnableIntr(0x28);
+    EnableIntr(9);
+    sceSifInitRpc(0);
+    sceSifSetRpcQueue(&qd, GetThreadId());
+    sceSifRegisterRpc(&sd, 0x12346, &dispatch, &arg, 0, 0, &qd);
+    sceSifRpcLoop(&qd);
+    return 0;
 }

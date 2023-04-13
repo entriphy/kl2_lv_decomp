@@ -6,18 +6,9 @@
 
 ModuleInfo Module = { "KL2 Driver", 0x0101 };;
 
-int MainThread() {
-    static u32 arg[256];
-    sceSifQueueData qd;
-    sceSifServeData sd;
+/* 00000000 000000cc */ int start() {
+	/* -0x28(sp) */ struct ThreadParam param;
+	/* -0x10(sp) */ int th;
 
-    CpuEnableIntr();
-    EnableIntr(0x24);
-    EnableIntr(0x28);
-    EnableIntr(9);
-    sceSifInitRpc(0);
-    sceSifSetRpcQueue(&qd, GetThreadId());
-    sceSifRegisterRpc(&sd, 0x12346, &dispatch, &arg, 0, 0, &qd);
-    sceSifRpcLoop(&qd);
     return 0;
 }
