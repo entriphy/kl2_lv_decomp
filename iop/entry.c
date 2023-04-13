@@ -1,14 +1,28 @@
-// *****************************************************************************
-// FILE -- /home/hoshino/klonoa2/src/hoshino/iop/src/entry.c
-// *****************************************************************************
-
 #include "iop.h"
 
-ModuleInfo Module = { "KL2 Driver", 0x0101 };;
+ModuleInfo Module = { "KL2 Driver", 0x0101 };
 
-/* 00000000 000000cc */ int start() {
-	/* -0x28(sp) */ struct ThreadParam param;
-	/* -0x10(sp) */ int th;
+int start() {
+	struct ThreadParam param;
+	int th;
 
-    return 0;
+    CpuEnableIntr();
+    if (sceSifCheckInit() == 0) {
+        sceSifInit();
+    }
+    sceSifInitRpc(0);
+    
+    param.attr = TH_C;
+    param.entry = &MainThread;
+    param.initPriority = 30;
+    param.stackSize = 0x800;
+    param.option = 0;
+
+    th = CreateThread(&param);
+    if (th > 0) {
+        StartThread(th, 0);
+        return 0;
+    } else {
+        return 1;
+    }
 }
