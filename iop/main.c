@@ -1,19 +1,62 @@
-// *****************************************************************************
-// FILE -- /home/hoshino/klonoa2/src/hoshino/iop/src/main.c
-// *****************************************************************************
-
 #include "iop.h"
 
-/* bss 1f60 */ IOP_MEM Mem;
-/* bss 1f20 */ int RpcRet[16];
-/* bss 1ee0 */ int RpcInfo[16];
+IOP_MEM Mem;
+int RpcRet[16];
+int RpcInfo[16];
 
-/* 00007ce0 00007da8 */ void IopInit() {
-
+void IopInit() {
+    Mem.iTop = AllocSysMemory(0, 0x150180, NULL);
+    Mem.iStream = Mem.iTop;
+    Mem.iBankhd = Mem.iTop + 0x130180;
+    Mem.iBankbd = Mem.iTop + 0x140180;
+    Mem.sBankbd = 0x5c10;
+    RpcRet[0] = Mem.iBankhd;
+    RpcRet[1] = Mem.iStream;
 }
 
-/* 00007da8 00007fc8 */ static void* dispatch(/* 0x0(sp) */ u_int cmd, /* 0x4(sp) */ void *data, /* 0x8(sp) */ int size) {
-	/* -0x10(sp) */ int *arg;
+static void * dispatch(u_int cmd, void *data, int size) {
+    int *arg;
+
+    arg = data;
+    
+    switch (cmd) {
+        case IOP_IopInit:
+            IopInit();
+            break;
+        case IOP_RpcInfo:
+            return RpcInfo;
+            break;
+        case IOP_StrInit:
+            StrInit();
+            break;
+        case IOP_StrInfo:
+            StrInfo(data);
+            break;
+        case IOP_StrKick:
+            StrKick();
+            break;
+        case IOP_SndInit:
+            SndInit();
+            break;
+        case IOP_SndMain:
+            SndMain(data);
+            break;
+        case IOP_SndMask:
+            SndMask(data);
+            break;
+        case IOP_JamBankSet:
+            JamBankSet(*arg);
+            break;
+        case IOP_JamBdTrans:
+            JamBdTrans();
+            break;
+        case 2: // ?
+            break;
+        default:
+            break;
+    }
+	
+    return RpcRet;
 }
 
 int MainThread() {
