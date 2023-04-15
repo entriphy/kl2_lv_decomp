@@ -5,7 +5,7 @@ int RpcRet[16];
 int RpcInfo[16];
 
 void IopInit() {
-    Mem.iTop = AllocSysMemory(0, 0x150180, NULL);
+    Mem.iTop = (u_int)AllocSysMemory(0, 0x150180, NULL);
     Mem.iStream = Mem.iTop;
     Mem.iBankhd = Mem.iTop + 0x130180;
     Mem.iBankbd = Mem.iTop + 0x140180;

@@ -399,7 +399,7 @@ typedef struct { // 0x50
 
 #endif // IOP_H
 
-extern void * dispatch(u_int cmd, void *data, int size);
+
 
 #define IOP_IopInit 0x08000000
 #define IOP_RpcInfo 0x08000001
@@ -411,3 +411,19 @@ extern void * dispatch(u_int cmd, void *data, int size);
 #define IOP_SndMask 0x22000002
 #define IOP_SndInit 0x24000000
 #define IOP_SndMain 0x2a000001
+
+extern int RpcRet[16];
+extern int RpcInfo[16];
+extern IOP_MEM Mem;
+extern SNDDATA *sD;
+extern int MainThread();
+extern void StrInit();
+extern void StrInfo(int *data);
+extern u_int StrKick();
+extern void SndInit();
+extern void SndMain(int *data);
+extern void SndMask(int *data);
+extern void JamBankSet(int id);
+extern void JamBdTrans();
+extern void JamGetPrm(int id, int prog, int splt, SNDKEYPRM *prm);
+extern void JamInit();

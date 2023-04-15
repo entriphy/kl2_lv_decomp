@@ -557,7 +557,7 @@ void StrInit() {
         MarkTop(pSTR->ZeroBuff2, 0x80);
         pSTR->DmaWait = 1;
         sceSdVoiceTrans(1, 8, (void *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[0], 0x80);
-        MarkBottom(pSTR->ZeroBuff2,0 x80);
+        MarkBottom(pSTR->ZeroBuff2, 0x80);
         pSTR->DmaWait = 1;
         sceSdVoiceTrans(1, 8, (void *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[1], 0x80);
     }

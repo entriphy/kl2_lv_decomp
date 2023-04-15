@@ -159,7 +159,7 @@ void SndMain(int *data) {
 	int core;
 	int vnum;
 
-    SndGetPacket(data);
+    SndGetPacket((u_char *)data);
     for (core = 0; core < 2; core++) {
         if (sD->EffChange[core] != 0) {
             sD->Batch[0].func = 1;
@@ -303,7 +303,7 @@ void SndMain(int *data) {
             sD->Batch[core * 0x18 + vnum].value = 0;
         }
     }
-    sceSdProcBatch(sD->Batch, sD->ENVX, 0x30);
+    sceSdProcBatch(sD->Batch, (u_int *)sD->ENVX, 0x30);
     for (core = 0; core < 2; core++) {
         sD->vStatEnv[core] = 0;
         for (vnum = 0; vnum < 0x18; vnum++) {
