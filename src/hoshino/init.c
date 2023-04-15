@@ -33,14 +33,14 @@ hSNDDATA* sD;
 hBGMDATA* bD;
 hPPTDATA* pD;
 hAC3DATA* aD;
-u8 pptEeAddrs[4][0x40000];
+u8 pptEeAddrs[4][0x40000] __attribute__((aligned(16)));
 u8 *tblMax;
 u8 *areaBuff;
 hMOVDATA* mD;
-int RpcArg[16];
+int RpcArg[16] __attribute__((aligned(16)));
 SifDmaData sifdma_004171c0;
-int RpcRecvBuf[2][16];
-int SndMainBuffer[16];
+int RpcRecvBuf[2][16] __attribute__((aligned(16)));
+int SndMainBuffer[16] __attribute__((aligned(16)));
 SifClientData sndRpc;
 int boot_flag; // ?
 
