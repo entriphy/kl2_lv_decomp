@@ -50,8 +50,7 @@ void hRpc_0016c798() {
 #endif
 }
 
-// TODO: Fix this
-int *hRpc(u32 param) {
+int * hRpc(s32 cmd) {
     // 0x08000000: IopInit(),        r = 64, s = 0
     // 0x08000001: return RpcInfo,   r = 64, s = 0
     // 0x10000003: StrKick(),        r = 0,  s = 0
@@ -64,7 +63,12 @@ int *hRpc(u32 param) {
     // 0x2a000001: SndMain(data),    r = 64, s = 64
 
     int rsize;
-    switch (param & 0xc000000) {
+    int ssize;
+    int mode;
+    int *send;
+    int *receive;
+    
+    switch (cmd & 0xc000000) {
         case 0x4000000:
             rsize = 16;
             break;
@@ -78,9 +82,8 @@ int *hRpc(u32 param) {
             rsize = 0;
             break;
     }
-
-    int ssize;
-    switch (param & 0x3000000) {
+    
+    switch (cmd & 0x3000000) {
         case 0x1000000:
             ssize = 16;
             break;
@@ -94,23 +97,32 @@ int *hRpc(u32 param) {
             ssize = 0;
             break;
     }
+    
+    send = RpcArg;
+    receive = RpcRecvBuf[0];
+    mode = 0;
 
-    int mode = 0;
-    int* send = RpcArg;
-    int* receive = RpcRecvBuf[0];
-    if (param == 0x2a000001) {
-        send = SndMainBuffer;
-        ssize = hSndPkGetSize();
-        receive = RpcRecvBuf[1];
+    switch (cmd) {
+        case IOP_StrInfo:
+        case 0x10000002: // Is this even a valid command?
+            mode = SIF_RPCM_NOWAIT;
+            break;
+        case IOP_SndMain:
+            send = SndMainBuffer;
+            ssize = hSndPkGetSize();
+            receive = RpcRecvBuf[1];
+            mode = SIF_RPCM_NOWAIT;
+            break;
+        default:
+            break;
+    }
+
+    sceSifCallRpc(&sndRpc, cmd, mode, send, ssize, receive, rsize, NULL, NULL);
+    if ((cmd & 0xc000000) == 0x4000000) {
+        return (int *)*receive;
     } else {
-        mode = SIF_RPC_M_NOWAIT;
+        return receive;
     }
-
-    SifCallRpc(&sndRpc, param, mode, send, ssize, receive, rsize, 0, 0);
-    if ((param & 0xc000000) == 0x4000000) {
-        // TODO
-    }
-    return receive;
 }
 
 s32 hRpc_0016c9b8(u8 *dest, u8 *src, u32 size) {
