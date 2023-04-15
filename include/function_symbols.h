@@ -47,9 +47,9 @@
 /* FUN_0016ad90 */ extern void hLoopTop();
 
 // hRpc
-/* FUN_0016c6e8 */ extern void hRpc_0016c6e8();
+/* FUN_0016c6e8 */ extern void hRpcInfo();
 /* FUN_0016c778 */ extern int hRpcStat();
-/* FUN_0016c798 */ extern void hRpc_0016c798();
+/* FUN_0016c798 */ extern void hRpcBind();
 /* FUN_0016c830 */ extern int *hRpc(s32 param);
 /* FUN_0016c9b8 */ extern s32 hRpc_0016c9b8(u8 *dest, u8 *src, u32 size);
 /* FUN_0016ca20 */ extern u32 JamGetHdSize(u8 *hdaddr);

@@ -74,6 +74,7 @@ void hInitBoot() {
         sce_print("@ Loading module %s: %d\n", modules[i], id);
     }
 
+    hRpcBind();
     hRpc(IOP_IopInit);
     init_config_system();
     hCdInit();
@@ -123,7 +124,7 @@ void hStrInit() {
     aD->field_0xB4 = n;
     aD->field_0xB8 = n + 0x3000;
     hStrInfo();
-    // while (hRpcStat());
+    while (hRpcStat());
     hStr_0016c6e8();
 
     bD->iopID = bD->iopNext;

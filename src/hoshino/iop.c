@@ -1,6 +1,6 @@
 #include "common.h"
 
-void hRpc_0016c6e8() {
+void hRpcInfo() {
     int i;
     int *ret = hRpc(IOP_RpcInfo);
     int *ret2;
@@ -34,7 +34,7 @@ int hRpcStat() {
 #endif
 }
 
-void hRpc_0016c798() {
+void hRpcBind() {
     do {
         if (SifBindRpc(&sndRpc, 0x12346, 0) < 0) {
             while (true);
