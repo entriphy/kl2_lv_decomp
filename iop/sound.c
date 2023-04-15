@@ -3,7 +3,12 @@
 SNDDATA SndData;
 SNDDATA *sD;
 
-static int SndDmaInt(void *common) {
+#ifdef SCE_OBSOLETE
+static int SndDmaInt(void *common)
+#else
+static int SndDmaInt(int core, void *common)
+#endif
+{
 	sD->DmaWait -= 1;
 	return 1;
 }
@@ -400,7 +405,11 @@ void SndInit() {
 
     sceSdSetParam(0x800, 0xFC0);
     sceSdSetParam(0x801, 0xFFC);
+#ifdef SCE_OBSOLETE
     sceSdSetTransCallback(0, &SndDmaInt);
+#else
+    sceSdSetTransIntrHandler(0, &SndDmaInt, NULL);
+#endif
     JamInit();
     RpcRet[0] = Mem.iBankhd;
 }

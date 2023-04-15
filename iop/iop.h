@@ -28,8 +28,10 @@
 
 #include <libsd.h>
 #include <kernel.h>
+#include <sif.h>
 #include <sifrpc.h>
 #include <thread.h>
+#include <string.h>
 
 typedef char s8;
 typedef short int s16;
@@ -397,10 +399,6 @@ typedef struct { // 0x50
 	/* 0x10 */ CHK_HEAD Header;
 } JAMHD;
 
-#endif // IOP_H
-
-
-
 #define IOP_IopInit 0x08000000
 #define IOP_RpcInfo 0x08000001
 #define IOP_StrKick 0x10000003
@@ -419,7 +417,7 @@ extern SNDDATA *sD;
 extern int MainThread();
 extern void StrInit();
 extern void StrInfo(int *data);
-extern u_int StrKick();
+extern void StrKick();
 extern void SndInit();
 extern void SndMain(int *data);
 extern void SndMask(int *data);
@@ -427,3 +425,17 @@ extern void JamBankSet(int id);
 extern void JamBdTrans();
 extern void JamGetPrm(int id, int prog, int splt, SNDKEYPRM *prm);
 extern void JamInit();
+extern void PptStop();
+extern void Ac3Play();
+extern void Ac3Stop();
+extern void Ac3ZeroPcmPlay();
+extern void Ac3ZeroPcmStop();
+extern void Ac3SetDigitalOut();
+extern void Ac3Play2();
+extern void Ac3Clear();
+
+extern int CpuDisableIntr();
+extern int CpuEnableIntr();
+extern int EnableIntr(int irq);
+
+#endif // IOP_H

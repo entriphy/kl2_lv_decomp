@@ -21,9 +21,18 @@ void MarkBottom(int a, int s) {
     FlushDcache();
 }
 
-static void * SpuInt() {
+#ifdef SCE_OBSOLETE
+static void * SpuInt()
+#else
+static int SpuInt(int ch, void *common)
+#endif
+{
     iSignalSema(pSTR->Sem);
+#ifdef SCE_OBSOLETE
     return (void *)0x1; // ?
+#else
+    return 0;
+#endif
 }
 
 void StrDebug() {
@@ -33,28 +42,32 @@ void StrDebug() {
     WaitSema(pSTR->Sem);
 }
 
-u_int StrKick() {
+void StrKick() {
     int i;
 	int st;
 
     sceSdSetSwitch(0x1601, 0xFF0000);
     sceSdSetCoreAttr(5, 0);
+#ifdef SCE_OBSOLETE
     sceSdSetIRQCallback(&SpuInt);
+#else
+    sceSdSetSpu2IntrHandler(&SpuInt, NULL);
+#endif
     
     for (st = 0; st < 2; st++) {
         for (i = 0; i < 2; i++) {
             MarkTop(pSTR->ZeroBuff, 0x100);
-            sceSdVoiceTrans(1, 8, pSTR->ZeroBuff, BGMdata[st].spuAddr[i][0], 0x100);
+            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][0], 0x100);
             MarkBottom(pSTR->ZeroBuff, 0x100);
-            sceSdVoiceTrans(1, 8, pSTR->ZeroBuff, BGMdata[st].spuAddr[i][1], 0x100);
+            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][1], 0x100);
         }
     }
     
     for (st = 0; st < 4; st++) {
         MarkTop(pSTR->ZeroBuff2, 0x80);
-        sceSdVoiceTrans(1, 8, pSTR->ZeroBuff2, PPTdata[st].spuAddr[0], 0x80);
+        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[0], 0x80);
         MarkBottom(pSTR->ZeroBuff2, 0x80);
-        sceSdVoiceTrans(1, 8, pSTR->ZeroBuff2, PPTdata[st].spuAddr[1], 0x80);
+        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[1], 0x80);
     }
 
     pSTR->spuID = 0;
@@ -316,7 +329,7 @@ int StrMain(int status) {
                     } else {
                         bgm->spuZero[ch][pSTR->spuID] = 0;
                     }
-                    sceSdVoiceTrans(1, 8, addr, bgm->spuAddr[ch][pSTR->spuID], 0x100);
+                    sceSdVoiceTrans(1, 8, (u_char *)addr, bgm->spuAddr[ch][pSTR->spuID], 0x100);
                 }
             }
             
@@ -405,7 +418,7 @@ int StrMain(int status) {
                 } else {
                     ppt->spuZero[pSTR->spuID] = 0;
                 }
-                sceSdVoiceTrans(1, 8, addr, ppt->spuAddr[pSTR->spuID], 0x80);
+                sceSdVoiceTrans(1, 8, (u_char *)addr, ppt->spuAddr[pSTR->spuID], 0x80);
             }
 
             if (pSTR->PPTstat != 1 && ppt->iopNext != -1) {
@@ -489,7 +502,12 @@ void StrInit() {
     param.option = 0;
     pSTR->ThID = CreateThread(&param);
     
+#ifdef SCE_OBSOLETE
     sceSdSetIRQCallback(&SpuInt);
+#else
+    sceSdSetSpu2IntrHandler(&SpuInt, NULL);
+#endif
+
     SignalSema(pSTR->Sem);
 
     for (st = 0; st < 2; st++) {
@@ -546,20 +564,20 @@ void StrInit() {
         for (i = 0; i < 2; i++) {
             MarkTop(pSTR->ZeroBuff, 0x100);
             pSTR->DmaWait = 1;
-            sceSdVoiceTrans(1, 8, (void *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][0], 0x100);
+            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][0], 0x100);
             MarkBottom(pSTR->ZeroBuff, 0x100);
             pSTR->DmaWait = 1;
-            sceSdVoiceTrans(1, 8, (void *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][1], 0x100);
+            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][1], 0x100);
         }
     }
 
     for (st = 0; st < 4; st++) {
         MarkTop(pSTR->ZeroBuff2, 0x80);
         pSTR->DmaWait = 1;
-        sceSdVoiceTrans(1, 8, (void *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[0], 0x80);
+        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[0], 0x80);
         MarkBottom(pSTR->ZeroBuff2, 0x80);
         pSTR->DmaWait = 1;
-        sceSdVoiceTrans(1, 8, (void *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[1], 0x80);
+        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[1], 0x80);
     }
 
     sceSdSetAddr(0x1f01,BGMdata[0].spuAddr[0][1]);
@@ -576,8 +594,8 @@ void PptStop(int st) {
 }
 
 void Ac3Clear() {
-    memset(pSTR->ac3Buff, 0, 0x10000);
-    sceSdBlockTrans(0, 0, pSTR->ac3Buff, 0x10000);
+    memset((void *)pSTR->ac3Buff, 0, 0x10000);
+    sceSdBlockTrans(0, 0, (u_char *)pSTR->ac3Buff, 0x10000);
 }
 
 void Ac3Play() {
@@ -585,8 +603,8 @@ void Ac3Play() {
 }
 
 void Ac3ZeroPcmPlay() {
-    memset(pSTR->ac3Buff, 0, 0x10000);
-    sceSdBlockTrans(0, 0x10, pSTR->ac3Buff, 0x10000);
+    memset((void *)pSTR->ac3Buff, 0, 0x10000);
+    sceSdBlockTrans(0, 0x10, (u_char *)pSTR->ac3Buff, 0x10000);
 }
 
 void Ac3ZeroPcmStop() {
@@ -599,7 +617,7 @@ void Ac3SetDigitalOut() {
 }
 
 void Ac3Play2() {
-    sceSdBlockTrans(0, 0x10, pSTR->ac3Buff, 0x10000);
+    sceSdBlockTrans(0, 0x10, (u_char *)pSTR->ac3Buff, 0x10000);
 }
 
 void Ac3Stop() {
