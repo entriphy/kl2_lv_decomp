@@ -1,7 +1,7 @@
 #include "common.h"
 
 int hGameReadOK() {
-    return isLoading();
+    return hCdLoading();
 }
 
 u8 *hGetDataAddr(int i) {
@@ -15,7 +15,7 @@ u8 *FUN_00167c80(int i) {
 }
 
 int FUN_00167bd0(int param_1) {
-    return FUN_00166128((GameGbl.vision >> 7 & 0x1FE) + param_1) << 0xB;
+    return hCdKlPackCount((GameGbl.vision >> 7 & 0x1FE) + param_1) << 0xB;
 }
 
 void FUN_00167c00(int param_1, u8 *param_2) {

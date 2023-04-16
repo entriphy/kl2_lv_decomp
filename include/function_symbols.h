@@ -21,18 +21,24 @@
 // Hoshino functions
 
 // hCd
-/* FUN_00165ae0 */ extern u8 *hCdReadFile(const char* name);
+/* FUN_00165a20 */ extern void hCdReadFileToBuf(char *name, void *buf);
+/* FUN_00165ae0 */ extern u8 *hCdReadFile(const char *name);
+/* FUN_00165ba8 */ extern void hCdCuePushExe(int arg0, int arg1, int arg2, int arg3, int arg4);
 /* FUN_00165c08 */ extern void hCdCuePush(int arg0, int arg1, int arg2, int arg3, int arg4);
 /* FUN_00165d68 */ extern void hCdCueFlushBGM();
 /* FUN_00165e50 */ extern void hCdCueFlushPPT();
-/* FUN_00166128 */ extern int FUN_00166128(int param_1);
-/* FUN_00166140 */ extern void hCdReadKlPack(int param_1, u8 *param_2);
-/* FUN_001661e0 */ extern void hCdPushKlPack(int param_1, u8 *param_2);
-/* FUN_00166210 */ extern int isLoading();
+/* FUN_00165f38 */ extern void hCdCueFlushBGM2();
+/* FUN_00166028 */ extern int hCdRead(u32 lbn, u32 sectors, u8 *buf, sceCdRMode *mode);
+/* FUN_001660a8 */ extern int hCdReadIOPm(u32 lbn, u32 sectors, u8 *buf, sceCdRMode *mode);
+/* FUN_00166128 */ extern int hCdKlPackCount(int index);
+/* FUN_00166140 */ extern void hCdReadKlPack(int index, u8 *buf);
+/* FUN_001661e0 */ extern void hCdPushKlPack(int index, u8 *buf);
+/* FUN_00166210 */ extern int hCdLoading();
 /* FUN_00166248 */ extern void hCdInit();
-/* FUN_00167c20 */ extern void FUN_00167c20(u8 *buf);
+/* FUN_00166368 */ extern void hCdMain();
 
 // hGame
+/* FUN_00167c20 */ extern void FUN_00167c20(u8 *buf);
 /* FUN_00167c30 */ extern int hGameReadOK();
 /* FUN_00167c50 */ extern u8 *hGetDataAddr(int param_1);
 /* FUN_00167bd0 */ extern int FUN_00167bd0(int param_1);

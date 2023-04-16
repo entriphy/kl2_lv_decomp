@@ -48,17 +48,17 @@ typedef enum {
 typedef struct {
     sceCdlFILE file;
     sceCdRMode mode;
-    int ThID;
-    int DiscType;
-    int DiscError;
-    int DiscStat;
-    int eeCnt; // 0x34
-    int Sync; // 0x38
-    int BGMplay; // 0x3C
-    int dataStat; // 0x40
-    int dataLSN; // 0x44
-    int dataSectors; // 0x48
-    int pad;
+    s32 ThID;
+    s32 DiscType;
+    s32 DiscError;
+    s32 DiscStat;
+    s32 eeCnt; // 0x34
+    s32 Sync; // 0x38
+    s32 BGMplay; // 0x3C
+    s32 dataStat; // 0x40
+    s32 dataLSN; // 0x44
+    s32 dataSectors; // 0x48
+    u8 *buf; // 0x4C
     CDREAD dataFlag; // 0x50
     hCDCUE Cue;
 } hCDDATA;
