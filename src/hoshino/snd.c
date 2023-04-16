@@ -41,33 +41,35 @@ float hSndFader2(float vol) {
 void hSndPkSetMVol(int voll, int volr) {
     sD->PkMax++;
     *sD->PkNum++ = 7;
-    *sD->PkNum++ = (u8)voll;
-    *sD->PkNum++ = (u8)(((u32)voll >> 8) & 0x7F);
-    *sD->PkNum++ = (u8)volr;
-    *sD->PkNum++ = (u8)(((u32)volr >> 8) & 0x7F);
+    *sD->PkNum++ = voll;
+    *sD->PkNum++ = (voll >> 8) & 0x7F;
+    *sD->PkNum++ = volr;
+    *sD->PkNum++ = (volr >> 8) & 0x7F;
 }
 
 void hSndPkEffect() {
+    int i;
+    
     sD->effChange = 1;
-    for (int i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         sD->PkMax++;
         *sD->PkNum++ = 8;
-        *sD->PkNum++ = (u8)i;
-        *sD->PkNum++ = (u8)sD->effMode;
-        *sD->PkNum++ = (u8)sD->effDepth;
-        *sD->PkNum++ = (u8)((u32)sD->effDepth >> 8);
-        *sD->PkNum++ = (u8)sD->effDepth;
-        *sD->PkNum++ = (u8)((u32)sD->effDepth >> 8);
-        *sD->PkNum++ = (u8)sD->effDelay;
-        *sD->PkNum++ = (u8)sD->effFeed;
+        *sD->PkNum++ = i;
+        *sD->PkNum++ = sD->effMode;
+        *sD->PkNum++ = sD->effDepth;
+        *sD->PkNum++ = sD->effDepth >> 8;
+        *sD->PkNum++ = sD->effDepth;
+        *sD->PkNum++ = sD->effDepth >> 8;
+        *sD->PkNum++ = sD->effDelay;
+        *sD->PkNum++ = sD->effFeed;
     }
 }
 
 void hSndPkSetEVol(int vol) {
     sD->PkMax++;
     *sD->PkNum++ = 9;
-    *sD->PkNum++ = (u8)vol;
-    *sD->PkNum++ = (u8)((u32)vol >> 8);
+    *sD->PkNum++ = vol;
+    *sD->PkNum++ = vol >> 8;
 }
 
 void hSndPkKeyOffAll() {
