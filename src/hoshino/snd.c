@@ -88,12 +88,10 @@ void hSndReset() {
 }
 
 int hSndPkGetSize() {
-    // Pretty sure it's subtracting a pointer here, might need to fix it
-    int size = (int)(sD->PkNum - 4289265);
-    if (size < 0) {
-        size = (int)(sD->PkNum - 4289250);
-    }
-    return size;
+    // i have no clue how this matches
+    int size = (s32)sD->PkNum - (s32)SndMainBuffer;
+    size = size < -1 ? size + 0x1E : size + 0xF;
+    return (((s32)sD->PkNum - (s32)SndMainBuffer + 0xF) / 0x10) * 0x10;
 }
 
 void hSndBankSetStage() {
