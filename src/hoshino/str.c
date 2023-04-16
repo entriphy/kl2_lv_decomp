@@ -52,7 +52,7 @@ void hStrInfo() {
         n = 0;
     }
 
-    STRINFO* str = (STRINFO*)RpcArg;
+    STRINFO *str = (STRINFO *)RpcArg;
     str->eeCnt = cD->eeCnt;
     str->Command = bD->Command;
     str->BGMok[0] = (s8)bD->iopOK[0];

@@ -57,7 +57,7 @@
 /* FUN_0016c778 */ extern int hRpcStat();
 /* FUN_0016c798 */ extern void hRpcBind();
 /* FUN_0016c830 */ extern int *hRpc(s32 param);
-/* FUN_0016c9b8 */ extern s32 hRpc_0016c9b8(u8 *dest, u8 *src, u32 size);
+/* FUN_0016c9b8 */ extern s32 hRpcSetDma(u8 *dest, u8 *src, u32 size);
 /* FUN_0016ca20 */ extern u32 JamGetHdSize(u8 *hdaddr);
 /* FUN_0016ca28 */ extern u32 JamGetBdSize(u8 *hdaddr);
 
@@ -72,8 +72,8 @@
 /* FUN_0016d008 */ extern int hSndFader(float vol);
 /* FUN_0016d0b8 */ extern float hSndFader2(float vol);
 /* FUN_0016d4a8 */ extern void hSndInit();
-/* FUN_0016d5f0 */ extern int* hSnd_0016d5f0(u8 *param_1, int param_2);
-/* FUN_0016d710 */ extern void hSnd_0016d710();
+/* FUN_0016d5f0 */ extern int* hSndBankSet(u8 *param_1, int param_2);
+/* FUN_0016d710 */ extern void hSndBankSetCommon();
 /* FUN_0016d778 */ extern void hSndBankSetStage();
 
 // hBgm

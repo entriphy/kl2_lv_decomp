@@ -82,8 +82,7 @@ void hInitBoot() {
     hSndInit();
     
     GameGbl.vision = 0x6300;
-    int ret;
-    hSnd_0016d710();
+    hSndBankSetCommon();
     FUN_00167c20(getBuff(1, FUN_00167bd0(1), NULL, &ret));
     FUN_001d31a0();
     htInitRand(0x399);
@@ -150,94 +149,6 @@ void hStrInit() {
     while (!sceCdSearchFile(&aD->files[2], "\\BGM002.AC3;1"));
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&aD->files[3], "\\BGM003.AC3;1"));
-}
-
-void hSndInit() {
-    sceSdRemoteInit();
-    sD = &SndData;
-    sD->PkNum = (u8*)&SndMainBuffer[2];
-    sD->PkMax = 0;
-    sD->iopBankAddr = hRpc(IOP_SndInit);
-    RpcArg[0] = 0xFFFFFF;
-    RpcArg[1] = 0xFFFF;
-    hRpc(IOP_SndMask);
-    
-    sD->pad = 0;
-    sD->Stereo = SND_MODE_STEREO;
-    sD->Mute = 0;
-    sD->stageBank = 0;
-    sD->dBfader = -30.0f;
-    sD->log10Volume = log10f(16367.0f) * 20.0f;
-    hSndSetMVol(0.0f);
-    hSndPkSetMVol(0, 0);
-    sD->effMode = 0;
-    sD->effDepth = 0;
-    sD->effDelay = 0;
-    sD->effFeed = 0;
-    sD->effMix = 3;
-    hSndPkEffect();
-    sD->effVolBak = 0.0f;
-    sD->effVol = 0.0f;
-    hSndPkSetEVol(0);
-    sD->envNum = 0;
-    hSeLock(0);
-    hSeInitGrp(0);
-    sD->seMVol = 1.43f;
-    sD->bgmMVol = 0.708661437f;
-    sD->pptMVol = 0.314960629f;
-    sD->TitleDelayCnt = 0;
-
-    hStrInit();
-}
-
-s32 *hSnd_0016d5f0(u8 *param_1, int param_2) {
-    u8 *hdaddr;
-    u8 *bdaddr;
-    s32 hdsize;
-    s32 bdsize;
-    s32 *rpc;
-    u8 stackShiz[16];
-    
-    if (param_2 != 0) {
-        s16 *fhm = (s16 *)GetFHMAddress(param_1, 2);
-        s16 tblNum = *fhm;
-        sD->stageTblNum = tblNum;
-        memcpy(sD->stageTbl, fhm + 1, tblNum * 2);
-    }
-
-    hdaddr = GetFHMAddress(param_1, 0);
-    bdaddr = GetFHMAddress(param_1, 1);
-    hdsize = JamGetHdSize(hdaddr);
-    bdsize = JamGetBdSize(hdaddr);
-    hRpc_0016c9b8((u8 *)(sD->iopBankAddr + param_2 * 0x2000), hdaddr, hdsize); // addr, data, size
-    RpcArg[0] = param_2;
-    rpc = hRpc(IOP_JamBankSet);
-    
-    while (bdsize > 0) {
-        s32 transsize;
-        if (bdsize < 0x10000) {
-            transsize = bdsize;
-        } else {
-            transsize = 0x10000;
-        }
-        
-        hRpc_0016c9b8((u8 *)(sD->iopBankAddr + 0x4000), bdaddr, transsize);
-        bdsize -= 0x10000;
-        bdaddr += 0x10000;
-        rpc = hRpc(IOP_JamBdTrans);
-    }
-    
-    return rpc;
-}
-
-void hSnd_0016d710() {
-    int ret;
-
-    u8 *buf = getBuff(1, 0x200000, NULL, &ret);
-    hCdReadKlPack(0xC6, buf);
-    buf = GetFHMAddress(buf, 2);
-    hSnd_0016d5f0(buf, 0);
-    FUN_001d37f8(1, 0x200000, NULL);
 }
 
 void init_config_system() {
