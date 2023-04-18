@@ -40,7 +40,7 @@ hMOVDATA* mD;
 int RpcArg[16] __attribute__((aligned(16)));
 SifDmaData sifdma_004171c0;
 int RpcRecvBuf[2][16] __attribute__((aligned(16)));
-int SndMainBuffer[16] __attribute__((aligned(16)));
+u8 SndMainBuffer[0x400] __attribute__((aligned(16)));
 SifClientData sndRpc;
 int boot_flag; // ?
 

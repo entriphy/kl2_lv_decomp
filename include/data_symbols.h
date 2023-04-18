@@ -94,7 +94,7 @@
 /* DAT_004171c0 */ extern SifDmaData sifdma_004171c0;
 /* DAT_00417200 */ extern int RpcRecvBuf[2][16];
 /* DAT_00417280 */ extern SifClientData sndRpc;
-/* DAT_00417300 */ extern int SndMainBuffer[16];
+/* DAT_00417300 */ extern u8 SndMainBuffer[0x400];
 /* DAT_00417700 */ extern u8 pptEeAddrs[4][0x40000];
 
 /* DAT_00639770 */ extern int DAT_00639770;
