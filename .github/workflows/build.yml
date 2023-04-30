@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  SCESDK: scesdk
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Download SDK
+      run: wget -q -O sdk.tar.xz $SDK_URL
+      env:
+        SDK_URL: ${{secrets.SDK_URL}}
+    - name: Untar SDK
+      run: mkdir scesdk; tar -xf sdk.tar.xz -C scesdk
+    - name: Configure CMake
+      run: cmake -Bbuild
+    - name: Build
+      run: cmake --build build
+      
