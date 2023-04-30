@@ -22,7 +22,7 @@ hBGMDATA BgmData;
 hPPTDATA PptData;
 hAC3DATA Ac3Data;
 hMOVDATA MovData;
-SifClientData rpc__003d9718;
+sceSifClientData rpc__003d9718;
 hCDDATA* cD;
 hCDCUE* cQ;
 hGAMEDATA *gD;
@@ -38,40 +38,32 @@ u8 *tblMax;
 u8 *areaBuff;
 hMOVDATA* mD;
 int RpcArg[16] __attribute__((aligned(16)));
-SifDmaData sifdma_004171c0;
+sceSifDmaData sifdma_004171c0;
 int RpcRecvBuf[2][16] __attribute__((aligned(16)));
 u8 SndMainBuffer[0x400] __attribute__((aligned(16)));
-SifClientData sndRpc;
+sceSifClientData sndRpc;
 int boot_flag; // ?
 
 void hInitBoot() {
-    SifInitRpc(0);
+    u32 i;
+    s32 ret;
+
+    sceSifInitRpc(0);
     while (!sceCdInit(SCECdINIT));
-#ifdef SCE
-    while (!SifIopReboot("host0:ioprp300.img"));
-#else
-    while (!SifIopReboot("cdrom:\\M\\IOPRP213.IMG;1"));
-#endif
-    while (!SifIopSync());
-    SifInitRpc(0);
-    SifInitIopHeap();
-    SifLoadFileInit();
+    while (!sceSifRebootIop("host0:"IOP_IMAGE_file));
+    while (!sceSifSyncIop());
+    sceSifInitRpc(0);
+    sceSifInitIopHeap();
+    sceSifLoadFileReset();
     while (!sceCdInit(SCECdINIT));
-    while (!sceCdMmode(SCECdMmodeDvd));
-#ifdef SCE
-    sceFsReset();
-#endif
-    for (int i = 0; i < 8; i++) {
-        int id = SifLoadModule(modules[i], 0, 0);
-        if (id < -1) {
-            while (!sceCdInit(SCECdINIT));
+    while (!sceCdMmode(SCECdDVD));
+    for (i = 0; i < 8; i++) {
+        while ((ret = sceSifLoadModule(modules[i], 0, NULL)) < 0) {
+            while (!sceCdInit(0));
             sceCdDiskReady(0);
-            while (!sceCdMmode(SCECdMmodeDvd));
-#ifdef SCE
+            while (!sceCdMmode(SCECdDVD));
             sceFsReset();
-#endif
         }
-        sce_print("@ Loading module %s: %d\n", modules[i], id);
     }
 
     hRpcBind();
@@ -89,14 +81,10 @@ void hInitBoot() {
 }
 
 void FUN_00196c00() {
-    GsResetGraph(GS_INIT_RESET, GS_INTERLACED, GS_MODE_NTSC, GS_FFMD_FRAME);
-#ifdef SCE
+    sceGsResetGraph(0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME);
     sceGsSetDefDBuffDc(&GameGbl.db, SCE_GS_PSMCT32, SCR_WIDTH, SCR_HEIGHT, SCE_GS_ZGREATER, SCE_GS_PSMZ24, SCE_GS_CLEAR);
     sceGsSetDefClear(&GameGbl.db.clear0, 3, 1728, 1936, SCR_WIDTH, SCR_HEIGHT, 0, 0, 0, 128, 0);
     sceGsSetDefClear(&GameGbl.db.clear1, 3, 1728, 1936, SCR_WIDTH, SCR_HEIGHT, 0, 0, 0, 128, 0);
-#else
-    // How do you do this in ps2sdk?
-#endif
     FlushCache(WRITEBACK_DCACHE);
 }
 
@@ -152,14 +140,10 @@ void hStrInit() {
 }
 
 void init_config_system() {
-    DevVif0Reset();
-    DevVu0Reset();
-    GsResetPath();
-#ifdef SCE
+    sceDevVif0Reset();
+    sceDevVu0Reset();
+    sceGsResetPath();
     sceDmaReset(1);
-#else
-    dma_reset();
-#endif
     SysGbl.nmode = 0;
     SysGbl.nsmode = 0;
     SysGbl.fmode = 0;

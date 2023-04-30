@@ -27,27 +27,18 @@ void hRpcInfo() {
 }
 
 int hRpcStat() {
-#ifdef SCE
-    return SifCheckStatRpc(&sndRpc.rpcd);
-#else
-    return SifCheckStatRpc(&sndRpc);
-#endif
+    return sceSifCheckStatRpc(&sndRpc.rpcd);
 }
 
 void hRpcBind() {
     do {
-        if (SifBindRpc(&sndRpc, 0x12346, 0) < 0) {
+        if (sceSifBindRpc(&sndRpc, 0x12346, 0) < 0) {
             while (true);
         }
         for (int i = 10000; i > 0; i--) {
             // Do nothing
         }
-    }
-#ifdef SCE
-    while (!sndRpc.serve);
-#else
-    while (!sndRpc.server);
-#endif
+    } while (!sndRpc.serve);
 }
 
 int * hRpc(s32 cmd) {
@@ -108,7 +99,7 @@ int * hRpc(s32 cmd) {
             mode = SIF_RPCM_NOWAIT;
             break;
         case IOP_SndMain:
-            send = SndMainBuffer;
+            send = (int *)SndMainBuffer;
             ssize = hSndPkGetSize();
             receive = RpcRecvBuf[1];
             mode = SIF_RPCM_NOWAIT;
@@ -125,25 +116,18 @@ int * hRpc(s32 cmd) {
     }
 }
 
-s32 hRpc_0016c9b8(u8 *dest, u8 *src, u32 size) {
+s32 hRpcSetDma(u8 *dest, u8 *src, u32 size) {
     u32 id;
 
-#ifdef SCE
     sifdma_004171c0.data = (int)src;
     sifdma_004171c0.addr = (int)dest;
     sifdma_004171c0.size = size;
     sifdma_004171c0.mode = 0;
-#else
-    sifdma_004171c0.src = src;
-    sifdma_004171c0.dest = dest;
-    sifdma_004171c0.size = size;
-    sifdma_004171c0.attr = 0;
-#endif
 
-    FlushCache(0);
-    id = SifSetDma(&sifdma_004171c0, 1);
+    FlushCache(WRITEBACK_DCACHE);
+    id = sceSifSetDma(&sifdma_004171c0, 1);
     if (id != 0) {
-        while (SifDmaStat(id) >= 0);
+        while (sceSifDmaStat(id) >= 0);
         return 0;
     } else {
         return -1;

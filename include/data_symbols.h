@@ -91,9 +91,9 @@
 /* DAT_003fc478 */ extern int kf_mode;
 /* DAT_003bfed0 */ extern hMOVDATA* mD;
 /* DAT_0040efa0 */ extern int RpcArg[16];
-/* DAT_004171c0 */ extern SifDmaData sifdma_004171c0;
+/* DAT_004171c0 */ extern sceSifDmaData sifdma_004171c0;
 /* DAT_00417200 */ extern int RpcRecvBuf[2][16];
-/* DAT_00417280 */ extern SifClientData sndRpc;
+/* DAT_00417280 */ extern sceSifClientData sndRpc;
 /* DAT_00417300 */ extern u8 SndMainBuffer[0x400];
 /* DAT_00417700 */ extern u8 pptEeAddrs[4][0x40000];
 

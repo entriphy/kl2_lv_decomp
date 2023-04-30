@@ -185,7 +185,7 @@ int hCdKlPackCount(int index) {
 }
 
 void hCdReadKlPack(int index, u8 *buf) {
-    sce_print("hCdReadKlPack(%d, 0x%08x)\n", index, buf);
+    printf("hCdReadKlPack(%d, 0x%08x)\n", index, buf);
 
     sceCdDiskReady(0);
     while (!sceCdRead(KlTable[index].offset + cD->file.lsn, KlTable[index].count, buf, &cD->mode));
@@ -263,7 +263,7 @@ loop_7:
         while (sceCdBreak() == 0);
         sceCdDiskReady(1);
         if (cD->dataStat != 0) {
-            hCdCuePushExe(cD->dataLSN, cD->dataSectors, cD->buf, cD->dataFlag, cD->eeCnt);
+            hCdCuePushExe(cD->dataLSN, cD->dataSectors, (int)cD->buf, cD->dataFlag, cD->eeCnt);
             cD->dataFlag = CDREAD_IDLE;
             cD->dataStat = 0;
         }
@@ -279,14 +279,14 @@ loop_7:
             switch (cD->dataFlag) {
                 case CDREAD_BGM:
                 case CDREAD_BGM2:
-                    var_s1 = hCdReadIOPm(sp[0], sp[1], sp[2], &cD->mode);
+                    var_s1 = hCdReadIOPm(sp[0], sp[1], (u8 *)sp[2], &cD->mode);
                     break;
                 case CDREAD_PPT:
                 case CDREAD_DATA:
-                    var_s1 = hCdRead(sp[0], sp[1], sp[2], &cD->mode);
+                    var_s1 = hCdRead(sp[0], sp[1], (u8 *)sp[2], &cD->mode);
                     break;
                 case 5:
-                    var_s1 = hCdRead(sp[0], sp[1], sp[2], &cD->mode);
+                    var_s1 = hCdRead(sp[0], sp[1], (u8 *)sp[2], &cD->mode);
                     break;
             }
             if (var_s1 != 0) {
@@ -303,9 +303,9 @@ loop_7:
         }
     }
 
-    hBgmMain();
-    hPptMain();
-    hStrMain();
+    // hBgmMain();
+    // hPptMain();
+    // hStrMain();
     hStrInfo();
     cD->eeCnt++;
 }

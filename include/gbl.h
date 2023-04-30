@@ -1,12 +1,7 @@
 #ifndef GBL_H
 #define GBL_H
 
-#ifdef SCE
 #include <libgraph.h>
-#else
-#include <libgs.h>
-#endif
-
 #include "cam.h"
 #include "kazuya.h"
 #include "nakano.h"
@@ -33,53 +28,12 @@ typedef struct {
     s32 TVSystem;
 } SYSGBL;
 
-#ifdef SCE
-#define GsDBuffDc sceGsDBuffDc
-#else
-typedef struct {
-    GS_PMODE pmode;
-    GS_SMODE2 smode2;
-    GS_DISPFB dispfb;
-    GS_DISPLAY display;
-    GS_BGCOLOR bgcolor;
-} GsDispEnv;
-
-typedef struct {
-    GS_FRAME frame;
-    u64 frame_addr;
-    GS_ZBUF zbuf;
-    s64 zbuf_addr;
-    GS_XYOFFSET xyoffset;
-    s64 xyoffset_addr;
-    GS_SCISSOR scissor;
-    s64 scissor_addr;
-    GS_PRMODECONT prmodecont;
-    s64 prmodecont_addr;
-    GS_COLCLAMP colclamp;
-    s64 colclamp_addr;
-    GS_DTHE dthe;
-    s64 dthe_addr;
-    GS_TEST test;
-    s64 test_addr;
-} GsDrawEnv;
-
-typedef struct {
-    GS_DISPENV disp[2];
-    GS_GIF_TAG giftag0;
-    GsDrawEnv draw0[2];
-    void* clear0;
-    GS_GIF_TAG giftag1;
-    GsDrawEnv draw1[2];
-    void* clear1;
-} GsDBuffDc;
-#endif
-
 typedef struct {
     s32 mode;
     s32 vision;
     s32 flag;
     u32 fr;
-    GsDBuffDc db;
+    sceGsDBuffDc db;
     s32 inter;
     s32 pause_flag;
     s32 non_pause_flag;

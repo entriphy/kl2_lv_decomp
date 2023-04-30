@@ -2,7 +2,7 @@
 Decompilation project for Klonoa 2: Lunatea's Veil (`SLUS_201.51`).
 
 Structs, classes, and function names are taken from decompiling the C# assembly of Klonoa Phantasy Reverie Series. 
-While this does not aim to be a fully matching decompilation, `ee-gcc 2.9-991111` (available on [decomp.me](https://decomp.me)) seems to produce matching code most of the time, though it is not 100% certain if this was the compiler used.
+While this does not aim to be a fully matching decompilation, `ee-gcc 2.9-991111` (available on [decomp.me](https://decomp.me)) seems to produce matching code most of the time, though it is not 100% certain if this was the compiler used to compile the game.
 
 Support the series by purchasing & playing [Klonoa Phantasy Reverie Series](https://klonoa-at-blog.tumblr.com/post/145593146333/here-are-the-current-ways-you-can-officially)! :D
 
@@ -13,9 +13,7 @@ This repository does not contain any game assets, thus a legal copy of the game 
 **NOTE: This project is in VERY early stages and may fail to build.**
 
 1. Setup environment:
-    * ~~Ensure the `PS2DEV` and `PS2SDK` environment variables are properly set.~~
-        * PS2SDK is currently unsupported.
-    * You can also set the `SCESDK` environment variable to the root of the official PS2 SDK to use that instead.
+    * Set the `SCESDK` environment variable to the root of the official PS2 SDK (usually `/usr/local/sce`). Download links to the SDK will not be provided in this repository.
 2. Clone this repository:
     ```bash
     git clone https://github.com/entriphy/kl2_lv_decomp.git

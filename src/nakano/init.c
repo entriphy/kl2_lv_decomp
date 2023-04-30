@@ -27,14 +27,14 @@ void nkInitPS2() {
     SysGbl.n_objw = 0x80;
     nkDG.cam_debug_mode = 0;
     nkDG.flag = 0;
-    GsResetPath();
+    sceGsResetPath();
     sceDevGifReset();
-    DevVif1Reset();
-    DevVu1Reset();
-    DevVif0Reset();
-    DevVu0Reset();
+    sceDevVif1Reset();
+    sceDevVu1Reset();
+    sceDevVif0Reset();
+    sceDevVu0Reset();
     nkInitDma();
-    GsResetGraph(GS_INIT_RESET, GS_INTERLACED, GS_MODE_NTSC, GS_FFMD_FRAME);
+    sceGsResetGraph(0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME);
     FUN_00197a88();
 }
 
@@ -55,17 +55,13 @@ void FUN_001979b0(int fba) {
 }
 
 void FUN_00197a88() {
-    GsResetGraph(GS_INIT_RESET, GS_INTERLACED, GS_MODE_NTSC, GS_FFMD_FRAME);
-#ifdef SCE
+    sceGsResetGraph(0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME);
     sceGsSetDefDBuffDc(&GameGbl.db, SCE_GS_PSMCT32, SCR_WIDTH, SCR_HEIGHT, SCE_GS_ZGREATER, SCE_GS_PSMZ16S, SCE_GS_CLEAR);
     GameGbl.db.clear0.rgbaq.A = 128;
     GameGbl.db.clear1.rgbaq.A = 128;
-#endif
     FUN_001979b0(1);
-#ifdef SCE
     sceGsSetDefClear(&GameGbl.db.clear0, SCE_GS_ZGREATER, 1728, 1936, SCR_WIDTH, SCR_HEIGHT, 0, 0, 0, 128, 0);
     sceGsSetDefClear(&GameGbl.db.clear1, SCE_GS_ZGREATER, 1728, 1936, SCR_WIDTH, SCR_HEIGHT, 0, 0, 0, 128, 0);
-#endif
     FlushCache(WRITEBACK_DCACHE);
 }
 
