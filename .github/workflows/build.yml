@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
-  SCESDK: scesdk
+  SCESDK: /sce
 
 jobs:
   build:
@@ -19,9 +19,8 @@ jobs:
       env:
         SDK_URL: ${{secrets.SDK_URL}}
     - name: Untar SDK
-      run: mkdir scesdk; tar -xf sdk.tar.xz -C scesdk
+      run: sudo mkdir /sce; sudo tar -xf sdk.tar.xz -C /sce
     - name: Configure CMake
       run: cmake -Bbuild
     - name: Build
       run: cmake --build build
-      
