@@ -48,6 +48,17 @@ foreach (SUBDIR IN LISTS SUBDIRS)
     endforeach()
 endforeach()
 
+# Copy IOP image to build directory
+file(GLOB IOP_IMAGE "${SCESDK}/iop/modules/*.img")
+cmake_path(GET IOP_IMAGE FILENAME IOP_IMAGE_FILENAME)
+configure_file(${IOP_IMAGE} ${IOP_IMAGE_FILENAME} COPYONLY)
+
+# Copy IOP modules to build directory
+set(IOP_MODULES sio2man mcman mcserv padman libsd sdrdrv)
+foreach (MODULE IN LISTS IOP_MODULES)
+    configure_file(${SCESDK}/iop/modules/${MODULE}.irx ${MODULE}.irx COPYONLY)
+endforeach()
+
 add_executable(${PROJECT_NAME} ${EXECUTABLES})
 set(CMAKE_EXECUTABLE_SUFFIX ".elf")
 set(CMAKE_EXECUTABLE_SUFFIX_C "${CMAKE_EXECUTABLE_SUFFIX}")
