@@ -4,7 +4,7 @@
 #include "common.h"
 
 GIMWORK* GetGimWork() {
-    GIMWORK* work = (GIMWORK*)malloc(sizeof(GIMWORK));
+    GIMWORK* work = (GIMWORK *)malloc(sizeof(GIMWORK));
     memset(work, 0, sizeof(GIMWORK));
     return work;
 }

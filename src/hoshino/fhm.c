@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "types.h"
 
 u8 *GetFHMAddress(u8 *pAddr, int nNum) {
