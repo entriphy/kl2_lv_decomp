@@ -32,11 +32,10 @@ link_libraries(m cdvd graph dma vu0 dev sdr)
 set(CMAKE_C_STANDARD 99)
 
 # Decomp
-set(EXECUTABLES src/main.c src/common.c src/compression.c src/gim.c)
-list(PREPEND EXECUTABLES ${SCESDK}/ee/lib/crt0.s)
+set(EXECUTABLES ${SCESDK}/ee/lib/crt0.s)
 set_source_files_properties(${SCESDK}/ee/lib/crt0.s PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 
-set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo take assorted)
+set(SUBDIRS abe harada hato hoshino kazuya nakano okano taka)
 foreach (SUBDIR IN LISTS SUBDIRS)
     file(GLOB files src/${SUBDIR}/*.c)
     foreach (file ${files})
