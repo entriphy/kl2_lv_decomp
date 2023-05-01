@@ -146,7 +146,7 @@ void hSndInit() {
 }
 
 s32 *hSndBankSet(u8 *buf, int bank) {
-    u8 *hdaddr;
+    JAMHD *hdaddr;
     u8 *bdaddr;
     s32 hdsize;
     s32 bdsize;
@@ -160,11 +160,11 @@ s32 *hSndBankSet(u8 *buf, int bank) {
         memcpy(sD->stageTbl, fhm + 1, tblNum * 2);
     }
 
-    hdaddr = GetFHMAddress(buf, 0);
+    hdaddr = (JAMHD *)GetFHMAddress(buf, 0);
     bdaddr = GetFHMAddress(buf, 1);
     hdsize = JamGetHdSize(hdaddr);
     bdsize = JamGetBdSize(hdaddr);
-    hRpcSetDma((u8 *)(sD->iopBankAddr + bank * 0x2000), hdaddr, hdsize); // addr, data, size
+    hRpcSetDma((u8 *)(sD->iopBankAddr + bank * 0x2000), (u8 *)hdaddr, hdsize); // addr, data, size
     
     RpcArg[0] = bank;
     rpc = hRpc(IOP_JamBankSet);

@@ -134,10 +134,3 @@ s32 hRpcSetDma(u8 *dest, u8 *src, u32 size) {
     }
 }
 
-u32 JamGetHdSize(u8 *hdaddr) {
-    return *((u32 *)hdaddr + 4);
-}
-
-u32 JamGetBdSize(u8 *hdaddr) {
-    return *((u32 *)hdaddr + 8);
-}

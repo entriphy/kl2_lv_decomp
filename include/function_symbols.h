@@ -58,8 +58,8 @@
 /* FUN_0016c798 */ extern void hRpcBind();
 /* FUN_0016c830 */ extern int *hRpc(s32 param);
 /* FUN_0016c9b8 */ extern s32 hRpcSetDma(u8 *dest, u8 *src, u32 size);
-/* FUN_0016ca20 */ extern u32 JamGetHdSize(u8 *hdaddr);
-/* FUN_0016ca28 */ extern u32 JamGetBdSize(u8 *hdaddr);
+/* FUN_0016ca20 */ extern int JamGetHdSize(JAMHD *hdaddr);
+/* FUN_0016ca28 */ extern int JamGetBdSize(JAMHD *hdaddr);
 
 // hSnd
 /* FUN_0016ca30 */ extern void hSndPkEffect();

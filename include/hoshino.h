@@ -356,4 +356,31 @@ typedef struct {
     int deadCnt;
 } hGAMEDATA;
 
+typedef struct { // 0x10
+	/* 0x0 */ u32 Creator;
+	/* 0x4 */ u32 Type;
+	/* 0x8 */ u32 chunkSize;
+	/* 0xc */ u16 reserved;
+	/* 0xe */ u8 versionMajor;
+	/* 0xf */ u8 versionMinor;
+} CHK_VER;
+
+typedef struct { // 0x40
+	/* 0x00 */ u32 Creator;
+	/* 0x04 */ u32 Type;
+	/* 0x08 */ u32 chunkSize;
+	/* 0x0c */ u32 headerSize;
+	/* 0x10 */ u32 bodySize;
+	/* 0x14 */ u32 programChunkAddr;
+	/* 0x18 */ u32 samplesetChunkAddr;
+	/* 0x1c */ u32 sampleChunkAddr;
+	/* 0x20 */ u32 vagInfoChunkAddr;
+	/* 0x24 */ u8 reserved[28];
+} CHK_HEAD;
+
+typedef struct { // 0x50
+	/* 0x00 */ CHK_VER Version;
+	/* 0x10 */ CHK_HEAD Header;
+} JAMHD;
+
 #endif
