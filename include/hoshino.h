@@ -383,4 +383,17 @@ typedef struct { // 0x50
 	/* 0x10 */ CHK_HEAD Header;
 } JAMHD;
 
+enum {
+	SNDCMD_KEYON = 0,
+	SNDCMD_KEYOFF = 1,
+	SNDCMD_KEYOFFALL = 2,
+	SNDCMD_PITCH = 3,
+	SNDCMD_PALPITCH = 4,
+	SNDCMD_VOL = 5,
+	SNDCMD_MVOL = 6,
+	SNDCMD_MVOLALL = 7,
+	SNDCMD_EFFECT = 8,
+	SNDCMD_EVOL = 9
+};
+
 #endif

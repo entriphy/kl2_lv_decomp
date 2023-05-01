@@ -38,15 +38,6 @@ float hSndFader2(float vol) {
     return 0.0f;
 }
 
-void hSndPkSetMVol(int voll, int volr) {
-    sD->PkMax++;
-    *sD->PkNum++ = 7;
-    *sD->PkNum++ = voll;
-    *sD->PkNum++ = (voll >> 8) & 0x7F;
-    *sD->PkNum++ = volr;
-    *sD->PkNum++ = (volr >> 8) & 0x7F;
-}
-
 void hSndPkEffect() {
     int i;
     
@@ -65,16 +56,79 @@ void hSndPkEffect() {
     }
 }
 
+void hSndPkSetMVol(int voll, int volr) {
+    sD->PkMax++;
+    *sD->PkNum++ = SNDCMD_MVOLALL;
+    *sD->PkNum++ = voll;
+    *sD->PkNum++ = (voll >> 8) & 0x7F;
+    *sD->PkNum++ = volr;
+    *sD->PkNum++ = (volr >> 8) & 0x7F;
+}
+
 void hSndPkSetEVol(int vol) {
     sD->PkMax++;
-    *sD->PkNum++ = 9;
+    *sD->PkNum++ = SNDCMD_EVOL;
     *sD->PkNum++ = vol;
     *sD->PkNum++ = vol >> 8;
 }
 
+void hSndPkSetVol(int voice, float pan, float vol) {
+    int p = pan * 16384.0f;
+    int v = vol * 16384.0f;
+
+    if (p > 0x4000)
+        p = 0x4000;
+    if (p < -0x4000)
+        p = -0x4000;
+    if (v > 0x4000)
+        v = 0x4000;
+    if (v < -0x4000)
+        v = -0x4000;
+    
+    sD->PkMax++;
+    *sD->PkNum++ = SNDCMD_VOL;
+    *sD->PkNum++ = voice;
+    *sD->PkNum++ = p;
+    *sD->PkNum++ = p >> 8;
+    *sD->PkNum++ = v;
+    *sD->PkNum++ = v >> 8;
+}
+
+void hSndPkSetPitch(int voice, int pitch) {
+    sD->PkMax++;
+    *sD->PkNum++ = SNDCMD_PITCH;
+    *sD->PkNum++ = voice;
+    *sD->PkNum++ = pitch;
+    *sD->PkNum++ = pitch >> 8;
+}
+
+void hSndPkSetPalPitch(int voice) {
+    sD->PkMax++;
+    *sD->PkNum++ = SNDCMD_PALPITCH;
+    *sD->PkNum++ = voice;
+}
+
+void hSndPkKeyOn(int voice, int flag, int bank, int prog, int splt, float pan, float vol) {
+    sD->PkMax++;
+    *sD->PkNum++ = SNDCMD_KEYON;
+    *sD->PkNum++ = voice;
+    *sD->PkNum++ = flag;
+    *sD->PkNum++ = bank;
+    *sD->PkNum++ = prog;
+    *sD->PkNum++ = splt;
+    sD->KeyonV[voice & 1] |= 1 << (voice >> 1);
+    hSndPkSetVol(voice, pan, vol);
+}
+
+void hSndPkKeyOff(int voice) {
+    sD->PkMax++;
+    *sD->PkNum++ = SNDCMD_KEYOFF;
+    *sD->PkNum++ = voice;
+}
+
 void hSndPkKeyOffAll() {
     sD->PkMax++;
-    *sD->PkNum++ = 2;
+    *sD->PkNum++ = SNDCMD_KEYOFFALL;
 }
 
 void hSndReset() {
@@ -94,7 +148,7 @@ int hSndPkGetSize() {
     return (((s32)sD->PkNum - (s32)SndMainBuffer + 0xF) / 0x10) * 0x10;
 }
 
-void hSndBankSetStage(void) {
+void hSndBankSetStage() {
     u8 *addr = hGetDataAddr(2);
     if (addr != NULL) {
         sD->stageBank = 1;
