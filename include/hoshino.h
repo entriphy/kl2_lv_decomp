@@ -277,7 +277,7 @@ typedef struct {
     int field_0xA0;
     int field_0xA4;
     int field_0xA8;
-    int field_0xAC;
+    int AC3stat;
     int field_0xB0;
     int* field_0xB4;
     int* field_0xB8;
@@ -407,5 +407,17 @@ typedef struct {
     int worki0;
     int worki1;
 } EFXSE;
+
+typedef struct {
+    /* 0x00 */ int BGMnext;
+	/* 0x04 */ int BGMpoint;
+	/* 0x08 */ int PPTnext[4];
+	/* 0x18 */ int AC3stat;
+} hSTRINFO2;
+
+typedef struct {
+    u32 vStatKeyon[2];
+    hSTRINFO2 STRinfo;
+} hRPCINFO;
 
 #endif

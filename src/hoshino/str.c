@@ -112,7 +112,7 @@ void hStr_0016c6e8() {
     for (int i = 0; i < 4; i++) {
         pD->iopNext[i] = ret[4 + i];
     }
-    aD->field_0xAC = ret[8];
+    aD->AC3stat = ret[8];
 }
 
 void hStr_0016f6e8() {

@@ -1,29 +1,22 @@
 #include "common.h"
 
 void hRpcInfo() {
+    hRPCINFO *ret = (hRPCINFO *)hRpc(IOP_RpcInfo);
+    hSTRINFO2 *str;
     int i;
-    int *ret = hRpc(IOP_RpcInfo);
-    int *ret2;
-    int *ret3;
-    int *ret4;
     
-    int *iopNext;
-    sD->VoiceStat[0] = ret[0];
-    sD->VoiceStat[1] = ret[1];
+    sD->VoiceStat[0] = ret->vStatKeyon[0];
+    sD->VoiceStat[1] = ret->vStatKeyon[1];
 
-    ret2 = ret + 2;
-    bD->iopPoint = ret2[1];
-    bD->iopNext = ret[2];
-
-    i = 0;
-    iopNext = pD->iopNext;
-    ret3 = ret2 + 2;
-    for (; i < 4; i++) {
-        iopNext[i] = ret3[i];
+    str = &ret->STRinfo;
+    bD->iopPoint = str->BGMpoint;
+    bD->iopNext = str->BGMnext;
+    
+    for (i = 0; i < 4; i++) {
+        pD->iopNext[i] = str->PPTnext[i];
     }
-
-    ret4 = ret2 + 2;
-    aD->field_0xAC = ret4[4];
+    
+    aD->AC3stat = str->AC3stat;
 }
 
 int hRpcStat() {
