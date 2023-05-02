@@ -4,39 +4,7 @@
 #include "data_symbols.h"
 #include "function_symbols.h"
 
-void hSndSetMVol(float vol) {
-    sD->MVol = hSndFader(vol);
-}
-
-int hSndFader(float vol) {
-    if (vol == 0.0f) {
-        return 0;
-    }
-    if (vol > 1.0f) {
-        return 1.0;
-    }
-
-    int n = (int)(powf(10.0f, ((1.0f - vol) * sD->dBfader + sD->log10Volume) / 20.0f));
-    if (n > 0x3FFF) {
-        n = 0x3FFF;
-    }
-    if (n < -0x4000) {
-        n = -0x4000;
-    }
-
-    return n;
-}
-
-float hSndFader2(float vol) {
-    if (vol != 0.0f) {
-        if (vol > 1.0f) {
-            vol = 1.0f;
-        }
-        float f = powf(10.0, ((1.0f - vol) * sD->dBfader) * 20.0f);
-        return f;
-    }
-    return 0.0f;
-}
+EFXSE *EfxSE[50][20] = {};
 
 void hSndPkEffect() {
     int i;
@@ -131,6 +99,13 @@ void hSndPkKeyOffAll() {
     *sD->PkNum++ = SNDCMD_KEYOFFALL;
 }
 
+int hSndPkGetSize() {
+    // i have no clue how this matches
+    int size = (s32)sD->PkNum - (s32)SndMainBuffer;
+    size = size < -1 ? size + 0x1E : size + 0xF;
+    return (((s32)sD->PkNum - (s32)SndMainBuffer + 0xF) / 0x10) * 0x10;
+}
+
 void hSndReset() {
     hBgmReset();
     hPptReset();
@@ -141,21 +116,137 @@ void hSndReset() {
     sD->Mute = 0;
 }
 
-int hSndPkGetSize() {
-    // i have no clue how this matches
-    int size = (s32)sD->PkNum - (s32)SndMainBuffer;
-    size = size < -1 ? size + 0x1E : size + 0xF;
-    return (((s32)sD->PkNum - (s32)SndMainBuffer + 0xF) / 0x10) * 0x10;
+void hSndFadeOutAll(int frame) {
+    hSeKeyOffAll();
+    sD->fadeFlag = 1;
+    sD->fadeCnt = 0.0f;
+    sD->fadeMax = (float)frame;
 }
 
-void hSndBankSetStage() {
-    u8 *addr = hGetDataAddr(2);
-    if (addr != NULL) {
-        sD->stageBank = 1;
-        hSndBankSet(addr, 1);
+void hSndFadeInAll(int frame) {
+    sD->fadeFlag = 3;
+    sD->fadeCnt = 0.0f;
+    sD->fadeMax = (float)frame;
+}
+
+void hSndSetMVol(float vol) {
+    sD->MVol = hSndFader(vol);
+}
+
+// Not matching
+int hSndFader(float vol) {
+    if (vol == 0.0f) {
+        return 0;
     } else {
-        sD->stageBank = 0;
+        hSNDDATA *snd;
+        int n;
+        
+        if (vol > 1.0f) {
+            vol = 1.0f;
+        }
+        snd = sD;
+        n = powf(10.0f, ((1.0f - vol) * snd->dBfader + snd->log10Volume) / 20.0f);
+        if (n > 0x3FFF) {
+            n = 0x3FFF;
+        }
+        if (n < -0x4000) {
+            n = -0x4000;
+        }
+
+        return n;
     }
+}
+
+// Not matching
+float hSndFader2(float vol) {
+    float f = 0.0f;
+    hSNDDATA *snd;
+
+    if (vol != 0.0f) {
+        if (vol > 1.0f)
+            vol = 1.0f;
+        snd = sD;
+        f = powf(10.0f, ((1.0f - vol) * snd->dBfader) / 20.0f);
+    }
+    return f;
+}
+
+// Not matching
+void hSndMain() {
+    if (sD->TitleDelayCnt != 0 && --sD->TitleDelayCnt == 0) {
+        hSeKeyOn(0xc80c80ca0e900, NULL, 0);
+        hSeKeyOn(0xc80c80ca0e901, NULL, 0);
+    }
+
+    switch (sD->fadeFlag) {
+        case 1:
+            hSndSetMVol((sD->fadeMax - sD->fadeCnt) / sD->fadeMax);
+            sD->fadeCnt += 1.0f;
+            if (sD->fadeCnt >= sD->fadeMax) {
+                sD->fadeFlag = 2;
+                sD->fadeCnt = 0.0f;
+                hBgmReset();
+                hPptReset();
+                hSndPkKeyOffAll();
+                hSeInitGrp(0);
+                hSndSetMVol(0.0f);
+            }
+            break;
+        case 2:
+            sD->fadeCnt += 1.0f;
+            if (sD->fadeCnt >= 2.0f) {
+                sD->fadeFlag = 0;
+                hSndSetMVol(1.0f);
+            }
+            break;
+        case 3:
+            hSndSetMVol(sD->fadeCnt / sD->fadeMax);
+            sD->fadeCnt += 1.0f;
+            if (sD->fadeCnt >= sD->fadeMax) {
+                hSndSetMVol(1.0f);
+                sD->fadeFlag = 0;
+                sD->fadeCnt = 0.0f;
+            }
+            break;
+        case 4:
+            sD->seMVol = sD->fadeCnt * 1.43f / sD->fadeMax;
+            sD->fadeCnt += 1.0f;
+            if (sD->fadeCnt >= sD->fadeMax) {
+                sD->seMVol = 1.43f;
+                sD->fadeFlag = 0;
+                sD->fadeCnt = 0.0f;
+            }
+            break;
+    }
+
+    if (sD->effVol != sD->effVolBak && sD->effChange == 0) {
+        if (sD->effVol - sD->effVolBak > 0.01f)
+            sD->effVolBak += 0.01f;
+        else if (sD->effVol - sD->effVolBak < -0.01f)
+            sD->effVolBak -= 0.01f;
+        else
+            sD->effVolBak = sD->effVol;
+        hSndPkSetEVol(sD->effVolBak * 32767.0f);
+    }
+    
+    if (sD->Mute != 0) {
+        hSndPkSetMVol(0,0);
+        sD->Mute = 0;
+    } else {
+        hSndPkSetMVol(sD->MVol, sD->MVol);
+    }
+    
+    hSndPkGetSize(); // why does this get called lol
+    ((short *)SndMainBuffer)[0] = sD->PkMax;
+    hRpc(0x2a000001);
+    sD->PkNum = SndMainBuffer + 2;
+    sD->PkMax = 0;
+    sD->VoiceStat[0] |= sD->KeyonV[0];
+    sD->VoiceStat[1] |= sD->KeyonV[1];
+    sD->KeyonV[0] = 0;
+    sD->KeyonV[1] = 0;
+    heSeObjMain();
+    sD->effChange = 0;
 }
 
 void hSndInit() {
@@ -247,4 +338,55 @@ void hSndBankSetCommon() {
     hCdReadKlPack(198, buf);
     buf = GetFHMAddress(buf, 2);
     FUN_001d37f8(1, 0x200000, NULL);
+}
+
+void hSndBankSetStage() {
+    u8 *addr = hGetDataAddr(2);
+    if (addr != NULL) {
+        sD->stageBank = 1;
+        hSndBankSet(addr, 1);
+    } else {
+        sD->stageBank = 0;
+    }
+}
+
+void hSndEffSetArea() {
+    EFXSE *se = &EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF][0];
+    sD->effIdx = 0;
+    sD->effVol = se->vol;
+    sD->effVolBak = 0.0;
+    sD->effMode = se->efx;
+    sD->effDepth = 0x7fff;
+    sD->effDelay = se->delay;
+    sD->effFeed = se->feed;
+    sD->effMix = se->dry | 2;
+    hSndPkEffect();
+    hSndPkSetEVol(0);
+}
+
+void hSndEffSetVolIdx(int idx) {
+    EFXSE *se = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
+    sD->effIdx = idx;
+    se = &se[idx];
+    sD->effVol = se->vol;
+}
+
+void hSndEffSetVol_PPTstart() {
+    EFXSE *se = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
+    se = &se[sD->effIdx];
+    sD->effVol = se->vol_ppt;
+}
+
+void hSndEffSetVol_PPTend() {
+    EFXSE *se = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
+    se = &se[sD->effIdx];
+    sD->effVol = se->vol;
+}
+
+void hSndEffSetVol(float vol) {
+    sD->effVol = vol;
+}
+
+void hSndSetStereo(SND_MODE i) {
+    sD->Stereo = i;
 }

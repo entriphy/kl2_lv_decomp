@@ -396,4 +396,16 @@ enum {
 	SNDCMD_EVOL = 9
 };
 
+typedef struct {
+    int efx;
+    float vol;
+    int delay;
+    int feed;
+    int dry;
+    float vol_ppt;
+    float workf0;
+    int worki0;
+    int worki1;
+} EFXSE;
+
 #endif
