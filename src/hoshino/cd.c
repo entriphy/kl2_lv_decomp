@@ -185,12 +185,14 @@ int hCdKlPackCount(int index) {
 }
 
 void hCdReadKlPack(int index, u8 *buf) {
+    int i;
+
     printf("hCdReadKlPack(%d, 0x%08x)\n", index, buf);
 
     sceCdDiskReady(0);
     while (!sceCdRead(KlTable[index].offset + cD->file.lsn, KlTable[index].count, buf, &cD->mode));
     do {
-        for (int i = 0; i < 0x10000; i++) {
+        for (i = 0; i < 0x10000; i++) {
             // Do nothing
         }
     } while (sceCdSync(1));
@@ -205,6 +207,10 @@ int hCdLoading() {
 }
 
 void hCdInit() {
+    int threadId;
+    u8 *buf;
+    u8 *addr;
+
     cD = &CdData;
     cQ = &cD->Cue;
 
@@ -221,14 +227,14 @@ void hCdInit() {
     cD->mode.pad = 0;
     
     sceCdInitEeCB(0, EeCb, 0x2000);
-    int threadId = GetThreadId();
+    threadId = GetThreadId();
     cD->ThID = threadId;
     ChangeThreadPriority(threadId, 1);
 
     sceCdDiskReady(0);
     cD->DiscType = sceCdGetDiskType();
-    u8 *buf = hCdReadFile("\\HEADPACK.BIN;1");
-    u8 *addr = GetFHMAddress(buf, 0);
+    buf = hCdReadFile("\\HEADPACK.BIN;1");
+    addr = GetFHMAddress(buf, 0);
     KlTable = (KLTABLE *)(addr + 4);
     addr = GetFHMAddress(buf, 1);
     PptTable = (PPTTABLE *)(addr + 4);

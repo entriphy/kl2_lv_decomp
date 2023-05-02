@@ -89,21 +89,25 @@ void FUN_00196c00() {
 }
 
 void hStrInit() {
+    int i, j;
+    int *iopAddr;
+    int *n;
+
     bD = &BgmData;
     pD = &PptData;
     aD = &Ac3Data;
     hBgmWorkClear();
     bD->Command = 0;
     bD->bgmVol = 0.78740156f;
-    int* iopAddr = hRpc(IOP_StrInit);
+    iopAddr = hRpc(IOP_StrInit);
     bD->iopAddr[0] = iopAddr;
     bD->iopAddr[1] = iopAddr + 0x20000;
-    int* n = bD->iopAddr[1] + 0x20000;
-    for (int i = 0; i < 4; i++) {
+    n = bD->iopAddr[1] + 0x20000;
+    for (i = 0; i < 4; i++) {
         pD->pptPlay[i] = 0;
         pD->eeStat[i] = 0;
         pD->eeAddr[i] = pptEeAddrs[i];
-        for (int j = 0; j < 2; j++) {
+        for (j = 0; j < 2; j++) {
             pD->iopAddr[i][j] = n;
             n += 0x1000;
         }

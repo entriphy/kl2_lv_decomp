@@ -2,6 +2,10 @@
 
 void hStrInfo() {
     float f;
+    int n;
+    STRINFO *str;
+    int i;
+
     switch (bD->fadeFlag) {
         case 1:
             f = (float)(bD->fadeMax - bD->fadeCnt) / (float)bD->fadeMax;
@@ -37,7 +41,7 @@ void hStrInfo() {
         f *= 1.0f + 6.0f / sD->dBfader;
     }
     
-    int n = (int)(sD->bgmMVol * bD->bgmVol * hSndFader2(f) * 16367.0f);
+    n = (int)(sD->bgmMVol * bD->bgmVol * hSndFader2(f) * 16367.0f);
     if (n < 0x4000) {
         if (n < 0) {
             n = 0;
@@ -52,7 +56,7 @@ void hStrInfo() {
         n = 0;
     }
 
-    STRINFO *str = (STRINFO *)RpcArg;
+    str = (STRINFO *)RpcArg;
     str->eeCnt = cD->eeCnt;
     str->Command = bD->Command;
     str->BGMok[0] = (s8)bD->iopOK[0];
@@ -76,7 +80,7 @@ void hStrInfo() {
         f *= 1.0f - 6.0f * sD->dBfader;
     }
 
-    for (int i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++) {
         n = (int)(sD->pptMVol * hSndFader2(f * pD->pptVol[i]) * 16367.0f);
         if (n < 0x4000) {
             if (n < 0) {
@@ -104,12 +108,14 @@ void hStrInfo() {
 }
 
 void hStr_0016c6e8() {
+    int i;
     int *ret = hRpc(IOP_RpcInfo);
+
     sD->VoiceStat[0] = ret[0];
     sD->VoiceStat[1] = ret[1];
     bD->iopPoint = ret[3];
     bD->iopNext = ret[2];
-    for (int i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++) {
         pD->iopNext[i] = ret[4 + i];
     }
     aD->AC3stat = ret[8];

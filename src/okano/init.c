@@ -18,12 +18,14 @@ void OkPrintSysInit(int personal_id, int screenw, int screenh, int fontw, int fo
 }
 
 void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth) {
-    for (int i = 0; i < 9; i++) {
+    int i, j;
+
+    for (i = 0; i < 9; i++) {
         PDbuf[i].fsz_x = fontw;
         PDbuf[i].fsz_y = fonth;
         PDbuf[i].scr_x = screenw;
         PDbuf[i].scr_y = screenh;
-        for (int j = 0; j < 280; j++) {
+        for (j = 0; j < 280; j++) {
             // what
         }
     }

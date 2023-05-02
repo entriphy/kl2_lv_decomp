@@ -24,11 +24,13 @@ int hRpcStat() {
 }
 
 void hRpcBind() {
+    int i;
+
     do {
         if (sceSifBindRpc(&sndRpc, 0x12346, 0) < 0) {
             while (true);
         }
-        for (int i = 10000; i > 0; i--) {
+        for (i = 10000; i > 0; i--) {
             // Do nothing
         }
     } while (!sndRpc.serve);

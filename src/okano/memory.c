@@ -38,7 +38,8 @@ void FUN_001d3638(int i) {
 }
 
 void FUN_001d3710() {
-    for (int i = 0; i < 9; i++) {
+    int i;
+    for (i = 0; i < 9; i++) {
         FUN_001d3638(i);
     }
 }

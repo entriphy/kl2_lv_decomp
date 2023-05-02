@@ -11,8 +11,10 @@ void htInitRand(int seed) {
 }
 
 int htGetRand() {
+    int odd;
+
     ht_g_rand &= 0x7FFF;
-    int odd = ht_g_rand & 1;
+    odd = ht_g_rand & 1;
     ht_g_rand >>= 1;
     ht_g_rand |= odd << 14;
     ht_g_rand ^= odd << 7;
