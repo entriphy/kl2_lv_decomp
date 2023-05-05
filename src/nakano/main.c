@@ -39,6 +39,11 @@ void hLoopTop() {
     hRpcInfo();
 }
 
+void hLoopBottom() {
+    hSndMain();
+    hCdMain();
+}
+
 void MainFunc() {
     if (functbl[SysGbl.nmode].func == NULL) {
         SysGbl.fmode = 0;

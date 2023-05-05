@@ -47,7 +47,7 @@ int GameLoad() {
     TkMainLoop(1);
     sceGsSyncPath(0,0);
     FUN_001dabd0(GameGbl.kpd[1].rep & 0x100);
-    // hLoopBottom();
+    hLoopBottom();
     GameGbl.inter = sceGsSyncV(0) ^ 1;
     if ((GameGbl.fr & 1) == 0) {
         sceGsSetHalfOffset(&GameGbl.db.draw01, 2048, 2048, GameGbl.inter);
