@@ -116,6 +116,18 @@ void hSndReset() {
     sD->Mute = 0;
 }
 
+void hSeKeyOffAll() {
+    // TODO
+}
+
+void hSeKeyOn(long splt, sceVu0FVECTOR *parent, int reserve) {
+    // TODO
+}
+
+void hSeObjMain() {
+    // TODO
+}
+
 void hSndFadeOutAll(int frame) {
     hSeKeyOffAll();
     sD->fadeFlag = 1;
@@ -245,7 +257,7 @@ void hSndMain() {
     sD->VoiceStat[1] |= sD->KeyonV[1];
     sD->KeyonV[0] = 0;
     sD->KeyonV[1] = 0;
-    heSeObjMain();
+    hSeObjMain();
     sD->effChange = 0;
 }
 

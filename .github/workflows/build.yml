@@ -19,7 +19,7 @@ jobs:
       env:
         SDK_URL: ${{secrets.SDK_URL}}
     - name: Untar SDK
-      run: sudo mkdir /sce; sudo tar -xf sdk.tar.xz -C /sce
+      run: sudo mkdir /sce; sudo tar -xf sdk.tar.xz -C /sce; sudo ln -s /sce /usr/local/sce
     - name: Configure CMake
       run: cmake -DCMAKE_TOOLCHAIN_FILE=ps2_ee.cmake -Bbuild
     - name: Build
