@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.17)
-project(kl2 LANGUAGES C)
+project(kl2_irx LANGUAGES C)
 
 # SCE PS2 SDK
 if(DEFINED ENV{SCESDK})
     SET(SCESDK $ENV{SCESDK})
     SET(SCE ON)
     message(NOTICE "Using SCE PS2 SDK!")
-    
 else()
     message(FATAL_ERROR "SCESDK needs to be defined.")
 endif()
