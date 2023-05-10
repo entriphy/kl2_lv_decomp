@@ -45,7 +45,7 @@ set(CMAKE_EXECUTABLE_SUFFIX_CXX "${CMAKE_EXECUTABLE_SUFFIX}")
 # Copy kl2.irx to build directory
 add_custom_command(TARGET ${PROJECT_NAME}
         PRE_LINK
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:kl2_irx> ${CMAKE_CURRENT_BINARY_DIR})
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:kl2_irx> ${CMAKE_CURRENT_BINARY_DIR}/kl2.irx)
 
 # Copy IOP image to build directory
 file(GLOB IOP_IMAGES "${SCESDK}/iop/modules/*.img")
