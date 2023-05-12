@@ -8,7 +8,6 @@
 #include <math.h>
 
 #include "cam.h"
-#include "compression.h"
 #include "gbl.h"
 #include "gim.h"
 #include "hoshino.h"

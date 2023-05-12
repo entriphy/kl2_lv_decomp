@@ -115,14 +115,6 @@
 /* FUN_00197830 */ extern void nkGsSetNormalFZ2();
 /* FUN_001979b0 */ extern void FUN_001979b0(int param_1);
 /* FUN_00197a88 */ extern void FUN_00197a88();
-/* FUN_00198950 */ extern u8 *FUN_00198950(u8 *input, u8 *output, DecompressionStructure *scratchpad);
-/* FUN_00198a28 */ extern void FUN_00198a28(DecompressionStructure *scratchpad);
-/* FUN_00198a68 */ extern u32 FUN_00198a68(DecompressionStructure *scratchpad);
-/* FUN_00198b80 */ extern u32 FUN_00198b80(DecompressionStructure *scratchpad);
-/* FUN_00198c40 */ extern void FUN_00198c40(DecompressionStructure *scratchpad, s16 param_2, s16 param_3, s16 param_4);
-/* FUN_00198e90 */ extern void FUN_00198e90(DecompressionStructure *scratchpad);
-/* FUN_001990c0 */ extern u16 FUN_001990c0(DecompressionStructure *scratchpad, s16 param_2);
-/* FUN_00199100 */ extern void FUN_00199100(DecompressionStructure *scratchpad, u16 param_2);
 /* FUN_001994e0 */ extern void init_config_system();
 /* FUN_00199560 */ extern void nkInitSys();
 /* FUN_00199810 */ extern void nkKeyFrameStart();
