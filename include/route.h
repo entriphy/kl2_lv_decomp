@@ -10,4 +10,12 @@ typedef struct {
     u16 DUMMY;
 } ROUTE;
 
+typedef struct {
+    s32 cnt;
+    ROUTE *rtp;
+    s16 plc;
+    s16 rtn;
+    s32 mcn;
+} RT_WRK;
+
 #endif

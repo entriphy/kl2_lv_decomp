@@ -2,6 +2,7 @@
 #define OBJWORK_H
 
 #include "gim.h"
+#include "route.h"
 #include "tobj.h"
 #include "types.h"
 
@@ -57,5 +58,98 @@ typedef struct OBJWORK {
     GIMWORK* gimmick; // 0xE8
     tOBJECT* _hOp; // 0xEC
 } OBJWORK;
+
+// Most likely incorrect
+typedef struct {
+    RT_WRK rtw;
+    s32 idk;
+    s32 miexspd; // 0x14
+    s32 tumspd;
+    s32 gimspd;
+    u32 bun_buf;
+    u32 Muki;
+    u32 buki_muki;
+    u32 timer;
+    u32 timer2;
+    s32 yarare_bun;
+    s32 tenmetu; // 0x38
+    u32 Muki_buf;
+    u32 door_muki;
+    s32 total_rakka_time;
+    s32 count;
+    s32 muki2;
+    s32 michinori;
+    s32 michispd;
+    s32 mispd_buf;
+    s32 mispd; // 0x5C
+    s32 spflag;
+    s32 spflag2;
+    s32 da_muteki; // 0x68
+    s32 noyukatime;
+    OBJWORK* mochifuku; // 0x70
+    s32 jmp_cnt;
+    f32 saka;
+    f32 yarare_yposi;
+    u32 f_phcode;
+    s32 lvl;
+    s32 trg;
+    s32 ex_lvl;
+    s32 ex_trg;
+    f32 sjump_flag;
+    f32 sjump_yspd;
+    f32 tenjo_hosei;
+    s32 retflag;
+    s32 left_move;
+    s32 right_move;
+    s32 up_move;
+    s32 down_move;
+    u32 gimm_flag;
+    OBJWORK* norigimm;
+    OBJWORK* movebox;
+    s32 yuka_hit;
+    s32 yuka_hit_buf;
+    s32 ottoto;
+    s32 rakka_flag;
+    s32 wahoo_cnt;
+    s32 wahoo_timer;
+    OBJWORK* okuyuka;
+    s32 con;
+    s32 b_action;
+    s32 b_act_time;
+    sceVu0FVECTOR Scale;
+    s32 se_id;
+    s32 se_id2;
+    s32 se_id3;
+    s32 se_id4;
+    s32 se_id5;
+    s32 se_id6;
+    s32 se_id7;
+    s32 se_id8;
+    s32 se_id9;
+    s32 dai_se_cnt;
+    s32 yuka_hit_old;
+    s32 b_act_rflag;
+    f32 b_act_rot;
+    f32 motcnt;
+    f32 motcnt_end;
+    s32 motstop_flag;
+    s32 mot_actno;
+    s32 kasokuLvL; // 0x144
+    f32 kasokuTime; // 0x148
+    f32 kasokuMTime; // 0x14C
+    f32 center_time;
+    s32 rupu_cnt;
+    s32 run_ef_cnt;
+    s32 dead_cnt;
+    s32 hima_cnt;
+    s32 taiho_bun;
+    s32 area_cnt;
+    s32 kage_flag;
+    f32 jumpspd_limit; // 0x16C
+    s32 rakka_cnt;
+    s32 pad;
+    sceVu0FVECTOR slant; // 0x180
+    OBJWORK *effBoardFlear;
+} HERO_WORK;
 
 #endif
