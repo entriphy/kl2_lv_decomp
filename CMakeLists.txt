@@ -24,7 +24,7 @@ foreach (SUBDIR IN LISTS SUBDIRS)
         list(APPEND EXECUTABLES ${file})
     endforeach()
 
-    file(GLOB files src/${SUBDIR}/*.cpp)
+    file(GLOB files src/${SUBDIR}/*.cc)
     foreach (file ${files})
         list(APPEND EXECUTABLES ${file})
     endforeach()
