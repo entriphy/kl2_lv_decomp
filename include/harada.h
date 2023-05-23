@@ -104,6 +104,24 @@ typedef struct {
     short scene;
 } PTDATA;
 
+// Functions
+
+// hr_main.c
+extern void hr_cold_start();
+
+// hr_pall.c
+extern void hr_pt_set(s16 flag, s16 scene, s16 view, s16 th);
+extern void hr_pt_fclear();
+
+// hr_pbgm.c
+
+
+// hr_pflag.c
+extern void hr_pflag_initAr();
+extern void hr_pflag_initSt();
+extern void hr_pflag_init();
+extern PT   hr_pflag_get_id();
+
 // Data
 
 // hr_pall.c

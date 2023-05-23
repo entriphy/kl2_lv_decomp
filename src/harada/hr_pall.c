@@ -28,7 +28,7 @@ s16 hrpt_stnk = 0;
 s32 hrpt_mini = 0;
 s32 *hrpt_mini_addr = NULL;
 
-void hr_pt_set(short flag, short scene, short view, short th) {
+void hr_pt_set(s16 flag, s16 scene, s16 view, s16 th) {
     hrpt_flag = flag;
     hrpt_scene = scene;
     hrpt_view = view;
