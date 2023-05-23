@@ -134,12 +134,10 @@
 /* FUN_001d1c08 */ extern int FUN_001d1c08(const char* name);
 /* FUN_001d1c78 */ extern int FUN_001d1c78(const char* name, u8 *buf);
 /* FUN_001d3170 */ extern void memorySysFormat();
-/* FUN_001d31a0 */ extern void FUN_001d31a0();
+/* FUN_001d31a0 */ extern void memoryStageptrSet();
 /* FUN_001d31b0 */ extern void memoryStageFormat();
 /* FUN_001d3638 */ extern void FUN_001d3638(int i);
 /* FUN_001d3710 */ extern void FUN_001d3710();
-/* FUN_001d3748 */ extern u8 *getBuff(int type, int byte_, const char* name, int* ret);
-/* FUN_001d37f8 */ extern void FUN_001d37f8(int param_1, int param_2, const char *param_3);
 /* FUN_001da5a0 */ extern void OkPrintSysInit(int personal_id, int screenw, int screenh, int fontw, int fonth);
 /* FUN_001da5e8 */ extern void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth);
 /* FUN_001dabd0 */ extern void FUN_001dabd0(short param_1);

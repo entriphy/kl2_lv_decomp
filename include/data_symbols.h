@@ -75,7 +75,6 @@
 /* DAT_003fb8f4 */ extern int DAT_003fb8f4;
 /* DAT_003fb934 */ extern u8 *NakanoPackAddr;
 /* DAT_003fb93c */ extern u8 *DAT_003fb93c;
-/* DAT_003fbaec */ extern u8 *texdeb;
 /* DAT_003fbba8 */ extern int OkZakoFuncOn;
 /* DAT_003fbc90 */ extern long profileFlag;
 /* DAT_003fbaf4 */ extern int fontDispID;

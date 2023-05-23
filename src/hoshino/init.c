@@ -76,7 +76,7 @@ void hInitBoot() {
     GameGbl.vision = 0x6300;
     hSndBankSetCommon();
     FUN_00167c20(getBuff(1, FUN_00167bd0(1), NULL, &ret));
-    FUN_001d31a0();
+    memoryStageptrSet();
     htInitRand(0x399);
 }
 
@@ -159,75 +159,6 @@ void init_config_system() {
     FUN_00196c00();
     SysGbl.Language = 1;
     SysGbl.TVSystem = 2;
-}
-
-int FUN_001d1c08(const char* name) {
-    // Using open/lseek rather than sceOpen/sceLseek
-    int ret;
-    FILE* file = fopen(name, "r");
-
-    if (file == NULL) {
-        fclose(file); // fclose on a null pointer? Is that allowed with sceClose?
-        ret = -1;
-    } else {
-        ret = fseek(file, 0, SEEK_END);
-        fclose(file);
-    }
-
-    return ret;
-}
-
-int FUN_001d1c78(const char* name, u8 *buf) {
-    FILE* file = fopen(name, "r");
-    if (file != NULL) {
-        int size = fseek(file, 0, SEEK_END);
-        if (size > 0) {
-            fseek(file, 0, SEEK_SET);
-            read(file->_file, buf, size);
-            fclose(file);
-            return size;
-        }
-    }
-
-    fclose(file);
-    return -1;
-}
-
-void FUN_001d31a0() {
-    buffstagetop = buffstartptr;
-}
-
-u8 *getBuff(s32 type, s32 size, const char *name, s32 *ret) {
-    u8 *buff = buffstartptr;
-    u8 *newBuff = buffstartptr;
-    
-    if (type == 0) {
-        size = FUN_001d1c08(name); // Gets filesize
-        *ret = -1;
-        if (size == -1)
-            return (u8 *)-1;
-        *ret = FUN_001d1c78(name, newBuff);
-    }
-    
-    size = ((size + 0x0F) / 0x10) * 0x10;
-    newBuff += size;
-    buffstartptr = newBuff;
-    return buff;
-}
-
-void FUN_001d37f8(s32 type, s32 size, const char *name) {
-    u8 *buff = buffstartptr;
-    
-    if (type == 0) {
-        size = FUN_001d1c08(name);
-        if (size == -1)
-            return;
-    }
-
-    size = ((size + 0xF) / 16) * 16;
-    buff -= size;
-    
-    buffstartptr = buff;
 }
 
 void hMovInit() {

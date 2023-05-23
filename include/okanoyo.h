@@ -228,11 +228,17 @@ typedef struct { // 0x108
 } TEXINFODEB;
 
 // Functions
+extern void * getmem(s32 byte);
+extern void DebmemFormat(s32 ID);
+extern void debmemorySysFormat();
+extern void * getBuff(s32 type, s32 byte, char *name, s32 *ret);
+extern void freeBuff(s32 type, s32 byte, char *name);
 
 // Data
 extern s32 *prgBufPtr[4];
 extern s32 *prgBufTop[4];
 extern s32 prgBufPtrIdxMax[4];
+extern DEBMEM OkDebMem[10];
 extern s32 *buffstartptrORG;
 extern s32 *buffstartptr;
 extern s32 *buffstagetop;

@@ -349,7 +349,7 @@ void hSndBankSetCommon() {
     u8 *buf = getBuff(1, 0x200000, NULL, &ret);
     hCdReadKlPack(198, buf);
     buf = GetFHMAddress(buf, 2);
-    FUN_001d37f8(1, 0x200000, NULL);
+    freeBuff(1, 0x200000, NULL);
 }
 
 void hSndBankSetStage() {
