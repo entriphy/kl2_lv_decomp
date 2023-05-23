@@ -5,6 +5,7 @@ int nkLoadStat;
 int DAT_003fb8f4;
 u8 *NakanoPackAddr;
 u8 *nkLoadBuff;
+s16 obj_id[129] = {};
 
 int (*GameFuncTbl[3])() = {
     GameInit,

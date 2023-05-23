@@ -3,6 +3,9 @@
 
 #include "types.h"
 #include "ps2.h"
+#include "objwork.h"
+
+// Structs
 
 typedef struct {
     s32 map_draw_flag;
@@ -32,8 +35,8 @@ typedef union {
     u128 ul128;
     u64 ul64[2];
     u32 ul32[4];
-    IVECTOR vect;
-    FVECTOR fvct;
+    sceVu0IVECTOR vect;
+    sceVu0FVECTOR fvct;
 } nkQWdata;
 
 typedef struct {
@@ -42,16 +45,15 @@ typedef struct {
 } nkGifPacket;
 
 typedef struct {
-    float SrcZ;
-    float AspectX;
-    float AspectY;
-    float CenterX;
-    float CenterY;
-    float MinZ;
-    float MaxZ;
-    float NearZ;
-    float FarZ;
-    float pad[3];
+    f32 SrcZ;
+    f32 AspectX;
+    f32 AspectY;
+    f32 CenterX;
+    f32 CenterY;
+    f32 MinZ;
+    f32 MaxZ;
+    f32 NearZ;
+    f32 FarZ;
     sceVu0FVECTOR camera_p;
     sceVu0FVECTOR camera_zd;
     sceVu0FVECTOR camera_yd;
@@ -68,8 +70,8 @@ typedef struct {
 	u8 *in_data_adrs;
 	s32 end_flag;
 	s64 block_num;
-	u8 p_len[19];
-	u8 c_len[510];
+	u8  p_len[19];
+	u8  c_len[510];
 	u16 p_table[256];
 	u16 c_table[4096];
 	u16 left[1019];
@@ -79,8 +81,17 @@ typedef struct {
 	u16 start[18];
 } HLZWork;
 
-extern u8 *HLZDecode(u8 *src, u8 *dst, HLZWork *wk_adrs);
+// Defines
 
 #define nkSPR (nkQWdata *)0x70000000
+
+// Functions
+
+extern OBJWORK * SearchOBJWORK(OBJWORK *objwork, s32 n_objw);
+extern u8 *HLZDecode(u8 *src, u8 *dst, HLZWork *wk_adrs);
+
+// Data
+
+extern s16 obj_id[129];
 
 #endif

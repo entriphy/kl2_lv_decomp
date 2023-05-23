@@ -6,9 +6,6 @@
 #include "tobj.h"
 #include "types.h"
 
-typedef struct {} GeneralWork;
-typedef struct {} Prim;
-
 // Size: 0xF0
 typedef struct OBJWORK {
     void (*pers)(struct OBJWORK *); // 0x00
@@ -16,8 +13,8 @@ typedef struct OBJWORK {
     void (*drmir)(struct OBJWORK *); // 0x08
     void (*drmiref)(struct OBJWORK *); // 0x0C
     void (*dreff)(struct OBJWORK *); // 0x10
-    Prim* prim; // 0x14, klMODEL, 
-    GeneralWork* work; // 0x18
+    void *prim; // 0x14
+    void *work; // 0x18
     s16 stat0; // 0x1C
     s16 stat1; // 0x1E
     s16 prty; // 0x20
@@ -28,12 +25,12 @@ typedef struct OBJWORK {
     s16 pad1; // 0x2A
     s16 live; // 0x2C
     s16 stat; // 0x2E
-    FVECTOR posi; // 0x30
-    FVECTOR spd; // 0x40
-    FVECTOR muki; // 0x50
-    FVECTOR ang; // 0x60
-    FVECTOR rot; // 0x70
-    FVECTOR rtw; // 0x80
+    sceVu0FVECTOR posi; // 0x30
+    sceVu0FVECTOR spd; // 0x40
+    sceVu0FVECTOR muki; // 0x50
+    sceVu0FVECTOR ang; // 0x60
+    sceVu0FVECTOR rot; // 0x70
+    sceVu0FVECTOR rtw; // 0x80
     s32 reg0; // 0x90
     s32 reg1; // 0x94
     s32 reg2; // 0x98
@@ -42,19 +39,19 @@ typedef struct OBJWORK {
     s32 reg5; // 0xA4
     s32 reg6; // 0xA8
     s32 reg7; // 0xAC
-    float freg0; // 0xB0
-    float freg1; // 0xB4
-    float freg2; // 0xB8
-    float freg3; // 0xBC
-    float freg4; // 0xC0
-    float freg5; // 0xC4
-    float freg6; // 0xC8
-    float freg7; // 0xCC
+    f32 freg0; // 0xB0
+    f32 freg1; // 0xB4
+    f32 freg2; // 0xB8
+    f32 freg3; // 0xBC
+    f32 freg4; // 0xC0
+    f32 freg5; // 0xC4
+    f32 freg6; // 0xC8
+    f32 freg7; // 0xCC
     s64 htblid; // 0xD0
     s64 dummy; // 0xD8
     s16 option; // 0xE0
     s16 sflag; // 0xE2
-    u8* hpo; // 0xE4
+    u8 *hpo; // 0xE4
     GIMWORK* gimmick; // 0xE8
     tOBJECT* _hOp; // 0xEC
 } OBJWORK;
