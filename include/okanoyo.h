@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+// Structs
+
 typedef struct {
     u32 top;
     u32 end;
@@ -120,5 +122,129 @@ typedef struct {
     int pad1;
     long pad0;
 } PROFILE;
+
+typedef struct {
+    sceVu0FVECTOR posdiv;
+    sceVu0FVECTOR angdiv;
+    sceVu0FVECTOR posdivbak;
+    sceVu0FVECTOR angdivbak;
+    sceVu0FVECTOR posbak;
+    sceVu0FVECTOR angbak;
+    sceVu0FVECTOR posdivset;
+    sceVu0FVECTOR angdivset;
+    sceVu0FVECTOR posset;
+    sceVu0FVECTOR angset;
+    sceVu0FVECTOR posdivD;
+    sceVu0FVECTOR angdivD;
+    s16 StatTrgFlag;
+    s16 pad0;
+    OBJWORK* trgptr;
+    s32 camSetFlag;
+    s32 camBakFlag;
+    s32 camRefFlag;
+    s32 camActFlag;
+    s32 camActBack;
+    s32 camMode;
+    s32 camDebug;
+    s32 camSet;
+    s32 pad1;
+    s32 camSetFlagBak;
+    s32 stat;
+    s32 camType;
+    s32 DirectCam;
+    s32 orgCamBakFlg;
+    s32 setCamDatFlg;
+    s32 camJobMode;
+    sceVu0FVECTOR fpos;
+    sceVu0FVECTOR fang;
+    sceVu0FVECTOR tpos;
+    sceVu0FVECTOR tang;
+    sceVu0FVECTOR ofs;
+    sceVu0FVECTOR fofs;
+    sceVu0FVECTOR tofs;
+    sceVu0FVECTOR fdir;
+    sceVu0FVECTOR tdir;
+    sceVu0FVECTOR pspd;
+    sceVu0FVECTOR aspd;
+    sceVu0FVECTOR ospd;
+    sceVu0FVECTOR dspd;
+    s32 time;
+    s32 count;
+    s32 pad00;
+    s32 pad01;
+    f32 retdiv;
+    f32 acodiv;
+    f32 pcodiv;
+    f32 test1;
+    sceVu0FVECTOR spd;
+    s32 preflag;
+    f32 ftz;
+    s32 test01;
+    s32 act_mode;
+    sceVu0FVECTOR fpspd;
+    sceVu0FVECTOR faspd;
+    s32 time0;
+    s32 time1;
+    s32 time2;
+    s32 time3;
+    s32 time4;
+    s32 time5;
+    s32 time6;
+    s32 time7;
+    sceVu0FVECTOR getpos;
+    sceVu0FVECTOR getang;
+    sceVu0FVECTOR cpos;
+    sceVu0FVECTOR cang;
+    sceVu0FVECTOR cofs;
+    sceVu0FVECTOR cdir;
+    s32 Directflag;
+    s32 mode;
+    s32 dum1;
+    s32 dum2;
+} OkCWork;
+
+typedef struct {
+    u64 tex0;
+    s32 flag;
+    u16 pbp;
+    u16 cbp;
+    u32 px;
+    u32 py;
+    u32 cx;
+    u32 cy;
+    u16 pw;
+    u16 ph;
+    u32 pad0;
+    u32 pad1;
+    u32 pad2;
+} TEXINFO;
+
+typedef struct { // 0x108
+	/* 0x000 */ u8  name[256];
+	/* 0x100 */ s16 pw;
+	/* 0x102 */ s16 ph;
+	/* 0x104 */ s16 px;
+	/* 0x106 */ s16 py;
+} TEXINFODEB;
+
+// Functions
+
+// Data
+extern s32 *prgBufPtr[4];
+extern s32 *prgBufTop[4];
+extern s32 prgBufPtrIdxMax[4];
+extern s32 *buffstartptrORG;
+extern s32 *buffstartptr;
+extern s32 *buffstagetop;
+extern s32 *buffareatop;
+extern u8 scram_0[4480];
+extern u8 scram_1[4480];
+extern u8 scram_2[4480];
+extern u8 scram_3[4480];
+extern u8 scram_4[4480];
+extern u8 scram_5[4480];
+extern u8 scram_6[4480];
+extern u8 scram_7[4480];
+extern u8 scram_8[4480];
 
 #endif

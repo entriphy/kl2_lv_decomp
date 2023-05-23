@@ -76,9 +76,6 @@
 /* DAT_003fb934 */ extern u8 *NakanoPackAddr;
 /* DAT_003fb93c */ extern u8 *DAT_003fb93c;
 /* DAT_003fbaec */ extern u8 *texdeb;
-/* DAT_003fbb38 */ extern u8 *buffstartptrORG;
-/* DAT_003fbb3c */ extern u8 *buffstartptr;
-/* DAT_003fbb40 */ extern u8 *buffstagetop;
 /* DAT_003fbba8 */ extern int OkZakoFuncOn;
 /* DAT_003fbc90 */ extern long profileFlag;
 /* DAT_003fbaf4 */ extern int fontDispID;
