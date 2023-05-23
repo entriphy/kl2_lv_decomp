@@ -3,8 +3,8 @@
 int nkLoadTimer;
 int nkLoadStat;
 int DAT_003fb8f4;
-u8 *NakanoPackAddr;
-u8 *nkLoadBuff;
+u32 *NakanoPackAddr;
+u32 *nkLoadBuff;
 s16 obj_id[129] = {};
 
 int (*GameFuncTbl[3])() = {
@@ -24,7 +24,7 @@ int GameInit() {
     nkLoadTimer = 0;
     nkLoadStat = 0;
     DAT_003fb8f4 = 0;
-    nkLoadBuff = getBuff(1, FUN_00167bd0(1), NULL, &ret);
+    nkLoadBuff = (u32 *)getBuff(1, hGameDataSize(1), NULL, &ret);
     kzInitNowload();
     nkKeyFrameStart();
     SysGbl.smode++;
@@ -34,10 +34,10 @@ int GameInit() {
 int GameLoad() {
     if (DAT_003fb8f4 == 0) {
         if (nkLoadStat == 0) {
-            FUN_00167c00(0, nkLoadBuff);
+            hGameRead(0, (s32)nkLoadBuff);
         }
         else if (nkLoadStat == 1) {
-            FUN_00167c00(1, nkLoadBuff);
+            hGameRead(1, (s32)nkLoadBuff);
         }
         DAT_003fb8f4++;
     }
@@ -69,7 +69,7 @@ int GameLoad() {
         } else if (nkLoadStat == 1) {
             kzSetDispMaskOn();
             nkInitPS2();
-            NakanoPackAddr = hGetDataAddr(0);
+            NakanoPackAddr = (u32 *)hGetDataAddr(0);
             nkStageInit1();
             SysGbl.smode++;
             nkGsSetNormalFZ2_0();

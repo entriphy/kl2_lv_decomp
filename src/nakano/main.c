@@ -9,7 +9,6 @@ FUNCTBL functbl[8] = {
 };
 
 int main(int argc, char *argv[]) {
-    FUN_00318a80();
     memorySysFormat();
     hInitBoot();
     SysGbl.irqc = 0;
@@ -32,16 +31,6 @@ int main(int argc, char *argv[]) {
     }
 
     return 0;
-}
-
-void hLoopTop() {
-    while (hRpcStat() != 0);
-    hRpcInfo();
-}
-
-void hLoopBottom() {
-    hSndMain();
-    hCdMain();
 }
 
 void MainFunc() {

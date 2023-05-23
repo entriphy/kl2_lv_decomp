@@ -6,7 +6,7 @@ int ret_gameread;
 int DAT_003fadcc;
 
 void kzLoadCommonGms() {
-    u8 *gms = FUN_00167c80(7);
+    u8 *gms = (u8 *)hGetSysDataAddr(7);
     if (gms != NULL) {
         FUN_0018dcb0(gms + ((u32 *)gms)[1]);
         sceGsSyncPath(0, 0);

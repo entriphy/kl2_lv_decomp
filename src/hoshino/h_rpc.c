@@ -1,6 +1,10 @@
 #include "common.h"
 
-void hRpcInfo() {
+static s32 sbuff[16] __attribute__((aligned(16)));
+static s32 sndBuff[16] __attribute__((aligned(16)));
+static sceSifClientData gCd;
+
+void hSndRpcRet() {
     hRPCINFO *ret = (hRPCINFO *)hRpc(IOP_RpcInfo);
     hSTRINFO2 *str;
     int i;
@@ -19,24 +23,24 @@ void hRpcInfo() {
     aD->AC3stat = str->AC3stat;
 }
 
-int hRpcStat() {
-    return sceSifCheckStatRpc(&sndRpc.rpcd);
+s32 hRpcSync() {
+    return sceSifCheckStatRpc(&gCd.rpcd);
 }
 
-void hRpcBind() {
+void hRpcInit() {
     int i;
 
     do {
-        if (sceSifBindRpc(&sndRpc, 0x12346, 0) < 0) {
+        if (sceSifBindRpc(&gCd, 0x12346, 0) < 0) {
             while (true);
         }
         for (i = 10000; i > 0; i--) {
             // Do nothing
         }
-    } while (!sndRpc.serve);
+    } while (!gCd.serve);
 }
 
-int * hRpc(s32 cmd) {
+s32 hRpc(s32 cmd) {
     // 0x08000000: IopInit(),        r = 64, s = 0
     // 0x08000001: return RpcInfo,   r = 64, s = 0
     // 0x10000003: StrKick(),        r = 0,  s = 0
@@ -48,11 +52,11 @@ int * hRpc(s32 cmd) {
     // 0x24000000: SndInit(),        r = 16, s = 0
     // 0x2a000001: SndMain(data),    r = 64, s = 64
 
-    int rsize;
-    int ssize;
-    int mode;
-    int *send;
-    int *receive;
+    s32 rsize;
+    s32 ssize;
+    s32 mode;
+    s32 *send;
+    s32 *receive;
     
     switch (cmd & 0xc000000) {
         case 0x4000000:
@@ -85,7 +89,7 @@ int * hRpc(s32 cmd) {
     }
     
     send = RpcArg;
-    receive = RpcRecvBuf[0];
+    receive = sbuff;
     mode = 0;
 
     switch (cmd) {
@@ -94,35 +98,36 @@ int * hRpc(s32 cmd) {
             mode = SIF_RPCM_NOWAIT;
             break;
         case IOP_SndMain:
-            send = (int *)SndMainBuffer;
+            send = (s32 *)SndPacket;
             ssize = hSndPkGetSize();
-            receive = RpcRecvBuf[1];
+            receive = sndBuff;
             mode = SIF_RPCM_NOWAIT;
             break;
         default:
             break;
     }
 
-    sceSifCallRpc(&sndRpc, cmd, mode, send, ssize, receive, rsize, NULL, NULL);
+    sceSifCallRpc(&gCd, cmd, mode, send, ssize, receive, rsize, NULL, NULL);
     if ((cmd & 0xc000000) == 0x4000000) {
-        return (int *)*receive;
+        return *receive;
     } else {
-        return receive;
+        return (s32)receive;
     }
 }
 
-s32 hRpcSetDma(u8 *dest, u8 *src, u32 size) {
-    u32 id;
+s32 hTrans2IOP(s32 iopAddr, s32 eeAddr, s32 size) {
+    static sceSifDmaData transData;
+    u32 did;
 
-    sifdma_004171c0.data = (int)src;
-    sifdma_004171c0.addr = (int)dest;
-    sifdma_004171c0.size = size;
-    sifdma_004171c0.mode = 0;
+    transData.data = eeAddr;
+    transData.addr = iopAddr;
+    transData.size = size;
+    transData.mode = 0;
 
     FlushCache(WRITEBACK_DCACHE);
-    id = sceSifSetDma(&sifdma_004171c0, 1);
-    if (id != 0) {
-        while (sceSifDmaStat(id) >= 0);
+    did = sceSifSetDma(&transData, 1);
+    if (did != 0) {
+        while (sceSifDmaStat(did) >= 0);
         return 0;
     } else {
         return -1;

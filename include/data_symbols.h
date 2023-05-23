@@ -6,18 +6,7 @@
 #include "harada.h"
 #include "ps2.h"
 
-/* DAT_00336100 */ extern int ptflag_buff[4];
-/* DAT_00336110 */ extern int ptflag_st[4];
-/* DAT_00336120 */ extern int ptflag_ar[4];
-/* DAT_00336130 */ extern int ptflag_th[4];
-/* DAT_00336bb0 */ extern PTDATA scene_table[90];
-/* DAT_00338390 */ extern hCDDATA CdData;
-/* DAT_00338670 */ extern u8 EeCb[0x2000];
 /* DAT_00341460 */ extern hGAMEDATA GameData;
-/* DAT_00348970 */ extern const char* modules[8];
-/* DAT_0034b140 */ extern hSNDDATA SndData;
-/* DAT_0034bb58 */ extern hBGMDATA BgmData;
-/* DAT_0034bc00 */ extern hPPTDATA PptData;
 /* DAT_0034bd50 */ extern hAC3DATA Ac3Data;
 /* DAT_0036ead8 */ extern SYSGBL SysGbl;
 /* DAT_00366440 */ extern int (*GameFuncTbl[3])();
@@ -43,15 +32,9 @@
 /* DAT_003fb914 */ extern sceDmaChan* DmaChfromSPR;
 /* DAT_003fb918 */ extern sceDmaChan* DmaChtoSPR;
 /* DAT_003fa804 */ extern s32 ht_g_rand;
-/* DAT_003fa808 */ extern hCDDATA* cD;
-/* DAT_003fa80c */ extern hCDCUE* cQ;
 /* DAT_003fa810 */ extern hGAMEDATA *gD;
-/* DAT_003fa830 */ extern KLTABLE* KlTable;
 /* DAT_003fa834 */ extern PPTTABLE* PptTable;
 /* DAT_003fa838 */ extern BGMTABLE* BgmTable;
-/* DAT_003fa83c */ extern hSNDDATA* sD;
-/* DAT_003fa840 */ extern hBGMDATA* bD;
-/* DAT_003fa844 */ extern hPPTDATA* pD;
 /* DAT_003fa848 */ extern hAC3DATA* aD;
 /* DAT_003fad80 */ extern int klworks_flag;
 /* DAT_003fad84 */ extern DL_STATUS dl_status;
@@ -61,24 +44,15 @@
 /* DAT_003fb8ec */ extern int nkLoadTimer;
 /* DAT_003fb8f0 */ extern int nkLoadStat;
 /* DAT_003fb8f4 */ extern int DAT_003fb8f4;
-/* DAT_003fb934 */ extern u8 *NakanoPackAddr;
 /* DAT_003fb93c */ extern u8 *DAT_003fb93c;
 /* DAT_003fbba8 */ extern int OkZakoFuncOn;
 /* DAT_003fbc90 */ extern long profileFlag;
 /* DAT_003fbaf4 */ extern int fontDispID;
-/* DAT_003fc2e8 */ extern u8 *tblMax;
-/* DAT_003fc2ec */ extern u8 *areaBuff;
-/* DAT_003fc468 */ extern u8 *nkLoadBuff;
 /* DAT_003fc46c */ extern int key_data_top_index;
 /* DAT_003fc470 */ extern int key_frame_cnt;
 /* DAT_003fc474 */ extern int key_frame_max;
 /* DAT_003fc478 */ extern int kf_mode;
 /* DAT_003bfed0 */ extern hMOVDATA* mD;
-/* DAT_0040efa0 */ extern int RpcArg[16];
-/* DAT_004171c0 */ extern sceSifDmaData sifdma_004171c0;
-/* DAT_00417200 */ extern int RpcRecvBuf[2][16];
-/* DAT_00417280 */ extern sceSifClientData sndRpc;
-/* DAT_00417300 */ extern u8 SndMainBuffer[0x400];
 /* DAT_00417700 */ extern u8 pptEeAddrs[4][0x40000];
 
 /* DAT_00639770 */ extern int DAT_00639770;

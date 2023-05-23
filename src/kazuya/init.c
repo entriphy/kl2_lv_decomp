@@ -101,7 +101,7 @@ void kzStageInit0() {
         }
 
         i = 0;
-        gms = hGetDataAddr(7);
+        gms = (u8 *)hGetDataAddr(7);
         if (gms != NULL) {
             while (gms_language[i] >= 0) {
                 FUN_0018dcb0(gms + ((s32 *)gms)[i + 1]);

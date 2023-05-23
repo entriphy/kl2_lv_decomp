@@ -34,7 +34,7 @@ int nkInitAtrInit() {
     // TODO
     // sceDmaSend(DmaChVIF1, &stuff);
     sceGsSyncV(0);
-    FUN_00196c00();
+    nkGsInitFrm();
     OkDefaultSysInit(SCR_WIDTH, SCR_HEIGHT, 12, 6);
     OkPrintSysInit(2, SCR_WIDTH, SCR_HEIGHT, 12, 6);
     DAT_006397c8 = 0;

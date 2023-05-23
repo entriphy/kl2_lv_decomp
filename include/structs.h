@@ -20,13 +20,13 @@ typedef struct {
 } kPadDATA;
 
 typedef struct {
-    int offset;
-    int count;
+    s32 lsn;
+    s32 sectors;
 } KLTABLE;
 
 typedef struct {
-    int (**func)();
-    int mod;
+    s32 (**func)();
+    s32 mod;
 } FUNCTBL;
 
 #endif

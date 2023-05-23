@@ -1,13 +1,21 @@
-#include <math.h>
-#include <sifrpc.h>
-#include "hoshino.h"
-#include "data_symbols.h"
-#include "function_symbols.h"
+#include "common.h"
 
 EFXSE *EfxSE[50][20] = {};
+u8 SndPacket[1024] __attribute__((aligned(16)));
+u8 SndTempBuff[1048576];
+hSNDDATA SndData = {};
+hSNDDATA *sD = NULL;
+
+s32 JamGetHdSize(JAMHD *hdaddr) {
+    return hdaddr->Header.headerSize;
+}
+
+s32 JamGetBdSize(JAMHD *hdaddr) {
+    return hdaddr->Header.bodySize;
+}
 
 void hSndPkEffect() {
-    int i;
+    s32 i;
     
     sD->effChange = 1;
     for (i = 0; i < 2; i++) {
@@ -24,7 +32,7 @@ void hSndPkEffect() {
     }
 }
 
-void hSndPkSetMVol(int voll, int volr) {
+void hSndPkSetMVol(s32 voll, s32 volr) {
     sD->PkMax++;
     *sD->PkNum++ = SNDCMD_MVOLALL;
     *sD->PkNum++ = voll;
@@ -33,16 +41,16 @@ void hSndPkSetMVol(int voll, int volr) {
     *sD->PkNum++ = (volr >> 8) & 0x7F;
 }
 
-void hSndPkSetEVol(int vol) {
+void hSndPkSetEVol(s32 vol) {
     sD->PkMax++;
     *sD->PkNum++ = SNDCMD_EVOL;
     *sD->PkNum++ = vol;
     *sD->PkNum++ = vol >> 8;
 }
 
-void hSndPkSetVol(int voice, float pan, float vol) {
-    int p = pan * 16384.0f;
-    int v = vol * 16384.0f;
+void hSndPkSetVol(s32 voice, f32 pan, f32 vol) {
+    s32 p = pan * 16384.0f;
+    s32 v = vol * 16384.0f;
 
     if (p > 0x4000)
         p = 0x4000;
@@ -62,7 +70,7 @@ void hSndPkSetVol(int voice, float pan, float vol) {
     *sD->PkNum++ = v >> 8;
 }
 
-void hSndPkSetPitch(int voice, int pitch) {
+void hSndPkSetPitch(s32 voice, s32 pitch) {
     sD->PkMax++;
     *sD->PkNum++ = SNDCMD_PITCH;
     *sD->PkNum++ = voice;
@@ -70,13 +78,13 @@ void hSndPkSetPitch(int voice, int pitch) {
     *sD->PkNum++ = pitch >> 8;
 }
 
-void hSndPkSetPalPitch(int voice) {
+void hSndPkSetPalPitch(s32 voice) {
     sD->PkMax++;
     *sD->PkNum++ = SNDCMD_PALPITCH;
     *sD->PkNum++ = voice;
 }
 
-void hSndPkKeyOn(int voice, int flag, int bank, int prog, int splt, float pan, float vol) {
+void hSndPkKeyOn(s32 voice, s32 flag, s32 bank, s32 prog, s32 splt, f32 pan, f32 vol) {
     sD->PkMax++;
     *sD->PkNum++ = SNDCMD_KEYON;
     *sD->PkNum++ = voice;
@@ -88,7 +96,7 @@ void hSndPkKeyOn(int voice, int flag, int bank, int prog, int splt, float pan, f
     hSndPkSetVol(voice, pan, vol);
 }
 
-void hSndPkKeyOff(int voice) {
+void hSndPkKeyOff(s32 voice) {
     sD->PkMax++;
     *sD->PkNum++ = SNDCMD_KEYOFF;
     *sD->PkNum++ = voice;
@@ -99,11 +107,11 @@ void hSndPkKeyOffAll() {
     *sD->PkNum++ = SNDCMD_KEYOFFALL;
 }
 
-int hSndPkGetSize() {
+s32 hSndPkGetSize() {
     // i have no clue how this matches
-    int size = (s32)sD->PkNum - (s32)SndMainBuffer;
+    s32 size = (s32)sD->PkNum - (s32)SndPacket;
     size = size < -1 ? size + 0x1E : size + 0xF;
-    return (((s32)sD->PkNum - (s32)SndMainBuffer + 0xF) / 0x10) * 0x10;
+    return (((s32)sD->PkNum - (s32)SndPacket + 0xF) / 0x10) * 0x10;
 }
 
 void hSndReset() {
@@ -116,37 +124,25 @@ void hSndReset() {
     sD->Mute = 0;
 }
 
-void hSeKeyOffAll() {
-    // TODO
-}
-
-void hSeKeyOn(long splt, sceVu0FVECTOR *parent, int reserve) {
-    // TODO
-}
-
-void hSeObjMain() {
-    // TODO
-}
-
-void hSndFadeOutAll(int frame) {
+void hSndFadeOutAll(s32 frame) {
     hSeKeyOffAll();
     sD->fadeFlag = 1;
     sD->fadeCnt = 0.0f;
-    sD->fadeMax = (float)frame;
+    sD->fadeMax = (f32)frame;
 }
 
-void hSndFadeInAll(int frame) {
+void hSndFadeInAll(s32 frame) {
     sD->fadeFlag = 3;
     sD->fadeCnt = 0.0f;
-    sD->fadeMax = (float)frame;
+    sD->fadeMax = (f32)frame;
 }
 
-void hSndSetMVol(float vol) {
+void hSndSetMVol(f32 vol) {
     sD->MVol = hSndFader(vol);
 }
 
 // Not matching
-int hSndFader(float vol) {
+s32 hSndFader(f32 vol) {
     if (vol == 0.0f) {
         return 0;
     } else {
@@ -170,8 +166,8 @@ int hSndFader(float vol) {
 }
 
 // Not matching
-float hSndFader2(float vol) {
-    float f = 0.0f;
+f32 hSndFader2(f32 vol) {
+    f32 f = 0.0f;
     hSNDDATA *snd;
 
     if (vol != 0.0f) {
@@ -249,9 +245,9 @@ void hSndMain() {
     }
     
     hSndPkGetSize(); // why does this get called lol
-    ((short *)SndMainBuffer)[0] = sD->PkMax;
+    ((short *)SndPacket)[0] = sD->PkMax;
     hRpc(0x2a000001);
-    sD->PkNum = SndMainBuffer + 2;
+    sD->PkNum = SndPacket + 2;
     sD->PkMax = 0;
     sD->VoiceStat[0] |= sD->KeyonV[0];
     sD->VoiceStat[1] |= sD->KeyonV[1];
@@ -265,9 +261,9 @@ void hSndInit() {
     sceSdRemoteInit();
     
     sD = &SndData;
-    sD->PkNum = (u8*)&SndMainBuffer[2];
+    sD->PkNum = &SndPacket[2];
     sD->PkMax = 0;
-    sD->iopBankAddr = hRpc(IOP_SndInit);
+    sD->iopBankAddr = (s32 *)hRpc(IOP_SndInit);
 
     RpcArg[0] = 0xFFFFFF;
     RpcArg[1] = 0xFFFF;
@@ -302,7 +298,7 @@ void hSndInit() {
     hStrInit();
 }
 
-s32 *hSndBankSet(u8 *buf, int bank) {
+s32* hSndBankSet(s32 packaddr, s32 bank) {
     JAMHD *hdaddr;
     u8 *bdaddr;
     s32 hdsize;
@@ -311,20 +307,20 @@ s32 *hSndBankSet(u8 *buf, int bank) {
     u8 stackShiz[16];
     
     if (bank != 0) {
-        s16 *fhm = (s16 *)GetFHMAddress(buf, 2);
+        s16 *fhm = (s16 *)GetFHMAddress((u32 *)packaddr, 2);
         s16 tblNum = *fhm;
         sD->stageTblNum = tblNum;
         memcpy(sD->stageTbl, fhm + 1, tblNum * 2);
     }
 
-    hdaddr = (JAMHD *)GetFHMAddress(buf, 0);
-    bdaddr = GetFHMAddress(buf, 1);
+    hdaddr = (JAMHD *)GetFHMAddress((u32 *)packaddr, 0);
+    bdaddr = (u8 *)GetFHMAddress((u32 *)packaddr, 1);
     hdsize = JamGetHdSize(hdaddr);
     bdsize = JamGetBdSize(hdaddr);
-    hRpcSetDma((u8 *)(sD->iopBankAddr + bank * 0x2000), (u8 *)hdaddr, hdsize); // addr, data, size
+    hTrans2IOP((s32)(sD->iopBankAddr + bank * 0x2000), (s32)hdaddr, hdsize); // addr, data, size
     
     RpcArg[0] = bank;
-    rpc = hRpc(IOP_JamBankSet);
+    rpc = (s32 *)hRpc(IOP_JamBankSet);
     
     while (bdsize > 0) {
         s32 transsize;
@@ -334,27 +330,28 @@ s32 *hSndBankSet(u8 *buf, int bank) {
             transsize = 0x10000;
         }
         
-        hRpcSetDma((u8 *)(sD->iopBankAddr + 0x4000), bdaddr, transsize);
+        hTrans2IOP((s32)(sD->iopBankAddr + 0x4000), (s32)bdaddr, transsize);
         bdsize -= 0x10000;
         bdaddr += 0x10000;
-        rpc = hRpc(IOP_JamBdTrans);
+        rpc = (s32 *)hRpc(IOP_JamBdTrans);
     }
     
     return rpc;
 }
 
-void hSndBankSetCommon() {
-    int ret;
+void hSndBankSetMain() {
+    s32 ret;
 
-    u8 *buf = getBuff(1, 0x200000, NULL, &ret);
-    hCdReadKlPack(198, buf);
+    u32 *buf = (u32 *)getBuff(1, 0x200000, NULL, &ret);
+    hCdReadDataBlock(198, (s32)buf);
     buf = GetFHMAddress(buf, 2);
+    hSndBankSet((s32)buf, 0);
     freeBuff(1, 0x200000, NULL);
 }
 
 void hSndBankSetStage() {
-    u8 *addr = hGetDataAddr(2);
-    if (addr != NULL) {
+    s32 addr = hGetDataAddr(2);
+    if (addr != 0) {
         sD->stageBank = 1;
         hSndBankSet(addr, 1);
     } else {
@@ -395,7 +392,7 @@ void hSndEffSetVol_PPTend() {
     sD->effVol = se->vol;
 }
 
-void hSndEffSetVol(float vol) {
+void hSndEffSetVol(f32 vol) {
     sD->effVol = vol;
 }
 

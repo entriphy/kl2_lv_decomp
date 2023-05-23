@@ -4,16 +4,7 @@
 #include "ps2.h"
 #include "types.h"
 
-#define IOP_IopInit 0x08000000
-#define IOP_RpcInfo 0x08000001
-#define IOP_StrKick 0x10000003
-#define IOP_StrInit 0x14000000
-#define IOP_StrInfo 0x1b000001
-#define IOP_JamBdTrans  0x20000004
-#define IOP_JamBankSet  0x21000003
-#define IOP_SndMask 0x22000002
-#define IOP_SndInit 0x24000000
-#define IOP_SndMain 0x2a000001
+// Structs
 
 typedef enum {
     hKEI_L,
@@ -397,27 +388,159 @@ enum {
 };
 
 typedef struct {
-    int efx;
+    s32 efx;
     float vol;
-    int delay;
-    int feed;
-    int dry;
+    s32 delay;
+    s32 feed;
+    s32 dry;
     float vol_ppt;
     float workf0;
-    int worki0;
-    int worki1;
+    s32 worki0;
+    s32 worki1;
 } EFXSE;
 
 typedef struct {
-    /* 0x00 */ int BGMnext;
-	/* 0x04 */ int BGMpoint;
-	/* 0x08 */ int PPTnext[4];
-	/* 0x18 */ int AC3stat;
+    /* 0x00 */ s32 BGMnext;
+	/* 0x04 */ s32 BGMpoint;
+	/* 0x08 */ s32 PPTnext[4];
+	/* 0x18 */ s32 AC3stat;
 } hSTRINFO2;
 
 typedef struct {
     u32 vStatKeyon[2];
     hSTRINFO2 STRinfo;
 } hRPCINFO;
+
+// Functions
+
+// h_cdvd.c
+extern void hCdReadFile(char *filename, u32 *buff);
+extern u32* hCdReadFileRet(char *filename);
+extern void hCdCuePushLIFO(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+extern void hCdCuePush(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+extern void hCdCuePop(s32 *p);
+extern void hCdCuePopTest(s32 *p);
+extern s32  hCdCueNum();
+extern s32  hCdCueTime();
+extern void hCdCueFlushBGM();
+extern void hCdCueFlushPPT();
+extern void hCdCueFlushBGM2();
+extern s32  hCdRead(u32 lsn, u32 sectors, void *buff, sceCdRMode *mode);
+extern s32  hCdReadIOPm(u32 lsn, u32 sectors, void *buff, sceCdRMode *mode);
+extern s32  hCdGetSize(s32 no);
+extern void hCdReadDataBlock(s32 no, s32 buff);
+extern void hCdReadData(s32 no, s32 buff);
+extern s32  hCdReadSync();
+extern void hCdInit();
+extern void hCdMain();
+
+// h_file.c
+extern s32  hGameDataSize(s32 mode);
+extern void hGameRead(s32 mode, s32 buff);
+extern void hSysDataRead(s32 buff);
+extern s32  hGameReadOK();
+extern s32  hGetDataAddr(s32 i);
+extern s32  hGetSysDataAddr(s32 i);
+
+// h_game.c
+extern void hInitStage0();
+
+// h_gamesnd.c
+extern void hSeLock(s32 i);
+extern void hSeInitGrp(s32 stage);
+extern void hSeObjMain();
+extern void hSeKeyOn(s64 splt, sceVu0FVECTOR *parent, s32 reserve);
+extern void hSeKeyOffAll();
+
+// h_init.c
+extern void hInitBoot();
+extern void hLoopTop();
+extern void hLoopBottom();
+extern s32  SyncV();
+
+// h_menu.c
+
+
+// h_rpc.c
+extern void hSndRpcRet();
+extern s32  hRpcSync();
+extern void hRpcInit();
+extern s32  hRpc(s32 cmd);
+extern s32  hTrans2IOP(s32 iopAddr, s32 eeAddr, s32 size);
+
+// h_sound.c
+extern s32  JamGetHdSize(JAMHD *hdaddr); // Should be int arg
+extern s32  JamGetBdSize(JAMHD *hdaddr); // Should be int arg
+extern void hSndPkEffect();
+extern void hSndPkSetMVol(s32 voll, s32 volr);
+extern void hSndPkSetEVol(s32 vol);
+extern void hSndPkSetVol(s32 voice, f32 pan, f32 vol);
+extern void hSndPkSetPitch(s32 voice, s32 pitch);
+extern void hSndPkSetPalPitch(s32 voice);
+extern void hSndPkKeyOn(s32 voice, s32 flag, s32 bank, s32 prog, s32 splt, f32 pan, f32 vol);
+extern void hSndPkKeyOff(s32 voice);
+extern void hSndPkKeyOffAll();
+extern s32  hSndPkGetSize();
+extern void hSndReset();
+extern void hSndFadeOutAll(s32 frame);
+extern void hSndFadeInAll(s32 frame);
+extern void hSndSetMVol(f32 vol);
+extern s32  hSndFader(f32 vol);
+extern f32  hSndFader2(f32 vol);
+extern void hSndMain();
+extern void hSndInit();
+extern s32* hSndBankSet(s32 packaddr, s32 id);
+extern void hSndBankSetMain();
+extern void hSndBankSetStage();
+extern void hSndEffSetArea();
+extern void hSndEffSetVolIdx(s32 idx);
+extern void hSndEffSetVol_PPTstart();
+extern void hSndEffSetVol_PPTend();
+extern void hSndEffSetVol(f32 vol);
+extern void hSndSetStereo(SND_MODE i);
+
+// h_str.c
+extern void hBgmReset();
+extern s32  hBgmGetStat();
+extern void hBgmWorkClear();
+extern void hPptWorkClear();
+extern void hPptReset();
+extern void hStrInfo();
+extern void hStrInit();
+extern void hStr_0016c6e8();
+extern void hStr_0016f6e8();
+
+// h_util.c
+extern u32* GetFHMAddress(u32 *pAddr, u32 nNum);
+
+// Data
+
+// h_cdvd.c
+extern hCDDATA *cD;
+
+// h_menu.c
+extern int RpcArg[16];
+extern s128 hPacketArea[2048];
+
+// h_sound.c
+extern u8 SndPacket[1024];
+extern hSNDDATA *sD;
+
+// h_str.c
+extern hBGMDATA *bD;
+extern hPPTDATA *pD;
+
+// Defines
+
+#define IOP_IopInit 0x08000000
+#define IOP_RpcInfo 0x08000001
+#define IOP_StrKick 0x10000003
+#define IOP_StrInit 0x14000000
+#define IOP_StrInfo 0x1b000001
+#define IOP_JamBdTrans  0x20000004
+#define IOP_JamBankSet  0x21000003
+#define IOP_SndMask 0x22000002
+#define IOP_SndInit 0x24000000
+#define IOP_SndMain 0x2a000001
 
 #endif

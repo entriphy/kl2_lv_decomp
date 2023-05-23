@@ -3,93 +3,6 @@
 
 #include "common.h"
 
-// Harada functions
-
-/* FUN_00102808 */ extern void hr_cold_start();
-/* FUN_00110dc0 */ extern void hr_pt_set(short flag, short scene, short view, short th);
-/* FUN_00110e08 */ extern void hr_pt_fclear();
-/* FUN_00113408 */ extern void hr_pflag_initAr();
-/* FUN_00113420 */ extern void hr_pflag_initSt();
-/* FUN_00113448 */ extern void hr_pflag_init();
-/* FUN_001137f8 */ extern PT hr_pflag_get_id();
-
-// Hato functions
-
-/* FUN_001227b0 */ extern void htInitRand(int seed);
-/* FUN_001227c8 */ extern int htGetRand();
-
-// Hoshino functions
-
-// hCd
-/* FUN_00165a20 */ extern void hCdReadFileToBuf(char *name, void *buf);
-/* FUN_00165ae0 */ extern u8 *hCdReadFile(const char *name);
-/* FUN_00165ba8 */ extern void hCdCuePushExe(int arg0, int arg1, int arg2, int arg3, int arg4);
-/* FUN_00165c08 */ extern void hCdCuePush(int arg0, int arg1, int arg2, int arg3, int arg4);
-/* FUN_00165d68 */ extern void hCdCueFlushBGM();
-/* FUN_00165e50 */ extern void hCdCueFlushPPT();
-/* FUN_00165f38 */ extern void hCdCueFlushBGM2();
-/* FUN_00166028 */ extern int hCdRead(u32 lbn, u32 sectors, u8 *buf, sceCdRMode *mode);
-/* FUN_001660a8 */ extern int hCdReadIOPm(u32 lbn, u32 sectors, u8 *buf, sceCdRMode *mode);
-/* FUN_00166128 */ extern int hCdKlPackCount(int index);
-/* FUN_00166140 */ extern void hCdReadKlPack(int index, u8 *buf);
-/* FUN_001661e0 */ extern void hCdPushKlPack(int index, u8 *buf);
-/* FUN_00166210 */ extern int hCdLoading();
-/* FUN_00166248 */ extern void hCdInit();
-/* FUN_00166368 */ extern void hCdMain();
-
-// hGame
-/* FUN_00167c20 */ extern void FUN_00167c20(u8 *buf);
-/* FUN_00167c30 */ extern int hGameReadOK();
-/* FUN_00167c50 */ extern u8 *hGetDataAddr(int param_1);
-/* FUN_00167bd0 */ extern int FUN_00167bd0(int param_1);
-/* FUN_00167c00 */ extern void FUN_00167c00(int param_1, u8 *param_2);
-/* FUN_00167c80 */ extern u8 *FUN_00167c80(int i);
-/* FUN_00167ec0 */ extern void hInitStage0();
-
-// hSe
-/* FUN_00168e48 */ extern void hSeLock(int i);
-/* FUN_00168fd8 */ extern void hSeInitGrp(int stage);
-/* FUN_0016ac00 */ extern void hInitBoot();
-/* FUN_0016ad90 */ extern void hLoopTop();
-
-// hRpc
-/* FUN_0016c6e8 */ extern void hRpcInfo();
-/* FUN_0016c778 */ extern int hRpcStat();
-/* FUN_0016c798 */ extern void hRpcBind();
-/* FUN_0016c830 */ extern int *hRpc(s32 param);
-/* FUN_0016c9b8 */ extern s32 hRpcSetDma(u8 *dest, u8 *src, u32 size);
-/* FUN_0016ca20 */ extern int JamGetHdSize(JAMHD *hdaddr);
-/* FUN_0016ca28 */ extern int JamGetBdSize(JAMHD *hdaddr);
-
-// hSnd
-/* FUN_0016ca30 */ extern void hSndPkEffect();
-/* FUN_0016cb40 */ extern void hSndPkSetMVol(int voll, int volr);
-/* FUN_0016cbc8 */ extern void hSndPkSetEVol(int vol);
-/* FUN_0016cea0 */ extern void hSndPkKeyOffAll();
-/* FUN_0016cec8 */ extern int hSndPkGetSize();
-/* FUN_0016cf00 */ extern void hSndReset();
-/* FUN_0016cfe0 */ extern void hSndSetMVol(float vol);
-/* FUN_0016d008 */ extern int hSndFader(float vol);
-/* FUN_0016d0b8 */ extern float hSndFader2(float vol);
-/* FUN_0016d4a8 */ extern void hSndInit();
-/* FUN_0016d5f0 */ extern int* hSndBankSet(u8 *param_1, int param_2);
-/* FUN_0016d710 */ extern void hSndBankSetCommon();
-/* FUN_0016d778 */ extern void hSndBankSetStage();
-
-// hBgm
-/* FUN_0016e350 */ extern void hBgmWorkClear();
-/* FUN_0016e390 */ extern void hBgmReset();
-/* FUN_0016e878 */ extern int hBgmGetStat();
-
-// hPpt
-/* FUN_0016ea48 */ extern void hPptReset();
-
-// hStr
-/* FUN_0016ef10 */ extern void hStrInfo();
-/* FUN_0016f360 */ extern void hStrInit();
-/* FUN_0016c6e8 */ extern void hStr_0016c6e8();
-/* FUN_0016f6e8 */ extern void hStr_0016f6e8();
-
 // Kazuya functions
 
 /* FUN_00173130 */ extern s32 kz_Get_KazuyaStageNo();
@@ -109,7 +22,7 @@
 /* FUN_0018fca0 */ extern int GameInit();
 /* FUN_0018fd28 */ extern int GameLoad();
 /* FUN_0018ff58 */ extern int GameMain();
-/* FUN_00196c00 */ extern void FUN_00196c00();
+/* FUN_00196c00 */ extern void nkGsInitFrm();
 /* FUN_00197570 */ extern void nkGsSetNormalFZ2_0();
 /* FUN_001976d0 */ extern void nkGsSetNormalFZ2_1();
 /* FUN_00197830 */ extern void nkGsSetNormalFZ2();

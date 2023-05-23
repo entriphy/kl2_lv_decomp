@@ -7,6 +7,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "abe.h"
 #include "cam.h"
 #include "gbl.h"
 #include "gim.h"
@@ -24,7 +25,5 @@
 #include "structs.h"
 #include "data_symbols.h"
 #include "function_symbols.h"
-
-u8 *GetFHMAddress(u8 *pAddr, int nNum);
 
 #endif

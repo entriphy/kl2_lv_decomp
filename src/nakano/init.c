@@ -7,6 +7,24 @@ sceDmaChan *DmaChfromSPR;
 sceDmaChan *DmaChtoSPR;
 OBJWORK ObjWorkBuff[128];
 
+void init_config_system() {
+    sceDevVif0Reset();
+    sceDevVu0Reset();
+    sceGsResetPath();
+    sceDmaReset(1);
+    SysGbl.nmode = 0;
+    SysGbl.nsmode = 0;
+    SysGbl.fmode = 0;
+    SysGbl.smode = 0;
+    GameGbl.kpd[0].cnt = 0;
+    GameGbl.kloZanki[0] = 3;
+    GameGbl.vs_clear_cnt = 160;
+    GameGbl.time_atack_best = 80;
+    nkGsInitFrm();
+    SysGbl.Language = 1;
+    SysGbl.TVSystem = 2;
+}
+
 void nkInitDma() {
     sceDmaReset(1);
     sceDevGifPutImtMode(0);
@@ -75,7 +93,7 @@ void nkInitSys() {
 
 void nkStageInit0() {
     if ((GameGbl.vision >> 8) - 15 > 5) {
-        u8 *gms = hGetDataAddr(0);
+        u8 *gms = (u8 *)hGetDataAddr(0);
         if (gms != NULL) {
             FUN_0018dcb0(gms + ((s32 *)gms)[1]);
             sceGsSyncPath(0, 0);
