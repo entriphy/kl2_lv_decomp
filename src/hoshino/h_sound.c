@@ -2,7 +2,7 @@
 
 EFXSE *EfxSE[50][20] = {};
 u8 SndPacket[1024] __attribute__((aligned(16)));
-u8 SndTempBuff[1048576];
+u8 SndTempBuff[1048576] __attribute__((aligned(16)));
 hSNDDATA SndData = {};
 hSNDDATA *sD = NULL;
 
