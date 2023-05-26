@@ -1,8 +1,6 @@
 #include "hato.h"
 
-int ht_g_rand;
-
-void htInitRand(int seed) {
+void htInitRand(s32 seed) {
     if (seed == 0) {
         ht_g_rand = 1;
     } else {
@@ -10,13 +8,13 @@ void htInitRand(int seed) {
     }
 }
 
-int htGetRand() {
-    int odd;
+s32 htGetRand() {
+    s32 tmp;
 
     ht_g_rand &= 0x7FFF;
-    odd = ht_g_rand & 1;
+    tmp = ht_g_rand & 1;
     ht_g_rand >>= 1;
-    ht_g_rand |= odd << 14;
-    ht_g_rand ^= odd << 7;
+    ht_g_rand |= tmp << 14;
+    ht_g_rand ^= tmp << 7;
     return ht_g_rand - 1;
 }
