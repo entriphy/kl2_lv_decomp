@@ -1,10 +1,10 @@
 #include "common.h"
 
-int testcbp = 0;
-int memtest = 0;
-int memblocksize[16] = {};
+s32 testcbp = 0;
+s32 memtest = 0;
+s32 memblocksize[16] = {};
 
-int OkCheck_file(char *name) {
+s32 OkCheck_file(char *name) {
     s32 fd;
     s32 size;
 
@@ -17,7 +17,7 @@ int OkCheck_file(char *name) {
     }
 }
 
-int OkRead_file(char *name, char *buff) {
+s32 OkRead_file(char *name, char *buff) {
     s32 fd;
     s32 size;
 
@@ -54,7 +54,7 @@ void memoryAreaptrSet() {
     buffareatop = buffstartptr;
 }
 
-void memoryAreaFormat(void) {
+void memoryAreaFormat() {
     s32 *ptr;
 	s32 i;
 	s32 j;
@@ -86,7 +86,7 @@ void OkMemDisp() {
     }
 }
 
-int * getmemblksize() {
+s32 * getmemblksize() {
     memblocksize[0] = 0x004;
     memblocksize[1] = 0x040;
     memblocksize[2] = 0x100;
@@ -207,5 +207,5 @@ void freeBuff(s32 type, s32 byte, char *name) {
     byte = ((byte + 0xF) / 0x10) * 0x10;
     buff -= byte;
     
-    buffstartptr = (int *)buff;
+    buffstartptr = (s32 *)buff;
 }

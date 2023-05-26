@@ -17,13 +17,6 @@
 /* DAT_00375b90 */ extern FUNCTBL functbl[8];
 /* DAT_00375bd0 */ extern FUNCTBL nkFuncs[5];
 /* DAT_00375bf8 */ extern int (*nkFuncTbl[2])();
-/* DAT_00376798 */ extern OKDEBDATAEX testdb;
-/* DAT_0038a108 */ extern PROFILE profile;
-/* DAT_0038a138 */ extern u8 *DAT_0038a138;
-/* DAT_0038a268 */ extern DEBMEM OkDebMem[10];
-/* DAT_0038a308 */ extern OKDEBDATA okDebData;
-/* DAT_0038a330 */ extern PERSONAL_DEB PDbuf[9];
-/* DAT_00395028 */ extern OKPROFILE okProfile;
 /* DAT_00398c00 */ extern SCRENV Scr;
 /* DAT_003bfed0 */ extern hMOVDATA MovData;
 /* DAT_003fb900 */ extern sceDmaChan* DmaChVIF0;
@@ -45,9 +38,6 @@
 /* DAT_003fb8f0 */ extern int nkLoadStat;
 /* DAT_003fb8f4 */ extern int DAT_003fb8f4;
 /* DAT_003fb93c */ extern u8 *DAT_003fb93c;
-/* DAT_003fbba8 */ extern int OkZakoFuncOn;
-/* DAT_003fbc90 */ extern long profileFlag;
-/* DAT_003fbaf4 */ extern int fontDispID;
 /* DAT_003fc46c */ extern int key_data_top_index;
 /* DAT_003fc470 */ extern int key_frame_cnt;
 /* DAT_003fc474 */ extern int key_frame_max;

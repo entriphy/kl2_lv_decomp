@@ -47,7 +47,7 @@ int GameLoad() {
     }
     TkMainLoop(1);
     sceGsSyncPath(0,0);
-    FUN_001dabd0(GameGbl.kpd[1].rep & 0x100);
+    OkPFontFlush(GameGbl.kpd[1].rep & 0x100);
     hLoopBottom();
     GameGbl.inter = sceGsSyncV(0) ^ 1;
     if ((GameGbl.fr & 1) == 0) {

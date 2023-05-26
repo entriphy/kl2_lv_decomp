@@ -1,40 +1,18 @@
 #include "common.h"
 
-u8 *DAT_0038a138;
-OKDEBDATAEX testdb;
-PROFILE profile;
-OKDEBDATA okDebData;
-PERSONAL_DEB PDbuf[9];
-OKPROFILE okProfile;
-int OkZakoFuncOn;
-long profileFlag;
-int fontDispID;
+s32 *pfdatap[6] = {
+    &fontDispID,
+    NULL,
+    &nkDG.opflag,
+    &nkDG.map_draw_flag,
+    NULL
+};
+OKDEBDATAEX testdb = {};
 
-void OkPrintSysInit(int personal_id, int screenw, int screenh, int fontw, int fonth) {
-    PDbuf[personal_id].fsz_x = fontw;
-    PDbuf[personal_id].fsz_y = fonth;
-    PDbuf[personal_id].scr_x = screenw / fontw;
-    PDbuf[personal_id].scr_y = screenh / fonth;
-}
-
-void OkDefaultSysInit(int screenw, int screenh, int fontw, int fonth) {
-    int i, j;
-
-    for (i = 0; i < 9; i++) {
-        PDbuf[i].fsz_x = fontw;
-        PDbuf[i].fsz_y = fonth;
-        PDbuf[i].scr_x = screenw;
-        PDbuf[i].scr_y = screenh;
-        for (j = 0; j < 280; j++) {
-            // what
-        }
-    }
-}
-
-void OkMainInit(int argc, char **argv) {
+void OkMainInit(s32 argc, char *argv[]) {
     // TODO
     OkZakoFuncOn = 1;
-    DAT_0038a138 = NULL;
+    prgBufPtr[0] = NULL;
     okDebData.debp = &testdb;
     okDebData.debp->okzcom_mode = 0;
 
@@ -51,10 +29,10 @@ void OkMainInit(int argc, char **argv) {
         nkDG.map_draw_flag = okProfile.plnMod;
     }
 
-    // OkPFontFlush?(0x3e00);
-    // FUN_001da520();
+    // OkTexAllocInit(0x3e00);
+    // OkPrintDataLoad();
     OkDefaultSysInit(640, 224, 16, 8);
-    // FUN_001dacb0();
+    // OkHtimeClrAll();
     fontDispID = 0;
     GameGbl.vision = 0x0100;
     okDebData.debp->zak_com.tetton2_upspd = 0x1600;
