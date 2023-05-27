@@ -1,9 +1,9 @@
 #include "common.h"
 
-OBJWORK * abGetKlonoa(int player) {
+OBJWORK * abGetKlonoa(s32 player) {
     return GameGbl.klonoa;
 }
 
-OBJWORK * abGetMochifuku(int player) {
+OBJWORK * abGetMochifuku(s32 player) {
     return ((HERO_WORK *)GameGbl.klonoa->work)->mochifuku;
 }

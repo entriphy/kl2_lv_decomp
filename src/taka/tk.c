@@ -1,5 +1,5 @@
 #include "common.h"
 
-void TkMainLoop(int tick) {
+void TkMainLoop(s32 tick) {
     // TODO
 }

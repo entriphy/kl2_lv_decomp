@@ -23,10 +23,10 @@ typedef enum {
 } CDREAD;
 
 typedef struct {
-    int Num;
-    int Exe;
-    int Reg;
-    int Arg[32][5];
+    s32 Num;
+    s32 Exe;
+    s32 Reg;
+    s32 Arg[32][5];
 } hCDCUE;
 
 typedef enum {
@@ -56,47 +56,47 @@ typedef struct {
 
 typedef struct {
     SND_MODE Stereo;
-    int* iopBankAddr;
-    int stageBank;
-    short stageTblNum;
-    short stageTbl[1024];
-    u8* PkNum; // Value or pointer?
-    int PkMax;
-    int pad;
-    int fadeFlag;
-    float fadeCnt;
-    float fadeMax;
-    int ObjList;
-    int VoiceStat[2];
-    int KeyonV[2];
-    int Mute;
-    int MVol;
-    float log10Volume;
-    float dBfader;
-    float bgmMVol;
-    float seMVol;
-    int seObjID;
-    int seLock;
-    float effVol;
-    float effVolBak;
-    int effIdx;
-    int effChange;
-    int effMode;
-    int effDepth;
-    int effDelay;
-    int effFeed;
-    int effMix;
-    float pptMVol;
-    float pptFadeCnt;
-    int pptFade;
-    int envNum;
-    int envObj[16];
-    int envFade[16];
-    int envFadeCnt[16];
-    int envFadeMax[16];
-    float envFadeVol0[16];
-    float envFadeVol1[16];
-    int TitleDelayCnt;
+    s32 *iopBankAddr;
+    s32 stageBank;
+    s16 stageTblNum;
+    s16 stageTbl[1024];
+    u8 *PkNum;
+    s32 PkMax;
+    s32 pad;
+    s32 fadeFlag;
+    f32 fadeCnt;
+    f32 fadeMax;
+    s32 ObjList;
+    s32 VoiceStat[2];
+    s32 KeyonV[2];
+    s32 Mute;
+    s32 MVol;
+    f32 log10Volume;
+    f32 dBfader;
+    f32 bgmMVol;
+    f32 seMVol;
+    s32 seObjID;
+    s32 seLock;
+    f32 effVol;
+    f32 effVolBak;
+    s32 effIdx;
+    s32 effChange;
+    s32 effMode;
+    s32 effDepth;
+    s32 effDelay;
+    s32 effFeed;
+    s32 effMix;
+    f32 pptMVol;
+    f32 pptFadeCnt;
+    s32 pptFade;
+    s32 envNum;
+    s32 envObj[16];
+    s32 envFade[16];
+    s32 envFadeCnt[16];
+    s32 envFadeMax[16];
+    f32 envFadeVol0[16];
+    f32 envFadeVol1[16];
+    s32 TitleDelayCnt;
 } hSNDDATA;
 
 typedef enum {
@@ -198,93 +198,93 @@ typedef enum {
 
 typedef struct {
     sceCdlFILE file;
-    int Command; // 0x20
+    s32 Command; // 0x20
     BGM bgmNo;
-    int bgmCh;
-    int bgmChMax;
-    int bgmLength;
-    int bgmSkipSize;
-    int bgmNo2;
-    float bgmVol; // 0x3C
-    int bgmMute; // 0x40
-    int fadeFlag;
-    int fadeCnt;
-    int fadeMax;
+    s32 bgmCh;
+    s32 bgmChMax;
+    s32 bgmLength;
+    s32 bgmSkipSize;
+    s32 bgmNo2;
+    f32 bgmVol; // 0x3C
+    s32 bgmMute; // 0x40
+    s32 fadeFlag;
+    s32 fadeCnt;
+    s32 fadeMax;
     BGM nextNo;
-    int nextCh;
-    int nextFrame;
-    float nextVol;
-    int spWk0;
-    int iopPoint;
-    int iopNext;
-    int iopID; // 0x6C
-    int* iopAddr[2]; // 0x70
-    int iopOK[2]; // 0x78
-    int iopFineTop[2]; // 0x80
-    int iopFine[2]; // 0x88
-    int cdReq; // 0x90
-    int cdTop; // 0x94
-    int cdCur; // 0x98
-    int cdSectors; // 0x9C
-    int cdRemain; // 0xA0
+    s32 nextCh;
+    s32 nextFrame;
+    f32 nextVol;
+    s32 spWk0;
+    s32 iopPoint;
+    s32 iopNext;
+    s32 iopID; // 0x6C
+    s32 *iopAddr[2]; // 0x70
+    s32 iopOK[2]; // 0x78
+    s32 iopFineTop[2]; // 0x80
+    s32 iopFine[2]; // 0x88
+    s32 cdReq; // 0x90
+    s32 cdTop; // 0x94
+    s32 cdCur; // 0x98
+    s32 cdSectors; // 0x9C
+    s32 cdRemain; // 0xA0
 } hBGMDATA;
 
 typedef struct {
     sceCdlFILE file;
-    int reqNum;
+    s32 reqNum;
     u32 reqID;
-    float reqVol[4];
-    int listLoad;
-    int listPlay;
-    int listPlayIdx;
-    int listNum[8];
-    u8* listTbl[8];
-    int pptMute;
-    float pptVol[4];
-    int pptPlay[4];
-    int pptSize[4];
-    int pptStop[4];
-    int pptID[4];
-    int iopID;
-    int iopBfID[4];
-    int iopNext[4];
-    int* iopAddr[4][2];
-    int eeID;
-    u8* eeAddr[4];
-    int eeOffset[4];
-    int eeStat[4];
+    f32 reqVol[4];
+    s32 listLoad;
+    s32 listPlay;
+    s32 listPlayIdx;
+    s32 listNum[8];
+    u8 *listTbl[8];
+    s32 pptMute;
+    f32 pptVol[4];
+    s32 pptPlay[4];
+    s32 pptSize[4];
+    s32 pptStop[4];
+    s32 pptID[4];
+    s32 iopID;
+    s32 iopBfID[4];
+    s32 iopNext[4];
+    s32 *iopAddr[4][2];
+    s32 eeID;
+    u8 *eeAddr[4];
+    s32 eeOffset[4];
+    s32 eeStat[4];
 } hPPTDATA;
 
 typedef struct {
     sceCdlFILE files[4];
-    int field_0x80;
-    int field_0x84;
-    int field_0x88;
-    int field_0x8C;
-    int field_0x90;
-    int field_0x94;
-    int field_0x98;
-    int field_0x9C;
-    int field_0xA0;
-    int field_0xA4;
-    int field_0xA8;
-    int AC3stat;
-    int field_0xB0;
-    int* field_0xB4;
-    int* field_0xB8;
-    int field_0xBC;
-    int field_0xC0;
-    int field_0xC4;
-    int field_0xC8;
-    int field_0xCC;
+    s32 field_0x80;
+    s32 field_0x84;
+    s32 field_0x88;
+    s32 field_0x8C;
+    s32 field_0x90;
+    s32 field_0x94;
+    s32 field_0x98;
+    s32 field_0x9C;
+    s32 field_0xA0;
+    s32 field_0xA4;
+    s32 field_0xA8;
+    s32 AC3stat;
+    s32 field_0xB0;
+    s32 *field_0xB4;
+    s32 *field_0xB8;
+    s32 field_0xBC;
+    s32 field_0xC0;
+    s32 field_0xC4;
+    s32 field_0xC8;
+    s32 field_0xCC;
     u8* field_0xD0;
     u8* field_0xD4;
     u8* field_0xD8;
     u8* field_0xDC;
-    int field_0xE0;
-    int field_0xE4;
-    int field_0xE8;
-    int field_0xEC;
+    s32 field_0xE0;
+    s32 field_0xE4;
+    s32 field_0xE8;
+    s32 field_0xEC;
     // char* bgmStrings[86];
 } hAC3DATA; // ?
 
@@ -293,33 +293,33 @@ typedef struct {
 } hMOVDATA; // ?
 
 typedef struct {
-    int eeCnt;
-    int Command;
+    s32 eeCnt;
+    s32 Command;
     SND_MODE BGMstereo;
-    int BGMlength;
-    int BGMskipsize;
-    int BGMvol;
+    s32 BGMlength;
+    s32 BGMskipsize;
+    s32 BGMvol;
     s8 BGMch;
     s8 BGMchmax;
     s8 BGMok[2];
-    int BGMfinetop[2];
-    int BGMfine[2];
-    int PPTvol[4];
-    int PPTsize[4];
+    s32 BGMfinetop[2];
+    s32 BGMfine[2];
+    s32 PPTvol[4];
+    s32 PPTsize[4];
     s8 PPTstop[4];
-    int work0;
-    int idk;
+    s32 work0;
+    s32 idk;
 } STRINFO;
 
 typedef struct {
-    int start;
-    int chsize;
-    int chnum;
+    s32 start;
+    s32 chsize;
+    s32 chnum;
 } BGMTABLE;
 
 typedef struct {
-    int top;
-    int nsector;
+    s32 top;
+    s32 nsector;
 } PPTTABLE;
 
 typedef enum {
@@ -331,20 +331,20 @@ typedef enum {
 
 typedef struct {
     BGMMODE BGMmode;
-    int BGMppt;
-    int BGMpptcnt;
-    int BGMid;
-    int BGMchgreq;
-    int BGMchgid;
-    int BGMchgmode;
-    int nextVision;
-    int areaTime;
-    int resFlag;
-    int resBGM;
-    int resVision;
-    float resEVol;
-    int deadFlag;
-    int deadCnt;
+    s32 BGMppt;
+    s32 BGMpptcnt;
+    s32 BGMid;
+    s32 BGMchgreq;
+    s32 BGMchgid;
+    s32 BGMchgmode;
+    s32 nextVision;
+    s32 areaTime;
+    s32 resFlag;
+    s32 resBGM;
+    s32 resVision;
+    f32 resEVol;
+    s32 deadFlag;
+    s32 deadCnt;
 } hGAMEDATA;
 
 typedef struct { // 0x10
@@ -389,12 +389,12 @@ enum {
 
 typedef struct {
     s32 efx;
-    float vol;
+    f32 vol;
     s32 delay;
     s32 feed;
     s32 dry;
-    float vol_ppt;
-    float workf0;
+    f32 vol_ppt;
+    f32 workf0;
     s32 worki0;
     s32 worki1;
 } EFXSE;
@@ -469,8 +469,8 @@ extern s32  hRpc(s32 cmd);
 extern s32  hTrans2IOP(s32 iopAddr, s32 eeAddr, s32 size);
 
 // h_sound.c
-extern s32  JamGetHdSize(JAMHD *hdaddr); // Should be int arg
-extern s32  JamGetBdSize(JAMHD *hdaddr); // Should be int arg
+extern s32  JamGetHdSize(JAMHD *hdaddr); // Should be s32 arg
+extern s32  JamGetBdSize(JAMHD *hdaddr); // Should be s32 arg
 extern void hSndPkEffect();
 extern void hSndPkSetMVol(s32 voll, s32 volr);
 extern void hSndPkSetEVol(s32 vol);
@@ -519,7 +519,7 @@ extern u32* GetFHMAddress(u32 *pAddr, u32 nNum);
 extern hCDDATA *cD;
 
 // h_menu.c
-extern int RpcArg[16];
+extern s32 RpcArg[16];
 extern s128 hPacketArea[2048];
 
 // h_sound.c

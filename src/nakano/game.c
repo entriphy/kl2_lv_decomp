@@ -1,20 +1,21 @@
 #include "common.h"
 
-int nkLoadTimer;
-int nkLoadStat;
-int DAT_003fb8f4;
+s32 nkLoadTimer;
+s32 nkLoadStat;
+s32 nkLoadBun;
 u32 *NakanoPackAddr;
 u32 *nkLoadBuff;
 s16 obj_id[129] = {};
 
-int (*GameFuncTbl[3])() = {
+s32 (*GameFuncTbl[3])() = {
     GameInit,
     GameLoad,
     GameMain
 };
 
-int GameInit() {
-    int ret;
+s32 GameInit() {
+    s32 ret;
+    s32 size;
 
     nkInitPS2();
     nkGsSetNormalFZ2();
@@ -23,26 +24,27 @@ int GameInit() {
     memoryStageFormat();
     nkLoadTimer = 0;
     nkLoadStat = 0;
-    DAT_003fb8f4 = 0;
-    nkLoadBuff = (u32 *)getBuff(1, hGameDataSize(1), NULL, &ret);
+    nkLoadBun = 0;
+    size = hGameDataSize(1);
+    nkLoadBuff = (u32 *)getBuff(1, size, NULL, &ret);
     kzInitNowload();
     nkKeyFrameStart();
     SysGbl.smode++;
     return 0;
 }
 
-int GameLoad() {
-    if (DAT_003fb8f4 == 0) {
+s32 GameLoad() {
+    if (nkLoadBun == 0) {
         if (nkLoadStat == 0) {
             hGameRead(0, (s32)nkLoadBuff);
         }
         else if (nkLoadStat == 1) {
             hGameRead(1, (s32)nkLoadBuff);
         }
-        DAT_003fb8f4++;
+        nkLoadBun++;
     }
     if (GameGbl.vision != 0x106 && DAT_003fb93c != NULL) {
-        FUN_0018dcb0(DAT_003fb93c);
+        nkLoadGms(DAT_003fb93c);
         sceGsSyncPath(0,0);
     }
     TkMainLoop(1);
@@ -77,14 +79,14 @@ int GameLoad() {
             nkGsSetNormalFZ2_1();
             nkWipeEffBClear();
         }
-        DAT_003fb8f4 = 0;
+        nkLoadBun = 0;
         nkLoadStat++;
     }
 
     return 0;
 }
 
-int GameMain() {
+s32 GameMain() {
     // TODO
     return 0;
 }

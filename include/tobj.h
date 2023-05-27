@@ -5,29 +5,28 @@
 #include "psfx.h"
 
 typedef struct tCOORD {
-    FVECTOR Rot;
-    FVECTOR Trans;
-    FMATRIX LcMtx;
-    FMATRIX LwMtx;
-    FMATRIX LsMtx;
-    FMATRIX LvMtx;
-    FMATRIX LcLightMtx;
-    struct tCOORD* Super;
-    int Flag;
+    sceVu0FVECTOR Rot;
+    sceVu0FVECTOR Trans;
+    sceVu0FMATRIX LcMtx;
+    sceVu0FMATRIX LwMtx;
+    sceVu0FMATRIX LsMtx;
+    sceVu0FMATRIX LvMtx;
+    sceVu0FMATRIX LcLightMtx;
+    struct tCOORD *Super;
+    s32 Flag;
 } tCOORD;
 
 typedef struct {
     tCOORD Base;
-    float pad[2];
-    FMATRIX* pNormalLight;
-    FMATRIX* pLightColor;
-    float Scale;
+    sceVu0FMATRIX *pNormalLight;
+    sceVu0FMATRIX *pLightColor;
+    f32 Scale;
     hKEI Size;
-    int Fuku;
-    int OutLine;
-    PSFXOBJ* pSfx;
-    PMOTION* pMot;
-    int ret;
+    s32 Fuku;
+    s32 OutLine;
+    PSFXOBJ *pSfx;
+    PMOTION *pMot;
+    s32 ret;
 } tOBJECT;
 
 #endif

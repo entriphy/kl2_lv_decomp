@@ -9,7 +9,7 @@ GIMWORK* GetGimWork() {
     return work;
 }
 
-int gmGetGimType(OBJWORK* objw) {
+s32 gmGetGimType(OBJWORK* objw) {
     GIMWORK* gim = objw->gimmick;
     if (gim != NULL) {
         if (gim->type & 2 == 0) {

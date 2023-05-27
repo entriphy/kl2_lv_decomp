@@ -1,6 +1,6 @@
 #include "common.h"
 
-int disp_mask_flag;
+s32 disp_mask_flag;
 
 void kzSetDispMaskOn() {
     disp_mask_flag = 1;

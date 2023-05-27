@@ -4,9 +4,9 @@
 #include "types.h"
 
 typedef struct {
-    FVECTOR posi;
-    FVECTOR ang;
-    float scr_z;
+    sceVu0FVECTOR posi;
+    sceVu0FVECTOR ang;
+    f32 scr_z;
     s32 mode;
 } CAM_WORK;
 

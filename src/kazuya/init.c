@@ -104,7 +104,7 @@ void kzStageInit0() {
         gms = (u8 *)hGetDataAddr(7);
         if (gms != NULL) {
             while (gms_language[i] >= 0) {
-                FUN_0018dcb0(gms + ((s32 *)gms)[i + 1]);
+                nkLoadGms(gms + ((s32 *)gms)[i + 1]);
                 sceGsSyncPath(0, 0);
                 i++;
             }

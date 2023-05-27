@@ -161,7 +161,7 @@ void hCdCueFlushBGM2() {
     }
 }
 
-int hCdRead(u32 lsn, u32 sectors, void *buff, sceCdRMode *mode) {
+s32 hCdRead(u32 lsn, u32 sectors, void *buff, sceCdRMode *mode) {
     sceCdDiskReady(0);
     if (sceCdRead(lsn, sectors, buff, mode) == 0) {
         return 0;
@@ -173,7 +173,7 @@ int hCdRead(u32 lsn, u32 sectors, void *buff, sceCdRMode *mode) {
     }
 }
 
-int hCdReadIOPm(u32 lsn, u32 sectors, void *buff, sceCdRMode *mode) {
+s32 hCdReadIOPm(u32 lsn, u32 sectors, void *buff, sceCdRMode *mode) {
     sceCdDiskReady(0);
     if (sceCdReadIOPm(lsn, sectors, buff, mode) == 0) {
         return 0;

@@ -20,7 +20,7 @@ void hBgmReset() {
     }
 }
 
-int hBgmGetStat() {
+s32 hBgmGetStat() {
     if (cD->BGMplay != 0) {
         switch (bD->fadeFlag) {
             case 1:
@@ -54,7 +54,7 @@ void hBgmWorkClear() {
 /* PPT Functions */
 
 void hPptWorkClear() {
-    int i;
+    s32 i;
 
     bD->Command |= 0x80;
     pD->pptMute = 0;
@@ -87,17 +87,17 @@ void hPptReset() {
 /* STR Functions */
 
 void hStrInfo() {
-    float f;
-    int n;
+    f32 f;
+    s32 n;
     STRINFO *str;
-    int i;
+    s32 i;
 
     switch (bD->fadeFlag) {
         case 1:
-            f = (float)(bD->fadeMax - bD->fadeCnt) / (float)bD->fadeMax;
+            f = (f32)(bD->fadeMax - bD->fadeCnt) / (f32)bD->fadeMax;
             break;
         case 2:
-            f = (float)bD->fadeCnt / (float)bD->fadeMax;
+            f = (f32)bD->fadeCnt / (f32)bD->fadeMax;
             break;
         case 3:
             f = 0.0f;
@@ -194,9 +194,9 @@ void hStrInfo() {
 }
 
 void hStrInit() {
-    int i, j;
-    int *iopAddr;
-    int *n;
+    s32 i, j;
+    s32 *iopAddr;
+    s32 *n;
 
     bD = &BgmData;
     pD = &PptData;

@@ -147,7 +147,7 @@ s32 hSndFader(f32 vol) {
         return 0;
     } else {
         hSNDDATA *snd;
-        int n;
+        s32 n;
         
         if (vol > 1.0f) {
             vol = 1.0f;
@@ -373,7 +373,7 @@ void hSndEffSetArea() {
     hSndPkSetEVol(0);
 }
 
-void hSndEffSetVolIdx(int idx) {
+void hSndEffSetVolIdx(s32 idx) {
     EFXSE *se = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
     sD->effIdx = idx;
     se = &se[idx];

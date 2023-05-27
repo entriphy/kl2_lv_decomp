@@ -36,7 +36,7 @@
 /* DAT_003faf2c */ extern int disp_mask_flag;
 /* DAT_003fb8ec */ extern int nkLoadTimer;
 /* DAT_003fb8f0 */ extern int nkLoadStat;
-/* DAT_003fb8f4 */ extern int DAT_003fb8f4;
+/* DAT_003fb8f4 */ extern int nkLoadBun;
 /* DAT_003fb93c */ extern u8 *DAT_003fb93c;
 /* DAT_003fc46c */ extern int key_data_top_index;
 /* DAT_003fc470 */ extern int key_frame_cnt;

@@ -1,30 +1,30 @@
 #include "common.h"
 
-int DAT_00639770;
-int DAT_00639774;
-int DAT_00639778;
-int DAT_0063977c;
-int DAT_00639780;
-int DAT_00639784;
-int DAT_006397c8;
-int DAT_006397cc;
-int DAT_006397d0;
-int DAT_006397d8;
-int DAT_006397dc;
+s32 DAT_00639770;
+s32 DAT_00639774;
+s32 DAT_00639778;
+s32 DAT_0063977c;
+s32 DAT_00639780;
+s32 DAT_00639784;
+s32 DAT_006397c8;
+s32 DAT_006397cc;
+s32 DAT_006397d0;
+s32 DAT_006397d8;
+s32 DAT_006397dc;
 
-float DAT_006397e0;
-float DAT_006397e8;
-float DAT_006397ec;
-float DAT_006397f0;
+f32 DAT_006397e0;
+f32 DAT_006397e8;
+f32 DAT_006397ec;
+f32 DAT_006397f0;
 
-int (*nkInitAtrTbl[2])() = {
-    nkInitAtrInit,
-    nkInitAtrMain
+s32 (*nkInitAtrTbl[2])() = {
+    MenuInit,
+    MenuMain
 };
 
-int nkInitAtrInit() {
+s32 MenuInit() {
     SysGbl.smode++;
-    DAT_00639770 = 0;
+    DAT_00639770 = 0; // MenuGbl
     DAT_00639774 = 0;
     DAT_00639778 = 0;
     DAT_0063977c = 0;
@@ -37,18 +37,18 @@ int nkInitAtrInit() {
     nkGsInitFrm();
     OkDefaultSysInit(SCR_WIDTH, SCR_HEIGHT, 12, 6);
     OkPrintSysInit(2, SCR_WIDTH, SCR_HEIGHT, 12, 6);
-    DAT_006397c8 = 0;
+    DAT_006397c8 = 0; // theta
     DAT_006397cc = 0;
     DAT_006397d0 = 0;
-    DAT_006397d8 = 0;
+    DAT_006397d8 = 0; // trans
     DAT_006397dc = 0;
     DAT_006397e0 = 1000.0f;
-    DAT_006397e8 = M_PI / 90.0f;
+    DAT_006397e8 = M_PI / 90.0f; // dtheta
     DAT_006397ec = -0.017453292f;
     DAT_006397f0 = 0.017453292f;
     return 0;
 }
 
-int nkInitAtrMain() {
+s32 MenuMain() {
     return 0;
 }

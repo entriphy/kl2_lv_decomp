@@ -7,7 +7,7 @@ void FUN_0018dc78(u8 *tag) {
     sceDmaSend(DmaChGIF, tag);
 }
 
-void FUN_0018dcb0(u8 *tag) {
+void nkLoadGms(u8 *tag) {
     FlushCache(WRITEBACK_DCACHE);
     FUN_0018dc78(tag);
     sceGsSyncPath(0, 0);

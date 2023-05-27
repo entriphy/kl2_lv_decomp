@@ -18,7 +18,7 @@ void hr_pflag_init() {
 }
 
 PT hr_pflag_get_id() {
-    int i;
+    s32 i;
 
     for (i = 0; i < 90; i++) {
         if (scene_table[i].area == GameGbl.vision && scene_table[i].scene == hrpt_scene)

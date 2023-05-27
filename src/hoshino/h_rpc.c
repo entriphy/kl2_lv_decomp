@@ -7,7 +7,7 @@ static sceSifClientData gCd;
 void hSndRpcRet() {
     hRPCINFO *ret = (hRPCINFO *)hRpc(IOP_RpcInfo);
     hSTRINFO2 *str;
-    int i;
+    s32 i;
     
     sD->VoiceStat[0] = ret->vStatKeyon[0];
     sD->VoiceStat[1] = ret->vStatKeyon[1];
@@ -28,7 +28,7 @@ s32 hRpcSync() {
 }
 
 void hRpcInit() {
-    int i;
+    s32 i;
 
     do {
         if (sceSifBindRpc(&gCd, 0x12346, 0) < 0) {

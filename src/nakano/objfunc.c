@@ -16,8 +16,8 @@ void (*ObjJTbl[10])(OBJWORK *objw) = {
 void InitObjWork(OBJWORK *objw) {
     u32 i;
 
-    for (i = 0; i < sizeof(OBJWORK) / sizeof(int); i++) {
-        ((int *)objw)[i] = 0;
+    for (i = 0; i < sizeof(OBJWORK) / sizeof(s32); i++) {
+        ((s32 *)objw)[i] = 0;
     }
 }
 

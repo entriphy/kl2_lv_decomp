@@ -4,7 +4,7 @@
 static CTexManager m_instance;
 
 void CTexManager::Initialize() {
-    for (int index = 0; index < 672; ++index) {
+    for (s32 index = 0; index < 672; ++index) {
         CTexManager::Instance()->m_texID[index] = 0;
     }
 }

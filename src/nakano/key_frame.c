@@ -1,7 +1,9 @@
-int key_data_top_index;
-int key_frame_cnt;
-int key_frame_max;
-int kf_mode;
+#include "common.h"
+
+s32 key_data_top_index;
+s32 key_frame_cnt;
+s32 key_frame_max;
+s32 kf_mode;
 
 void nkKeyFrameStart() {
     key_frame_cnt = 0;

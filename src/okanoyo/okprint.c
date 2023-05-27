@@ -8,7 +8,7 @@ void OkPrintSysInit(s32 personal_id, s32 screenw, s32 screenh, s32 fontw, s32 fo
 }
 
 void OkDefaultSysInit(s32 screenw, s32 screenh, s32 fontw, s32 fonth) {
-    int i, j;
+    s32 i, j;
 
     for (i = 0; i < 9; i++) {
         PDbuf[i].fsz_x = fontw;

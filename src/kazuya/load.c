@@ -1,14 +1,14 @@
 #include "common.h"
 
-int klworks_flag;
+s32 klworks_flag;
 DL_STATUS dl_status;
-int ret_gameread;
-int DAT_003fadcc;
+s32 ret_gameread;
+s32 DAT_003fadcc;
 
 void kzLoadCommonGms() {
     u8 *gms = (u8 *)hGetSysDataAddr(7);
     if (gms != NULL) {
-        FUN_0018dcb0(gms + ((u32 *)gms)[1]);
+        nkLoadGms(gms + ((u32 *)gms)[1]);
         sceGsSyncPath(0, 0);
     }
 }
@@ -22,9 +22,9 @@ void kzInitNowload() {
     }
 }
 
-int kzDrawNowload() {
+s32 kzDrawNowload() {
     // TODO
-    int iVar3;
+    s32 iVar3;
     
     if (ret_gameread == 0) {
         ret_gameread = hGameReadOK();

@@ -56,7 +56,7 @@ void nkInitPS2() {
     FUN_00197a88();
 }
 
-void FUN_001979b0(int fba) {
+void FUN_001979b0(s32 fba) {
     nkGifPacket pk;
     
     pk.size = 0;
@@ -95,7 +95,7 @@ void nkStageInit0() {
     if ((GameGbl.vision >> 8) - 15 > 5) {
         u8 *gms = (u8 *)hGetDataAddr(0);
         if (gms != NULL) {
-            FUN_0018dcb0(gms + ((s32 *)gms)[1]);
+            nkLoadGms(gms + ((s32 *)gms)[1]);
             sceGsSyncPath(0, 0);
         }
     }

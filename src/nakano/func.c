@@ -8,17 +8,17 @@ FUNCTBL nkFuncs[5] = {
     {NULL, 0}
 };
 
-int (*nkFuncTbl[2])() = {
+s32 (*nkFuncTbl[2])() = {
     nkInit,
     nkMain
 };
 
-int nkInit() {
+s32 nkInit() {
     SysGbl.nsmode++;
     return 0;
 }
 
-int nkMain() {
+s32 nkMain() {
     if (nkFuncs[SysGbl.fmode].func == NULL) {
         SysGbl.fmode = 0;
         SysGbl.smode = 0;

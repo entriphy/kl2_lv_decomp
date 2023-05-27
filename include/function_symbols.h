@@ -17,7 +17,7 @@
 
 /* FUN_0018d9e8 */ extern void nkInitDma();
 /* FUN_0018dc78 */ extern void FUN_0018dc78(u8 *param_1);
-/* FUN_0018dcb0 */ extern void FUN_0018dcb0(u8 *param_1);
+/* FUN_0018dcb0 */ extern void nkLoadGms(u8 *param_1);
 /* FUN_0018fc18 */ extern void nkInitPS2();
 /* FUN_0018fca0 */ extern int GameInit();
 /* FUN_0018fd28 */ extern int GameLoad();
@@ -32,8 +32,8 @@
 /* FUN_00199560 */ extern void nkInitSys();
 /* FUN_00199810 */ extern void nkKeyFrameStart();
 /* FUN_001a2e20 */ extern int main(int argc, char *argv[]);
-/* FUN_001a4fc0 */ extern int nkInitAtrInit(); // i made up this name idk
-/* FUN_001a50b0 */ extern int nkInitAtrMain();
+/* FUN_001a4fc0 */ extern int MenuInit(); // i made up this name idk
+/* FUN_001a50b0 */ extern int MenuMain();
 /* FUN_001a50b8 */ extern void MainFunc();
 /* FUN_001a56e0 */ extern int nkInit();
 /* FUN_001a5700 */ extern int nkMain();

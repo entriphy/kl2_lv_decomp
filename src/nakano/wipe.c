@@ -43,7 +43,7 @@ void nkWipeSetMatrix() {
 
 void nkWipeEffBClear() {
     struct {
-        int size;
+        s32 size;
 		sceGifTag giftag;
 		sceGsClear c;
 	} clear;

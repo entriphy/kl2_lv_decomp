@@ -30,35 +30,24 @@ typedef float f32;
 typedef double f64;
 
 typedef struct {
-	float x;
-	float y;
-	float z;
-	float w;
-} FVECTOR __attribute__((aligned(16)));
+	f32 x;
+	f32 y;
+	f32 z;
+	f32 w;
+} FVECTOR;
 
 typedef struct {
-	int	x;
-	int	y;
-	int	z;
-	int	w;
-} IVECTOR __attribute__((aligned(16)));
+	s32	x;
+	s32	y;
+	s32	z;
+	s32	w;
+} IVECTOR;
 
 typedef struct {
-	int	x;
-	int	y;
-	int	z;
-	int	w;
-} IVECTOR_UA; // Unaligned
-
-typedef struct {
-	short	x;
-	short	y;
-	short	z;
-	short	w;
+	s16	x;
+	s16	y;
+	s16	z;
+	s16	w;
 } SVECTOR;
-
-typedef struct {
-	FVECTOR m[4];
-} FMATRIX __attribute__((aligned(16)));
 
 #endif

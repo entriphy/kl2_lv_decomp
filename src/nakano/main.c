@@ -8,7 +8,7 @@ FUNCTBL functbl[8] = {
     {nkFuncTbl, -1}
 };
 
-int main(int argc, char *argv[]) {
+s32 main(s32 argc, char *argv[]) {
     memorySysFormat();
     hInitBoot();
     SysGbl.irqc = 0;
