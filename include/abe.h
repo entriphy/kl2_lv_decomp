@@ -12,6 +12,18 @@ typedef struct {
     OBJWORK *m_particle;
 } JIGEN_WORK;
 
+// Functions
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern void abStageInitA();
+#ifdef __cplusplus
+}
+#endif
+
+
+// Classes
+
 #ifdef __cplusplus
 
 #include "types.h"

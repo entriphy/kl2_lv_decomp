@@ -1,3 +1,6 @@
+#ifndef TAKE_H
+#define TAKE_H
+
 #include "common.h"
 
 // Structs
@@ -24,3 +27,5 @@ typedef struct {
 
 // object.c
 extern SCRENV Scr;
+
+#endif

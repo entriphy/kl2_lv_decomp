@@ -9,7 +9,6 @@
 
 #include "abe.h"
 #include "cam.h"
-#include "defines.h"
 #include "gim.h"
 #include "hoshino.h"
 #include "harada.h"
@@ -23,8 +22,7 @@
 #include "tobj.h"
 #include "types.h"
 
+#include "defines.h"
 #include "structs.h"
-#include "data_symbols.h"
-#include "function_symbols.h"
 
 #endif

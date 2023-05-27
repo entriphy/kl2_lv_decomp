@@ -411,6 +411,11 @@ typedef struct {
     hSTRINFO2 STRinfo;
 } hRPCINFO;
 
+typedef struct {
+    s32 lsn;
+    s32 sectors;
+} KLTABLE;
+
 // Functions
 
 // h_cdvd.c
@@ -460,6 +465,9 @@ extern s32  SyncV();
 
 // h_menu.c
 
+
+// h_movie.c
+extern void hMovInit();
 
 // h_rpc.c
 extern void hSndRpcRet();
