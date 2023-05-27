@@ -1,5 +1,8 @@
 #include "common.h"
 
+hGAMEDATA GameData;
+hGAMEDATA *gD;
+
 void hInitStage0() {
     gD = &GameData;
     hSndReset();

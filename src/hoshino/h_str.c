@@ -4,6 +4,8 @@ hBGMDATA BgmData = {};
 hBGMDATA* bD = NULL;
 hPPTDATA PptData;
 hPPTDATA* pD;
+hAC3DATA Ac3Data = {};
+hAC3DATA* aD = NULL;
 
 /* BGM Functions */
 
@@ -211,7 +213,7 @@ void hStrInit() {
     for (i = 0; i < 4; i++) {
         pD->pptPlay[i] = 0;
         pD->eeStat[i] = 0;
-        pD->eeAddr[i] = pptEeAddrs[i];
+        pD->eeAddr[i] = SndTempBuff + i * 0x40000;
         for (j = 0; j < 2; j++) {
             pD->iopAddr[i][j] = n;
             n += 0x1000;
@@ -235,8 +237,8 @@ void hStrInit() {
     aD->field_0x88 = 0;
     aD->field_0xA8 = 0;
     aD->field_0x9C = 0;
-    aD->field_0xD0 = pptEeAddrs[0];
-    aD->field_0xD4 = pptEeAddrs[2];
+    aD->field_0xD0 = SndTempBuff + 0 * 0x40000;
+    aD->field_0xD4 = SndTempBuff + 2 * 0x40000;
 
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&aD->files[0], "\\BGM000.AC3;1"));

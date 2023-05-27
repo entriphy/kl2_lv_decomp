@@ -23,6 +23,11 @@ char *LoadModuleList[] = {
 };
 #endif
 
+// Unknown
+KLTABLE *KlTable = NULL; // These might be in h_sound.c instead
+PPTTABLE *PptTable = NULL;
+BGMTABLE *BgmTable = NULL;
+
 void hInitBoot() {
     u32 i;
     s32 ret;

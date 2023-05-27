@@ -518,17 +518,24 @@ extern u32* GetFHMAddress(u32 *pAddr, u32 nNum);
 // h_cdvd.c
 extern hCDDATA *cD;
 
+// h_init.c
+extern KLTABLE *KlTable;
+extern PPTTABLE *PptTable;
+extern BGMTABLE *BgmTable;
+
 // h_menu.c
 extern s32 RpcArg[16];
 extern s128 hPacketArea[2048];
 
 // h_sound.c
 extern u8 SndPacket[1024];
+extern u8 SndTempBuff[1048576];
 extern hSNDDATA *sD;
 
 // h_str.c
 extern hBGMDATA *bD;
 extern hPPTDATA *pD;
+extern hAC3DATA* aD;
 
 // Defines
 
