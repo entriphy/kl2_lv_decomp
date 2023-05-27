@@ -19,10 +19,12 @@ s32 nkInit() {
 }
 
 s32 nkMain() {
-    if (MainFuncTbl[SysGbl.fmode].func == NULL) {
+    s32 (**subfunctbl)() = MainFuncTbl[SysGbl.fmode].func;
+    if (subfunctbl != NULL) {
+        subfunctbl[SysGbl.smode]();
+    } else {
         SysGbl.fmode = 0;
         SysGbl.smode = 0;
-    } else {
-        MainFuncTbl[SysGbl.fmode].func[SysGbl.smode]();
     }
+    return 0;
 }
