@@ -98,3 +98,30 @@ void nkGsSetNormalFZ2() {
     sceDmaSend(DmaChGIF, (void *)((u32)pk.buf | 0x80000000));
     sceDmaSync(DmaChGIF, 0, 0);
 }
+
+void nkGsSetFBA1(s32 fba) {
+    nkGifPacket pk;
+    
+    pk.size = 0;
+    pk.buf = nkSPR;
+    
+    SCE_GIF_CLEAR_TAG(pk.buf);
+    pk.buf[pk.size++].ul32[0] = 0x70000000 | 0x2;
+    pk.buf[pk.size].ul64[0] = SCE_GIF_SET_TAG(1, 1, 0, 0, 0, 1);
+    pk.buf[pk.size++].ul64[1] = SCE_GIF_PACKED_AD;
+    pk.buf[pk.size].ul64[1] = SCE_GS_FBA_1;
+    pk.buf[pk.size++].ul64[0] = fba;
+    DmaChGIF->chcr.TTE = 1;
+    sceDmaSend(DmaChGIF, (void *)((u32)pk.buf | 0x80000000));
+}
+
+void nkGsInitEnv() {
+    sceGsResetGraph(0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME);
+    sceGsSetDefDBuffDc(&GameGbl.db, SCE_GS_PSMCT32, SCR_WIDTH, SCR_HEIGHT, SCE_GS_ZGREATER, SCE_GS_PSMZ16S, SCE_GS_CLEAR);
+    GameGbl.db.clear0.rgbaq.A = 128;
+    GameGbl.db.clear1.rgbaq.A = 128;
+    nkGsSetFBA1(1);
+    sceGsSetDefClear(&GameGbl.db.clear0, SCE_GS_ZGREATER, 1728, 1936, SCR_WIDTH, SCR_HEIGHT, 0, 0, 0, 128, 0);
+    sceGsSetDefClear(&GameGbl.db.clear1, SCE_GS_ZGREATER, 1728, 1936, SCR_WIDTH, SCR_HEIGHT, 0, 0, 0, 128, 0);
+    FlushCache(WRITEBACK_DCACHE);
+}

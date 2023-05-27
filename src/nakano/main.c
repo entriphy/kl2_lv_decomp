@@ -1,12 +1,31 @@
-#include <stdio.h>
-#include <unistd.h>
 #include "common.h"
 
-SYSGBL SysGbl;
-GAME_WORK GameGbl;
-FUNCTBL functbl[8] = {
-    {nkFuncTbl, -1}
-};
+NKDEBGBL nkDG = {};
+SYSGBL SysGbl = {};
+sceDmaChan *DmaChVIF0 = NULL;
+sceDmaChan *DmaChVIF1 = NULL;
+sceDmaChan *DmaChGIF = NULL;
+sceDmaChan *DmaChfromIPU = NULL;
+sceDmaChan *DmaChtoIPU = NULL;
+sceDmaChan *DmaChfromSPR = NULL;
+sceDmaChan *DmaChtoSPR = NULL;
+qword PsfxWorkBuff[131072];
+// vpmINFO VpmInfo = {};
+qword *p1_packet_top = NULL;
+qword *p1_packet = NULL;
+qword *p1_packet_cnt = NULL;
+qword p1_packet_buff[2][4096];
+s32 draw_id = 0;
+qword p1_ot_buff[2][5];
+qword *p1_ot = NULL;
+s32 p1_packet_max = 0;
+qword vu0mem_image[256] = {};
+qword vu1mem_image[1024] = {};
+u32 *NakanoPackAdr = NULL;
+u32 *nkGimPackAdr = NULL;
+u32 *vtWaveAdr = NULL;
+u32 *vtSprayAdr = NULL;
+u32 *vtMovieAdr[8] = {};
 
 s32 main(s32 argc, char *argv[]) {
     memorySysFormat();
@@ -32,13 +51,3 @@ s32 main(s32 argc, char *argv[]) {
 
     return 0;
 }
-
-void MainFunc() {
-    if (functbl[SysGbl.nmode].func == NULL) {
-        SysGbl.fmode = 0;
-        SysGbl.smode = 0;
-    } else {
-        functbl[SysGbl.nmode].func[SysGbl.nsmode]();
-    }
-}
-

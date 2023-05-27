@@ -3,7 +3,7 @@
 s32 klworks_flag;
 DL_STATUS dl_status;
 s32 ret_gameread;
-s32 DAT_003fadcc;
+s32 klwcnt;
 
 void kzLoadCommonGms() {
     u8 *gms = (u8 *)hGetSysDataAddr(7);
@@ -18,7 +18,7 @@ void kzInitNowload() {
     dl_status = DL_STATUS_NML_LOAD;
     ret_gameread = 0;
     if (GameGbl.vision == 0x0105) {
-        DAT_003fadcc = 0;
+        klwcnt = 0;
     }
 }
 

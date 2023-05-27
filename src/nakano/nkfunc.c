@@ -1,7 +1,7 @@
 #include "common.h"
 
-FUNCTBL nkFuncs[5] = {
-    {nkInitAtrTbl, -1},
+static FUNCTBL MainFuncTbl[5] = {
+    {MenuFuncTbl, -1},
     {GameFuncTbl, -1},
     {NULL, 0},
     {NULL, 0},
@@ -19,10 +19,10 @@ s32 nkInit() {
 }
 
 s32 nkMain() {
-    if (nkFuncs[SysGbl.fmode].func == NULL) {
+    if (MainFuncTbl[SysGbl.fmode].func == NULL) {
         SysGbl.fmode = 0;
         SysGbl.smode = 0;
     } else {
-        nkFuncs[SysGbl.fmode].func[SysGbl.smode]();
+        MainFuncTbl[SysGbl.fmode].func[SysGbl.smode]();
     }
 }

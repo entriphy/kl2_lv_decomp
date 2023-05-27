@@ -1,17 +1,24 @@
 #include "common.h"
 
-s32 nkLoadTimer;
-s32 nkLoadStat;
-s32 nkLoadBun;
-u32 *NakanoPackAddr;
-u32 *nkLoadBuff;
-s16 obj_id[129] = {};
-
+static s32 nkGamePauseFlag = 0;
+static s32 nkLoadTimer = 0;
+static s32 nkLoadStat = 0;
+static s32 nkLoadBun;
 s32 (*GameFuncTbl[3])() = {
     GameInit,
     GameLoad,
     GameMain
 };
+GAME_WORK GameGbl = {};
+s16 obj_id[129] = {};
+static s32 nkGamePauseRepTimer;
+static s32 nkGamePauseRepTimerB;
+OBJWORK ObjWorkBuff[128] = {};
+qword *nkDstAdr = NULL;
+static u32 *nkLoadBuff;
+
+// Unknown
+u8 *DAT_003fb93c = NULL;
 
 s32 GameInit() {
     s32 ret;
@@ -71,7 +78,7 @@ s32 GameLoad() {
         } else if (nkLoadStat == 1) {
             kzSetDispMaskOn();
             nkInitPS2();
-            NakanoPackAddr = (u32 *)hGetDataAddr(0);
+            NakanoPackAdr = (u32 *)hGetDataAddr(0);
             nkStageInit1();
             SysGbl.smode++;
             nkGsSetNormalFZ2_0();
@@ -89,4 +96,20 @@ s32 GameLoad() {
 s32 GameMain() {
     // TODO
     return 0;
+}
+
+void nkInitPS2() {
+    SysGbl.objwork = ObjWorkBuff;
+    SysGbl.n_objw = 0x80;
+    nkDG.cam_debug_mode = 0;
+    nkDG.flag = 0;
+    sceGsResetPath();
+    sceDevGifReset();
+    sceDevVif1Reset();
+    sceDevVu1Reset();
+    sceDevVif0Reset();
+    sceDevVu0Reset();
+    nkInitDma();
+    sceGsResetGraph(0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME);
+    nkGsInitEnv();
 }

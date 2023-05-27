@@ -9,7 +9,7 @@
 
 #include "abe.h"
 #include "cam.h"
-#include "gbl.h"
+#include "defines.h"
 #include "gim.h"
 #include "hoshino.h"
 #include "harada.h"
@@ -19,6 +19,7 @@
 #include "okanoyo.h"
 #include "ps2.h"
 #include "psfx.h"
+#include "take.h"
 #include "tobj.h"
 #include "types.h"
 

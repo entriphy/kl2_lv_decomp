@@ -1,7 +1,6 @@
 #include "common.h"
 
-SCRENV Scr;
-PsfxMODEL PsfxWipeKlo;
+static PsfxMODEL PsfxWipeKlo;
 
 void nkWipeInit() {
     // PsfxWipeKlo.ActNum = 13;

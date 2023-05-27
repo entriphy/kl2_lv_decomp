@@ -17,7 +17,7 @@ link_libraries(m cdvd graph dma vu0 dev sdr)
 
 # Decomp
 set(EXECUTABLES)
-set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo taka)
+set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo taka take)
 foreach (SUBDIR IN LISTS SUBDIRS)
     file(GLOB files src/${SUBDIR}/*.c)
     foreach (file ${files})
