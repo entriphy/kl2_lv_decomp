@@ -12,4 +12,21 @@ typedef enum {
     DL_STATUS_NUM,
 } DL_STATUS;
 
+// Functions
+
+// bios.c
+extern s32 kz_Get_KazuyaStageNo();
+
+// disp.c
+extern void kzSetDispMaskOn();
+extern void kzSetDispMaskOff();
+
+// interfac.c
+extern void kzLoadCommonGms();
+extern void kzInitNowload();
+extern s32 kzDrawNowload();
+
+// kzStageInit0;
+extern void kzStageInit0();
+
 #endif
