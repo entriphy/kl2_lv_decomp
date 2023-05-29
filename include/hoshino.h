@@ -7,14 +7,6 @@
 // Structs
 
 typedef enum {
-    hKEI_L,
-    hKEI_M,
-    hKEI_S,
-    hKEI_F,
-    hKEI_MAX
-} hKEI;
-
-typedef enum {
     CDREAD_IDLE,
     CDREAD_BGM,
     CDREAD_BGM2,

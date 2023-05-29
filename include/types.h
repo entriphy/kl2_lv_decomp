@@ -56,4 +56,27 @@ typedef struct {
 	s16	w;
 } SVECTOR;
 
+typedef union { // 0x10
+	u128 u_u128;
+	u64  u_u64[2];
+	s64  u_s64[2];
+	u32  u_u32[4];
+	s32  u_s32[4];
+	u16  u_u16[8];
+	s16  u_s16[8];
+	u8   u_u8[16];
+	s8   u_s8[16];
+	f32  u_f32[4];
+} qword_uni;
+
+typedef union { // 0x8
+	u64 u_u64;
+	u32 u_u32[2];
+	u16 u_u16[4];
+	s64 u_s64;
+	s32 u_s32[2];
+	s16 u_s16[4];
+	f32 u_f32[2];
+} long_uni;
+
 #endif

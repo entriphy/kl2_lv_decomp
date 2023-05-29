@@ -1,28 +1,34 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+// Standard libraries
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
 
+// Common headers
+#include "defines.h"
+#include "structs.h"
+#include "types.h"
+
+// Developer headers
 #include "abe.h"
-#include "cam.h"
-#include "gim.h"
 #include "hoshino.h"
 #include "harada.h"
 #include "kazuya.h"
+#include "kit.h"
 #include "nakano.h"
-#include "objwork.h"
 #include "okanoyo.h"
-#include "ps2.h"
-#include "psfx.h"
 #include "take.h"
-#include "tobj.h"
-#include "types.h"
 
-#include "defines.h"
-#include "structs.h"
+// Type headers
+#include "cam.h"
+#include "gim.h"
+#include "objwork.h"
+
+// System headers
+#include "ps2.h"
 
 #endif

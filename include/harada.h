@@ -2,6 +2,7 @@
 #define HARADA_H
 
 #include "types.h"
+#include "take.h"
 
 // Structs
 
@@ -99,10 +100,43 @@ typedef enum {
     PTSCENE_NUM
 } PT;
 
+typedef enum {
+    hKEI_L,
+    hKEI_M,
+    hKEI_S,
+    hKEI_F,
+    hKEI_MAX
+} hKEI;
+
 typedef struct {
     short area;
     short scene;
 } PTDATA;
+
+typedef struct tCOORD {
+    sceVu0FVECTOR Rot;
+    sceVu0FVECTOR Trans;
+    sceVu0FMATRIX LcMtx;
+    sceVu0FMATRIX LwMtx;
+    sceVu0FMATRIX LsMtx;
+    sceVu0FMATRIX LvMtx;
+    sceVu0FMATRIX LcLightMtx;
+    struct tCOORD *Super;
+    s32 Flag;
+} tCOORD;
+
+typedef struct {
+    tCOORD Base;
+    sceVu0FMATRIX *pNormalLight;
+    sceVu0FMATRIX *pLightColor;
+    f32 Scale;
+    hKEI Size;
+    s32 Fuku;
+    s32 OutLine;
+    SFXOBJ *pSfx;
+    MOTION *pMot;
+    s32 ret;
+} tOBJECT;
 
 // Functions
 

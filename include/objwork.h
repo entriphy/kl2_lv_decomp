@@ -2,8 +2,8 @@
 #define OBJWORK_H
 
 #include "gim.h"
+#include "harada.h"
 #include "route.h"
-#include "tobj.h"
 #include "types.h"
 
 // Size: 0xF0

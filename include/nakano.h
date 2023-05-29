@@ -4,6 +4,7 @@
 #include "types.h"
 #include "ps2.h"
 #include "objwork.h"
+#include "cam.h"
 
 // Structs
 
