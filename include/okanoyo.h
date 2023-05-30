@@ -220,18 +220,18 @@ typedef struct {
 } TEXINFO;
 
 typedef struct { // 0x108
-	/* 0x000 */ u8  name[256];
-	/* 0x100 */ s16 pw;
-	/* 0x102 */ s16 ph;
-	/* 0x104 */ s16 px;
-	/* 0x106 */ s16 py;
+    /* 0x000 */ u8  name[256];
+    /* 0x100 */ s16 pw;
+    /* 0x102 */ s16 ph;
+    /* 0x104 */ s16 px;
+    /* 0x106 */ s16 py;
 } TEXINFODEB;
 
 typedef struct { // 0x10
-	/* 0x0 */ s32 mode;
-	/* 0x4 */ s32 vision;
-	/* 0x8 */ s32 flag;
-	/* 0xc */ s32 vscnt;
+    /* 0x0 */ s32 mode;
+    /* 0x4 */ s32 vision;
+    /* 0x8 */ s32 flag;
+    /* 0xc */ s32 vscnt;
 } MENU_WORK;
 
 // Functions

@@ -1,12 +1,12 @@
 #include "common.h"
 
 typedef struct { // 0x18
-	/* 0x00 */ s32 mode;
-	/* 0x04 */ s32 vision;
-	/* 0x08 */ s32 flag;
-	/* 0x0c */ s32 vscnt;
-	/* 0x10 */ s32 option;
-	/* 0x14 */ s32 opmode;
+    /* 0x00 */ s32 mode;
+    /* 0x04 */ s32 vision;
+    /* 0x08 */ s32 flag;
+    /* 0x0c */ s32 vscnt;
+    /* 0x10 */ s32 option;
+    /* 0x14 */ s32 opmode;
 } nkMENU_WORK; // Technically this should have the same name as MENU_WORK, but whateverrrrr duuuude
 
 static nkMENU_WORK MenuGbl;

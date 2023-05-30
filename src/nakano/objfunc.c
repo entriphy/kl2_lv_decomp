@@ -23,7 +23,7 @@ void InitObjWork(OBJWORK *objw) {
 
 void InitAllObjWork(OBJWORK *objwork, s32 n_objw) {
     OBJWORK *objw;
-	s32 i;
+    s32 i;
 
     objw = objwork;
     for (i = 0; i < n_objw; i++) {
@@ -34,7 +34,7 @@ void InitAllObjWork(OBJWORK *objwork, s32 n_objw) {
 
 OBJWORK * SearchOBJWORK(OBJWORK *objwork, s32 n_objw) {
     s32 i;
-	OBJWORK *objw;
+    OBJWORK *objw;
 
     objw = objwork;
     for (i = 0; i < n_objw; i++) {
@@ -53,12 +53,12 @@ OBJWORK * SearchOBJWORK(OBJWORK *objwork, s32 n_objw) {
 }
 
 void SortObjWork(OBJWORK *objwork, s32 n_objw) {
-	s32 i;
-	s32 j;
-	s16 flag;
-	OBJWORK *objw;
-	s16 *id;
-	s16 *prty;
+    s32 i;
+    s32 j;
+    s16 flag;
+    OBJWORK *objw;
+    s16 *id;
+    s16 *prty;
     s16 tmp;
 
     flag = 1;
@@ -98,8 +98,8 @@ void SortObjWork(OBJWORK *objwork, s32 n_objw) {
 }
 
 s32 ObjFunc(OBJWORK *objwork) {
-	s32 i;
-	OBJWORK *objw;
+    s32 i;
+    OBJWORK *objw;
 
     for (i = 0; obj_id[i] >= 0 && i < 128; i++) {
         objw = &objwork[obj_id[i]];

@@ -43,9 +43,9 @@ void nkWipeSetMatrix() {
 void nkWipeEffBClear() {
     struct {
         s32 size;
-		sceGifTag giftag;
-		sceGsClear c;
-	} clear;
+        sceGifTag giftag;
+        sceGsClear c;
+    } clear;
     
     clear.size = sceGsSetDefClear2(&clear.c, SCE_GS_ZGREATER, 2048 - 320, 2048 - 112, 640, 224, 0, 0, 0, 0, 0);
     clear.giftag.NLOOP = clear.size;

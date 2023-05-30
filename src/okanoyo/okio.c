@@ -56,10 +56,10 @@ void memoryAreaptrSet() {
 
 void memoryAreaFormat() {
     s32 *ptr;
-	s32 i;
-	s32 j;
-	s32 ofs[4] = { 0x40, 0x100, 0x400, 0x800 };
-	s32 loop[4] = { 0x1000, 0x400, 0x80, 0x40 };
+    s32 i;
+    s32 j;
+    s32 ofs[4] = { 0x40, 0x100, 0x400, 0x800 };
+    s32 loop[4] = { 0x1000, 0x400, 0x80, 0x40 };
 
     buffstartptr = buffareatop;
     ptr = (s32 *)getBuff(1, 0x300000, NULL, &i);
@@ -97,9 +97,9 @@ s32 * getmemblksize() {
 
 void * getmem(s32 byte) {
     s32 *ptr;
-	s32 type;
-	s32 i;
-	s32 cnt;
+    s32 type;
+    s32 i;
+    s32 cnt;
 
     s32 ofs[4] = { 0x40, 0x100, 0x400, 0x800 };
     type = -1;
@@ -129,7 +129,7 @@ void * getmem(s32 byte) {
 }
 
 s32 freemem(void *ptr) {
-	s32 i;
+    s32 i;
 
     for (i = 3; i >= 0; i--) {
         if ((s32)prgBufTop[i] <= (s32)ptr) {
@@ -144,8 +144,8 @@ s32 freemem(void *ptr) {
 }
 
 void * getDebmem(s32 ID, s32 byte) {
-	s32 *ptr;
-	u8 *top;
+    s32 *ptr;
+    u8 *top;
 
     ptr = (s32 *)OkDebMem[ID].top;
     top = (u8 *)ptr + ((byte + 0xF) / 0x10) * 0x10;

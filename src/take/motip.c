@@ -185,9 +185,9 @@ void InterPolateMatrixLightTmp2(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRI
 
 static void axis2mat(sceVu0FMATRIX m, sceVu0FVECTOR axis);
 void AxisInterPolate(sceVu0FMATRIX DistMtx, sceVu0FMATRIX StartMtx, sceVu0FMATRIX EndMtx, sceVu0FVECTOR Axis, f32 Weight) {
-	sceVu0FMATRIX AxisMtx;
-	sceVu0FMATRIX TmpMtx;
-	sceVu0FVECTOR TmpVector;
+    sceVu0FMATRIX AxisMtx;
+    sceVu0FMATRIX TmpMtx;
+    sceVu0FVECTOR TmpVector;
 
     Axis[3] *= Weight;
     axis2mat(AxisMtx, Axis);
@@ -208,9 +208,9 @@ void AxisInterPolate(sceVu0FMATRIX DistMtx, sceVu0FMATRIX StartMtx, sceVu0FMATRI
 }
 
 static void axis2mat(sceVu0FMATRIX m, sceVu0FVECTOR axis) {
-	sceVu0FVECTOR xyz[3];
-	sceVu0FVECTOR s;
-	f32 c;
+    sceVu0FVECTOR xyz[3];
+    sceVu0FVECTOR s;
+    f32 c;
 
     sceVu0UnitMatrix(m);
     c = __sin(axis[3]);

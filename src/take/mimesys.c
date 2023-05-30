@@ -17,12 +17,12 @@ void MimeTblSet(SFXOBJ *pObj, s16 *TblAdrs) {
 }
 
 u64 MimeIdCheck(SFXOBJ *pObj, s32 StartNum, s32 EndNum) {
-	s32 i;
-	TYPE_SFZ_TBL *pSfzParts0;
-	TYPE_SFZ_HEADER *pSfz0;
-	TYPE_SFZ_HEADER *pSfz1;
-	u64 flag;
-	s32 id;
+    s32 i;
+    TYPE_SFZ_TBL *pSfzParts0;
+    TYPE_SFZ_HEADER *pSfz0;
+    TYPE_SFZ_HEADER *pSfz1;
+    u64 flag;
+    s32 id;
 
     flag = 0;
     if (pObj->MimeAdrs == NULL)
@@ -59,7 +59,7 @@ skip:
 }
 
 void MimeOff(SFXOBJ *pObj) {
-	s32 i;
+    s32 i;
 
     for (i = 0; i < pObj->PartsNum; i++) {
         if (pObj->pParts[i].type == 3) {
@@ -87,11 +87,11 @@ void EraseVoiceMime(SFXOBJ *pObj) {
 }
 
 void VoiceMime(SFXOBJ *pObj) {
-	s16 LastInd;
-	s16 *pVmime;
-	f32 MaxCnt;
-	s32 a;
-	s32 b;
+    s16 LastInd;
+    s16 *pVmime;
+    f32 MaxCnt;
+    s32 a;
+    s32 b;
 
     if (pObj->pMime->pVmime == NULL || pObj->pMime == NULL)
         return;
@@ -115,12 +115,12 @@ void VoiceMime(SFXOBJ *pObj) {
 }
 
 s32 SetSyncMime(SFXOBJ *pObj) {
-	s32 ii;
-	u8 *pMime;
-	ACT_HEADER *pActHeader;
-	s16 MimeNum;
-	s32 MotionCnt;
-	MOTION *m;
+    s32 ii;
+    u8 *pMime;
+    ACT_HEADER *pActHeader;
+    s16 MimeNum;
+    s32 MotionCnt;
+    MOTION *m;
 
     m = pObj->pMot;
     MotionCnt = (u32)m->Mb[m->BaseIndex].MotionCnt;
@@ -137,14 +137,14 @@ s32 SetSyncMime(SFXOBJ *pObj) {
 }
 
 void MimeSet(SFXOBJ *pObj, s32 StartNum, s32 EndNum, f32 Weight) {
-	s32 i;
-	SFXOBJ *pObjTmp;
-	TYPE_SFZ_TBL *pSfzParts0;
-	TYPE_SFZ_TBL *pSfzParts1;
-	TYPE_SFZ_HEADER *pSfz0;
-	TYPE_SFZ_HEADER *pSfz1;
-	s32 id;
-	u64 IdFlag;
+    s32 i;
+    SFXOBJ *pObjTmp;
+    TYPE_SFZ_TBL *pSfzParts0;
+    TYPE_SFZ_TBL *pSfzParts1;
+    TYPE_SFZ_HEADER *pSfz0;
+    TYPE_SFZ_HEADER *pSfz1;
+    s32 id;
+    u64 IdFlag;
 
     pSfz0 = (TYPE_SFZ_HEADER *)Fadr(pObj->MimeAdrs, StartNum);
     pSfz1 = (TYPE_SFZ_HEADER *)Fadr(pObj->MimeAdrs, EndNum);
