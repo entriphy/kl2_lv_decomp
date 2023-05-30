@@ -9,7 +9,7 @@ s32 hGameDataSize(s32 mode) {
 
 void hGameRead(s32 mode, s32 buff) {
     GameDataTop = buff;
-    hCdReadData((GameGbl.vision >> 7) + mode, buff);
+    hCdReadData((GameGbl.vision >> 7 & 0x1FE) + mode, buff);
 }
 
 void hSysDataRead(s32 buff) {
