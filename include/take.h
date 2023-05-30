@@ -345,11 +345,11 @@ typedef struct SFXOBJ { // 0xa0
 	/* 0x1c */ s32 PartsNum;
 	/* 0x20 */ s32 *GmsAdrs;
 	/* 0x24 */ s32 *SubGmsAdrs;
-	/* 0x28 */ s32 *RgbGmsAdrs;
-	/* 0x2c */ s32 *MimeAdrs;
-	/* 0x30 */ s32 *SvxAdrs;
-	/* 0x34 */ s32 *SvxWorkAdrs;
-	/* 0x38 */ SFXENV *EnvAdrs;
+	/* 0x28 */ s32 *MimeAdrs;
+	/* 0x2c */ s32 *SvxAdrs;
+	/* 0x30 */ s32 *SvxWorkAdrs;
+	/* 0x34 */ SFXENV *EnvAdrs;
+	/* 0x38 */ u16 GmsNum; 
 	/* 0x3c */ f32 scale;
 	/* 0x40 */ PARTS *pParts;
 	/* 0x44 */ struct SFXOBJ *pObjSub;
@@ -388,6 +388,24 @@ typedef struct {
     s32 wip_timer; // 0x3C
     s32 dummy[4]; // 0x40
 } PsfxMODEL;
+
+// Functions
+
+// mimesys.c
+extern void MimeWork(SFXOBJ *pObj);
+extern void MimeSetWork(SFXOBJ *pObj);
+extern void MimeTblSet(SFXOBJ *pObj, s16 *TblAdrs);
+extern u64  MimeIdCheck(SFXOBJ *pObj, s32 StartNum, s32 EndNum);
+extern void MimeOff(SFXOBJ *pObj);
+extern void SetVoiceMime(SFXOBJ *pObj, s16 *pVmime);
+extern void EraseVoiceMime(SFXOBJ *pObj);
+extern void VoiceMime(SFXOBJ *pObj);
+extern s32  SetSyncMime(SFXOBJ *pObj);
+extern void MimeSet(SFXOBJ *pObj, s32 StartNum, s32 EndNum, f32 Weight);
+
+// sfxbios.c
+extern u32* Fadr(u32 *pAddr, s32 nNum);
+
 
 // Data
 
