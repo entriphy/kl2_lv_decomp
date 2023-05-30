@@ -1,13 +1,13 @@
 #include "common.h"
 
-void decode_init(HLZWork *wk);
-u16 decode_c(HLZWork *wk);
-u16 decode_p(HLZWork *wk);
-void read_p_len(HLZWork *wk, s16 nn, s16 nbit, s16 is);
-void read_c_len(HLZWork *wk);
-u16 getbit(HLZWork *wk, s16 n);
-void bitbuf_full(HLZWork *wk, s16 n);
-void decode_table(HLZWork *wk, u16 nchar, u8 *bitlen, u16 tablebits, u16 *table);
+static void decode_init(HLZWork *wk);
+static u16 decode_c(HLZWork *wk);
+static u16 decode_p(HLZWork *wk);
+static void read_p_len(HLZWork *wk, s16 nn, s16 nbit, s16 is);
+static void read_c_len(HLZWork *wk);
+static u16 getbit(HLZWork *wk, s16 n);
+static void bitbuf_full(HLZWork *wk, s16 n);
+static void decode_table(HLZWork *wk, u16 nchar, u8 *bitlen, u16 tablebits, u16 *table);
 
 u8 *HLZDecode(u8 *src, u8 *dst, HLZWork *wk_adrs) {
     u8 *src2;
@@ -36,7 +36,7 @@ u8 *HLZDecode(u8 *src, u8 *dst, HLZWork *wk_adrs) {
     }
 }
 
-void decode_init(HLZWork *wk) {
+static void decode_init(HLZWork *wk) {
     wk->end_flag = 0;
     wk->bit8 = 0;
     wk->bit_buf = 0;
@@ -45,7 +45,7 @@ void decode_init(HLZWork *wk) {
     wk->blocksize = 0;
 }
 
-u16 decode_c(HLZWork *wk) {
+static u16 decode_c(HLZWork *wk) {
     u16 j;
     u32 mask;
     
@@ -80,7 +80,7 @@ u16 decode_c(HLZWork *wk) {
     return j;
 }
 
-u16 decode_p(HLZWork *wk) {
+static u16 decode_p(HLZWork *wk) {
     u16 j;
     u32 mask;
     
@@ -104,7 +104,7 @@ u16 decode_p(HLZWork *wk) {
     return j;
 }
 
-void read_p_len(HLZWork *wk, s16 nn, s16 nbit, s16 is) {
+static void read_p_len(HLZWork *wk, s16 nn, s16 nbit, s16 is) {
     s16 i;
     s16 n;
     u32 mask;
@@ -157,7 +157,7 @@ void read_p_len(HLZWork *wk, s16 nn, s16 nbit, s16 is) {
     }
 }
 
-void read_c_len(HLZWork *wk) {
+static void read_c_len(HLZWork *wk) {
     s16 i;
     s16 n;
     u32 mask;
@@ -222,13 +222,13 @@ void read_c_len(HLZWork *wk) {
     }
 }
 
-u16 getbit(HLZWork *wk, s16 n) {
+static u16 getbit(HLZWork *wk, s16 n) {
     u16 uVar1 = wk->bit_buf2 >> (0x10 - n);
     bitbuf_full(wk, n);
     return uVar1;
 }
 
-void bitbuf_full(HLZWork *wk, s16 n) {    
+static void bitbuf_full(HLZWork *wk, s16 n) {    
     wk->bit_buf2 <<= n;
     
     while (n > wk->bit8) {
@@ -242,7 +242,7 @@ void bitbuf_full(HLZWork *wk, s16 n) {
     wk->bit_buf2 |= wk->bit_buf >> wk->bit8;
 }
 
-void decode_table(HLZWork *wk, u16 nchar, u8 *bitlen, u16 tablebits, u16 *table) {
+static void decode_table(HLZWork *wk, u16 nchar, u8 *bitlen, u16 tablebits, u16 *table) {
     u16 i;
     u16 ch;
     u16 jutbits;
