@@ -79,5 +79,6 @@ void hLoopBottom() {
 }
 
 s32 SyncV() {
-    // TODO
+    hLoopBottom();
+    return sceGsSyncV(0) ^ 1;
 }
