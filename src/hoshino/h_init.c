@@ -45,6 +45,7 @@ void hInitBoot() {
     sceSifLoadFileReset();
     while (!sceCdInit(SCECdINIT));
     while (!sceCdMmode(SCECdDVD));
+    sceFsReset();
     for (i = 0; i < sizeof(LoadModuleList) / sizeof(LoadModuleList[0]); i++) {
         while ((ret = sceSifLoadModule(LoadModuleList[i], 0, NULL)) < 0) {
             while (!sceCdInit(0));
