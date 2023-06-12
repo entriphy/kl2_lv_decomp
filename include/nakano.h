@@ -80,21 +80,27 @@ typedef struct {
     u32 looks;
 } kPadDATA;
 
-typedef struct {
-    u32 irqc;
-    u32 drawhc;
-    u32 proc_hcnt;
-    s32 cp;
-    s32 nmode;
-    s32 nsmode;
-    s32 fmode;
-    s32 smode;
-    u32 modorg;
-    u32 modorgend;
-    OBJWORK *objwork;
-    s32 n_objw;
-    s32 Language;
-    s32 TVSystem;
+typedef struct { // 0x50
+	/* 0x00 */ u32 irqc;
+	/* 0x04 */ u32 drawhc;
+	/* 0x08 */ u32 proc_hcnt;
+	/* 0x0c */ s32 cp;
+	/* 0x10 */ u32 *cotf;
+	/* 0x14 */ u32 *cot;
+	/* 0x18 */ u32 *cotb;
+	/* 0x1c */ u32 *cpkt;
+	/* 0x20 */ u32 *sysbuf;
+	/* 0x24 */ u32 *sysbufbase;
+	/* 0x28 */ s32 nmode;
+	/* 0x2c */ s32 nsmode;
+	/* 0x30 */ s32 fmode;
+	/* 0x34 */ s32 smode;
+	/* 0x38 */ u32 modorg;
+	/* 0x3c */ u32 modorgend;
+	/* 0x40 */ OBJWORK *objwork;
+	/* 0x44 */ s32 n_objw;
+    /* 0x48 */ s32 Language;
+    /* 0x4C */ s32 TVSystem;
 } SYSGBL;
 
 typedef struct {
