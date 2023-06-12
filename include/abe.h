@@ -4,6 +4,8 @@
 #include "types.h"
 #include "objwork.h"
 
+// Structs
+
 typedef struct {
     s16 bun0;
     s16 m_clip;
@@ -12,21 +14,9 @@ typedef struct {
     OBJWORK *m_particle;
 } JIGEN_WORK;
 
-// Functions
-#ifdef __cplusplus
-extern "C" {
-#endif
-extern void abStageInitA();
-#ifdef __cplusplus
-}
-#endif
-
-
 // Classes
 
 #ifdef __cplusplus
-
-#include "types.h"
 
 class CTexManager {
     protected:
@@ -37,6 +27,25 @@ class CTexManager {
         static CTexManager* Instance();
 };
 
+#endif // __cplusplus
+
+// C Functions
+
+#ifdef __cplusplus
+extern "C" {
 #endif
+
+// ab_menu.c
+extern s32 abMenuInit();
+extern s32 abMenuMain();
+
+#ifdef __cplusplus
+}
+#endif
+
+// Data
+
+// ab_menu.c
+extern s32 (*abMenuFuncTbl[2])();
 
 #endif
