@@ -43,7 +43,7 @@ s32 main(s32 argc, char *argv[]) {
     nkDG.opflag |= 6;
     while (!sceGsSyncV(0));
     
-    while (true) {
+    while (1) {
         hLoopTop();
         MainFunc();
         SysGbl.irqc++;

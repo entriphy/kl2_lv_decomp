@@ -32,7 +32,7 @@ void hRpcInit() {
 
     do {
         if (sceSifBindRpc(&gCd, 0x12346, 0) < 0) {
-            while (true);
+            while (1);
         }
         for (i = 10000; i > 0; i--) {
             // Do nothing
