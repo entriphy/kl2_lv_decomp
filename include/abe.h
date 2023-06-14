@@ -6,6 +6,19 @@
 
 // Structs
 
+typedef union { // 0x10
+	/* 0x0 */ u128 ul128;
+	/* 0x0 */ u64  ul64[2];
+	/* 0x0 */ u32  ul32[4];
+	/* 0x0 */ s32  vect[4];
+} abQWdata;
+
+typedef struct { // 0xc
+	/* 0x0 */ abQWdata *buf;
+	/* 0x4 */ u32 size;
+	/* 0x8 */ u32 *pBase;
+} abGifPacket;
+
 typedef struct {
     s16 bun0;
     s16 m_clip;
@@ -35,6 +48,15 @@ class CTexManager {
 extern "C" {
 #endif
 
+// ab_access.c
+extern OBJWORK * abGetKlonoa(s32 player);
+extern OBJWORK * abGetMochifuku(s32 player);
+
+// ab_dummy.c
+extern void abObjDummy(OBJWORK *objw);
+extern void abSetDummy(sceVu0FVECTOR vf);
+extern void abInitDummy(u8 *buffer);
+
 // ab_jigen_a.cc
 extern void abJigenAnime(OBJWORK *objw, JIGEN_WORK *jgnw);
 extern void abJigenDraw(OBJWORK *objw, JIGEN_WORK *jgnw);
@@ -42,6 +64,10 @@ extern void abJigenDraw(OBJWORK *objw, JIGEN_WORK *jgnw);
 // ab_menu.c
 extern s32 abMenuInit();
 extern s32 abMenuMain();
+
+// ab_objtest.c
+extern void abObjTest(OBJWORK *objw);
+extern void abSetObjTest(sceVu0FVECTOR vf);
 
 #ifdef __cplusplus
 }
@@ -53,3 +79,6 @@ extern s32 abMenuMain();
 extern s32 (*abMenuFuncTbl[2])();
 
 #endif
+
+// Defines
+#define abSPR (abQWdata *)0x70000000
