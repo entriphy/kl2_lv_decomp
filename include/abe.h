@@ -57,6 +57,10 @@ extern void abObjDummy(OBJWORK *objw);
 extern void abSetDummy(sceVu0FVECTOR vf);
 extern void abInitDummy(u8 *buffer);
 
+// ab_func.c
+extern s32 abInit();
+extern s32 abMain();
+
 // ab_init.cc
 extern void abGimInit();
 extern void abStageInitA();
@@ -78,6 +82,9 @@ extern void abSetObjTest(sceVu0FVECTOR vf);
 #endif
 
 // Data
+
+// ab_func.c
+extern s32 (*abFuncTbl[2])();
 
 // ab_menu.c
 extern s32 (*abMenuFuncTbl[2])();
