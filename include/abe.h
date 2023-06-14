@@ -57,6 +57,10 @@ extern void abObjDummy(OBJWORK *objw);
 extern void abSetDummy(sceVu0FVECTOR vf);
 extern void abInitDummy(u8 *buffer);
 
+// ab_init.cc
+extern void abGimInit();
+extern void abStageInitA();
+
 // ab_jigen_a.cc
 extern void abJigenAnime(OBJWORK *objw, JIGEN_WORK *jgnw);
 extern void abJigenDraw(OBJWORK *objw, JIGEN_WORK *jgnw);
@@ -77,6 +81,12 @@ extern void abSetObjTest(sceVu0FVECTOR vf);
 
 // ab_menu.c
 extern s32 (*abMenuFuncTbl[2])();
+
+// ab_util.cc
+extern s32 MfifoOn;
+
+// firetest.c
+extern s32 (*abFiretestFuncTbl[2])();
 
 #endif
 
