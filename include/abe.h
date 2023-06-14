@@ -88,6 +88,9 @@ extern s32 MfifoOn;
 // firetest.c
 extern s32 (*abFiretestFuncTbl[2])();
 
+// sample.c
+extern s32 (*abSampleFuncTbl[2])();
+
 #endif
 
 // Defines
