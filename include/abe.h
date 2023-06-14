@@ -35,6 +35,10 @@ class CTexManager {
 extern "C" {
 #endif
 
+// ab_jigen_a.cc
+extern void abJigenAnime(OBJWORK *objw, JIGEN_WORK *jgnw);
+extern void abJigenDraw(OBJWORK *objw, JIGEN_WORK *jgnw);
+
 // ab_menu.c
 extern s32 abMenuInit();
 extern s32 abMenuMain();

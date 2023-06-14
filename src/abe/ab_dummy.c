@@ -1,23 +1,30 @@
 #include "common.h"
 
-void ObjDraw(OBJWORK *objw) {
+static void ObjDraw(OBJWORK *objw) {
     abJigenDraw(objw, (JIGEN_WORK *)objw->work);
 }
 
-void ObjInit(OBJWORK *objw) {
+static void ObjInit(OBJWORK *objw) {
     // Empty function
 }
 
-void ObjMain(OBJWORK *objw) {
+static void ObjMain(OBJWORK *objw) {
     // Empty function
 }
 
-void ObjDelete(OBJWORK *objw) {
+static void ObjDelete(OBJWORK *objw) {
     freemem(objw->work);
 }
 
-void abObjDummy(OBJWORK *objw) {
+static void (*ObjFuncTbl[3])(OBJWORK *objw) = {
+    ObjInit,
+    ObjMain,
+    ObjDelete
+};
 
+void abObjDummy(OBJWORK *objw) {
+    ObjFuncTbl[objw->bun0](objw);
+    abJigenAnime(objw, (JIGEN_WORK *)objw->work);
 }
 
 void abSetDummy(sceVu0FVECTOR vf) {
@@ -45,4 +52,3 @@ void abSetDummy(sceVu0FVECTOR vf) {
 void abInitDummy(u8 *buffer) {
     // Empty function
 }
-
