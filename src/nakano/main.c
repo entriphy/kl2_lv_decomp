@@ -10,7 +10,7 @@ sceDmaChan *DmaChtoIPU = NULL;
 sceDmaChan *DmaChfromSPR = NULL;
 sceDmaChan *DmaChtoSPR = NULL;
 qword PsfxWorkBuff[131072];
-// vpmINFO VpmInfo = {};
+vpmINFO VpmInfo = {};
 qword *p1_packet_top = NULL;
 qword *p1_packet = NULL;
 qword *p1_packet_cnt = NULL;

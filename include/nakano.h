@@ -167,6 +167,22 @@ typedef struct {
     CAM_WORK d_cam;
 } GAME_WORK;
 
+typedef struct { // 0x2050
+	/* 0x0000 */ u32 block_list[2049];
+	/* 0x2004 */ qword *block_head_ptr;
+	/* 0x2008 */ u32 *clip_head_ptr;
+	/* 0x200c */ u32 *vpm_data_top;
+	/* 0x2010 */ u32 vpm_zone_num;
+	/* 0x2014 */ u32 vpm_block_num;
+	/* 0x2018 */ s32 course_level;
+	/* 0x201c */ s32 fog_near;
+	/* 0x2020 */ s32 fog_far;
+	/* 0x2030 */ qword fog_col;
+	/* 0x2040 */ s32 pixel_intpl;
+	/* 0x2044 */ u8 *data_buff;
+	/* 0x2048 */ u8 *hm_buff;
+} vpmINFO;
+
 // Defines
 
 #define nkSPR (nkQWdata *)0x70000000
@@ -273,7 +289,7 @@ extern sceDmaChan *DmaChtoIPU;
 extern sceDmaChan *DmaChfromSPR;
 extern sceDmaChan *DmaChtoSPR;
 extern qword PsfxWorkBuff[131072];
-// extern vpmINFO VpmInfo;
+extern vpmINFO VpmInfo;
 extern qword *p1_packet_top;
 extern qword *p1_packet;
 extern qword *p1_packet_cnt;
