@@ -1,7 +1,14 @@
 #include "common.h"
 
 static FUNCTBL NameFuncTbl[8] = {
-    {nkFuncTbl, -1}
+    {nkFuncTbl, -1},
+    {}, // OkFuncTbl
+    {}, // HFuncTbl
+    {}, // hrFuncTbl
+    {abFuncTbl, -1},
+    {}, // htFuncTbl
+    {}, // tkFuncTbl
+    {}  // kzFuncTbl
 };
 
 void MainFunc() {
