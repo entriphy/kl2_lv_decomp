@@ -29,4 +29,13 @@ extern s32 kzDrawNowload();
 // kzStageInit0;
 extern void kzStageInit0();
 
+
+// Data
+
+// td_job.c
+extern s32 first_enter;
+extern s32 after_puppet_dst;
+extern s32 offset_X;
+extern s32 offset_Y;
+
 #endif

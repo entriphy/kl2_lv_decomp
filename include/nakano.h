@@ -335,6 +335,16 @@ typedef struct { // 0x20
 
 #define nkSPR (nkQWdata *)0x70000000
 
+// Inline Functions
+
+static inline f32 nkRadMask(f32 rad) {
+    if (rad <= -M_PIf)
+        rad+= M_TWOPIf;
+    else if (rad> M_PIf)
+        rad -= M_TWOPIf;
+    return rad;
+}
+
 // Functions
 
 // dma.c
@@ -458,6 +468,9 @@ extern u32 *nkGimPackAdr;
 extern u32 *vtWaveAdr;
 extern u32 *vtSprayAdr;
 extern u32 *vtMovieAdr[8];
+
+// mapview.c
+extern s32 (*MapVFuncTbl[2])();
 
 // menu.c
 extern s32 (*MenuFuncTbl[2])();
