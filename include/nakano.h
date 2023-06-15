@@ -343,10 +343,10 @@ extern void nkDmaGifSend(void *tag);
 extern void nkLoadGms(void *tag);
 
 // game.c
-extern s32 GameInit();
-extern s32 GameLoad();
-extern s32 GameMain();
 extern void nkInitPS2();
+
+// gflow.c
+extern void GameFlow();
 
 // gssub.c
 extern void nkGsInitFrm();
@@ -366,6 +366,11 @@ extern void nkKeyFrameStart();
 
 // main.c
 // extern s32 main(s32 argc, char *argv[])
+
+// mapview.c
+extern void nkMapFileRead();
+extern void MapConfFileWrite();
+extern void MapVDrawBG();
 
 // menu.c
 extern s32 MenuInit();
