@@ -183,6 +183,155 @@ typedef struct { // 0x2050
 	/* 0x2048 */ u8 *hm_buff;
 } vpmINFO;
 
+// Classes
+
+#ifdef __cplusplus
+
+class CAnalogPad { // 0x28
+public:
+	/* 0x00 */ s32 ih;
+	/* 0x04 */ s32 iv;
+	/* 0x08 */ s32 direction;
+	/* 0x0c */ f32 angle;
+	/* 0x10 */ f32 scalar;
+	/* 0x14 */ f32 lscalar;
+	/* 0x18 */ f32 fh;
+	/* 0x1c */ f32 fv;
+	/* 0x20 */ s32 ldirection;
+	/* 0x24 */ f32 langle;
+
+public:
+	void Makeup(s32 h, s32 v);
+	void AttachFrom(s32 lvl);
+};
+
+class CPressButton { // 0x8
+protected:
+	static s32 default_pressure;
+	/* 0x0 */ s32 pressure;
+	/* 0x4 */ s32 last_pressure;
+	
+public:
+	void SetDefaultPressure();
+	void Clear();
+	void SetPressure();
+	void SetPressureMask();
+	s32 GetPressure();
+	s32 GetLastPressure();
+};
+
+class CNegPad { // 0x1c
+	/* 0x00 */ s32 angle;
+	/* 0x04 */ CPressButton pb[3];
+};
+
+class CJogPad { // 0x20
+	/* 0x00 */ f32 angle;
+	/* 0x04 */ s32 rotate;
+	/* 0x08 */ s32 direction_flag;
+	/* 0x0c */ s32 motor;
+	/* 0x10 */ s32 safety_mode;
+	/* 0x14 */ s32 safety_cnt;
+	/* 0x18 */ u8  act_data[6];
+};
+
+class CBasicPad { // 0x1c0
+	/* 0x000 */ u8 raw[64];
+protected:
+	/* 0x040 */ s32 id;
+	/* 0x044 */ s32 exec_status;
+	/* 0x048 */ s32 pad_status;
+	/* 0x04c */ s32 fix_pad_status;
+	/* 0x050 */ s32 phase;
+	/* 0x054 */ s32 info_mode;
+	/* 0x058 */ s32 info_mode_ex;
+	/* 0x05c */ s32 kind;
+	/* 0x060 */ s32 stable_counter;
+public:
+	/* 0x064 */ s32 looks;
+	/* 0x068 */ s32 error_count;
+	/* 0x06c */ u32 lvl;
+	/* 0x070 */ u32 lvl_last;
+	/* 0x074 */ u32 trg;
+	/* 0x078 */ u32 rep;
+	/* 0x07c */ u32 rep_last;
+	/* 0x080 */ u32 repcnt;
+	/* 0x084 */ u32 repmask;
+	/* 0x088 */ u32 repf;
+	/* 0x08c */ u32 reps;
+	/* 0x090 */ u8  act_data[6];
+	/* 0x098 */ CAnalogPad analog[2];
+	/* 0x0e8 */ CPressButton pb[12];
+	/* 0x148 */ CNegPad neg;
+	/* 0x164 */ CJogPad jog;
+
+	void Setup();
+	void Open();
+	void Close();
+	void Clear();
+	void Update();
+	void SetPressureMode();
+protected:
+	void Read();
+	s32 GetModeID();
+	void SetLooks();
+	void DTOA();
+	void AttachFrom();
+	void ATOD();
+	void DTOP();
+};
+
+class CPadControl { // 0x380
+	/* 0x000 */ CBasicPad paddata[2];
+
+public:
+	void Init();
+	void Open();
+	void Close();
+	void Update();
+	void Clear();
+	void ClearAll();
+	u32 lvl(s32 id);
+	u32 trg(s32 id);
+	u32 rep(s32 id);
+	s32 looks(s32 id);
+	void SetRepeatTime(u32 rep1, u32 rep2, s32 id);
+	s32 r3ih(s32 id);
+	s32 r3iv(s32 id);
+	f32 r3fh(s32 id);
+	f32 r3fv(s32 id);
+	s32 r3dir(s32 id);
+	f32 r3scalar(s32 id);
+	f32 r3lscalar(s32 id);
+	f32 r3angle(s32 id);
+	s32 r3h(s32 id);
+	s32 r3v(s32 id);
+	s32 l3ih(s32 id);
+	s32 l3iv(s32 id);
+	f32 l3fh(s32 id);
+	f32 l3fv(s32 id);
+	s32 l3dir(s32 id);
+	f32 l3scalar(s32 id);
+	f32 l3lscalar(s32 id);
+	f32 l3angle(s32 id);
+	s32 l3h(s32 id);
+	s32 l3v(s32 id);
+};
+
+class CPadSetup { // 0x8
+	/* 0x0 */ s32 port;
+	/* 0x4 */ s32 slot;
+};
+
+typedef struct { // 0x20
+	/* 0x00 */ unsigned char is_ok;
+	/* 0x01 */ unsigned char kind;
+	/* 0x02 */ unsigned char data[2];
+	/* 0x04 */ unsigned char etc[28];
+} RawPAD;
+
+#endif
+
 // Defines
 
 #define nkSPR (nkQWdata *)0x70000000
@@ -255,7 +404,7 @@ extern void nkWipeInit();
 extern void nkWipeSetMatrix();
 extern void nkWipeEffBClear();
 
-// Data
+// C Data
 
 // dma.c
 
@@ -321,5 +470,15 @@ extern void (*ObjJTbl[10])(OBJWORK *objw);
 
 
 // wipe.c
+
+
+// C++ Data
+#ifdef __cplusplus
+
+// cpad.cc
+extern CPadControl pad;
+
+#endif
+
 
 #endif
