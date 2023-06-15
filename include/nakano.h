@@ -28,8 +28,8 @@ typedef struct {
     s32 mcn;
     s32 imuki;
     s32 omuki;
-    s32 flag;
-    s32 fdata;
+    u16 flag;
+    s16 fdata;
 } nkWIPE_WRK;
 
 typedef union {
@@ -127,7 +127,6 @@ typedef struct {
     s32 Re_st_klomode;
     s32 Re_st_muki;
     f32 Re_st_height;
-    s32 Re_st_zanki_flag;
     s32 Re_st_zanki_count;
     OBJWORK *klonoa;
     OBJWORK *kazd;
