@@ -8,7 +8,12 @@ set(SCESDK $ENV{SCESDK})
 unset(CMAKE_DEPFILE_FLAGS_C)
 unset(CMAKE_DEPFILE_FLAGS_CXX)
 unset(CMAKE_DEPFILE_FLAGS_ASM)
-add_compile_options(-O1 -g3 -B ${SCESDK}/gcc/bin/ee-)
+set(c_flags -O1 -gstabs -B ${SCESDK}/gcc/bin/ee-)
+set(cxx_flags -O2 -gstabs -finline-functions -fno-exceptions -B ${SCESDK}/gcc/bin/ee-)
+add_compile_options(
+  "$<$<COMPILE_LANGUAGE:C>:${c_flags}>"
+  "$<$<COMPILE_LANGUAGE:CXX>:${cxx_flags}>"
+)
 add_compile_definitions(SCE)
 add_link_options(-T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0 -B ${SCESDK}/gcc/bin/ee-)
 include_directories(${SCESDK}/common/include ${SCESDK}/ee/include include)
