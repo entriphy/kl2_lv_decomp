@@ -1,6 +1,6 @@
 #include "common.h"
 
-// MAPVWORK mapvw = {};
+MAPVWORK mapvw = {};
 // HRSCRST hrmapst = {};
 // HRSCRST hrbgst = {};
 u32 *hrd_pack = NULL;
