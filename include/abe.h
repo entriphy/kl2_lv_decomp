@@ -73,6 +73,14 @@ extern void abJigenDraw(OBJWORK *objw, JIGEN_WORK *jgnw);
 extern s32 abMenuInit();
 extern s32 abMenuMain();
 
+// ab_mfifo.cc
+void abMfifoInit();
+void abMfifoSwapDBuffDc(sceGsDBuffDc *db, s32 id);
+void abMfifoBegin();
+void abMfifoEnd(void *tagw);
+s32 abMfifoSync(s32 mode);
+void abMfifoSend(void *sadr, u32 qwc);
+
 // ab_objtest.c
 extern void abObjTest(OBJWORK *objw);
 extern void abSetObjTest(sceVu0FVECTOR vf);
