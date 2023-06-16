@@ -29,8 +29,6 @@ typedef volatile s128 vs128 __attribute__((mode(TI)));
 typedef float f32;
 typedef double f64;
 
-typedef int qword[4] __attribute__((aligned(16)));
-
 typedef struct {
     f32 x;
     f32 y;
