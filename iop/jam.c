@@ -108,7 +108,7 @@ void JamBdTrans() {
     }
     
     sD->DmaWait = 1;
-    sceSdVoiceTrans(0, 0, (u_char *)(Mem.iBankhd + 0x10000), jM->transAddr, size);
+    sceSdVoiceTrans(0, 0, (u_char *)(Mem.iBankhd + 0x10000), (u_char *)jM->transAddr, size);
     jM->transSize -= size;
     jM->transAddr += size;
     while (sD->DmaWait != 0);

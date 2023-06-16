@@ -38,7 +38,7 @@ static int SpuInt(int ch, void *common)
 void StrDebug() {
 	static u_char buff[512];
 
-    sceSdVoiceTrans(1, 1, buff, BGMdata[0].spuAddr[0][0], 0x200);
+    sceSdVoiceTrans(1, 1, buff, (u_char *)BGMdata[0].spuAddr[0][0], 0x200);
     WaitSema(pSTR->Sem);
 }
 
@@ -57,17 +57,17 @@ void StrKick() {
     for (st = 0; st < 2; st++) {
         for (i = 0; i < 2; i++) {
             MarkTop(pSTR->ZeroBuff, 0x100);
-            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][0], 0x100);
+            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][0], 0x100);
             MarkBottom(pSTR->ZeroBuff, 0x100);
-            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][1], 0x100);
+            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][1], 0x100);
         }
     }
     
     for (st = 0; st < 4; st++) {
         MarkTop(pSTR->ZeroBuff2, 0x80);
-        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[0], 0x80);
+        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[0], 0x80);
         MarkBottom(pSTR->ZeroBuff2, 0x80);
-        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[1], 0x80);
+        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[1], 0x80);
     }
 
     pSTR->spuID = 0;
@@ -329,7 +329,7 @@ int StrMain(int status) {
                     } else {
                         bgm->spuZero[ch][pSTR->spuID] = 0;
                     }
-                    sceSdVoiceTrans(1, 8, (u_char *)addr, bgm->spuAddr[ch][pSTR->spuID], 0x100);
+                    sceSdVoiceTrans(1, 8, (u_char *)addr, (u_char *)bgm->spuAddr[ch][pSTR->spuID], 0x100);
                 }
             }
             
@@ -418,7 +418,7 @@ int StrMain(int status) {
                 } else {
                     ppt->spuZero[pSTR->spuID] = 0;
                 }
-                sceSdVoiceTrans(1, 8, (u_char *)addr, ppt->spuAddr[pSTR->spuID], 0x80);
+                sceSdVoiceTrans(1, 8, (u_char *)addr, (u_char *)ppt->spuAddr[pSTR->spuID], 0x80);
             }
 
             if (pSTR->PPTstat != 1 && ppt->iopNext != -1) {
@@ -564,20 +564,20 @@ void StrInit() {
         for (i = 0; i < 2; i++) {
             MarkTop(pSTR->ZeroBuff, 0x100);
             pSTR->DmaWait = 1;
-            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][0], 0x100);
+            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][0], 0x100);
             MarkBottom(pSTR->ZeroBuff, 0x100);
             pSTR->DmaWait = 1;
-            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, BGMdata[st].spuAddr[i][1], 0x100);
+            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][1], 0x100);
         }
     }
 
     for (st = 0; st < 4; st++) {
         MarkTop(pSTR->ZeroBuff2, 0x80);
         pSTR->DmaWait = 1;
-        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[0], 0x80);
+        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[0], 0x80);
         MarkBottom(pSTR->ZeroBuff2, 0x80);
         pSTR->DmaWait = 1;
-        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, PPTdata[st].spuAddr[1], 0x80);
+        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[1], 0x80);
     }
 
     sceSdSetAddr(0x1f01,BGMdata[0].spuAddr[0][1]);
