@@ -8,32 +8,11 @@ set(SCESDK $ENV{SCESDK})
 unset(CMAKE_DEPFILE_FLAGS_C)
 unset(CMAKE_DEPFILE_FLAGS_CXX)
 unset(CMAKE_DEPFILE_FLAGS_ASM)
-set(c_flags -O1 -gstabs)
-set(cxx_flags -O2 -gstabs -finline-functions -fno-exceptions)
-add_compile_options(
-  "$<$<COMPILE_LANGUAGE:C>:${c_flags}>"
-  "$<$<COMPILE_LANGUAGE:CXX>:${cxx_flags}>"
-)
-add_compile_definitions(SCE)
-add_link_options(-T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0)
-include_directories(${SCESDK}/common/include ${SCESDK}/ee/include include)
-link_directories(${SCESDK}/ee/lib)
-link_libraries(m cdvd graph dma vu0 dev sdr)
 
-# Decomp
-set(EXECUTABLES)
-set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo taka take)
-foreach (SUBDIR IN LISTS SUBDIRS)
-    file(GLOB files src/${SUBDIR}/*.c)
-    foreach (file ${files})
-        list(APPEND EXECUTABLES ${file})
-    endforeach()
-
-    file(GLOB files src/${SUBDIR}/*.cc)
-    foreach (file ${files})
-        list(APPEND EXECUTABLES ${file})
-    endforeach()
-endforeach()
+# Set SCE_OBSOLETE if using older libraries
+if(CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL 2.9)
+    target_compile_definitions(kl2_irx PUBLIC SCE_OBSOLETE)
+endif()
 
 # crt0.s
 add_library(PS2_CRT0 OBJECT ${SCESDK}/ee/lib/crt0.s)
@@ -41,11 +20,34 @@ target_compile_options(PS2_CRT0 PRIVATE -x assembler-with-cpp)
 set_target_properties(PS2_CRT0 PROPERTIES OUTPUT_NAME "crt0.o")
 
 # Executable
+set(EXECUTABLES)
+set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo taka take)
+foreach (SUBDIR IN LISTS SUBDIRS)
+    file(GLOB files src/${SUBDIR}/*.c)
+    foreach (file ${files})
+        list(APPEND EXECUTABLES ${file})
+    endforeach()
+endforeach()
+
+foreach (SUBDIR IN LISTS SUBDIRS)
+    file(GLOB files src/${SUBDIR}/*.cc)
+    foreach (file ${files})
+        list(APPEND EXECUTABLES ${file})
+    endforeach()
+endforeach()
+
 add_executable(${PROJECT_NAME} ${EXECUTABLES})
 add_dependencies(${PROJECT_NAME} PS2_CRT0 kl2_irx)
 set(CMAKE_EXECUTABLE_SUFFIX ".elf")
-set(CMAKE_EXECUTABLE_SUFFIX_C "${CMAKE_EXECUTABLE_SUFFIX}")
-set(CMAKE_EXECUTABLE_SUFFIX_CXX "${CMAKE_EXECUTABLE_SUFFIX}")
+target_compile_options(${PROJECT_NAME} PUBLIC
+        $<$<COMPILE_LANGUAGE:C>:-O1 -gstabs>
+        $<$<COMPILE_LANGUAGE:CXX>:-O2 -gstabs -finline-functions -fno-exceptions>
+)
+target_compile_definitions(${PROJECT_NAME} PUBLIC SCE)
+target_link_options(${PROJECT_NAME} PUBLIC -T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0)
+target_include_directories(${PROJECT_NAME} PUBLIC ${SCESDK}/common/include ${SCESDK}/ee/include include)
+target_link_directories(${PROJECT_NAME} PUBLIC ${SCESDK}/ee/lib)
+target_link_libraries(${PROJECT_NAME} PUBLIC m cdvd graph dma vu0 dev sdr)
 
 # Copy kl2.irx to build directory
 add_custom_command(TARGET ${PROJECT_NAME}
