@@ -9,7 +9,7 @@ static int SndDmaInt(void *common)
 static int SndDmaInt(int core, void *common)
 #endif
 {
-	sD->DmaWait -= 1;
+	sD->DmaWait--;
 	return 1;
 }
 

@@ -425,7 +425,7 @@ extern void JamBankSet(int id);
 extern void JamBdTrans();
 extern void JamGetPrm(int id, int prog, int splt, SNDKEYPRM *prm);
 extern void JamInit();
-extern void PptStop();
+extern void PptStop(int st);
 extern void Ac3Play();
 extern void Ac3Stop();
 extern void Ac3ZeroPcmPlay();
@@ -434,8 +434,10 @@ extern void Ac3SetDigitalOut();
 extern void Ac3Play2();
 extern void Ac3Clear();
 
+#ifndef SCE_OBSOLETE
 extern int CpuDisableIntr();
 extern int CpuEnableIntr();
 extern int EnableIntr(int irq);
+#endif
 
 #endif // IOP_H
