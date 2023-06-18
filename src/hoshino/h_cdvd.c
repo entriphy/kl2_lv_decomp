@@ -210,9 +210,7 @@ s32 hCdReadSync() {
 }
 
 void hCdInit() {
-    s32 threadId;
     u32 *buff;
-    s32 *addr;
 
     cD = &CdData;
     cQ = &cD->Cue;
@@ -230,91 +228,82 @@ void hCdInit() {
     cD->mode.pad = 0;
     
     sceCdInitEeCB(0, cb_stack, 0x2000);
-    threadId = GetThreadId();
-    cD->ThID = threadId;
-    ChangeThreadPriority(threadId, 1);
+    ChangeThreadPriority(cD->ThID = GetThreadId(), 1);
 
     sceCdDiskReady(0);
     cD->DiscType = sceCdGetDiskType();
     buff = hCdReadFileRet("\\HEADPACK.BIN;1");
-    addr = GetFHMAddress(buff, 0);
-    FileData = (KLTABLE *)&addr[1];
-    addr = GetFHMAddress(buff, 1);
-    PptTable = (PPTTABLE *)&addr[1];
-    addr = GetFHMAddress(buff, 2);
-    BgmTable = (BGMTABLE *)&addr[1];
+    FileData = (KLTABLE *)(GetFHMAddress(buff, 0) + 1);
+    PptTable = (PPTTABLE *)(GetFHMAddress(buff, 1) + 1);
+    BgmTable = (BGMTABLE *)(GetFHMAddress(buff, 2) + 1);
 
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&cD->file, "\\KLDATA.BIN;1"));
 }
 
-// From m2c, not matching
-void hCdMain() {
-    s32 var_s0;
-    s32 var_s1;
-    s32 sp[5];
-    
+void hCdMain(void) {
+    s32 com_ok;
+    s32 stat;
+    s32 arg[5];
+
     while ((cD->DiscError = sceCdGetError()) == -1);
     cD->Sync = sceCdSync(1);
-    if (cD->DiscError >= 0) {
-        var_s0 = 1;
-        if (cD->DiscError >= 2) {
-            var_s0 = 0;
-            if (cD->DiscError == 0x13) {
 
-            } else {
-                goto loop_7;
+    switch (cD->DiscError) {
+        case SCECdErNO:
+        case SCECdErABRT:
+            com_ok = 1;
+            break;
+        case SCECdErNORDY:
+            com_ok = 0;
+            break;
+        default:
+            com_ok = 0;
+            while (!sceCdBreak());
+            sceCdDiskReady(1);
+            if (cD->dataStat != 0) {
+                hCdCuePushLIFO(cD->dataLSN, cD->dataSectors, (s32)cD->buf, cD->dataFlag, cD->eeCnt);
+                cD->dataFlag = CDREAD_IDLE;
+                cD->dataStat = 0;
             }
-        }
-    } else {
-        var_s0 = 0;
-loop_7:
-        while (sceCdBreak() == 0);
-        sceCdDiskReady(1);
-        if (cD->dataStat != 0) {
-            hCdCuePushLIFO(cD->dataLSN, cD->dataSectors, (s32)cD->buf, cD->dataFlag, cD->eeCnt);
-            cD->dataFlag = CDREAD_IDLE;
-            cD->dataStat = 0;
-        }
+            break;
     }
+
     if (cD->dataStat == 2) {
         cD->dataFlag = CDREAD_IDLE;
         cD->dataStat = 0;
     }
-    if ((hCdCueNum() > 0) && (cD->eeCnt >= hCdCueTime()) && (var_s0 != 0)) {
-        if (cD->dataStat == 0) {
-            hCdCuePopTest(sp);
-            cD->dataFlag = sp[3];
-            switch (cD->dataFlag) {
-                case CDREAD_BGM:
-                case CDREAD_BGM2:
-                    var_s1 = hCdReadIOPm(sp[0], sp[1], (void *)sp[2], &cD->mode);
-                    break;
-                case CDREAD_PPT:
-                case CDREAD_DATA:
-                    var_s1 = hCdRead(sp[0], sp[1], (void *)sp[2], &cD->mode);
-                    break;
-                case 5:
-                    var_s1 = hCdRead(sp[0], sp[1], (void *)sp[2], &cD->mode);
-                    break;
-            }
-            if (var_s1 != 0) {
-                hCdCuePop(sp);
-                cD->dataStat = 1;
-                cD->Sync = 1;
-            }
+
+    if (hCdCueNum() > 0 && hCdCueTime() <= cD->eeCnt  && com_ok && cD->dataStat == 0) {
+        hCdCuePopTest(arg);
+        cD->dataFlag = arg[3];
+        switch (cD->dataFlag) {
+            case CDREAD_BGM:
+            case CDREAD_BGM2:
+                stat = hCdReadIOPm(arg[0], arg[1], (void *)arg[2], &cD->mode);
+                break;
+            case CDREAD_PPT:
+            case CDREAD_DATA:
+                stat = hCdRead(arg[0], arg[1], (void *)arg[2], &cD->mode);
+                break;
+            case 5:
+                stat = hCdRead(arg[0], arg[1], (void *)arg[2], &cD->mode);
+                break;
         }
-    }
-    
-    if (cD->dataStat != 0) {
-        if (cD->Sync == 0) {
-            cD->dataStat = 2;
+        if (stat != 0) {
+            hCdCuePop(arg);
+            cD->dataStat = 1;
+            cD->Sync = 1;
         }
     }
 
-    // hBgmMain();
-    // hPptMain();
-    // hStrMain();
+    if (cD->dataStat != 0 && cD->Sync == 0)
+        cD->dataStat = 2;
+
+    hBgmMain();
+    hPptMain();
+    hStrMain();
     hStrInfo();
+
     cD->eeCnt++;
 }
