@@ -1,9 +1,18 @@
 #include "common.h"
 
+static s32 GameInit();
+static s32 GameLoad();
+static s32 GameMain();
+
 static s32 nkGamePauseFlag = 0;
 static s32 nkLoadTimer = 0;
 static s32 nkLoadStat = 0;
 static s32 nkLoadBun;
+s32 (*GameFuncTbl[3])() = {
+    GameInit,
+    GameLoad,
+    GameMain
+};
 GAME_WORK GameGbl = {};
 s16 obj_id[129] = {};
 static s32 nkGamePauseRepTimer;
@@ -338,9 +347,3 @@ static s32 GameMain() {
     
     return 0;
 }
-
-s32 (*GameFuncTbl[3])() = {
-    GameInit,
-    GameLoad,
-    GameMain
-};
