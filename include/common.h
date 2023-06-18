@@ -7,6 +7,9 @@
 #include <string.h>
 #include <math.h>
 
+// System headers
+#include "ps2.h"
+
 // Common headers
 #include "defines.h"
 #include "structs.h"
@@ -27,7 +30,6 @@
 #include "gim.h"
 #include "objwork.h"
 
-// System headers
-#include "ps2.h"
+
 
 #endif

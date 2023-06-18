@@ -1,8 +1,6 @@
 #ifndef PS2_H
 #define PS2_H
 
-#include "types.h"
-
 #define SCR_WIDTH  640
 #define SCR_HEIGHT 224
 
