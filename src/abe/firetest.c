@@ -51,11 +51,12 @@ static s32 FiretestInit() {
 }
 
 static s32 FiretestMain() {
-	s32 inter;
-	kPadDATA *kpd0;
-	kPadDATA *kpd1;
-	s32 hcnt0;
-	s32 hcnt1;
+    s32 inter;
+    kPadDATA *kpd0;
+    kPadDATA *kpd1;
+    volatile u32 *cnt;
+    s32 hcnt0;
+    s32 hcnt1;
 
     kpd0 = &GameGbl.kpd[0];
     nkGetPad();
@@ -82,14 +83,17 @@ static s32 FiretestMain() {
     nkSetMeter();
     if (MfifoOn != 0)
         abMfifoBegin();
-    hcnt0 = *T0_COUNT;
+
+    cnt = T0_COUNT;
+    hcnt0 = *cnt;
     DrEffObjFunc(SysGbl.objwork);
-    
+    hcnt1 = *cnt;
+
     nkSetMeter();
     if (MfifoOn != 0)
-        abMfifoEnd((void *)0x700000000);
+        abMfifoEnd((void *)0x70000000);
     sceGsSyncPath(0, 0);
-    hcnt1 = *T0_COUNT;
+    hcnt0 = *T0_COUNT;
     nkSetMeter();
     nkDrawWorkMeter();
     OkPFontFlush((kpd0->trg & 0x80) && (kpd0->lvl & 0x20));
