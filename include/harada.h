@@ -183,6 +183,21 @@ typedef struct { // 0x90
 	/* 0x8c */ s32 fg;
 } BGWK;
 
+typedef struct { // 0x20
+    /* 0x00 */ s32 tex0[4];
+    /* 0x10 */ s32 flag;
+    /* 0x14 */ u32 *gms;
+    /* 0x18 */ s32 pad0;
+    /* 0x1c */ s32 pad1;
+} HRPMWAKU;
+
+typedef struct { // 0x10
+    /* 0x0 */ f32 s;
+    /* 0x4 */ f32 spds;
+    /* 0x8 */ f32 t;
+    /* 0xc */ f32 spdt;
+} HRSCRST;
+
 // Functions
 
 // hr_main.c
@@ -212,11 +227,12 @@ extern u32 *hrbgbin[6];
 
 // hr_main.c
 extern MAPVWORK mapvw;
-// extern HRSCRST hrmapst;
-// extern HRSCRST hrbgst;
+extern HRSCRST hrmapst;
+extern HRSCRST hrbgst;
 extern u32 *hrd_pack;
 extern u32 *hrg_pack;
 extern u32 *hrf_pack;
+extern u32 *hrse_pack;
 extern s32 hr_abeoff;
 extern s32 hr_objtype;
 extern u32 *hr_mt_addr;
@@ -244,6 +260,7 @@ extern f32 *hcm_scale;
 // extern V1100MIR *hrm1100;
 
 // hr_pall.c
+extern HRPMWAKU ppwaku;
 extern s32 ptflag_buff[4];
 extern s32 ptflag_st[4];
 extern s32 ptflag_ar[4];
@@ -262,6 +279,7 @@ extern s16 hrpt_vt;
 extern s16 hrpt_deb;
 // extern PCAMSC *hrpcc;
 extern u32 *hrpt_pack;
+extern u32 *hrpt_gms;
 extern s16 hrpt_stnk;
 // extern HR_PSYS ppsys;
 // extern HR_CALL *hrpt_call;

@@ -1,11 +1,12 @@
 #include "common.h"
 
 MAPVWORK mapvw = {};
-// HRSCRST hrmapst = {};
-// HRSCRST hrbgst = {};
+HRSCRST hrmapst = {};
+HRSCRST hrbgst = {};
 u32 *hrd_pack = NULL;
 u32 *hrg_pack = NULL;
 u32 *hrf_pack = NULL;
+u32 *hrse_pack = NULL;
 s32 hr_abeoff = 0;
 s32 hr_objtype = 0;
 u32 *hr_mt_addr = NULL;

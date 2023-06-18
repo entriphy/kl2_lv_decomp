@@ -3,7 +3,7 @@
 // PCAMS ppcam = {};
 // PCAMS *hrpcam = NULL;
 // HRPMOJI ppmes = {};
-// HRPMWAKU ppwaku = {};
+HRPMWAKU ppwaku = {};
 s32 ptflag_buff[4] = {};
 s32 ptflag_st[4] = {};
 s32 ptflag_ar[4] = {};
@@ -22,6 +22,7 @@ s16 hrpt_vt = 0;
 s16 hrpt_deb = 0;
 // PCAMSC *hrpcc = NULL;
 u32 *hrpt_pack = NULL;
+u32 *hrpt_gms = NULL; // ?
 s16 hrpt_stnk = 0;
 // HR_PSYS ppsys = {}
 // HR_CALL *hrpt_call = NULL;
