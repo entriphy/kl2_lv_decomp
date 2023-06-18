@@ -10,15 +10,15 @@ CPadControl pad;
 static u128 PadDmaBuffer[2][16];
 
 inline void revise_paif(f32 &pi) {
-    while (pi < -M_PI)
-        pi += M_TWOPI;
-    while (pi > M_PI)
-        pi -= M_TWOPI;
+    while (pi < -M_PIf)
+        pi += M_TWOPIf;
+    while (pi > M_PIf)
+        pi -= M_TWOPIf;
 }
 
 inline s32 rad2dirf(f32 radian) {
     revise_paif(radian);
-    return ((s32)((radian + M_PI) * 16.0f / M_TWOPI) + 9 + 16 & 0xF) >> 1;
+    return ((s32)((radian + M_PIf) * 16.0f / M_TWOPIf) + 9 + 16 & 0xF) >> 1;
 }
 
 void CAnalogPad::Makeup(s32 h, s32 v) {
