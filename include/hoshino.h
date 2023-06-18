@@ -430,6 +430,11 @@ extern void hCdReadData(s32 no, s32 buff);
 extern s32  hCdReadSync();
 extern void hCdInit();
 extern void hCdMain();
+extern s32  hCdDiscStatOK();
+
+// h_debug.c
+extern void HsDeb2PtblInit();
+extern void HsDeb2Ptbl();
 
 // h_file.c
 extern s32  hGameDataSize(s32 mode);

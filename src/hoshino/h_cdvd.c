@@ -307,3 +307,13 @@ void hCdMain(void) {
 
     cD->eeCnt++;
 }
+
+s32 hCdDiscStatOK() {
+    switch (cD->DiscError) {
+        case SCECdErNO:
+        case SCECdErABRT:
+            return 0;
+        default:
+            return 1;
+    }
+}
