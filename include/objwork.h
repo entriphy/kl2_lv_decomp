@@ -30,7 +30,7 @@ typedef struct OBJWORK {
     sceVu0FVECTOR muki; // 0x50
     sceVu0FVECTOR ang; // 0x60
     sceVu0FVECTOR rot; // 0x70
-    sceVu0FVECTOR rtw; // 0x80
+    RT_WRK rtw; // 0x80
     s32 reg0; // 0x90
     s32 reg1; // 0x94
     s32 reg2; // 0x98
