@@ -4,7 +4,7 @@
 #include "ps2.h"
 #include "types.h"
 
-// Structs
+#pragma region Structs
 
 typedef enum {
     CDREAD_IDLE,
@@ -501,7 +501,57 @@ typedef struct { // 0x90
     /* 0x90 */ s32 seFlag;
 } hEvOBJECT;
 
-// Functions
+typedef struct { // 0x88
+    /* 0x00 */ sceDmaChan *dmaGif;
+    /* 0x04 */ u64 *pTop;
+    /* 0x08 */ u64 *p;
+    /* 0x0c */ u64 *pGiftag;
+    /* 0x10 */ u64 *pDmatag;
+    /* 0x14 */ u64 *pDmatagSV;
+    /* 0x18 */ s32 size;
+    /* 0x1c */ s32 eopchk;
+    /* 0x20 */ u64 prim_def;
+    /* 0x28 */ u64 prim;
+    /* 0x30 */ s32 bp;
+    /* 0x34 */ s32 tbp;
+    /* 0x38 */ s32 cbp;
+    /* 0x40 */ u64 tex0tmp;
+    /* 0x48 */ u64 ctxt;
+    /* 0x50 */ u64 tpcl;
+    /* 0x58 */ u64 tex0[2];
+    /* 0x68 */ u64 tex1[2];
+    /* 0x78 */ u64 tex2[2];
+} hPACKET_DATA;
+
+typedef struct { // 0xe4
+    /* 0x00 */ s32 fd;
+    /* 0x04 */ u32 old;
+    /* 0x08 */ u32 l;
+    /* 0x0c */ u32 on;
+    /* 0x10 */ u32 off;
+    /* 0x14 */ u32 r;
+    /* 0x18 */ u32 r2;
+    /* 0x1c */ s32 rep_on[16];
+    /* 0x5c */ s32 rcount[16];
+    /* 0x9c */ s32 rcount2[16];
+    /* 0xdc */ s32 rwait0;
+    /* 0xe0 */ s32 rwait1;
+} hPAD_DATA;
+
+typedef struct { // 0x5d0
+    /* 0x000 */ hPACKET_DATA PkData;
+    /* 0x088 */ hPAD_DATA pad[2];
+    /* 0x250 */ sceGsDBuffDc db;
+    /* 0x580 */ sceDmaChan *dmaGif;
+    /* 0x584 */ s32 fr;
+    /* 0x588 */ s32 inter;
+    /* 0x58c */ s32 light_dir[4][3];
+    /* 0x5bc */ u8 light_col[4][4];
+} hGLOBAL;
+
+#pragma endregion Structs
+
+#pragma region Functions
 
 // h_cdvd.c
 extern void hCdReadFile(char *filename, u32 *buff);
@@ -560,6 +610,10 @@ extern void hSysDataRead(s32 buff);
 extern s32  hGameReadOK();
 extern s32  hGetDataAddr(s32 i);
 extern s32  hGetSysDataAddr(s32 i);
+
+// h_func.c
+extern s32 hInit();
+extern s32 hMain();
 
 // h_game.c
 extern void hInitStage0();
@@ -632,14 +686,23 @@ extern void hStrInit();
 extern void hStr_0016c6e8();
 extern void hStr_0016f6e8();
 
+// h_test.c
+extern s32 hTestInit();
+extern s32 hTestMain();
+
 // h_util.c
 extern u32 GetFHMNum(u32 *pAddr);
 extern u32* GetFHMAddress(u32 *pAddr, u32 nNum);
 
-// Data
+#pragma endregion Functions
+
+#pragma region Data
 
 // h_cdvd.c
 extern hCDDATA *cD;
+
+// h_func.c
+extern s32 (*HFuncTbl[2])();
 
 // h_init.c
 extern KLTABLE *KlTable;
@@ -647,6 +710,8 @@ extern PPTTABLE *PptTable;
 extern BGMTABLE *BgmTable;
 
 // h_menu.c
+extern s32 (*hMenuFuncTbl[2])();
+extern hGLOBAL hG;
 extern s32 RpcArg[16];
 extern s128 hPacketArea[2048];
 
@@ -660,7 +725,14 @@ extern hBGMDATA *bD;
 extern hPPTDATA *pD;
 extern hAC3DATA* aD;
 
-// Defines
+// h_test.c
+extern s32 TestMode;
+extern s32 (*hTestFuncTbl[2])();
+extern s32 TestWork;
+
+#pragma endregion Data
+
+#pragma region Defines
 
 #define IOP_IopInit 0x08000000
 #define IOP_RpcInfo 0x08000001
@@ -672,5 +744,7 @@ extern hAC3DATA* aD;
 #define IOP_SndMask 0x22000002
 #define IOP_SndInit 0x24000000
 #define IOP_SndMain 0x2a000001
+
+#pragma endregion Defines
 
 #endif
