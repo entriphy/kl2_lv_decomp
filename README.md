@@ -2,7 +2,7 @@
 Decompilation project for Klonoa 2: Lunatea's Veil (`SLUS_201.51`).
 
 Structs, classes, and function names are taken from decompiling the C# assembly of Klonoa Phantasy Reverie Series. 
-While this does not aim to be a fully matching decompilation, `ee-gcc 2.9-991111` (available on [decomp.me](https://decomp.me)) seems to produce matching code most of the time, though it is not 100% certain if this was the compiler used to compile the game.
+While this does not aim to be a fully matching decompilation, `ee-gcc 2.9-991111-01` (available on [decomp.me](https://decomp.me)) seems to produce matching code most of the time, though it is not 100% certain if this was the compiler used to compile the game.
 
 Support the series by purchasing & playing [Klonoa Phantasy Reverie Series](https://klonoa-at-blog.tumblr.com/post/145593146333/here-are-the-current-ways-you-can-officially)! :D
 
