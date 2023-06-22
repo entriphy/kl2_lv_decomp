@@ -321,6 +321,21 @@ typedef enum {
     BGMMODE_END,
 } BGMMODE;
 
+typedef enum {
+    DEAD_DAMAGE,
+    DEAD_FALL,
+    DEAD_DROWN,
+    DEAD_CHOKE,
+    DEAD_BURN
+} DEAD;
+
+typedef struct { // 0x10
+    /* 0x0 */ s32 bgmNo;
+    /* 0x4 */ s32 bgmCh;
+    /* 0x8 */ f32 fadeIn;
+    /* 0xc */ f32 fadeOut;
+} BGMAREA;
+
 typedef struct {
     BGMMODE BGMmode;
     s32 BGMppt;
@@ -612,10 +627,26 @@ extern s32  hGetDataAddr(s32 i);
 extern s32  hGetSysDataAddr(s32 i);
 
 // h_func.c
-extern s32 hInit();
-extern s32 hMain();
+extern s32  hInit();
+extern s32  hMain();
 
 // h_game.c
+extern void hInitGame();
+extern void hExitGame();
+extern void hInitStage0();
+extern void hInitStage1();
+extern void hExitStage();
+extern s32  hGameAreaStart(s32 flag);
+extern s32  hGameAreaEnd(s32 next);
+extern void hGameMain();
+extern void hPushRestart();
+extern void hPopRestart();
+extern void hKlonoaDead(s32 vision, s32 frame, DEAD pattern);
+extern s32  hGameBgmGetID();
+extern BGM  hGameBgmGetNo();
+extern s32  hGameBgmGetCh();
+extern void hGameBgmChange();
+extern s32  hGameBgmComp(s32 v0, s32 id0, s32 v1, s32 id1);
 extern void hInitStage0();
 
 // h_gamesnd.c
