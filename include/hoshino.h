@@ -564,6 +564,25 @@ typedef struct { // 0x5d0
     /* 0x5bc */ u8 light_col[4][4];
 } hGLOBAL;
 
+typedef enum {
+    CH_IDLE,
+    CH_PLAY,
+    CH_FADEOUT,
+    CH_STOP,
+    CH_END
+} CH_STAT;
+
+typedef struct {
+    CH_STAT stat;
+    s32 req;
+    s32 idx;
+    s32 idx2;
+    s32 max;
+    BGM no;
+    s32 ch;
+    s32 size;
+} CHALL;
+
 #pragma endregion Structs
 
 #pragma region Functions
@@ -647,7 +666,11 @@ extern BGM  hGameBgmGetNo();
 extern s32  hGameBgmGetCh();
 extern void hGameBgmChange();
 extern s32  hGameBgmComp(s32 v0, s32 id0, s32 v1, s32 id1);
-extern void hInitStage0();
+
+// h_gamehall.cc
+extern void hCHallInit();
+extern void hCHallQuit();
+extern s32  hCHallRun(s32 req, s32 arg);
 
 // h_gamesnd.c
 extern void hSeLock(s32 i);
@@ -718,11 +741,11 @@ extern void hStr_0016c6e8();
 extern void hStr_0016f6e8();
 
 // h_test.c
-extern s32 hTestInit();
-extern s32 hTestMain();
+extern s32  hTestInit();
+extern s32  hTestMain();
 
 // h_util.c
-extern u32 GetFHMNum(u32 *pAddr);
+extern u32  GetFHMNum(u32 *pAddr);
 extern u32* GetFHMAddress(u32 *pAddr, u32 nNum);
 
 #pragma endregion Functions
