@@ -18,7 +18,7 @@ s32 htGetRand();
 
 
 // ht_gblpara.c
-s32 ht_g_rand;
+extern s32 ht_g_rand;
 
 
 #endif
