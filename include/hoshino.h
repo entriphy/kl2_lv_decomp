@@ -48,11 +48,12 @@ typedef struct {
 
 typedef struct {
     SND_MODE Stereo;
-    s32 *iopBankAddr;
+    s32 iopBankAddr;
     s32 stageBank;
     s16 stageTblNum;
     s16 stageTbl[1024];
-    u8 *PkNum;
+    u8 *Pk;
+    s32 PkNum;
     s32 PkMax;
     s32 pad;
     s32 fadeFlag;
@@ -875,15 +876,15 @@ extern s32  hRpc(s32 cmd);
 extern s32  hTrans2IOP(s32 iopAddr, s32 eeAddr, s32 size);
 
 // h_sound.c
-extern s32  JamGetHdSize(JAMHD *hdaddr); // Should be s32 arg
-extern s32  JamGetBdSize(JAMHD *hdaddr); // Should be s32 arg
+extern s32  JamGetHdSize(s32 hdaddr);
+extern s32  JamGetBdSize(s32 hdaddr);
 extern void hSndPkEffect();
 extern void hSndPkSetMVol(s32 voll, s32 volr);
 extern void hSndPkSetEVol(s32 vol);
-extern void hSndPkSetVol(s32 voice, f32 pan, f32 vol);
+extern void hSndPkSetVol(s32 voice, f32 vollf, f32 volrf);
 extern void hSndPkSetPitch(s32 voice, s32 pitch);
 extern void hSndPkSetPalPitch(s32 voice);
-extern void hSndPkKeyOn(s32 voice, s32 flag, s32 bank, s32 prog, s32 splt, f32 pan, f32 vol);
+extern void hSndPkKeyOn(s32 voice, s32 flag, s32 bank, s32 prog, s32 splt, f32 vollf, f32 volrf);
 extern void hSndPkKeyOff(s32 voice);
 extern void hSndPkKeyOffAll();
 extern s32  hSndPkGetSize();
@@ -895,7 +896,7 @@ extern s32  hSndFader(f32 vol);
 extern f32  hSndFader2(f32 vol);
 extern void hSndMain();
 extern void hSndInit();
-extern s32* hSndBankSet(s32 packaddr, s32 id);
+extern void hSndBankSet(s32 packaddr, s32 id);
 extern void hSndBankSetMain();
 extern void hSndBankSetStage();
 extern void hSndEffSetArea();

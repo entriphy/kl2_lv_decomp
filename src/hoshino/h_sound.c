@@ -6,112 +6,114 @@ u8 SndTempBuff[1048576] __attribute__((aligned(16)));
 hSNDDATA SndData = {};
 hSNDDATA *sD = NULL;
 
-s32 JamGetHdSize(JAMHD *hdaddr) {
-    return hdaddr->Header.headerSize;
+s32 JamGetHdSize(s32 hdaddr) {
+    return ((s32 *)hdaddr)[7];
 }
 
-s32 JamGetBdSize(JAMHD *hdaddr) {
-    return hdaddr->Header.bodySize;
+s32 JamGetBdSize(s32 hdaddr) {
+    return ((s32 *)hdaddr)[8];
 }
 
 void hSndPkEffect() {
-    s32 i;
+    s32 core;
     
     sD->effChange = 1;
-    for (i = 0; i < 2; i++) {
-        sD->PkMax++;
-        *sD->PkNum++ = 8;
-        *sD->PkNum++ = i;
-        *sD->PkNum++ = sD->effMode;
-        *sD->PkNum++ = sD->effDepth;
-        *sD->PkNum++ = sD->effDepth >> 8;
-        *sD->PkNum++ = sD->effDepth;
-        *sD->PkNum++ = sD->effDepth >> 8;
-        *sD->PkNum++ = sD->effDelay;
-        *sD->PkNum++ = sD->effFeed;
+    for (core = 0; core < 2; core++) {
+        sD->PkNum++;
+        *sD->Pk++ = 8;
+        *sD->Pk++ = core;
+        *sD->Pk++ = sD->effMode;
+        *sD->Pk++ = sD->effDepth;
+        *sD->Pk++ = sD->effDepth >> 8;
+        *sD->Pk++ = sD->effDepth;
+        *sD->Pk++ = sD->effDepth >> 8;
+        *sD->Pk++ = sD->effDelay;
+        *sD->Pk++ = sD->effFeed;
     }
 }
 
 void hSndPkSetMVol(s32 voll, s32 volr) {
-    sD->PkMax++;
-    *sD->PkNum++ = SNDCMD_MVOLALL;
-    *sD->PkNum++ = voll;
-    *sD->PkNum++ = (voll >> 8) & 0x7F;
-    *sD->PkNum++ = volr;
-    *sD->PkNum++ = (volr >> 8) & 0x7F;
+    sD->PkNum++;
+    *sD->Pk++ = SNDCMD_MVOLALL;
+    *sD->Pk++ = voll;
+    *sD->Pk++ = (voll >> 8) & 0x7F;
+    *sD->Pk++ = volr;
+    *sD->Pk++ = (volr >> 8) & 0x7F;
 }
 
 void hSndPkSetEVol(s32 vol) {
-    sD->PkMax++;
-    *sD->PkNum++ = SNDCMD_EVOL;
-    *sD->PkNum++ = vol;
-    *sD->PkNum++ = vol >> 8;
+    sD->PkNum++;
+    *sD->Pk++ = SNDCMD_EVOL;
+    *sD->Pk++ = vol;
+    *sD->Pk++ = vol >> 8;
 }
 
-void hSndPkSetVol(s32 voice, f32 pan, f32 vol) {
-    s32 p = pan * 16384.0f;
-    s32 v = vol * 16384.0f;
+void hSndPkSetVol(s32 voice, f32 vollf, f32 volrf) {
+    s32 voll;
+    s32 volr;
 
-    if (p > 0x4000)
-        p = 0x4000;
-    if (p < -0x4000)
-        p = -0x4000;
-    if (v > 0x4000)
-        v = 0x4000;
-    if (v < -0x4000)
-        v = -0x4000;
+    voll = vollf * 16384.0f;
+    volr = volrf * 16384.0f;
+    if (voll > 0x4000)
+        voll = 0x4000;
+    if (voll < -0x4000)
+        voll = -0x4000;
+    if (volr > 0x4000)
+        volr = 0x4000;
+    if (volr < -0x4000)
+        volr = -0x4000;
     
-    sD->PkMax++;
-    *sD->PkNum++ = SNDCMD_VOL;
-    *sD->PkNum++ = voice;
-    *sD->PkNum++ = p;
-    *sD->PkNum++ = p >> 8;
-    *sD->PkNum++ = v;
-    *sD->PkNum++ = v >> 8;
+    sD->PkNum++;
+    *sD->Pk++ = SNDCMD_VOL;
+    *sD->Pk++ = voice;
+    *sD->Pk++ = voll;
+    *sD->Pk++ = voll >> 8;
+    *sD->Pk++ = volr;
+    *sD->Pk++ = volr >> 8;
 }
 
 void hSndPkSetPitch(s32 voice, s32 pitch) {
-    sD->PkMax++;
-    *sD->PkNum++ = SNDCMD_PITCH;
-    *sD->PkNum++ = voice;
-    *sD->PkNum++ = pitch;
-    *sD->PkNum++ = pitch >> 8;
+    sD->PkNum++;
+    *sD->Pk++ = SNDCMD_PITCH;
+    *sD->Pk++ = voice;
+    *sD->Pk++ = pitch;
+    *sD->Pk++ = pitch >> 8;
 }
 
 void hSndPkSetPalPitch(s32 voice) {
-    sD->PkMax++;
-    *sD->PkNum++ = SNDCMD_PALPITCH;
-    *sD->PkNum++ = voice;
+    sD->PkNum++;
+    *sD->Pk++ = SNDCMD_PALPITCH;
+    *sD->Pk++ = voice;
 }
 
-void hSndPkKeyOn(s32 voice, s32 flag, s32 bank, s32 prog, s32 splt, f32 pan, f32 vol) {
-    sD->PkMax++;
-    *sD->PkNum++ = SNDCMD_KEYON;
-    *sD->PkNum++ = voice;
-    *sD->PkNum++ = flag;
-    *sD->PkNum++ = bank;
-    *sD->PkNum++ = prog;
-    *sD->PkNum++ = splt;
+void hSndPkKeyOn(s32 voice, s32 flag, s32 bank, s32 prog, s32 splt, f32 vollf, f32 volrf) {
+    sD->PkNum++;
+    *sD->Pk++ = SNDCMD_KEYON;
+    *sD->Pk++ = voice;
+    *sD->Pk++ = flag;
+    *sD->Pk++ = bank;
+    *sD->Pk++ = prog;
+    *sD->Pk++ = splt;
     sD->KeyonV[voice & 1] |= 1 << (voice >> 1);
-    hSndPkSetVol(voice, pan, vol);
+    hSndPkSetVol(voice, vollf, volrf);
 }
 
 void hSndPkKeyOff(s32 voice) {
-    sD->PkMax++;
-    *sD->PkNum++ = SNDCMD_KEYOFF;
-    *sD->PkNum++ = voice;
+    sD->PkNum++;
+    *sD->Pk++ = SNDCMD_KEYOFF;
+    *sD->Pk++ = voice;
 }
 
 void hSndPkKeyOffAll() {
-    sD->PkMax++;
-    *sD->PkNum++ = SNDCMD_KEYOFFALL;
+    sD->PkNum++;
+    *sD->Pk++ = SNDCMD_KEYOFFALL;
 }
 
-s32 hSndPkGetSize() {
-    // i have no clue how this matches
-    s32 size = (s32)sD->PkNum - (s32)SndPacket;
-    size = size < -1 ? size + 0x1E : size + 0xF;
-    return (((s32)sD->PkNum - (s32)SndPacket + 0xF) / 0x10) * 0x10;
+int hSndPkGetSize() {
+    s32 size;
+
+    size = (s32)sD->Pk - (s32)SndPacket;
+    return (size + 0xF) / 0x10 * 0x10;
 }
 
 void hSndReset() {
@@ -141,45 +143,34 @@ void hSndSetMVol(f32 vol) {
     sD->MVol = hSndFader(vol);
 }
 
-// Not matching
 s32 hSndFader(f32 vol) {
-    if (vol == 0.0f) {
+    s32 retvol;
+
+    if (vol == 0.0f)
         return 0;
-    } else {
-        hSNDDATA *snd;
-        s32 n;
-        
-        if (vol > 1.0f) {
-            vol = 1.0f;
-        }
-        snd = sD;
-        n = powf(10.0f, ((1.0f - vol) * snd->dBfader + snd->log10Volume) / 20.0f);
-        if (n > 0x3FFF) {
-            n = 0x3FFF;
-        }
-        if (n < -0x4000) {
-            n = -0x4000;
-        }
+    if (vol > 1.0f)
+        vol = 1.0f;
+    vol = sD->dBfader * (1.0f - vol);
+    vol = powf(10.0f, (vol + sD->log10Volume) / 20.0f);
+    retvol = (s32)vol;
+    if (retvol > 0x3FFF)
+        retvol = 0x3FFF;
+    if (retvol < -0x4000)
+        retvol = -0x4000;
 
-        return n;
-    }
+    return retvol;
 }
 
-// Not matching
 f32 hSndFader2(f32 vol) {
-    f32 f = 0.0f;
-    hSNDDATA *snd;
-
-    if (vol != 0.0f) {
-        if (vol > 1.0f)
-            vol = 1.0f;
-        snd = sD;
-        f = powf(10.0f, ((1.0f - vol) * snd->dBfader) / 20.0f);
-    }
-    return f;
+    if (vol == 0.0f)
+        return 0.0f;
+    if (vol > 1.0f)
+        vol = 1.0f;
+    vol = sD->dBfader * (1.0f - vol);
+    vol = powf(10.0f, vol / 20.0f);
+    return vol;
 }
 
-// Not matching
 void hSndMain() {
     if (sD->TitleDelayCnt != 0 && --sD->TitleDelayCnt == 0) {
         hSeKeyOn(0xc80c80ca0e900, NULL, 0);
@@ -236,19 +227,19 @@ void hSndMain() {
             sD->effVolBak = sD->effVol;
         hSndPkSetEVol(sD->effVolBak * 32767.0f);
     }
-    
+
     if (sD->Mute != 0) {
         hSndPkSetMVol(0,0);
         sD->Mute = 0;
     } else {
         hSndPkSetMVol(sD->MVol, sD->MVol);
     }
-    
+
     hSndPkGetSize(); // why does this get called lol
-    ((short *)SndPacket)[0] = sD->PkMax;
-    hRpc(0x2a000001);
-    sD->PkNum = SndPacket + 2;
-    sD->PkMax = 0;
+    ((s16 *)SndPacket)[0] = sD->PkNum;
+    hRpc(IOP_SndMain);
+    sD->Pk = SndPacket + 2;
+    sD->PkNum = 0;
     sD->VoiceStat[0] |= sD->KeyonV[0];
     sD->VoiceStat[1] |= sD->KeyonV[1];
     sD->KeyonV[0] = 0;
@@ -261,20 +252,20 @@ void hSndInit() {
     sceSdRemoteInit();
     
     sD = &SndData;
-    sD->PkNum = &SndPacket[2];
-    sD->PkMax = 0;
-    sD->iopBankAddr = (s32 *)hRpc(IOP_SndInit);
+    sD->Pk = &SndPacket[2];
+    sD->PkNum = 0;
+    sD->iopBankAddr = hRpc(IOP_SndInit);
 
     RpcArg[0] = 0xFFFFFF;
     RpcArg[1] = 0xFFFF;
     hRpc(IOP_SndMask);
     
-    sD->pad = 0;
+    sD->PkMax = 0;
     sD->Stereo = SND_MODE_STEREO;
     sD->Mute = 0;
     sD->stageBank = 0;
     sD->dBfader = -30.0f;
-    sD->log10Volume = (float)log10(16367.0) * 20.0f;
+    sD->log10Volume = (f32)log10(16367.0) * 20.0f;
     hSndSetMVol(0.0f);
     hSndPkSetMVol(0, 0);
     sD->effMode = 0;
@@ -298,59 +289,60 @@ void hSndInit() {
     hStrInit();
 }
 
-s32* hSndBankSet(s32 packaddr, s32 bank) {
-    JAMHD *hdaddr;
-    u8 *bdaddr;
+void hSndBankSet(s32 packaddr, s32 id) {
+    s32 hdaddr;
+    s32 bdaddr;
     s32 hdsize;
     s32 bdsize;
-    s32 *rpc;
-    u8 stackShiz[16];
+    s32 transsize;
+    s32 tbladdr;
+    s32 tblsize;
+    char stackShiz[0x10];
     
-    if (bank != 0) {
-        s16 *fhm = (s16 *)GetFHMAddress((u32 *)packaddr, 2);
-        s16 tblNum = *fhm;
-        sD->stageTblNum = tblNum;
-        memcpy(sD->stageTbl, fhm + 1, tblNum * 2);
+    if (id != 0) {
+        tbladdr = (s32)GetFHMAddress((u32 *)packaddr, 2);
+        tblsize = *(s16 *)tbladdr;
+        sD->stageTblNum = tblsize;
+        memcpy(sD->stageTbl, (void *)(tbladdr + 2), tblsize * 2);
     }
 
-    hdaddr = (JAMHD *)GetFHMAddress((u32 *)packaddr, 0);
-    bdaddr = (u8 *)GetFHMAddress((u32 *)packaddr, 1);
+    hdaddr = (s32)GetFHMAddress((u32 *)packaddr, 0);
+    bdaddr = (s32)GetFHMAddress((u32 *)packaddr, 1);
     hdsize = JamGetHdSize(hdaddr);
     bdsize = JamGetBdSize(hdaddr);
-    hTrans2IOP((s32)(sD->iopBankAddr + bank * 0x2000), (s32)hdaddr, hdsize); // addr, data, size
+    hTrans2IOP(sD->iopBankAddr + id * 0x8000, hdaddr, hdsize);
     
-    RpcArg[0] = bank;
-    rpc = (s32 *)hRpc(IOP_JamBankSet);
+    RpcArg[0] = id;
+    hRpc(IOP_JamBankSet);
     
     while (bdsize > 0) {
-        s32 transsize;
-        if (bdsize < 0x10000) {
+        if (bdsize < 0x10000)
             transsize = bdsize;
-        } else {
+        else
             transsize = 0x10000;
-        }
-        
-        hTrans2IOP((s32)(sD->iopBankAddr + 0x4000), (s32)bdaddr, transsize);
+
+        hTrans2IOP(sD->iopBankAddr + 0x10000, bdaddr, transsize);
         bdsize -= 0x10000;
         bdaddr += 0x10000;
-        rpc = (s32 *)hRpc(IOP_JamBdTrans);
+        hRpc(IOP_JamBdTrans);
     }
-    
-    return rpc;
 }
 
 void hSndBankSetMain() {
-    s32 ret;
+    s32 buff;
+    s32 i;
 
-    u32 *buf = (u32 *)getBuff(1, 0x200000, NULL, &ret);
-    hCdReadDataBlock(198, (s32)buf);
-    buf = GetFHMAddress(buf, 2);
-    hSndBankSet((s32)buf, 0);
+    buff = (s32)getBuff(1, 0x200000, NULL, &i);
+    hCdReadDataBlock(198, buff);
+    buff = (s32)GetFHMAddress((u32 *)buff, 2);
+    hSndBankSet(buff, 0);
     freeBuff(1, 0x200000, NULL);
 }
 
 void hSndBankSetStage() {
-    s32 addr = hGetDataAddr(2);
+    s32 addr;
+
+    addr = hGetDataAddr(2);
     if (addr != 0) {
         sD->stageBank = 1;
         hSndBankSet(addr, 1);
@@ -360,36 +352,44 @@ void hSndBankSetStage() {
 }
 
 void hSndEffSetArea() {
-    EFXSE *se = &EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF][0];
+    EFXSE *eff;
+
+    eff = &EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF][0];
     sD->effIdx = 0;
-    sD->effVol = se->vol;
-    sD->effVolBak = 0.0;
-    sD->effMode = se->efx;
+    sD->effVol = eff->vol;
+    sD->effVolBak = 0.0f;
+    sD->effMode = eff->efx;
     sD->effDepth = 0x7fff;
-    sD->effDelay = se->delay;
-    sD->effFeed = se->feed;
-    sD->effMix = se->dry | 2;
+    sD->effDelay = eff->delay;
+    sD->effFeed = eff->feed;
+    sD->effMix = eff->dry | 2;
     hSndPkEffect();
     hSndPkSetEVol(0);
 }
 
 void hSndEffSetVolIdx(s32 idx) {
-    EFXSE *se = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
+    EFXSE *eff;
+
+    eff = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
     sD->effIdx = idx;
-    se = &se[idx];
-    sD->effVol = se->vol;
+    eff = &eff[idx];
+    sD->effVol = eff->vol;
 }
 
 void hSndEffSetVol_PPTstart() {
-    EFXSE *se = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
-    se = &se[sD->effIdx];
-    sD->effVol = se->vol_ppt;
+    EFXSE *eff;
+
+    eff = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
+    eff = &eff[sD->effIdx];
+    sD->effVol = eff->vol_ppt;
 }
 
 void hSndEffSetVol_PPTend() {
-    EFXSE *se = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
-    se = &se[sD->effIdx];
-    sD->effVol = se->vol;
+    EFXSE *eff;
+
+    eff = EfxSE[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
+    eff = &eff[sD->effIdx];
+    sD->effVol = eff->vol;
 }
 
 void hSndEffSetVol(f32 vol) {
