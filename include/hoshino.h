@@ -861,6 +861,12 @@ extern void hAddGim(s128 *buff, s32 mode);
 extern u64  hGetTex0Tmp();
 extern s32  hGet2n(s32 i);
 
+// h_pad.c
+extern void hPadInit();
+extern void hPadRead();
+extern void hPadMake(hPAD_DATA *pp);
+extern void hPadGet(hPAD_DATA *pad, s32 i);
+
 // h_rpc.c
 extern void hSndRpcRet();
 extern s32  hRpcSync();
