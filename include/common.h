@@ -17,6 +17,7 @@
 
 // Developer headers
 #include "abe.h"
+#include "hato.h"
 #include "hoshino.h"
 #include "harada.h"
 #include "kazuya.h"
