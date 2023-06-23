@@ -1,6 +1,634 @@
 #include "common.h"
 
-EFXSE *EfxSE[50][20] = {};
+EFXSE efdm[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0100[1] = {
+    {4, 0.17f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0101[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0102[1] = {
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0103[1] = {
+    {4, 0.6f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0104[1] = {
+    {4, 0.05f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0105[1] = {
+    {5, 0.6f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0200[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0201[1] = {
+    {5, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0202[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0203[1] = {
+    {5, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0204[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0205[1] = {
+    {5, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0206[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0207[1] = {
+    {4, 0.3f, 0, 0, 1, 0.09f, 0.0f, 0, 0}
+};
+
+EFXSE ef0400[1] = {
+    {4, 0.11f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0401[1] = {
+    {4, 0.2f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0402[1] = {
+    {4, 0.25f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0403[1] = {
+    {4, 0.4f, 0, 0, 1, 0.13f, 0.0f, 0, 0}
+};
+
+EFXSE ef0404[1] = {
+    {4, 0.6f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0405[1] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0406[1] = {
+    {4, 0.35f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0407[1] = {
+    {5, 0.44f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0408[1] = {
+    {4, 0.35f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0409[1] = {
+    {5, 0.33f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef040A[1] = {
+    {4, 0.45f, 0, 0, 1, 0.13f, 0.0f, 0, 0}
+};
+
+EFXSE ef040B[2] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0500[1] = {
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0501[3] = {
+    {3, 0.6f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {3, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {3, 0.5f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0504[3] = {
+    {3, 0.7f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {3, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {3, 0.8f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0503[2] = {
+    {4, 0.7f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0505[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0600[2] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {5, 0.8f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0602[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0603[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0604[3] = {
+    {5, 0.6f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {5, 0.9f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {5, 0.7f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0605[1] = {
+    {4, 0.4f, 0, 0, 1, 0.12f, 0.0f, 0, 0}
+};
+
+EFXSE ef0606[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0607[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0608[1] = {
+    {5, 0.5f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0609[1] = {
+    {5, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0700[1] = {
+    {5, 0.5f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0701[2] = {
+    {4, 0.45f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0702[1] = {
+    {5, 0.45f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0703[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0704[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0705[2] = {
+    {4, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0706[1] = {
+    {4, 0.1f, 0, 0, 1, 0.075f, 0.0f, 0, 0}
+};
+
+EFXSE ef0900[2] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0901[1] = {
+    {5, 0.25f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0902[1] = {
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0903[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0904[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0905[1] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0906[1] = {
+    {4, 0.35f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0907[1] = {
+    {4, 0.35f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef0908[1] = {
+    {4, 0.1f, 0, 0, 1, 0.04f, 0.0f, 0, 0}
+};
+
+EFXSE ef1000[1] = {
+    {4, 0.15f, 0, 0, 1, 0.02f, 0.0f, 0, 0}
+};
+
+EFXSE ef1001[1] = {
+    {5, 0.7f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1002[1] = {
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1003[2] = {
+    {4, 0.7f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1004[2] = {
+    {4, 0.7f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1100[1] = {
+    {3, 0.3f, 0, 0, 1, 0.09f, 0.0f, 0, 0}
+};
+
+EFXSE ef1101[1] = {
+    {3, 0.18f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1102[1] = {
+    {3, 0.18f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1103[1] = {
+    {4, 0.13f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1104[1] = {
+    {3, 0.25f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1105[1] = {
+    {3, 0.2f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1106[1] = {
+    {3, 0.2f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1107[1] = {
+    {4, 0.12f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1108[1] = {
+    {4, 0.13f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1109[1] = {
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef110A[1] = {
+    {3, 0.25f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef110C[1] = {
+    {3, 0.2f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef110D[1] = {
+    {3, 0.22f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef110E[1] = {
+    {3, 0.22f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef110F[1] = {
+    {3, 0.2f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1110[1] = {
+    {3, 0.25f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1111[1] = {
+    {4, 0.9f, 0, 0, 1, 0.04f, 0.0f, 0, 0}
+};
+
+EFXSE ef1200[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1201[1] = {
+    {5, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1202[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1203[1] = {
+    {5, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1204[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1205[1] = {
+    {5, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1206[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1207[1] = {
+    {4, 0.3f, 0, 0, 1, 0.09f, 0.0f, 0, 0}
+};
+
+EFXSE ef1208[1] = {
+    {5, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1300[1] = {
+    {4, 0.22f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1301[1] = {
+    {5, 0.6f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1302[1] = {
+    {4, 0.25f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1303[1] = {
+    {4, 0.6f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1304[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1306[1] = {
+    {5, 0.1f, 0, 0, 1, 0.04f, 0.0f, 0, 0}
+};
+
+EFXSE ef1400[1] = {
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1401[1] = {
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1402[2] = {
+    {4, 0.7f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1403[1] = {
+    {5, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1404[1] = {
+    {5, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1500[2] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0},
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1501[1] = {
+    {5, 0.25f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1502[1] = {
+    {4, 0.15f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1503[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1504[1] = {
+    {5, 0.4f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1505[1] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1506[1] = {
+    {4, 0.35f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1507[1] = {
+    {4, 0.35f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef16dm[1] = {
+    {3, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1700[1] = {
+    {4, 0.9f, 0, 0, 1, 0.09f, 0.0f, 0, 0}
+};
+
+EFXSE ef1701[1] = {
+    {5, 0.9f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef1702[1] = {
+    {4, 0.9f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1800[1] = {
+    {4, 0.1f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1801[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1802[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1803[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1804[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1805[1] = {
+    {4, 0.1f, 0, 0, 1, 0.09f, 0.0f, 0, 0}
+};
+
+EFXSE ef1900[1] = {
+    {4, 0.1f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1901[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1902[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1903[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1904[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1905[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1906[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1907[1] = {
+    {5, 0.3f, 0, 0, 1, 0.07f, 0.0f, 0, 0}
+};
+
+EFXSE ef1908[1] = {
+    {4, 0.07f, 0, 0, 1, 0.09f, 0.0f, 0, 0}
+};
+
+EFXSE ef2100[1] = {
+    {5, 0.1f, 0, 0, 1, 0.02f, 0.0f, 0, 0}
+};
+
+EFXSE ef2200[1] = {
+    {4, 0.2f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef2201[1] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef2300[1] = {
+    {5, 0.3f, 0, 0, 1, 0.09f, 0.0f, 0, 0}
+};
+
+EFXSE ef2301[1] = {
+    {5, 0.4f, 0, 0, 1, 0.09f, 0.0f, 0, 0}
+};
+
+EFXSE ef2400[1] = {
+    {4, 0.3f, 0, 0, 1, 0.02f, 0.0f, 0, 0}
+};
+
+EFXSE ef2600[1] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef2601[1] = {
+    {5, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef2700[1] = {
+    {5, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef2701[1] = {
+    {5, 0.6f, 0, 0, 1, 0.6f, 0.0f, 0, 0}
+};
+
+EFXSE ef2702[1] = {
+    {5, 0.6f, 0, 0, 1, 0.6f, 0.0f, 0, 0}
+};
+
+EFXSE ef3901[1] = {
+    {4, 0.02f, 0, 0, 1, 0.02f, 0.0f, 0, 0}
+};
+
+EFXSE ef4001[1] = {
+    {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE ef4002[1] = {
+    {4, 0.3f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
+};
+
+EFXSE *EfxSE[50][20] = {
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef0100, ef0101, ef0102, ef0103, ef0104, ef0105, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef0200, ef0201, ef0202, ef0203, ef0204, ef0205, ef0206, ef0207, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef0400, ef0401, ef0402, ef0403, ef0404, ef0405, ef0406, ef0407, ef0408, ef0409, ef040A, ef040B, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef0500, ef0501, efdm, ef0503, ef0504, ef0505, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef0600, efdm, ef0602, ef0603, ef0604, ef0605, ef0606, ef0607, ef0608, ef0609, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef0700, ef0701, ef0702, ef0703, ef0704, ef0705, ef0706, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef0700, ef0701, ef0702, ef0703, ef0704, ef0705, ef0706, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef0900, ef0901, ef0902, ef0903, ef0904, ef0905, ef0906, ef0907, ef0908, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef1000, ef1001, ef1002, ef1003, ef1004, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef1100, ef1101, ef1102, ef1103, ef1104, ef1105, ef1106, ef1107, ef1108, ef1109, ef110A, efdm, ef110C, ef110D, ef110E, ef110F, ef1110, ef1111, efdm, efdm },
+    { ef1200, ef1201, ef1202, ef1203, ef1204, ef1205, ef1206, ef1207, ef1208, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef1300, ef1301, ef1302, ef1303, ef1304, efdm, ef1306, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef1400, ef1401, ef1402, ef1403, ef1404, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef1500, ef1501, ef1502, ef1503, ef1504, ef1505, ef1506, ef1507, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef16dm, ef16dm, ef16dm, ef16dm, ef16dm, ef16dm, ef16dm, ef16dm, ef16dm, ef16dm, ef16dm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef1700, ef1701, ef1702, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef1800, ef1801, ef1802, ef1803, ef1804, ef1805, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef1900, ef1901, ef1902, ef1903, ef1904, ef1905, ef1906, ef1907, ef1908, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef2100, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef2200, ef2201, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef2300, ef2301, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef2400, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef2600, ef2601, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { ef2700, ef2701, ef2702, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, ef3901, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, ef4001, ef4002, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm },
+    { efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm, efdm }
+};
+
 u8 SndPacket[1024] __attribute__((aligned(16)));
 u8 SndTempBuff[1048576] __attribute__((aligned(16)));
 hSNDDATA SndData = {};
