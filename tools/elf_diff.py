@@ -28,11 +28,13 @@ class GenericElf:
         self.text = text_section.data()
         self.text_offset = text_section.header.sh_addr
 
-    def get_function_instructions(self, name: str) -> list[rabbitizer.Instruction]:
+    def get_function_instructions(self, name: str, size: int = -1) -> list[rabbitizer.Instruction]:
         func = self.functions.get(name)
+        if func.size != -1:
+            size = func.size
         if func is None:
             raise Exception("Function not found: " + name)
-        return self.__get_function(func.address - self.text_offset, func.size)
+        return self.__get_function(func.address - self.text_offset, size)
 
     def __get_function(self, address: int, size: int) -> list[rabbitizer.Instruction]:
         if size == -1:
@@ -68,6 +70,10 @@ def compare_functions(x: list[rabbitizer.Instruction], y: list[rabbitizer.Instru
         if not instr.sameOpcode(y[i]):
             return i
         if instr.sameOpcodeButDifferentArguments(y[i]):
+            if instr.isJump() or instr.canBeLo() or instr.canBeHi():
+                continue
+            if (instr.doesLoad() or instr.doesStore()) and instr.rs == rabbitizer.RegGprO32.gp:
+                continue
             return i
     return None
 
@@ -98,12 +104,15 @@ if __name__ == "__main__":
     decomp_elf = read_elf(args.decomp_elf)
 
     for func_name in orig_elf.functions.keys():
-        orig_func = orig_elf.get_function_instructions(func_name)
+        if func_name not in decomp_elf.functions:
+            continue
+        func_size = decomp_elf.functions[func_name].size
+        orig_func = orig_elf.get_function_instructions(func_name, func_size)
         decomp_func = decomp_elf.get_function_instructions(func_name)
         result = compare_functions(orig_func, decomp_func)
         if result is not None:
-            orig_address = f"0x{orig_elf.functions[func_name].address:08x}"
-            decomp_address = f"0x{decomp_elf.functions[func_name].address:08x}"
+            orig_address = f"0x{orig_elf.functions[func_name].address + result * 4:08x}"
+            decomp_address = f"0x{decomp_elf.functions[func_name].address + result * 4:08x}"
             print(f"{func_name}: FAIL ({orig_func[result]} @ {orig_address} != {decomp_func[result]} @ {decomp_address})")
         else:
             print(f"{func_name}: PASS")
