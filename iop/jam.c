@@ -71,11 +71,10 @@ void JamGetPrm(int id, int prog, int splt, SNDKEYPRM *prm) {
     prm->ADSR1 = pSmplPrm->sampleAdsr1;
     prm->ADSR2 = pSmplPrm->sampleAdsr2;
     
-    if (pProgPrm->progPanpot * pSpltPrm->splitPanpot * pSmplPrm->samplePanpot < 0) {
+    if (pProgPrm->progPanpot * pSpltPrm->splitPanpot * pSmplPrm->samplePanpot < 0)
         vol = (pProgPrm->progVolume * -0x4000 * pSpltPrm->splitVolume) / 0x4000;
-    } else {
+    else
         vol = (pProgPrm->progVolume * 0x3FFF * pSpltPrm->splitVolume) / 0x4000;
-    }
     vol = (vol * pSmplPrm->sampleVolume) / 0x80;
 
     prm->VOLL = (u16)vol & 0x7FFF;
@@ -87,11 +86,10 @@ void JamGetPrm(int id, int prog, int splt, SNDKEYPRM *prm) {
 }
 
 void JamBankSet(int id) {
-    if (id == 0) {
+    if (id == 0)
         jM->bdAddr[id] = Mem.sBankbd;
-    } else {
+    else
         jM->bdAddr[id] = jM->bdAddr[id - 1] + JamGetBdSize(id - 1);
-    }
 
     jM->hdAddr[id] = Mem.iBankhd + id * 0x8000;
     jM->transAddr = jM->bdAddr[id];
@@ -101,14 +99,13 @@ void JamBankSet(int id) {
 void JamBdTrans() {
     int size;
 
-    if (jM->transSize < 0x10000) {
+    if (jM->transSize < 0x10000)
         size = jM->transSize;
-    } else {
+    else
         size = 0x10000;
-    }
     
     sD->DmaWait = 1;
-    sceSdVoiceTrans(0, 0, (u_char *)(Mem.iBankhd + 0x10000), (u_char *)jM->transAddr, size);
+    sceSdVoiceTrans(0, SD_TRANS_MODE_WRITE | SD_TRANS_BY_DMA, (u_char *)(Mem.iBankhd + 0x10000), (u_char *)jM->transAddr, size);
     jM->transSize -= size;
     jM->transAddr += size;
     while (sD->DmaWait != 0);

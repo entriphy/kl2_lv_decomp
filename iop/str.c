@@ -38,7 +38,7 @@ static int SpuInt(int ch, void *common)
 void StrDebug() {
 	static u_char buff[512];
 
-    sceSdVoiceTrans(1, 1, buff, (u_char *)BGMdata[0].spuAddr[0][0], 0x200);
+    sceSdVoiceTrans(1, SD_TRANS_MODE_READ | SD_TRANS_BY_DMA, buff, (u_char *)BGMdata[0].spuAddr[0][0], 0x200);
     WaitSema(pSTR->Sem);
 }
 
@@ -46,8 +46,8 @@ void StrKick() {
     int i;
 	int st;
 
-    sceSdSetSwitch(0x1601, 0xFF0000);
-    sceSdSetCoreAttr(5, 0);
+    sceSdSetSwitch(SD_CORE_1 | SD_S_KOFF, 0xFF0000);
+    sceSdSetCoreAttr(SD_CORE_1 | SD_C_IRQ_ENABLE, 0);
 #ifdef SCE_OBSOLETE
     sceSdSetIRQCallback(&SpuInt);
 #else
@@ -57,23 +57,23 @@ void StrKick() {
     for (st = 0; st < 2; st++) {
         for (i = 0; i < 2; i++) {
             MarkTop(pSTR->ZeroBuff, 0x100);
-            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][0], 0x100);
+            sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][0], 0x100);
             MarkBottom(pSTR->ZeroBuff, 0x100);
-            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][1], 0x100);
+            sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][1], 0x100);
         }
     }
     
     for (st = 0; st < 4; st++) {
         MarkTop(pSTR->ZeroBuff2, 0x80);
-        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[0], 0x80);
+        sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[0], 0x80);
         MarkBottom(pSTR->ZeroBuff2, 0x80);
-        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[1], 0x80);
+        sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[1], 0x80);
     }
 
     pSTR->spuID = 0;
-    sceSdSetAddr(0x1F01, BGMdata[0].spuAddr[0][1]);
-    sceSdSetCoreAttr(5,1);
-    sceSdSetSwitch(0x1501, 0xFF0000);
+    sceSdSetAddr(SD_CORE_1 | SD_A_IRQA, BGMdata[0].spuAddr[0][1]);
+    sceSdSetCoreAttr(SD_CORE_1 | SD_C_IRQ_ENABLE,1);
+    sceSdSetSwitch(SD_CORE_1 | SD_S_KON, 0xFF0000);
 }
 
 void StrInfo(int *data) {
@@ -199,7 +199,7 @@ void StrInfo(int *data) {
     for (i = 0; i < 4; i++) {
         info2->PPTnext[i] = PPTdata[i].iopNext;
     }
-    info2->AC3stat = sceSdBlockTransStatus(0, 0);
+    info2->AC3stat = sceSdBlockTransStatus(0, SD_TRANS_STATUS_CHECK);
 }
 
 void StrCross() {
@@ -317,18 +317,16 @@ int StrMain(int status) {
                     }
                 }
 
-                if (pSTR->spuID == 0) {
+                if (pSTR->spuID == 0)
                     MarkTop(addr, 0x100);
-                } else {
+                else
                     MarkBottom(addr, 0x100);
-                }
 
                 if (addr != pSTR->ZeroBuff || bgm->spuZero[ch][pSTR->spuID] != 1) {
-                    if (addr == pSTR->ZeroBuff) {
+                    if (addr == pSTR->ZeroBuff)
                         bgm->spuZero[ch][pSTR->spuID] = 1;
-                    } else {
+                    else
                         bgm->spuZero[ch][pSTR->spuID] = 0;
-                    }
                     sceSdVoiceTrans(1, 8, (u_char *)addr, (u_char *)bgm->spuAddr[ch][pSTR->spuID], 0x100);
                 }
             }
@@ -338,37 +336,35 @@ int StrMain(int status) {
             }
             
             if (bgm->iopID != -1 && pSTR->BGMstat == 0) {
-                if (st == 0) {
+                if (st == 0)
                     pSTR->BGMpoint += 0x100;
-                }
                 bgm->iopOffset += 0x100;
                 if (pSTR->BGMpoint >= pSTR->BGMlength) {
                     pSTR->BGMpoint = pSTR->BGMskipsize;
                     bgm->iopOffset = (bgm->iopOffset + 0x7FF) / 0x800 * 0x800;
                 }
-                if (bgm->iopOffset == pSTR->BGMfinetop[bgm->iopID]) {
+                if (bgm->iopOffset == pSTR->BGMfinetop[bgm->iopID])
                     bgm->iopOffset += pSTR->BGMfine[bgm->iopID];
-                }
             }
 
             if (pSTR->BGMstat == 1) {
-                sceSdSetParam(bgm->Vnum[0] << 1 | 1, 0);
-                sceSdSetParam(bgm->Vnum[0] << 1 | 0x101, 0);
-                sceSdSetParam(bgm->Vnum[1] << 1 | 1, 0);
-                sceSdSetParam(bgm->Vnum[1] << 1 | 0x101, 0);
+                sceSdSetParam(bgm->Vnum[0] << 1 | SD_CORE_1 | SD_VP_VOLL, 0);
+                sceSdSetParam(bgm->Vnum[0] << 1 | SD_CORE_1 | SD_VP_VOLR, 0);
+                sceSdSetParam(bgm->Vnum[1] << 1 | SD_CORE_1 | SD_VP_VOLL, 0);
+                sceSdSetParam(bgm->Vnum[1] << 1 | SD_CORE_1 | SD_VP_VOLR, 0);
                 bgm->VolBak = 0;
             } else if (bgm->Vol != bgm->VolBak) {
                 if (pSTR->BGMstereo != 0) {
-                    sceSdSetParam(bgm->Vnum[0] << 1 | 1, bgm->Vol);
-                    sceSdSetParam(bgm->Vnum[0] << 1 | 0x101, 0);
-                    sceSdSetParam(bgm->Vnum[1] << 1 | 1, 0);
-                    sceSdSetParam(bgm->Vnum[1] << 1 | 0x101, bgm->Vol);
+                    sceSdSetParam(bgm->Vnum[0] << 1 | SD_CORE_1 | SD_VP_VOLL, bgm->Vol);
+                    sceSdSetParam(bgm->Vnum[0] << 1 | SD_CORE_1 | SD_VP_VOLR, 0);
+                    sceSdSetParam(bgm->Vnum[1] << 1 | SD_CORE_1 | SD_VP_VOLL, 0);
+                    sceSdSetParam(bgm->Vnum[1] << 1 | SD_CORE_1 | SD_VP_VOLR, bgm->Vol);
                     bgm->VolBak = bgm->Vol;
                 } else {
-                    sceSdSetParam(bgm->Vnum[0] << 1 | 1, bgm->Vol);
-                    sceSdSetParam(bgm->Vnum[0] << 1 | 0x101, bgm->Vol);
-                    sceSdSetParam(bgm->Vnum[1] << 1 | 1, bgm->Vol);
-                    sceSdSetParam(bgm->Vnum[1] << 1 | 0x101, bgm->Vol);
+                    sceSdSetParam(bgm->Vnum[0] << 1 | SD_CORE_1 | SD_VP_VOLL, bgm->Vol);
+                    sceSdSetParam(bgm->Vnum[0] << 1 | SD_CORE_1 | SD_VP_VOLR, bgm->Vol);
+                    sceSdSetParam(bgm->Vnum[1] << 1 | SD_CORE_1 | SD_VP_VOLL, bgm->Vol);
+                    sceSdSetParam(bgm->Vnum[1] << 1 | SD_CORE_1 | SD_VP_VOLR, bgm->Vol);
                     bgm->VolBak = bgm->Vol;
                 }
             }
@@ -400,32 +396,28 @@ int StrMain(int status) {
                 ppt->iopNext = 1 - ppt->iopNext;
             }
             
-            if (ppt->iopID == -1 || pSTR->PPTstat == 1) {
+            if (ppt->iopID == -1 || pSTR->PPTstat == 1)
                 addr = pSTR->ZeroBuff2;
-            } else {
+            else
                 addr = ppt->iopOffset % 0x4000 + ppt->iopAddr[ppt->iopID];
-            }
 
-            if (pSTR->spuID == 0) {
+            if (pSTR->spuID == 0)
                 MarkTop(addr, 0x80);
-            } else {
+            else
                 MarkBottom(addr, 0x80);
-            }
 
             if (addr != pSTR->ZeroBuff2 || ppt->spuZero[pSTR->spuID] != 1) {
-                if (addr == pSTR->ZeroBuff2) {
+                if (addr == pSTR->ZeroBuff2)
                     ppt->spuZero[pSTR->spuID] = 1;
-                } else {
+                else
                     ppt->spuZero[pSTR->spuID] = 0;
-                }
-                sceSdVoiceTrans(1, 8, (u_char *)addr, (u_char *)ppt->spuAddr[pSTR->spuID], 0x80);
+                sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)addr, (u_char *)ppt->spuAddr[pSTR->spuID], 0x80);
             }
 
             if (pSTR->PPTstat != 1 && ppt->iopNext != -1) {
                 ppt->iopOffset += 0x80;
-                if (ppt->iopOffset >= ppt->iopSize ) {
+                if (ppt->iopOffset >= ppt->iopSize )
                     ppt->iopNext = -1;
-                }
             }
 
             if (pSTR->PPTstat == 1) {
@@ -439,9 +431,9 @@ int StrMain(int status) {
             }
         }
 
-        sceSdSetAddr(0x1F01, BGMdata[0].spuAddr[0][pSTR->spuID]);
+        sceSdSetAddr(SD_CORE_1 | SD_A_IRQA, BGMdata[0].spuAddr[0][pSTR->spuID]);
         pSTR->spuID = 1 - pSTR->spuID;
-        sceSdSetCoreAttr(5, 1);
+        sceSdSetCoreAttr(SD_CORE_1 | SD_C_IRQ_ENABLE, 1);
     }
 
     return 0;
@@ -523,15 +515,15 @@ void StrInit() {
             BGMdata[st].spuAddr[i][1] =  0x5010 + (st * 4 + i * 2 + 1) * 0x100;
             BGMdata[st].spuZero[i][0] = 1;
             BGMdata[st].spuZero[i][1] = 1;
-            sceSdSetParam(BGMdata[st].Vnum[i] << 1 | 0x301, 0xff);
-            sceSdSetParam(BGMdata[st].Vnum[i] << 1 | 0x401, 0x1fc0);
-            sceSdSetParam(BGMdata[st].Vnum[i] << 1 | 0x201, 0xeb4);
-            sceSdSetAddr(BGMdata[st].Vnum[i] << 1 | 0x2041, BGMdata[st].spuAddr[i][0]);
+            sceSdSetParam(BGMdata[st].Vnum[i] << 1 | SD_CORE_1 | SD_VP_ADSR1, 0xFF);
+            sceSdSetParam(BGMdata[st].Vnum[i] << 1 | SD_CORE_1 | SD_VP_ADSR2, 0x1FC0);
+            sceSdSetParam(BGMdata[st].Vnum[i] << 1 | SD_CORE_1 | SD_VP_PITCH, 0xEB4);
+            sceSdSetAddr(BGMdata[st].Vnum[i] << 1 | SD_CORE_1  | SD_VA_SSA, BGMdata[st].spuAddr[i][0]);
         }
-        sceSdSetParam(BGMdata[st].Vnum[0] << 1 | 1, BGMdata[st].Vol);
-        sceSdSetParam(BGMdata[st].Vnum[0] << 1 | 0x101, 0);
-        sceSdSetParam(BGMdata[st].Vnum[1] << 1 | 1, 0);
-        sceSdSetParam(BGMdata[st].Vnum[1] << 1 | 0x101, BGMdata[st].Vol);
+        sceSdSetParam(BGMdata[st].Vnum[0] << 1 | SD_CORE_1 | SD_VP_VOLL, BGMdata[st].Vol);
+        sceSdSetParam(BGMdata[st].Vnum[0] << 1 | SD_CORE_1 | SD_VP_VOLR, 0);
+        sceSdSetParam(BGMdata[st].Vnum[1] << 1 | SD_CORE_1 | SD_VP_VOLL, 0);
+        sceSdSetParam(BGMdata[st].Vnum[1] << 1 | SD_CORE_1 | SD_VP_VOLR, BGMdata[st].Vol);
     }
 
     for (st = 0; st < 4; st++) {
@@ -547,42 +539,42 @@ void StrInit() {
         PPTdata[st].spuAddr[1] = (st * 2 + 1) * 0x80 + 0x5810;
         PPTdata[st].spuZero[0] = 1;
         PPTdata[st].spuZero[1] = 1;
-        sceSdSetParam(PPTdata[st].Vnum << 1 | 0x301, 0xff);
-        sceSdSetParam(PPTdata[st].Vnum << 1 | 0x401, 0x1fc0);
-        sceSdSetParam(PPTdata[st].Vnum << 1 | 0x201, 0x75a);
-        sceSdSetAddr(PPTdata[st].Vnum << 1 | 0x2041, PPTdata[st].spuAddr[0]);
-        sceSdSetParam(PPTdata[st].Vnum << 1 | 1,  PPTdata[st].Vol);
-        sceSdSetParam(PPTdata[st].Vnum << 1 | 0x101, PPTdata[st].Vol);
+        sceSdSetParam(PPTdata[st].Vnum << 1 | SD_CORE_1 | SD_VP_ADSR1, 0xFF);
+        sceSdSetParam(PPTdata[st].Vnum << 1 | SD_CORE_1 | SD_VP_ADSR2, 0x1FC0);
+        sceSdSetParam(PPTdata[st].Vnum << 1 | SD_CORE_1 | SD_VP_PITCH, 0x75A);
+        sceSdSetAddr(PPTdata[st].Vnum << 1 | SD_CORE_1  | SD_VA_SSA, PPTdata[st].spuAddr[0]);
+        sceSdSetParam(PPTdata[st].Vnum << 1 | SD_CORE_1 | SD_VP_VOLL,  PPTdata[st].Vol);
+        sceSdSetParam(PPTdata[st].Vnum << 1 | SD_CORE_1 | SD_VP_VOLR, PPTdata[st].Vol);
     }
 
     pSTR->ac3Buff = Mem.iStream + 0x120180;
     pSTR->ac3Size = 0;
     Ac3Clear();
-    sceSdSetCoreAttr(5,0);
+    sceSdSetCoreAttr(SD_CORE_1 | SD_C_IRQ_ENABLE,0);
 
     for (st = 0; st < 2; st++) {
         for (i = 0; i < 2; i++) {
             MarkTop(pSTR->ZeroBuff, 0x100);
             pSTR->DmaWait = 1;
-            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][0], 0x100);
+            sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][0], 0x100);
             MarkBottom(pSTR->ZeroBuff, 0x100);
             pSTR->DmaWait = 1;
-            sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][1], 0x100);
+            sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)pSTR->ZeroBuff, (u_char *)BGMdata[st].spuAddr[i][1], 0x100);
         }
     }
 
     for (st = 0; st < 4; st++) {
         MarkTop(pSTR->ZeroBuff2, 0x80);
         pSTR->DmaWait = 1;
-        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[0], 0x80);
+        sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[0], 0x80);
         MarkBottom(pSTR->ZeroBuff2, 0x80);
         pSTR->DmaWait = 1;
-        sceSdVoiceTrans(1, 8, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[1], 0x80);
+        sceSdVoiceTrans(1, SD_TRANS_MODE_WRITE | SD_TRANS_BY_IO, (u_char *)pSTR->ZeroBuff2, (u_char *)PPTdata[st].spuAddr[1], 0x80);
     }
 
-    sceSdSetAddr(0x1f01,BGMdata[0].spuAddr[0][1]);
-    sceSdSetCoreAttr(5,1);
-    sceSdSetSwitch(0x1501, 0xFF0000);
+    sceSdSetAddr(SD_CORE_1 | SD_A_IRQA,BGMdata[0].spuAddr[0][1]);
+    sceSdSetCoreAttr(SD_CORE_1 | SD_C_IRQ_ENABLE, 1);
+    sceSdSetSwitch(SD_CORE_1 | SD_S_KON, 0xFF0000);
     StartThread(pSTR->ThID,0);
     RpcRet[0] = pSTR->BGMaddr[0];
 }
@@ -595,7 +587,7 @@ void PptStop(int st) {
 
 void Ac3Clear() {
     memset((void *)pSTR->ac3Buff, 0, 0x10000);
-    sceSdBlockTrans(0, 0, (u_char *)pSTR->ac3Buff, 0x10000);
+    sceSdBlockTrans(0, SD_TRANS_MODE_WRITE | SD_BLOCK_ONESHOT, (u_char *)pSTR->ac3Buff, 0x10000);
 }
 
 void Ac3Play() {
@@ -604,16 +596,16 @@ void Ac3Play() {
 
 void Ac3ZeroPcmPlay() {
     memset((void *)pSTR->ac3Buff, 0, 0x10000);
-    sceSdBlockTrans(0, 0x10, (u_char *)pSTR->ac3Buff, 0x10000);
+    sceSdBlockTrans(0, SD_TRANS_MODE_STOP, (u_char *)pSTR->ac3Buff, 0x10000);
 }
 
 void Ac3ZeroPcmStop() {
-    sceSdBlockTrans(0, 2, NULL, 0);
+    sceSdBlockTrans(0, SD_TRANS_MODE_STOP, NULL, 0);
 }
 
 void Ac3SetDigitalOut() {
     sceSdSetParam(0x800, 0xFC0);
-    sceSdSetCoreAttr(10, 0x801);
+    sceSdSetCoreAttr(SD_C_EFFECT_ENABLE | SD_C_NOISE_CLK, 0x801);
 }
 
 void Ac3Play2() {
@@ -623,5 +615,5 @@ void Ac3Play2() {
 void Ac3Stop() {
     sceSdBlockTrans(0, 2, NULL, 0);
     Ac3Clear();
-    sceSdSetCoreAttr(10,0x800);
+    sceSdSetCoreAttr(SD_C_EFFECT_ENABLE | SD_C_NOISE_CLK, 0x800);
 }
