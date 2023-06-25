@@ -150,7 +150,6 @@ void LinerInterPolateMatrix(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRIX m1
         "sqc2        $vf16, 0x10(%0)\n"
         "sqc2        $vf17, 0x20(%0)\n"
         "sqc2        $vf18, 0x30(%0)\n"
-        "nop\n"
     : : "r" (dm), "r" (m0), "r" (m1), "f" (Weight));
 }
 
@@ -179,7 +178,6 @@ void InterPolateMatrixLightTmp2(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRI
         "sqc2        $vf12, 0x10(%0)\n"
         "sqc2        $vf13, 0x20(%0)\n"
         "sqc2        $vf14, 0x30(%0)\n"
-        "nop\n"
     : : "r" (dm), "r" (m0), "r" (m1), "f" (Weight));
 }
 
