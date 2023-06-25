@@ -791,7 +791,7 @@ extern void hSeSetObjdB(s32 obj, f32 db);
 extern s32  hSeEnvKeyOn(s32 i);
 extern void hSeEnvStart();
 extern void hSeEnvChangeVol(s32 obj, f32 vol, s32 frame);
-extern void hSeEnvSetVol(f32 vol, s32 obj);
+extern void hSeEnvSetVol(s32 obj, f32 vol);
 
 
 // h_init.c
@@ -868,7 +868,7 @@ extern void hPadGet(hPAD_DATA *pad, s32 i);
 // h_rpc.c
 extern void hSndRpcRet();
 extern s32  hRpcSync();
-extern void hRpcInit();
+extern s32  hRpcInit();
 extern s32  hRpc(s32 cmd);
 extern s32  hTrans2IOP(s32 iopAddr, s32 eeAddr, s32 size);
 

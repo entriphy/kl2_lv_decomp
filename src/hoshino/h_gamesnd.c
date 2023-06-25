@@ -1381,7 +1381,7 @@ void hSeEnvChangeVol(s32 obj, f32 vol, s32 frame) {
     }
 }
 
-void hSeEnvSetVol(f32 vol, s32 obj) {
+void hSeEnvSetVol(s32 obj, f32 vol) {
     if (obj < sD->envNum && obj >= 0)
         seObj[sD->envObj[obj]].OVol = vol;
 }

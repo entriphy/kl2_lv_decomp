@@ -53,7 +53,7 @@ s32 hMain() {
 
     FlushCache(0);
     sceGsSyncPath(0, 0);
-    OkPFontFlush(PAD_TRG_SELECT(GameGbl.kpd[1])); // Gets passed as an int rather than a short...? Forgot to include header?
+    OkPFontFlush(PAD_TRG_SELECT(GameGbl.kpd[1]));
 
     // Return intentionally left blank
 }

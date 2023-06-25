@@ -2277,14 +2277,16 @@ BGM hGameBgmGetNo() {
     BGMAREA *area;
 
     area = BGMvision[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
-    return area[gD->BGMid].bgmNo;
+    area = &area[gD->BGMid];
+    return area->bgmNo;
 }
 
 s32 hGameBgmGetCh() {
     BGMAREA *area;
 
     area = BGMvision[GameGbl.vision >> 8 & 0xFF][GameGbl.vision & 0xFF];
-    return area[gD->BGMid].bgmCh;
+    area = &area[gD->BGMid];
+    return area->bgmCh;
 }
 
 void hGameBgmChange() {

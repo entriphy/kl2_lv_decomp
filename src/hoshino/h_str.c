@@ -688,7 +688,6 @@ void hBgmFadeNextClear() {
     bD->iopOK[1] = 0;
     bD->iopID = 0;
     bD->cdReq = 0;
-    bD->fadeFlag = 0;
     bD->bgmVol = 0.0f;
     bD->bgmMute = 0;
     bD->Command |= 4;
@@ -904,8 +903,8 @@ void hPptSetList(s32 *p) {
     s32 ld;
 
     ld = pD->listLoad;
-    pD->listNum[ld] = *p;
-    pD->listTbl[ld] = p + 1;
+    pD->listNum[ld] = *p++;
+    pD->listTbl[ld] = p;
     pD->listLoad++;
     if (pD->listLoad > 7)
         pD->listLoad = 0;

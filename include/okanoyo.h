@@ -261,7 +261,7 @@ extern void freeBuff(s32 type, s32 byte, char *name);
 // okprint.c
 extern void OkPrintSysInit(s32 personal_id, s32 screenw, s32 screenh, s32 fontw, s32 fonth);
 extern void OkDefaultSysInit(s32 screenw, s32 screenh, s32 fontw, s32 fonth);
-extern void OkPFontFlush(s16 trg);
+extern void OkPFontFlush(u16 trg);
 
 // okprofile.c
 

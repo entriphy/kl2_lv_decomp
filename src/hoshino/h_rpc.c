@@ -27,17 +27,19 @@ s32 hRpcSync() {
     return sceSifCheckStatRpc(&gCd.rpcd);
 }
 
-void hRpcInit() {
+s32 hRpcInit() {
     s32 i;
 
     do {
         if (sceSifBindRpc(&gCd, 0x12346, 0) < 0) {
             while (1);
         }
-        for (i = 10000; i > 0; i--) {
+        for (i = 10000; i != -1; i--) {
             // Do nothing
         }
     } while (!gCd.serve);
+
+    return 1;
 }
 
 s32 hRpc(s32 cmd) {

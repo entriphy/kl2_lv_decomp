@@ -308,7 +308,8 @@ void hSetXYZs(s32 x, s32 y, s32 z) {
 }
 
 void hSetTpCl(s64 tbp0, s64 psm, s64 tw, s64 th, s64 cbp, s64 cpsm) {
-    pk->tpcl = SCE_GS_SET_TEX0(tbp0, (1 << tw) / 64, psm, tw, th, 0, 0, cbp, cpsm, 0, 0, 0);
+    // Can't use the TEX0 macro for this for whatever reason
+    pk->tpcl = tbp0 | (s32)((1 << tw) / 64) << 14 | (u64)psm << 20 | (u64)tw << 26 | (u64)th << 30 | (u64)cbp << 37 | (u64)cpsm << 51;
     *pk->p++ = pk->tpcl | pk->tex0[pk->ctxt];
     *pk->p++ = pk->ctxt + SCE_GS_TEX0_1;
     pk->size++;

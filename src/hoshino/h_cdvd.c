@@ -193,9 +193,9 @@ void hCdReadDataBlock(s32 no, s32 buff) {
     s32 i;
 
     sceCdDiskReady(0);
-    while (!sceCdRead(FileData[no].lsn + cD->file.lsn, FileData[no].sectors, (void *)buff, &cD->mode));
+    while (!sceCdRead( cD->file.lsn + FileData[no].lsn, FileData[no].sectors, (void *)buff, &cD->mode));
     do {
-        for (i = 0; i < 0x10000; i++) {
+        for (i = 0; i < 0x100000; i++) {
             // Do nothing
         }
     } while (sceCdSync(1));
@@ -206,7 +206,10 @@ void hCdReadData(s32 no, s32 buff) {
 }
 
 s32 hCdReadSync() {
-    return cD->dataFlag == CDREAD_DATA && cD->dataStat == 2;
+    if (cD->dataFlag == CDREAD_DATA && cD->dataStat == 2)
+        return 1;
+    else
+        return 0;
 }
 
 void hCdInit() {

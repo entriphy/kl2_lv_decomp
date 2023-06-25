@@ -25,7 +25,7 @@
 #define M_INVLN2f        1.4426950408889633870E0f  /* 1 / log(2) */
 
 #define PAD_TRG_UP(kpd) (kpd.trg & 0x1000)
-#define PAD_TRG_DOWN(kpd) (kpd.trg & 0x400)
+#define PAD_TRG_DOWN(kpd) (kpd.trg & 0x4000)
 #define PAD_TRG_LEFT(kpd) (kpd.trg & 0x8000)
 #define PAD_TRG_RIGHT(kpd) (kpd.trg & 0x200)
 #define PAD_TRG_TRIANG(kpd) (kpd.trg & 0x10)
@@ -58,7 +58,7 @@
 #define PAD_LVL_R2(kpd) (kpd.lvl & 0x2)
 
 #define pPAD_TRG_UP(kpd) (kpd->trg & 0x1000)
-#define pPAD_TRG_DOWN(kpd) (kpd->trg & 0x400)
+#define pPAD_TRG_DOWN(kpd) (kpd->trg & 0x4000)
 #define pPAD_TRG_LEFT(kpd) (kpd->trg & 0x8000)
 #define pPAD_TRG_RIGHT(kpd) (kpd->trg & 0x200)
 #define pPAD_TRG_TRIANG(kpd) (kpd->trg & 0x10)
