@@ -22,7 +22,7 @@ qword *nkDstAdr = NULL;
 static u32 *nkLoadBuff;
 
 // Unknown
-u8 *DAT_003fb93c = NULL;
+qword *DAT_003fb93c = NULL;
 
 void nkGoPlayDemo() {
     GameGbl.kpd[0].cnt = 1;

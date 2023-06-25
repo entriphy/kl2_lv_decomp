@@ -21,23 +21,23 @@ void nkWipeInit() {
 }
 
 void nkWipeSetMatrix() {
-    sceVu0FMATRIX unit;
-    sceVu0FVECTOR tv;
-    sceVu0FMATRIX wvMtx;
-    sceVu0FMATRIX vsMtx;
-    sceVu0FMATRIX wsMtx;
+    sceVu0FVECTOR vec;
+    sceVu0FMATRIX mat;
+    sceVu0FMATRIX vsm;
+    sceVu0FMATRIX wvm;
+    sceVu0FMATRIX wsm;
 
-    sceVu0UnitMatrix(unit);
-    tv[0] = 0.0f;
-    tv[1] = 0.0f;
-    tv[2] = 200.0f;
-    tv[3] = 1.0f;
-    sceVu0TransMatrix(wvMtx, unit, tv);
-    sceVu0ViewScreenMatrix(vsMtx, 2560.0f, 1.0f, 0.47f, 2048.0f, 2048.0f, 1.0f, 16777215.0f, 0.1f, 65535.0f);
-    sceVu0MulMatrix(wsMtx, vsMtx, wvMtx);
-    sceVu0CopyMatrix(Scr.WvMtx, wvMtx);
-    sceVu0CopyMatrix(Scr.VsMtx, vsMtx);
-    sceVu0CopyMatrix(Scr.WsMtx, wsMtx);
+    sceVu0UnitMatrix(mat);
+    vec[0] = 0.0f;
+    vec[1] = 0.0f;
+    vec[2] = 200.0f;
+    vec[3] = 1.0f;
+    sceVu0TransMatrix(wvm, mat, vec);
+    sceVu0ViewScreenMatrix(vsm, 2560.0f, 1.0f, 0.47f, 2048.0f, 2048.0f, 1.0f, 16777215.0f, 0.1f, 65535.0f);
+    sceVu0MulMatrix(wsm, vsm, wvm);
+    sceVu0CopyMatrix(Scr.WvMtx, wvm);
+    sceVu0CopyMatrix(Scr.VsMtx, vsm);
+    sceVu0CopyMatrix(Scr.WsMtx, wsm);
 }
 
 void nkWipeEffBClear() {

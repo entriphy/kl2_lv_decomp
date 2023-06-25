@@ -128,14 +128,12 @@ void nkClearOT(qword *tagp, s32 otn, s32 pce) {
     qword *uncache_tagp;
     u32 mode;
 
-
     uncache_tagp = (qword *)((u32)tagp | 0x20000000);
     mode = 0x20000000;
     while (otn-- > 0) {
         (*uncache_tagp)[0] = mode;
         (*uncache_tagp)[1] = (u32)(tagp + 1);
-        (*uncache_tagp)[3] = 0;
-        (*uncache_tagp)[2] = 0;
+        (*uncache_tagp)[2] = (*uncache_tagp)[3] = 0;
 
         tagp++;
         uncache_tagp++;
@@ -143,8 +141,7 @@ void nkClearOT(qword *tagp, s32 otn, s32 pce) {
 
     (*uncache_tagp)[0] = 0x70000000;
     (*uncache_tagp)[1] = 0;
-    (*uncache_tagp)[3] = 0;
-    (*uncache_tagp)[2] = 0;
+    (*uncache_tagp)[2] = (*uncache_tagp)[3] = 0;
 }
 
 void nkPathReset() {

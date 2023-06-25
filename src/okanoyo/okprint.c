@@ -21,6 +21,6 @@ void OkDefaultSysInit(s32 screenw, s32 screenh, s32 fontw, s32 fonth) {
     }
 }
 
-void OkPFontFlush(s16 trg) {
+void OkPFontFlush(u16 trg) {
     // TODO
 }

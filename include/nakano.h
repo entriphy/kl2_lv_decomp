@@ -435,7 +435,7 @@ extern s32 MenuInit();
 extern s32 MenuMain();
 
 // mfunc.c
-extern void MainFunc();
+extern s32 MainFunc();
 
 // nkfunc.c
 extern s32 nkInit();

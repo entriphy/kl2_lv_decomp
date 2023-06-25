@@ -11,11 +11,15 @@ static FUNCTBL NameFuncTbl[8] = {
     {}  // kzFuncTbl
 };
 
-void MainFunc() {
-    if (NameFuncTbl[SysGbl.nmode].func == NULL) {
+s32 MainFunc() {
+    s32 (**subfunctbl)();
+
+    subfunctbl = NameFuncTbl[SysGbl.nmode].func;
+    if (subfunctbl != NULL) {
+        subfunctbl[SysGbl.nsmode]();
+    } else {
         SysGbl.fmode = 0;
         SysGbl.smode = 0;
-    } else {
-        NameFuncTbl[SysGbl.nmode].func[SysGbl.nsmode]();
     }
+    return 0;
 }
