@@ -9,3 +9,7 @@ void hMovInit() {
     sceCdDiskReady(0);
     while (!sceCdSearchFile(&mD->file, "\\SR.SMV;1"));
 }
+
+s32 hMov_002da2b0() {
+    // TODO
+}

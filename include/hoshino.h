@@ -180,14 +180,6 @@ typedef enum {
     BGM084,
     BGM085,
     BGM086,
-    BGM172,
-    BGM173,
-    BGM174,
-    BGM181,
-    BGM176,
-    BGM182,
-    BGM099,
-    BGM_MAXNUM,
 } BGM;
 
 typedef struct {
@@ -805,6 +797,7 @@ extern s32  SyncV();
 
 // h_movie.c
 extern void hMovInit();
+extern s32  hMov_002da2b0();
 
 // h_packet.c
 extern void hDmaSync(sceDmaChan *DmaChan);
@@ -956,9 +949,13 @@ extern void hStr_0016f7b0();
 extern void hStr_0016f7e8();
 extern void hStrMain();
 
-
 // h_test.c
 extern s32  hTestInit();
+extern void hTestBGM();
+extern void hTestPPT();
+extern void hTestAC3();
+extern void hTestConfig();
+extern void hTestMov();
 extern s32  hTestMain();
 
 // h_util.c
