@@ -666,6 +666,12 @@ typedef struct { // 0x10
     /* 0xf */ u32 : 4;
 } hGIM_CHEAD;
 
+typedef struct { // 0x18
+    /* 0x00 */ char name[16];
+    /* 0x10 */ s32 prog;
+    /* 0x14 */ s32 splt;
+} SEINFO;
+
 #pragma endregion Structs
 
 #pragma region Functions
@@ -958,6 +964,13 @@ extern void hTestConfig();
 extern void hTestMov();
 extern s32  hTestMain();
 
+// h_test_se.c
+extern s32  TestKeyon(s32 prog, s32 splt, s32 eff);
+extern s32  TestKeyonInv(s32 prog, s32 splt, s32 eff);
+extern void hTestSEBankSet();
+extern void hTestSE();
+extern void hTestSEInit();
+
 // h_util.c
 extern u32  GetFHMNum(u32 *pAddr);
 extern u32* GetFHMAddress(u32 *pAddr, u32 nNum);
@@ -1000,6 +1013,7 @@ extern hPPTDATA *pD;
 extern hAC3DATA *aD;
 
 // h_test.c
+extern s32 hTestBGMskip;
 extern s32 TestMode;
 extern s32 (*hTestFuncTbl[2])();
 extern s32 TestWork;

@@ -10,7 +10,6 @@ hPPTDATA PptData;
 hPPTDATA* pD;
 hAC3DATA Ac3Data = {};
 hAC3DATA* aD = NULL;
-static s32 hTestBGMskip = 0;
 
 #pragma region BGM
 
