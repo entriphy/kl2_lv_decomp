@@ -414,6 +414,10 @@ extern void GetInterPolateAxis(sceVu0FVECTOR Axis, sceVu0FMATRIX StartMtx, sceVu
 extern f32  __sin(f32 rad);
 extern f32  __cos(f32 rad);
 
+// motsys.c
+extern f32 GetActEndCnt(SFXOBJ *pObj);
+extern f32 GetActCnt(SFXOBJ *pObj);
+
 // sfxbios.c
 extern u32* Fadr(u32 *pAddr, s32 nNum);
 

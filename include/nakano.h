@@ -422,6 +422,9 @@ extern void nkInitSys();
 // keyfsv.c
 extern void nkKeyFrameStart();
 
+// light.c
+extern void nkLightIp(LgtWorkF *lgt_r, LgtWorkF *lgt_a, LgtWorkF *lgt_b, f32 w);
+
 // main.c
 // extern s32 main(s32 argc, char *argv[])
 

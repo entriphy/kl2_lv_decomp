@@ -1,11 +1,10 @@
 #include "hato.h"
 
 void htInitRand(s32 seed) {
-    if (seed == 0) {
-        ht_g_rand = 1;
-    } else {
+    if (seed != 0)
         ht_g_rand = seed;
-    }
+    else
+        ht_g_rand = 1;
 }
 
 s32 htGetRand() {

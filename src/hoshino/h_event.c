@@ -57,9 +57,8 @@ void hEvObjDel(s32 idx) {
     hEvOBJECT *pEO;
 
     pEO = pEvObj[idx];
-    if (pEO->seObj != -1) {
+    if (pEO->seObj != -1)
         hSeKeyOff(pEO->seObj);
-    }
     ObjNum--;
     pEvObj[idx] = pEvObj[ObjNum];
     pEO->pTbl->ActObj--;
@@ -70,9 +69,8 @@ void hEvObjDel(s32 idx) {
 void hEvObjAllDel() {
     s32 i;
 
-    for (i = 0; i < ObjNum; i++) {
+    for (i = 0; i < ObjNum; i++)
         hEvObjDel(i);
-    }
 }
 
 u32 hEvGetFlag() {
@@ -120,9 +118,8 @@ void hEvObjMukiChange(hEvOBJECT *pEO) {
     }
 
     hAngleClip(pEO->dRot, 2);
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++)
         pEO->dRot[i] /= 32.0f;
-    }
 }
 
 void hEvObjBankChange(hEvOBJECT *pEO) {
@@ -145,10 +142,8 @@ void hEvObjMuki(hEvOBJECT *pEO) {
 
     if (pEO->RotCnt < 32) {
         pEO->RotCnt++;
-
-        for (i = 0; i < 2; i++) {
+        for (i = 0; i < 2; i++)
             pEO->pSfx->pMot->pBaseCoord->Rot[i] += pEO->dRot[i];
-        }
     }
 
     pEO->pSfx->pMot->pBaseCoord->Rot[2] += pEO->dRot[2];

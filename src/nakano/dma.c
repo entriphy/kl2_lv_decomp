@@ -85,9 +85,8 @@ void nk_PrintOT(qword *tag) {
     } while (mode != 0x70000000); // END
 }
 
-void* nkAddRef(void * p1) {
-    memcpy(p1_packet, p1, 0x10);
-    p1_packet++;
+void* nkAddRef(void *p1) {
+    memcpy(p1_packet++, p1, 0x10);
     return p1;
 }
 

@@ -108,23 +108,20 @@ static void ObjMain(OBJWORK *objw) {
     objw->rot[1] += M_TWOPIf / 100.0f;
     objw->rot[2] += 3 * M_PIf / 10.0f;
 
-    if (objw->rot[0] < -M_PIf) {
+    if (objw->rot[0] < -M_PIf)
         objw->rot[0] += M_TWOPIf;
-    } else if (objw->rot[0] > M_PIf) {
+    else if (objw->rot[0] > M_PIf)
         objw->rot[0] -= M_TWOPIf;
-    }
 
-    if (objw->rot[1] < -M_PIf) {
+    if (objw->rot[1] < -M_PIf)
         objw->rot[1] += M_TWOPIf;
-    } else if (objw->rot[1] > M_PIf) {
+    else if (objw->rot[1] > M_PIf)
         objw->rot[1] -= M_TWOPIf;
-    }
 
-    if (objw->rot[2] < -M_PIf) {
+    if (objw->rot[2] < -M_PIf)
         objw->rot[2] += M_TWOPIf;
-    } else if (objw->rot[2] > M_PIf) {
+    else if (objw->rot[2] > M_PIf)
         objw->rot[2] -= M_TWOPIf;
-    }
 }
 
 static void (*ObjFuncTbl[2])(OBJWORK *objw) = {
@@ -149,5 +146,5 @@ void abSetObjTest(sceVu0FVECTOR vf) {
     objw->spd[1] = -6.0f;
     objw->rot[0] = 0.0f;
     objw->rot[1] = 0.0f;
-    objw->rot[2] - 0.0f;
+    objw->rot[2] = 0.0f;
 }
