@@ -24,3 +24,13 @@ jobs:
       run: cmake -DCMAKE_TOOLCHAIN_FILE=ps2_ee.cmake -Bbuild
     - name: Build
       run: cmake --build build
+    - name: Download original ELF
+      run: wget -q -O orig.elf $ELF_URL
+    - name: Download functions.json
+      run: wget -q -O functions.json $JSON_URL
+    - name: Install diff dependencies
+      run: pip install pyelftools rabbitizer
+    - name: Run diff
+      run: python tools/build_diff.py orig.elf build/CMakeFiles/kl2_lv_decomp.dir --json functions.json
+        
+  
