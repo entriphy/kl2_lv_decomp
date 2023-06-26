@@ -3,6 +3,7 @@ import rabbitizer
 import struct
 import json
 import argparse
+import os
 
 
 class Function:
@@ -90,18 +91,10 @@ def read_elf(elf_path: str, json_path: str = None) -> GenericElf:
     return elf
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        prog="elf_diff",
-        description="Compares an ELF and a decompiled ELF's functions",
-    )
-    parser.add_argument("orig_elf")
-    parser.add_argument("decomp_elf")
-    parser.add_argument("-j", "--json")
-    args = parser.parse_args()
-
-    orig_elf = read_elf(args.orig_elf, args.json)
-    decomp_elf = read_elf(args.decomp_elf)
+def diff(orig_elf_path, decomp_elf_path, orig_json):
+    orig_elf = read_elf(orig_elf_path, orig_json)
+    decomp_elf = read_elf(decomp_elf_path)
+    print(f"{os.path.basename(orig_elf_path)} -> {os.path.basename(decomp_elf_path)}:")
 
     for func_name in orig_elf.functions.keys():
         if func_name not in decomp_elf.functions:
@@ -113,7 +106,19 @@ if __name__ == "__main__":
         if result is not None:
             orig_address = f"0x{orig_elf.functions[func_name].address + result * 4:08x}"
             decomp_address = f"0x{decomp_elf.functions[func_name].address + result * 4:08x}"
-            print(f"{func_name}: FAIL ({orig_func[result]} @ {orig_address} != {decomp_func[result]} @ {decomp_address})")
+            print(f"\t{func_name}: FAIL ({orig_func[result]} @ {orig_address} != {decomp_func[result]} @ {decomp_address})")
         else:
-            print(f"{func_name}: PASS")
+            print(f"\t{func_name}: PASS")
 
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog="elf_diff",
+        description="Compares an ELF and a decompiled ELF's functions",
+    )
+    parser.add_argument("orig_elf")
+    parser.add_argument("decomp_elf")
+    parser.add_argument("-j", "--json")
+    args = parser.parse_args()
+
+    diff(args.orig_elf, args.decomp_elf, args.json)
