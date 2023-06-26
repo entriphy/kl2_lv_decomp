@@ -25,12 +25,20 @@ jobs:
     - name: Build
       run: cmake --build build
     - name: Download original ELF
+      if: always()
       run: wget -q -O orig.elf $ELF_URL
+      env:
+        ELF_URL: ${{secrets.ELF_URL}}
     - name: Download functions.json
+      if: always()
       run: wget -q -O functions.json $JSON_URL
+      env:
+        JSON_URL: ${{secrets.JSON_URL}}
     - name: Install diff dependencies
+      if: always()
       run: pip install pyelftools rabbitizer
     - name: Run diff
+      if: always()
       run: python tools/build_diff.py orig.elf build/CMakeFiles/kl2_lv_decomp.dir --json functions.json
         
   
