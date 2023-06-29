@@ -426,5 +426,6 @@ extern u32* Fadr(u32 *pAddr, s32 nNum);
 
 // object.c
 extern SCRENV Scr;
+extern LIGHT3 Light3;
 
 #endif
