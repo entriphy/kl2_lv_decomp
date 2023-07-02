@@ -279,15 +279,15 @@ typedef struct { // 0x38
 } MBLOCK;
 
 typedef struct { // 0x218
-    /* 0x000 */ s8 *ActAdrs;
+    /* 0x000 */ u8 *ActAdrs;
     /* 0x004 */ f32 SubScale;
     /* 0x008 */ s16 ActNum;
     /* 0x00a */ s16 ActNumMax;
     /* 0x00c */ COORD *pBaseCoord;
     /* 0x010 */ COORD *pCoord;
-    /* 0x014 */ s8 *pInf;
-    /* 0x018 */ s8 *pItr;
-    /* 0x01c */ s8 *pItrW;
+    /* 0x014 */ u8 *pInf;
+    /* 0x018 */ u8 *pItr;
+    /* 0x01c */ u8 *pItrW;
     /* 0x020 */ s16 CoordNum;
     /* 0x022 */ s16 BaseIndex;
     /* 0x024 */ s16 BaseMixIndex;
@@ -409,7 +409,7 @@ extern void GetJetMatrix(sceVu0FMATRIX Mtx, sceVu0FVECTOR VecNow);
 extern void LinerInterPolateMatrixBuff(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRIX m1, s32 num, u64 flag, f32 weight);
 extern void LinerInterPolateMatrix(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRIX m1, f32 Weight);
 extern void InterPolateMatrixLightTmp2(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRIX m1, f32 Weight);
-extern void AxisInterPolate(sceVu0FMATRIX DistMtx, sceVu0FMATRIX StartMtx, sceVu0FMATRIX EndMtx, sceVu0FVECTOR Axis, f32 Weight);
+//extern void AxisInterPolate(sceVu0FMATRIX DistMtx, sceVu0FMATRIX StartMtx, sceVu0FMATRIX EndMtx, sceVu0FVECTOR Axis, f32 Weight);
 extern void GetInterPolateAxis(sceVu0FVECTOR Axis, sceVu0FMATRIX StartMtx, sceVu0FMATRIX EndMtx);
 extern f32  __sin(f32 rad);
 extern f32  __cos(f32 rad);
@@ -425,7 +425,20 @@ extern u32* Fadr(u32 *pAddr, s32 nNum);
 // Data
 
 // object.c
+extern DMAPTR pDma;
 extern SCRENV Scr;
 extern LIGHT3 Light3;
+extern sceVu0FMATRIX SfxLsMtx[64];
+extern sceVu0FMATRIX SfxLvMtx[64];
+extern sceVu0FMATRIX SfxLvSpecMtx[64];
+extern sceVu0FMATRIX SfxLcLightMtx[64];
+extern sceVu0FMATRIX SfxSkinMtx[64];
+extern sceVu0IVECTOR SfxVertexI[2048];
+extern sceVu0IVECTOR SfxColorI[2048];
+extern sceVu0IVECTOR SfxSpecUVI[2048];
+extern s32 SfxAllPause;
+
+// view.c
+extern f32 klwipsp[48];
 
 #endif
