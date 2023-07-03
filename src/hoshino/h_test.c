@@ -100,26 +100,23 @@ static s32 templist[26] = {
     19, 20, 21, 22,
     23, 0
 };
-s32 (*hTestFuncTbl[2])() = {
-    hTestInit,
-    hTestMain
+s32 (*hTestFuncTbl[2])() = { // don't ask
+    (s32 (*)())hTestInit,
+    (s32 (*)())hTestMain
 };
 s32 TestWork = 0;
 
-// Originally declared as void
-s32 hTestInit() {
+void hTestInit() {
     s32 ret;
 
     SysGbl.smode++;
     memoryStageFormat();
-    TestWork = (s32) getBuff(1, 0x200000, NULL, &ret);
+    TestWork = (s32)getBuff(1, 0x200000, NULL, &ret);
     hSeInitGrp(0);
     hPadInit();
     hSndSetMVol(1.0f);
     hPptReset();
     hPptSetList(templist);
-
-    // Return intentionally left blank
 }
 
 void hTestBGM() {
@@ -423,9 +420,7 @@ void hTestMov() {
     }
 }
 
-// Originally declared as void
-// this has to be declared as void to make this match lmao
-s32 hTestMain() {
+void hTestMain() {
     hPAD_DATA pad;
 
     hPadRead();
@@ -463,6 +458,4 @@ s32 hTestMain() {
         SysGbl.smode = 1;
         freeBuff(1, 0x200000, NULL);
     }
-
-    // Return intentionally left blank
 }

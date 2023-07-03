@@ -956,13 +956,13 @@ extern void hStr_0016f7e8();
 extern void hStrMain();
 
 // h_test.c
-extern s32  hTestInit();
+extern void hTestInit();
 extern void hTestBGM();
 extern void hTestPPT();
 extern void hTestAC3();
 extern void hTestConfig();
 extern void hTestMov();
-extern s32  hTestMain();
+extern void hTestMain();
 
 // h_test_se.c
 extern s32  TestKeyon(s32 prog, s32 splt, s32 eff);
