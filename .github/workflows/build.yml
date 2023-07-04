@@ -21,7 +21,7 @@ jobs:
     - name: Untar SDK
       run: sudo mkdir /sce; sudo tar -xf sdk.tar.xz -C /sce; sudo ln -s /sce /usr/local/sce
     - name: Configure CMake
-      run: cmake -DCMAKE_TOOLCHAIN_FILE=ps2_ee.cmake -Bbuild
+      run: cmake -DCMAKE_TOOLCHAIN_FILE=ps2_ee.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -Bbuild
     - name: Build
       run: cmake --build build
     - name: Download original ELF
@@ -39,6 +39,6 @@ jobs:
       run: pip install pyelftools rabbitizer
     - name: Run diff
       if: always()
-      run: python tools/build_diff.py orig.elf build/CMakeFiles/kl2_lv_decomp.dir --json functions.json
+      run: python tools/build_diff.py orig.elf build --json functions.json
         
   

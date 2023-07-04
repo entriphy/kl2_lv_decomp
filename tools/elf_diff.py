@@ -94,7 +94,7 @@ def read_elf(elf_path: str, json_path: str = None) -> GenericElf:
 def diff(orig_elf_path, decomp_elf_path, orig_json):
     orig_elf = read_elf(orig_elf_path, orig_json)
     decomp_elf = read_elf(decomp_elf_path)
-    print(f"{os.path.basename(orig_elf_path)} -> {os.path.basename(decomp_elf_path)}:")
+    print(f"{os.path.basename(orig_elf_path)} -> {'/'.join(os.path.abspath(decomp_elf_path).split('/')[-2:])[:-2]}:")
 
     for func_name in orig_elf.functions.keys():
         if func_name not in decomp_elf.functions:
