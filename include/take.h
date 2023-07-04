@@ -474,8 +474,8 @@ extern void AcxDecodeMotion(sceVu0FMATRIX *DecodeBuff, MOTION *m, s32 Ind);
 // ndhit.c
 extern OBJWORK* SetNdhit(sceVu0FVECTOR Vec);
 extern void NdhitEnvInit(NDHIT *pNh);
-extern void DrawNdHit(OBJWORK *pObjw);
-extern void DrawNdhitSub(sceVu0IVECTOR Xyz, s32 px, s32 py, s32 pw, s32 ph, u64 tex0, u8 alpha);
+extern void DrawNdhit(OBJWORK *pObjw);
+extern void DrawNdhitSub(sceVu0IVECTOR *Xyz, s32 px, s32 py, s32 pw, s32 ph, u64 tex0, u8 alpha);
 extern void DrawNdhitSub2(sceVu0IVECTOR Xyz, sceVu0IVECTOR Xyz2, u8 alpha);
 
 // sfxbios.c

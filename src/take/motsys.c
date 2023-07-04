@@ -72,7 +72,7 @@ void GetNormalLightMatrix(SFXOBJ *pObj) {
         sceVu0MulMatrix(SfxLcLightMtx[i], *pObj->pNormalLight, pObj->pMot->pCoord[i].Mtx);
 }
 
-void InitSfxCoord(MOTION *m, u8 *pInf, /* a2 6 */ COORD *pCoord) {
+void InitSfxCoord(MOTION *m, u8 *pInf, COORD *pCoord) {
     s32 i;
     s16 *pInfs;
 
@@ -472,7 +472,7 @@ void SetActMixSub(MOTION *m, s32 Actnum) {
     }
 }
 
-int GetActStopFlag(SFXOBJ *pObj) {
+s32 GetActStopFlag(SFXOBJ *pObj) {
     SFXOBJ *pObjTmp;
 
     pObjTmp = GetActiveSfx(pObj);
