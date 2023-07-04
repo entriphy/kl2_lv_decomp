@@ -2,7 +2,6 @@
 #define OBJWORK_H
 
 #include "gim.h"
-#include "harada.h"
 #include "route.h"
 #include "types.h"
 
@@ -51,9 +50,9 @@ typedef struct OBJWORK {
     s64 dummy; // 0xD8
     s16 option; // 0xE0
     s16 sflag; // 0xE2
-    u8 *hpo; // 0xE4
-    GIMWORK* gimmick; // 0xE8
-    tOBJECT* _hOp; // 0xEC
+    u32 *hpo; // 0xE4
+    u32 *gimmick; // 0xE8
+    s32 *_hOp; // 0xEC
 } OBJWORK;
 
 // Most likely incorrect

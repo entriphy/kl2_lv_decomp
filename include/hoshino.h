@@ -3,6 +3,7 @@
 
 #include "ps2.h"
 #include "types.h"
+#include "take.h"
 
 #pragma region Structs
 
