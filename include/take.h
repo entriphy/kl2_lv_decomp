@@ -6,6 +6,9 @@
 #include "kit.h"
 #include "objwork.h"
 
+#define DECADDR0 ((sceVu0FMATRIX *)0x70000000)
+#define DECADDR1 ((sceVu0FMATRIX *)0x70001000)
+
 // Structs
 
 typedef struct { // 0x38
@@ -470,6 +473,12 @@ extern void NormalMatrix(sceVu0FMATRIX m0, sceVu0FMATRIX m1);
 extern void DecodeMotion(sceVu0FMATRIX *DecodeBuff, MOTION *m, s32 Ind);
 extern void ClearQwordMem(u32 Addrs, u32 Num);
 extern void AcxDecodeMotion(sceVu0FMATRIX *DecodeBuff, MOTION *m, s32 Ind);
+
+// motsys2.c
+extern void GetSfxWorldMatrix(SFXOBJ *pObj);
+extern void SetActCnt(SFXOBJ *pObj, f32 Cnt);
+extern void SetActSpeed(SFXOBJ *pObj, f32 Speed);
+extern void WorldIpMotion(SFXOBJ *pObj);
 
 // ndhit.c
 extern OBJWORK* SetNdhit(sceVu0FVECTOR Vec);
