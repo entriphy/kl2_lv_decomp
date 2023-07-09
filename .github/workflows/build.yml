@@ -36,7 +36,7 @@ jobs:
         JSON_URL: ${{secrets.JSON_URL}}
     - name: Install diff dependencies
       if: always()
-      run: pip install pyelftools rabbitizer
+      run: pip install pyelftools rabbitizer colorama
     - name: Run diff
       if: always()
       run: python tools/build_diff.py orig.elf build --json functions.json

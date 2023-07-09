@@ -1,9 +1,10 @@
 from elftools.elf.elffile import ELFFile, SymbolTableSection
+from colorama import Fore, Back, Style
+import argparse
+import json
+import os
 import rabbitizer
 import struct
-import json
-import argparse
-import os
 
 
 class Function:
@@ -94,7 +95,7 @@ def read_elf(elf_path: str, json_path: str = None) -> GenericElf:
 def diff(orig_elf_path, decomp_elf_path, orig_json):
     orig_elf = read_elf(orig_elf_path, orig_json)
     decomp_elf = read_elf(decomp_elf_path)
-    print(f"{os.path.basename(orig_elf_path)} -> {'/'.join(os.path.abspath(decomp_elf_path).split('/')[-2:])[:-2]}:")
+    print(Style.BRIGHT + f"{os.path.basename(orig_elf_path)} -> {'/'.join(os.path.abspath(decomp_elf_path).split('/')[-2:])[:-2]}:" + Style.RESET_ALL)
 
     for func_name in orig_elf.functions.keys():
         if func_name not in decomp_elf.functions:
@@ -106,9 +107,11 @@ def diff(orig_elf_path, decomp_elf_path, orig_json):
         if result is not None:
             orig_address = f"0x{orig_elf.functions[func_name].address + result * 4:08x}"
             decomp_address = f"0x{decomp_elf.functions[func_name].address + result * 4:08x}"
-            print(f"\t{func_name}: FAIL ({orig_func[result]} @ {orig_address} != {decomp_func[result]} @ {decomp_address})")
+            print(Fore.RED + f"\t{func_name}: FAIL" + Style.RESET_ALL)
+            print(f"\t\t{orig_address}: {orig_func[result]}")
+            print(f"\t\t{decomp_address}: {decomp_func[result]}")
         else:
-            print(f"\t{func_name}: PASS")
+            print(Fore.GREEN + f"\t{func_name}: PASS" + Style.RESET_ALL)
 
 
 if __name__ == "__main__":

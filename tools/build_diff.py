@@ -26,3 +26,4 @@ if __name__ == "__main__":
     for o in objects:
         object_path = os.path.join(args.build_path, o)
         diff(args.orig_elf, object_path, args.json)
+        print()
