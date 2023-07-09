@@ -41,7 +41,7 @@ add_dependencies(${PROJECT_NAME} PS2_CRT0 kl2_irx)
 set(CMAKE_EXECUTABLE_SUFFIX ".elf")
 target_compile_options(${PROJECT_NAME} PUBLIC
         $<$<COMPILE_LANGUAGE:C>:-O1 -gstabs>
-        $<$<COMPILE_LANGUAGE:CXX>:-O2 -gstabs -finline-functions -fno-exceptions>
+        $<$<COMPILE_LANGUAGE:CXX>:-O2 -gstabs -fno-exceptions>
 )
 target_compile_definitions(${PROJECT_NAME} PUBLIC SCE)
 target_link_options(${PROJECT_NAME} PUBLIC -T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0)
