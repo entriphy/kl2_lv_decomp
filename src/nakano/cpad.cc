@@ -73,7 +73,7 @@ void CPadControl::Close() {
     // TODO
 }
 
-void CPadControl::Update() {
+void CPadControl::Update(bool skip) {
     // TODO
 }
 

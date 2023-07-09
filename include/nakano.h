@@ -322,61 +322,61 @@ public:
 	void Init();
 	void Open();
 	void Close();
-	void Update();
+	void Update(bool skip = false);
 	void Clear();
 	void ClearAll();
 
 	u32 lvl(s32 id) {
-        return this->paddata[id].lvl;
+        return (this->paddata + id)->lvl;
     }
 
 	u32 trg(s32 id) {
-        return this->paddata[id].trg;
+        return (this->paddata + id)->trg;
     }
 
 	u32 rep(s32 id) {
-        return this->paddata[id].rep;
+        return (this->paddata + id)->rep;
     }
 
 	s32 looks(s32 id) {
-        return this->paddata[id].looks;
+        return (this->paddata + id)->looks;
     }
 
 	void SetRepeatTime(u32 rep1, u32 rep2, s32 id) {
-        this->paddata[id].repf = rep1;
-        this->paddata[id].reps = rep2;
+        (this->paddata + id)->repf = rep1;
+        (this->paddata + id)->reps = rep2;
     }
 
 	s32 r3ih(s32 id) {
-        return this->paddata[id].analog[0].ih;
+        return (this->paddata + id)->analog[0].ih;
     }
 
     s32 r3iv(s32 id) {
-        return this->paddata[id].analog[0].iv;
+        return (this->paddata + id)->analog[0].iv;
     }
 
     f32 r3fh(s32 id) {
-        return this->paddata[id].analog[0].fh;
+        return (this->paddata + id)->analog[0].fh;
     }
 
     f32 r3fv(s32 id) {
-        return this->paddata[id].analog[0].fv;
+        return (this->paddata + id)->analog[0].fv;
     }
 
     s32 r3dir(s32 id) {
-        return this->paddata[id].analog[0].direction;
+        return (this->paddata + id)->analog[0].direction;
     }
 
     f32 r3scalar(s32 id) {
-        return this->paddata[id].analog[0].scalar;
+        return (this->paddata + id)->analog[0].scalar;
     }
 
     f32 r3lscalar(s32 id) {
-        return this->paddata[id].analog[0].lscalar;
+        return (this->paddata + id)->analog[0].lscalar;
     }
 
     f32 r3angle(s32 id) {
-        return this->paddata[id].analog[0].angle;
+        return (this->paddata + id)->analog[0].angle;
     }
 
     s32 r3h(s32 id) {
@@ -388,35 +388,35 @@ public:
     }
 
     s32 l3ih(s32 id) {
-        return this->paddata[id].analog[1].ih;
+        return (this->paddata + id)->analog[1].ih;
     }
 
     s32 l3iv(s32 id) {
-        return this->paddata[id].analog[1].iv;
+        return (this->paddata + id)->analog[1].iv;
     }
 
     f32 l3fh(s32 id) {
-        return this->paddata[id].analog[1].fh;
+        return (this->paddata + id)->analog[1].fh;
     }
 
     f32 l3fv(s32 id) {
-        return this->paddata[id].analog[1].fv;
+        return (this->paddata + id)->analog[1].fv;
     }
 
     s32 l3dir(s32 id) {
-        return this->paddata[id].analog[1].direction;
+        return (this->paddata + id)->analog[1].direction;
     }
 
     f32 l3scalar(s32 id) {
-        return this->paddata[id].analog[1].scalar;
+        return (this->paddata + id)->analog[1].scalar;
     }
 
     f32 l3lscalar(s32 id) {
-        return this->paddata[id].analog[1].lscalar;
+        return (this->paddata + id)->analog[1].lscalar;
     }
 
     f32 l3angle(s32 id) {
-        return this->paddata[id].analog[1].angle;
+        return (this->paddata + id)->analog[1].angle;
     }
 
     s32 l3h(s32 id) {
