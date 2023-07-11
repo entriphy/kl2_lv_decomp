@@ -380,6 +380,9 @@ typedef struct SFXOBJ { // 0xa0
     /* 0x8c */ f32 ShadowOffset;
     /* 0x90 */ f32 ShadowRange;
     /* 0x94 */ s16 ObjNum;
+    /* 0x96 */ s16 DrawWorkCnt;
+    /* 0x98 */ s32 OutFlag;
+    /* 0x9c */ s32 actNum;
 } SFXOBJ;
 
 typedef struct {
@@ -486,6 +489,11 @@ extern void NdhitEnvInit(NDHIT *pNh);
 extern void DrawNdhit(OBJWORK *pObjw);
 extern void DrawNdhitSub(sceVu0IVECTOR *Xyz, s32 px, s32 py, s32 pw, s32 ph, u64 tex0, u8 alpha);
 extern void DrawNdhitSub2(sceVu0IVECTOR Xyz, sceVu0IVECTOR Xyz2, u8 alpha);
+
+// object.c
+extern void MixClut(u16 Cbp, s32 Num0, s32 Num1, f32 Weight);
+extern void SetObjClipZone(SFXOBJ *pObj, f32 offset, f32 zone);
+extern void SetObjShadow(SFXOBJ *pObj, s32 Type, f32 Size, f32 Offset, f32 Range);
 
 // sfxbios.c
 extern u32* Fadr(u32 *pAddr, s32 nNum);

@@ -196,7 +196,33 @@ void ChangeLocalMatrix(sceVu0FMATRIX lm,sceVu0FMATRIX wm,sceVu0FMATRIX lwm) {
 }
 
 void GetLwMtx(COORD *pCoord) {
-    // TODO
+    sceVu0FMATRIX *pLwMtx;
+    COORD *stack[64];
+    s32 index;
+
+    index = 0;
+    while (1) {
+        if (pCoord->Super == NULL) {
+            pCoord->Flag = 1;
+            pLwMtx = &pCoord->Mtx;
+            break;
+        }
+        if (pCoord->Flag != 0) {
+            pLwMtx = &pCoord->Mtx;
+            break;
+        }
+        stack[index++] = pCoord;
+        pCoord = pCoord->Super;
+    }
+
+    if (--index != -1) {
+        do {
+            pCoord = stack[index--];
+            sceVu0MulMatrix(pCoord->Mtx, *pLwMtx, pCoord->Mtx);
+            pCoord->Flag = 1;
+            pLwMtx = &pCoord->Mtx;
+        } while (index >= 0);
+    }
 }
 
 void GetRotTransMatrixXYZ(sceVu0FMATRIX mtx, sceVu0FVECTOR rot, sceVu0FVECTOR tra) {
