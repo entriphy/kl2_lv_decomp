@@ -4,7 +4,9 @@
 #include "types.h"
 #include "take.h"
 
-// Structs
+#define HR_DUMB_STUPID_NULL_CHECK(x) ((s32)x != -1)
+
+#pragma region Structs
 
 typedef enum {
     PTOPENING,
@@ -198,7 +200,29 @@ typedef struct { // 0x10
     /* 0xc */ f32 spdt;
 } HRSCRST;
 
-// Functions
+typedef struct {
+    sceVu0FVECTOR cmin;
+    sceVu0FVECTOR cmax;
+    sceVu0FVECTOR hmin;
+    sceVu0FVECTOR hmax;
+    sceVu0FVECTOR hami;
+    sceVu0FVECTOR zmax;
+    sceVu0FVECTOR zmin;
+    sceVu0FVECTOR xmax;
+    sceVu0FVECTOR xmin;
+    sceVu0FVECTOR ymax;
+    sceVu0FVECTOR ymin;
+} VPCLIP;
+
+#pragma endregion Structs
+
+#pragma region Functions
+
+// h_vpm2.c
+extern void h_vp_init(VPCLIP *vpc, f32 proj, f32 near, f32 far, f32 hamix, f32 hamiy, f32 hamiz, s32 fg);
+extern s32  hm_vpclip(sceVu0FMATRIX rtm, sceVu0FVECTOR zure, sceVu0FVECTOR cmax, sceVu0FVECTOR cmin, sceVu0FVECTOR hmax, sceVu0FVECTOR hmin, sceVu0FVECTOR *out);
+extern s32  h_vpm_bclip(VPCLIP *vpc, s32 *bhead, sceVu0FMATRIX world_view);
+extern s32  h_vpo_vclip(VPCLIP *vpc, sceVu0FVECTOR pos, sceVu0FMATRIX world_view);
 
 // hr_main.c
 extern void hr_cold_start();
@@ -216,7 +240,14 @@ extern void hr_pflag_initSt();
 extern void hr_pflag_init();
 extern PT   hr_pflag_get_id();
 
-// Data
+#pragma endregion Functions
+
+#pragma region Data
+
+// h_vpm2.c
+extern VPCLIP cvpm;
+extern VPCLIP cvbg;
+extern VPCLIP cvpo;
 
 // hr_bgwk.c
 extern BGWK *hrbgbuff;
@@ -290,5 +321,7 @@ extern s32 *hrpt_mini_addr;
 extern PT hrpt_id;
 extern s32 hrptm_res;
 extern s32 hrpt_sbgm;
+
+#pragma endregion Data
 
 #endif
