@@ -363,6 +363,98 @@ typedef struct {
     sceVu0FVECTOR ymin;
 } VPCLIP;
 
+typedef struct { // 0x2050
+    /* 0x0000 */ u32 block_list[2049];
+    /* 0x2004 */ qword *block_head_ptr;
+    /* 0x2008 */ u32 *clip_head_ptr;
+    /* 0x200c */ u32 *vpm_data_top;
+    /* 0x2010 */ u32 vpm_zone_num;
+    /* 0x2014 */ u32 vpm_block_num;
+    /* 0x2018 */ s32 course_level;
+    /* 0x201c */ s32 fog_near;
+    /* 0x2020 */ s32 fog_far;
+    /* 0x2030 */ qword fog_col;
+    /* 0x2040 */ s32 pixel_intpl;
+    /* 0x2044 */ u8 *data_buff;
+    /* 0x2048 */ u8 *hm_buff;
+} vpmINFO2; // TODO: fix headers
+
+typedef struct HRANMV { // 0x40
+    /* 0x00 */ sceVu0FVECTOR pos;
+    /* 0x10 */ vpmINFO2 *info;
+    /* 0x14 */ void (*prog)(struct HRANMV *);
+    /* 0x18 */ u32 flag;
+    /* 0x1c */ s32 drawno;
+    /* 0x20 */ s32 work0;
+    /* 0x24 */ s32 work1;
+    /* 0x28 */ s32 work2;
+    /* 0x2c */ s32 work3;
+    /* 0x30 */ f32 fwk0;
+    /* 0x34 */ f32 fwk1;
+    /* 0x38 */ f32 fwk2;
+    /* 0x3c */ f32 fwk3;
+} HRANMV;
+
+typedef struct { // 0x10
+    /* 0x0 */ void (*prog)(HRANMV *);
+    /* 0x4 */ void (*init)(HRANMV *);
+    /* 0x8 */ s32 drawno;
+    /* 0xc */ vpmINFO2 *info;
+} HRANMVS;
+
+typedef struct { // 0x30
+    /* 0x00 */ f32 x;
+    /* 0x04 */ f32 y;
+    /* 0x08 */ f32 z;
+    /* 0x0c */ f32 r;
+    /* 0x10 */ f32 g;
+    /* 0x14 */ f32 b;
+    /* 0x18 */ f32 n;
+    /* 0x1c */ f32 f;
+    /* 0x20 */ f32 ri;
+    /* 0x24 */ f32 gi;
+    /* 0x28 */ f32 bi;
+    /* 0x2c */ f32 pad0;
+} HRAVL;
+
+typedef enum {
+    HRAV_WAVE,
+    HRAV_SINT,
+    HRAV_SINT2,
+    HRAV_SINTD,
+    HRAV_SINT2D,
+} HRAV;
+
+typedef struct { // 0x50
+    /* 0x00 */ qword foga;
+    /* 0x10 */ qword fogb;
+    /* 0x20 */ qword max;
+    /* 0x30 */ qword min;
+    /* 0x40 */ qword spot;
+} ATR_LIGHTP;
+
+typedef struct { // 0x90
+    /* 0x00 */ qword dmatag;
+    /* 0x10 */ qword vif0;
+    /* 0x20 */ qword tag;
+    /* 0x30 */ ATR_LIGHTP light0;
+    /* 0x80 */ qword mscal;
+} ATR_AVPSINT0;
+
+typedef struct { // 0xe0
+    /* 0x00 */ qword dmatag;
+    /* 0x10 */ qword vif0;
+    /* 0x20 */ qword tag;
+    /* 0x30 */ ATR_LIGHTP light0;
+    /* 0x80 */ ATR_LIGHTP light1;
+    /* 0xd0 */ qword mscal;
+} ATR_AVPSINT2;
+
+typedef struct { // 0x20
+    /* 0x00 */ qword dmatag;
+    /* 0x10 */ qword mscal;
+} ATR_AVPSINT2Z;
+
 #pragma endregion Structs
 
 #pragma region Functions
@@ -374,6 +466,10 @@ extern s32  h_vpm_bclip(VPCLIP *vpc, s32 *bhead, sceVu0FMATRIX world_view);
 extern s32  h_vpo_vclip(VPCLIP *vpc, sceVu0FVECTOR pos, sceVu0FMATRIX world_view);
 
 
+// hr_anmdt.c
+extern void hr_vision_anmVPM_set();
+extern void hr_change_anmVPM(s32 id);
+
 // hr_main.c
 extern void hr_cold_start();
 
@@ -382,7 +478,6 @@ extern void hr_pt_set(s16 flag, s16 scene, s16 view, s16 th);
 extern void hr_pt_fclear();
 
 // hr_pbgm.c
-
 
 // hr_pflag.c
 extern void hr_pflag_initAr();
