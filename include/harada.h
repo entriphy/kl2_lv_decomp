@@ -470,6 +470,15 @@ extern s32  h_vpo_vclip(VPCLIP *vpc, sceVu0FVECTOR pos, sceVu0FMATRIX world_view
 extern void hr_vision_anmVPM_set();
 extern void hr_change_anmVPM(s32 id);
 
+// hr_anmvp.c
+extern u32  hr_float2int(f32 f);
+extern void hr_anmVPM_allinit();
+extern void hr_anmVPM_set(HRANMVS *avs);
+extern void hr_set_anmVPMtbl(HRANMVS *avs);
+extern void hr_anmVPM_work();
+extern void hr_set_vlight(HRAVL *vlight, f32 x, f32 y, f32 z, f32 r, f32 g, f32 b, f32 n, f32 f);
+extern void hr_set_vlightMini(HRAVL *vlight, f32 r, f32 g, f32 b);
+
 // hr_main.c
 extern void hr_cold_start();
 
