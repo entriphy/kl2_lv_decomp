@@ -479,6 +479,12 @@ extern void hr_anmVPM_work();
 extern void hr_set_vlight(HRAVL *vlight, f32 x, f32 y, f32 z, f32 r, f32 g, f32 b, f32 n, f32 f);
 extern void hr_set_vlightMini(HRAVL *vlight, f32 r, f32 g, f32 b);
 
+// hr_bgwk.c
+extern void hr_bg_onoff(s32 no, s32 fg);
+extern void hr_bginit();
+extern void hr_bg_workclip();
+
+
 // hr_main.c
 extern void hr_cold_start();
 
@@ -502,6 +508,13 @@ extern PT   hr_pflag_get_id();
 extern VPCLIP cvpm;
 extern VPCLIP cvbg;
 extern VPCLIP cvpo;
+
+// hr_anmvp.c
+extern s32 (*hrAnmVpmTbl[5])(HRANMV *, s32);
+extern HRANMV hravbuf[1];
+extern s32 hravcnt;
+extern s32 hrmapoff;
+extern HRAVL hrvlight[2];
 
 // hr_bgwk.c
 extern BGWK *hrbgbuff;
