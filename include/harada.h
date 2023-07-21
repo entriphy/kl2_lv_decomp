@@ -4,6 +4,7 @@
 #include "types.h"
 #include "take.h"
 
+#define HR_DUMB_STUPID_NULL_SET(x) (x = (u32 *)-1)
 #define HR_DUMB_STUPID_NULL_CHECK(x) ((s32)x != -1)
 
 #pragma region Structs
@@ -455,6 +456,60 @@ typedef struct { // 0x20
     /* 0x10 */ qword mscal;
 } ATR_AVPSINT2Z;
 
+typedef struct { // 0x1c
+    /* 0x00 */ f32 xs;
+    /* 0x04 */ f32 ys;
+    /* 0x08 */ f32 zs;
+    /* 0x0c */ u16 gcntx;
+    /* 0x0e */ u16 gcnty;
+    /* 0x10 */ u16 gcntz;
+    /* 0x12 */ u16 pad0;
+    /* 0x14 */ u32 gsize;
+    /* 0x18 */ u32 gsizey;
+} HR_HPMK;
+
+typedef struct { // 0x8
+    /* 0x0 */ u16 z;
+    /* 0x2 */ u16 x;
+    /* 0x4 */ u32 addr;
+} HR_HPXZ;
+
+typedef struct { // 0x4
+    /* 0x0 */ u16 y;
+    /* 0x2 */ u16 cnt;
+} HR_HPYL;
+
+typedef struct { // 0x24
+    /* 0x00 */ u16 gx;
+    /* 0x02 */ u16 gy;
+    /* 0x04 */ u16 gz;
+    /* 0x06 */ u16 pad0;
+    /* 0x08 */ u32 xzcnt;
+    /* 0x0c */ u32 addr;
+    /* 0x10 */ u32 ylen;
+    /* 0x14 */ u16 y;
+    /* 0x16 */ u16 cnt;
+    /* 0x18 */ u32 gouk;
+    /* 0x1c */ u32 qwc;
+    /* 0x20 */ u32 daddr;
+} HR_HPDEB;
+
+typedef struct {
+    vpmINFO2 infoA;
+    vpmINFO2 infoB;
+    u32 *addrA;
+    u32 *addrB;
+    s32 flag;
+    s32 pad0;
+} V1100MIR;
+
+typedef struct { // 0x1c
+    /* 0x00 */ VPOINFO vpoi;
+    /* 0x10 */ u32 n;
+    /* 0x14 */ u32 *anm;
+    /* 0x18 */ u32 ver;
+} VPAINFO;
+
 #pragma endregion Structs
 
 #pragma region Functions
@@ -487,6 +542,39 @@ extern void hr_bg_workclip();
 
 // hr_main.c
 extern void hr_cold_start();
+extern void hr_hpmk_init(u32 *top);
+extern u32* func_001028E0(u32 *top);
+extern u32* hr_hpmk_blk(u16 gx, u16 gy, u16 gz, u32 *top);
+extern u32* hr_hpmk(f32 x, f32 y, f32 z, u32 *top);
+extern u32* hr_hpmk_deb(f32 x, f32 y, f32 z, u32 *top, HR_HPDEB *hpd);
+extern void hr_stage_no(char *name, s32 fg);
+extern s32 hr_check_dmy(qword *addr);
+extern s32 func_00103398(u32 *pack, s32 param_2, s32 param_3);
+extern void func_00103508();
+extern void hrPtSeLoad();
+extern void hrStageDataLoad(s32 fg);
+extern void hr_set_defMVC();
+extern void func_00103E00(u32 *param_1);
+extern void MapConfFileRead();
+extern void hrDataLoad();
+extern void func_00104508();
+extern void hrAreaEnd();
+extern void hrStageEnd();
+extern void hr_set_vpmfog(vpmINFO2 *info);
+extern s32* hr_get_draw2();
+extern void hr_scrst_init(HRSCRST *st);
+extern void hr_scrst_set(HRSCRST *st, s16 s, s16 t);
+extern void hr_scrst_work(HRSCRST *st);
+extern void hrInitWork();
+extern void hrInitWorkDeb();
+extern void hrMainWork();
+extern void hrMainDraw();
+extern void hr_retry_set();
+extern void hr_restart_clear();
+extern void hr_restart_Tmpclear();
+extern void hr_restart_set(s32 id);
+extern s32 hr_restart_check(s32 id);
+
 
 // hr_pall.c
 extern void hr_pt_set(s16 flag, s16 scene, s16 view, s16 th);
@@ -555,7 +643,7 @@ extern u32 hfm_size;
 extern u32 hcm_size;
 extern f32 *hfm_scale;
 extern f32 *hcm_scale;
-// extern V1100MIR *hrm1100;
+extern V1100MIR *hrm1100;
 
 // hr_pall.c
 extern HRPMWAKU ppwaku;
@@ -578,6 +666,8 @@ extern s16 hrpt_deb;
 // extern PCAMSC *hrpcc;
 extern u32 *hrpt_pack;
 extern u32 *hrpt_gms;
+extern s16 hrpt_patch;
+extern s16 hrpt_patcnt;
 extern s16 hrpt_stnk;
 // extern HR_PSYS ppsys;
 // extern HR_CALL *hrpt_call;
@@ -588,6 +678,11 @@ extern s32 *hrpt_mini_addr;
 extern PT hrpt_id;
 extern s32 hrptm_res;
 extern s32 hrpt_sbgm;
+
+// hr_vpa.c
+extern VPAINFO infovpa;
+//extern ANMINFO *hri_anm;
+//extern ANMINFO *hri_bg;
 
 #pragma endregion Data
 

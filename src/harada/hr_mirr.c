@@ -13,4 +13,4 @@ u32 hfm_size = 0;
 u32 hcm_size = 0;
 f32 *hfm_scale = NULL;
 f32 *hcm_scale = NULL;
-// V1100MIR *hrm1100 = NULL;
+V1100MIR *hrm1100 = NULL;
