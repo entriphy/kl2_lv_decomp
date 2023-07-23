@@ -1,11 +1,14 @@
 #ifndef HARADA_H
 #define HARADA_H
 
-#include "types.h"
-#include "take.h"
+#include "common.h"
+
+#pragma region Defines
 
 #define HR_DUMB_STUPID_NULL_SET(x) (x = (u32 *)-1)
 #define HR_DUMB_STUPID_NULL_CHECK(x) ((s32)x != -1)
+
+#pragma endregion Defines
 
 #pragma region Structs
 
@@ -252,6 +255,22 @@ typedef enum {
     PTEFC_NUM,
 } PTEFC;
 
+typedef struct { // 0x2050
+    /* 0x0000 */ u32 block_list[2049];
+    /* 0x2004 */ qword *block_head_ptr;
+    /* 0x2008 */ u32 *clip_head_ptr;
+    /* 0x200c */ u32 *vpm_data_top;
+    /* 0x2010 */ u32 vpm_zone_num;
+    /* 0x2014 */ u32 vpm_block_num;
+    /* 0x2018 */ s32 course_level;
+    /* 0x201c */ s32 fog_near;
+    /* 0x2020 */ s32 fog_far;
+    /* 0x2030 */ qword fog_col;
+    /* 0x2040 */ s32 pixel_intpl;
+    /* 0x2044 */ u8 *data_buff;
+    /* 0x2048 */ u8 *hm_buff;
+} vpmINFO;
+
 typedef enum {
     hKEI_L,
     hKEI_M,
@@ -326,63 +345,9 @@ typedef struct { // 0x240
 	/* 0x234 */ u8 *data_buff;
 } mINFO;
 
-typedef struct { // 0x90
-	/* 0x00 */ sceVu0FMATRIX m;
-	/* 0x40 */ sceVu0FMATRIX m0;
-	/* 0x80 */ mINFO *info;
-	/* 0x84 */ s32 rx;
-	/* 0x88 */ s32 ry;
-	/* 0x8c */ s32 fg;
-} BGWK;
-
-typedef struct { // 0x20
-    /* 0x00 */ s32 tex0[4];
-    /* 0x10 */ s32 flag;
-    /* 0x14 */ u32 *gms;
-    /* 0x18 */ s32 pad0;
-    /* 0x1c */ s32 pad1;
-} HRPMWAKU;
-
-typedef struct { // 0x10
-    /* 0x0 */ f32 s;
-    /* 0x4 */ f32 spds;
-    /* 0x8 */ f32 t;
-    /* 0xc */ f32 spdt;
-} HRSCRST;
-
-typedef struct {
-    sceVu0FVECTOR cmin;
-    sceVu0FVECTOR cmax;
-    sceVu0FVECTOR hmin;
-    sceVu0FVECTOR hmax;
-    sceVu0FVECTOR hami;
-    sceVu0FVECTOR zmax;
-    sceVu0FVECTOR zmin;
-    sceVu0FVECTOR xmax;
-    sceVu0FVECTOR xmin;
-    sceVu0FVECTOR ymax;
-    sceVu0FVECTOR ymin;
-} VPCLIP;
-
-typedef struct { // 0x2050
-    /* 0x0000 */ u32 block_list[2049];
-    /* 0x2004 */ qword *block_head_ptr;
-    /* 0x2008 */ u32 *clip_head_ptr;
-    /* 0x200c */ u32 *vpm_data_top;
-    /* 0x2010 */ u32 vpm_zone_num;
-    /* 0x2014 */ u32 vpm_block_num;
-    /* 0x2018 */ s32 course_level;
-    /* 0x201c */ s32 fog_near;
-    /* 0x2020 */ s32 fog_far;
-    /* 0x2030 */ qword fog_col;
-    /* 0x2040 */ s32 pixel_intpl;
-    /* 0x2044 */ u8 *data_buff;
-    /* 0x2048 */ u8 *hm_buff;
-} vpmINFO2; // TODO: fix headers
-
 typedef struct HRANMV { // 0x40
     /* 0x00 */ sceVu0FVECTOR pos;
-    /* 0x10 */ vpmINFO2 *info;
+    /* 0x10 */ vpmINFO *info;
     /* 0x14 */ void (*prog)(struct HRANMV *);
     /* 0x18 */ u32 flag;
     /* 0x1c */ s32 drawno;
@@ -400,7 +365,7 @@ typedef struct { // 0x10
     /* 0x0 */ void (*prog)(HRANMV *);
     /* 0x4 */ void (*init)(HRANMV *);
     /* 0x8 */ s32 drawno;
-    /* 0xc */ vpmINFO2 *info;
+    /* 0xc */ vpmINFO *info;
 } HRANMVS;
 
 typedef struct { // 0x30
@@ -495,195 +460,13 @@ typedef struct { // 0x24
 } HR_HPDEB;
 
 typedef struct {
-    vpmINFO2 infoA;
-    vpmINFO2 infoB;
-    u32 *addrA;
-    u32 *addrB;
-    s32 flag;
-    s32 pad0;
-} V1100MIR;
-
-typedef struct { // 0x1c
-    /* 0x00 */ VPOINFO vpoi;
-    /* 0x10 */ u32 n;
-    /* 0x14 */ u32 *anm;
-    /* 0x18 */ u32 ver;
-} VPAINFO;
+    u32 ntag;
+    qword *dmatag;
+    u32 *data_top;
+    u32 pad0;
+} VPOINFO;
 
 #pragma endregion Structs
 
-#pragma region Functions
-
-// h_vpm2.c
-extern void h_vp_init(VPCLIP *vpc, f32 proj, f32 near, f32 far, f32 hamix, f32 hamiy, f32 hamiz, s32 fg);
-extern s32  hm_vpclip(sceVu0FMATRIX rtm, sceVu0FVECTOR zure, sceVu0FVECTOR cmax, sceVu0FVECTOR cmin, sceVu0FVECTOR hmax, sceVu0FVECTOR hmin, sceVu0FVECTOR *out);
-extern s32  h_vpm_bclip(VPCLIP *vpc, s32 *bhead, sceVu0FMATRIX world_view);
-extern s32  h_vpo_vclip(VPCLIP *vpc, sceVu0FVECTOR pos, sceVu0FMATRIX world_view);
-
-
-// hr_anmdt.c
-extern void hr_vision_anmVPM_set();
-extern void hr_change_anmVPM(s32 id);
-
-// hr_anmvp.c
-extern u32  hr_float2int(f32 f);
-extern void hr_anmVPM_allinit();
-extern void hr_anmVPM_set(HRANMVS *avs);
-extern void hr_set_anmVPMtbl(HRANMVS *avs);
-extern void hr_anmVPM_work();
-extern void hr_set_vlight(HRAVL *vlight, f32 x, f32 y, f32 z, f32 r, f32 g, f32 b, f32 n, f32 f);
-extern void hr_set_vlightMini(HRAVL *vlight, f32 r, f32 g, f32 b);
-
-// hr_bgwk.c
-extern void hr_bg_onoff(s32 no, s32 fg);
-extern void hr_bginit();
-extern void hr_bg_workclip();
-
-
-// hr_main.c
-extern void hr_cold_start();
-extern void hr_hpmk_init(u32 *top);
-extern u32* func_001028E0(u32 *top);
-extern u32* hr_hpmk_blk(u16 gx, u16 gy, u16 gz, u32 *top);
-extern u32* hr_hpmk(f32 x, f32 y, f32 z, u32 *top);
-extern u32* hr_hpmk_deb(f32 x, f32 y, f32 z, u32 *top, HR_HPDEB *hpd);
-extern void hr_stage_no(char *name, s32 fg);
-extern s32 hr_check_dmy(qword *addr);
-extern s32 func_00103398(u32 *pack, s32 param_2, s32 param_3);
-extern void func_00103508();
-extern void hrPtSeLoad();
-extern void hrStageDataLoad(s32 fg);
-extern void hr_set_defMVC();
-extern void func_00103E00(u32 *param_1);
-extern void MapConfFileRead();
-extern void hrDataLoad();
-extern void func_00104508();
-extern void hrAreaEnd();
-extern void hrStageEnd();
-extern void hr_set_vpmfog(vpmINFO2 *info);
-extern s32* hr_get_draw2();
-extern void hr_scrst_init(HRSCRST *st);
-extern void hr_scrst_set(HRSCRST *st, s16 s, s16 t);
-extern void hr_scrst_work(HRSCRST *st);
-extern void hrInitWork();
-extern void hrInitWorkDeb();
-extern void hrMainWork();
-extern void hrMainDraw();
-extern void hr_retry_set();
-extern void hr_restart_clear();
-extern void hr_restart_Tmpclear();
-extern void hr_restart_set(s32 id);
-extern s32 hr_restart_check(s32 id);
-
-
-// hr_pall.c
-extern void hr_pt_set(s16 flag, s16 scene, s16 view, s16 th);
-extern void hr_pt_fclear();
-
-// hr_pbgm.c
-
-// hr_pflag.c
-extern void hr_pflag_initAr();
-extern void hr_pflag_initSt();
-extern void hr_pflag_init();
-extern PT   hr_pflag_get_id();
-
-#pragma endregion Functions
-
-#pragma region Data
-
-// h_vpm2.c
-extern VPCLIP cvpm;
-extern VPCLIP cvbg;
-extern VPCLIP cvpo;
-
-// hr_anmvp.c
-extern s32 (*hrAnmVpmTbl[5])(HRANMV *, s32);
-extern HRANMV hravbuf[1];
-extern s32 hravcnt;
-extern s32 hrmapoff;
-extern HRAVL hrvlight[2];
-
-// hr_bgwk.c
-extern BGWK *hrbgbuff;
-extern s32 hrcntbg;
-extern s32 hrcntdrawbg;
-extern mINFO hrbgi[6];
-extern u32 *hrbgbin[6];
-
-// hr_main.c
-extern MAPVWORK mapvw;
-extern HRSCRST hrmapst;
-extern HRSCRST hrbgst;
-extern u32 *hrd_pack;
-extern u32 *hrg_pack;
-extern u32 *hrf_pack;
-extern u32 *hrse_pack;
-extern s32 hr_abeoff;
-extern s32 hr_objtype;
-extern u32 *hr_mt_addr;
-// extern vpmINFO hr_mtexi;
-extern s32 hr_resKeep;
-extern s32 hr_resTmp;
-extern u32 *hr_obcdata;
-extern u32 *hr_obcvpf;
-extern VPOINFO *hr_obcvpo;
-
-// hr_mirr.c
-extern s32 hfmircnt;
-extern s32 hcmircnt;
-extern s32 hrmirflush;
-extern s32 hroldflush;
-// extern HFMIR hfmirbuf[4];
-// extern HCMIR hcmirbuf[1];
-// extern HFMIRC hfmcam;
-extern u8 *hfm_addr;
-extern u8 *hcm_addr;
-extern u32 hfm_size;
-extern u32 hcm_size;
-extern f32 *hfm_scale;
-extern f32 *hcm_scale;
-extern V1100MIR *hrm1100;
-
-// hr_pall.c
-extern HRPMWAKU ppwaku;
-extern s32 ptflag_buff[4];
-extern s32 ptflag_st[4];
-extern s32 ptflag_ar[4];
-extern s32 ptflag_th[4];
-extern sceVu0FMATRIX hrpum;
-extern sceVu0FMATRIX hrpm;
-extern sceVu0FVECTOR hrvi;
-extern sceVu0FVECTOR hrvo;
-extern s32 *hrpt_addr;
-extern s32 *hrptm_addr;
-extern s16 hrpt_flag;
-extern s16 hrpt_scene;
-extern s16 hrpt_view;
-extern s16 hrpt_th;
-extern s16 hrpt_vt;
-extern s16 hrpt_deb;
-// extern PCAMSC *hrpcc;
-extern u32 *hrpt_pack;
-extern u32 *hrpt_gms;
-extern s16 hrpt_patch;
-extern s16 hrpt_patcnt;
-extern s16 hrpt_stnk;
-// extern HR_PSYS ppsys;
-// extern HR_CALL *hrpt_call;
-extern s32 hrpt_mini;
-extern s32 *hrpt_mini_addr;
-
-// hr_pbgm.c
-extern PT hrpt_id;
-extern s32 hrptm_res;
-extern s32 hrpt_sbgm;
-
-// hr_vpa.c
-extern VPAINFO infovpa;
-//extern ANMINFO *hri_anm;
-//extern ANMINFO *hri_bg;
-
-#pragma endregion Data
 
 #endif

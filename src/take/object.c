@@ -1,4 +1,6 @@
-#include "common.h"
+#include "object.h"
+#include "sfxbios.h"
+#include "motsys.h"
 
 ACTTBL DfMot[128] = {}; // TODO: This needs to be initialized
 static char OutLineStatusDef[64] = {};

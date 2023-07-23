@@ -1,4 +1,5 @@
-#include "common.h"
+#include "camera.h"
+#include "object.h"
 
 void GetWsMtx() {
     sceVu0CameraMatrix(Scr.WvMtx, Scr.camera_p, Scr.camera_zd, Scr.camera_yd);

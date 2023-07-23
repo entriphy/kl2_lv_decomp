@@ -1,4 +1,10 @@
-#include "common.h"
+#include "h_str.h"
+#include "h_sound.h"
+#include "h_cdvd.h"
+#include "h_game.h"
+#include "h_rpc.h"
+#include "h_menu.h"
+#include "h_test.h"
 
 KLTABLE *KlTable = NULL; // ?
 PPTTABLE *PptTable = NULL;

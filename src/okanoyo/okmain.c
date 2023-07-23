@@ -1,4 +1,4 @@
-#include "common.h"
+#include "okmain.h"
 
 u8 *scr_p[9] = { scram_0, scram_1, scram_2, scram_3, scram_4, scram_5, scram_6, scram_7, scram_8 };
 TEXINFO texinfo[256] = {};

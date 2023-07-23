@@ -1,4 +1,6 @@
-#include "common.h"
+#include "hr_bgwk.h"
+#include "h_vpm2.h"
+#include "okanoyo/okio.h"
 
 static void hr_bg_workclipM();
 

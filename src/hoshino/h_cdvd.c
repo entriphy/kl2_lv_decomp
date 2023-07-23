@@ -1,4 +1,6 @@
-#include "common.h"
+#include "h_cdvd.h"
+#include "h_str.h"
+#include "h_util.h"
 
 KLTABLE *FileData = NULL;
 hCDDATA CdData = {};

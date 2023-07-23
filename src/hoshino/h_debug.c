@@ -1,4 +1,4 @@
-#include "common.h"
+#include "h_debug.h"
 
 void HsDeb2PtblInit() {
     // Empty function

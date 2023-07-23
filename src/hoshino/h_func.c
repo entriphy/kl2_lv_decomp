@@ -1,4 +1,8 @@
-#include "common.h"
+#include "h_func.h"
+#include "h_menu.h"
+#include "h_init.h"
+#include "h_test.h"
+#include "okanoyo/okprint.h"
 
 static FUNCTBL MainFuncTbl[3] = {
     {hMenuFuncTbl, -1},

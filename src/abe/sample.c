@@ -1,4 +1,12 @@
-#include "common.h"
+#include "sample.h"
+#include "harada/hr_mapdr.h"
+#include "nakano/main.h"
+#include "nakano/objfunc.h"
+#include "nakano/dma.h"
+#include "nakano/mapview.h"
+#include "okanoyo/okprint.h"
+#include "ab_objtest.h"
+#include "nakano/nkpad.h"
 
 static s32 SampleInit() {
     sceVu0FVECTOR vf;

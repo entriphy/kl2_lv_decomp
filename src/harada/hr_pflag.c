@@ -1,4 +1,5 @@
-#include "common.h"
+#include "hr_pflag.h"
+#include "hr_pall.h"
 
 static PTDATA scene_table[90] = {};
 

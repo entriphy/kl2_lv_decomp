@@ -1,4 +1,5 @@
-#include "common.h"
+#include "h_wkmng.h"
+#include "h_menu.h"
 
 static hMNG Mng[4];
 

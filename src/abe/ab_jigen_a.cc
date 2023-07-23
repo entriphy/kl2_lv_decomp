@@ -1,4 +1,4 @@
-#include "common.h"
+#include "ab_jigen_a.h"
 
 extern "C" {
     void abJigenAnime(OBJWORK *objw, JIGEN_WORK *jgnw) {

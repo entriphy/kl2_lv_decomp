@@ -1,5 +1,5 @@
 // Unknown filename
-#include "common.h"
+#include "disp.h"
 
 s32 disp_mask_flag;
 

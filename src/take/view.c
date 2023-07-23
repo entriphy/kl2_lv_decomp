@@ -1,4 +1,4 @@
-#include "common.h"
+#include "view.h"
 
 f32 klwipsp[48] = {
     10.0f,

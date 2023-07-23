@@ -1,4 +1,18 @@
-#include "common.h"
+#include "hr_main.h"
+#include "hr_pflag.h"
+#include "hr_pall.h"
+#include "hr_pbgm.h"
+#include "hr_mirr.h"
+#include "hr_bgwk.h"
+#include "hr_vpa.h"
+#include "hoshino/h_util.h"
+#include "okanoyo/okio.h"
+#include "hoshino/h_file.h"
+#include "nakano/dma.h"
+#include "nakano/main.h"
+#include "hr_anmdt.h"
+#include "hr_anmvp.h"
+#include "h_vpm2.h"
 
 MAPVWORK mapvw = {};
 HRSCRST hrmapst = {};
@@ -701,7 +715,7 @@ void hrStageEnd() {
     hr_pflag_initAr();
 }
 
-void hr_set_vpmfog(vpmINFO2 *info) {
+void hr_set_vpmfog(vpmINFO *info) {
     info->fog_near = mapvw.fog_near;
     info->fog_far = mapvw.fog_far;
     info->fog_col[0] = mapvw.fog_col[0];

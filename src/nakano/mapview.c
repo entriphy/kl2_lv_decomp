@@ -1,4 +1,9 @@
-#include "common.h"
+#include "mapview.h"
+#include "main.h"
+#include "dma.h"
+#include "harada/hr_main.h"
+#include "harada/hr_bgwk.h"
+#include "nkpad.h"
 
 static s32 MapVMenu;
 static s32 MapVMsw;

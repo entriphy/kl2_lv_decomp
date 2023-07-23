@@ -1,4 +1,5 @@
-#include "common.h"
+#include "okprint.h"
+#include "okmain.h"
 
 void OkPrintSysInit(s32 personal_id, s32 screenw, s32 screenh, s32 fontw, s32 fonth) {
     PDbuf[personal_id].fsz_x = fontw;

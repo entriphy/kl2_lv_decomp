@@ -1,4 +1,4 @@
-#include "common.h"
+#include "ab_mfifo.h"
 
 /*
  * In order to get this file to match, D_CTRL and Dn_CHCR must be changed to a non-volatile s32 pointer.

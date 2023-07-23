@@ -1,4 +1,5 @@
-#include "hato.h"
+#include "ht_bcommon.h"
+#include "ht_gblpara.h"
 
 void htInitRand(s32 seed) {
     if (seed != 0)

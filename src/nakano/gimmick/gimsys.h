@@ -1,11 +1,9 @@
-#ifndef GIM_H
-#define GIM_H
+#ifndef GIMSYS_H
+#define GIMSYS_H
 
-#include "ps2.h"
-#include "route.h"
-#include "vpo.h"
+#include "common.h"
+#include "harada.h"
 
-// Size: 0x80
 typedef struct {
     VPOINFO *vpo;
     sceVu0FMATRIX hpo_mat;
@@ -20,6 +18,7 @@ typedef struct {
     s32 pad1;
 } GIMWORK;
 
-GIMWORK * GetGimWork();
+extern GIMWORK* GetGimWork();
+extern s32 gmGetGimType(OBJWORK* objw);
 
 #endif

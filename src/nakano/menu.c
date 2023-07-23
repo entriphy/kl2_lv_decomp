@@ -1,4 +1,7 @@
-#include "common.h"
+#include "menu.h"
+#include "dma.h"
+#include "gssub.h"
+#include "okanoyo/okprint.h"
 
 typedef struct { // 0x18
     /* 0x00 */ s32 mode;

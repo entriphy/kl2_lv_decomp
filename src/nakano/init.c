@@ -1,4 +1,7 @@
-#include "common.h"
+#include "init.h"
+#include "harada/hr_pall.h"
+#include "main.h"
+#include "gssub.h"
 
 sceDmaChan *DmaChVIF0;
 sceDmaChan *DmaChVIF1;

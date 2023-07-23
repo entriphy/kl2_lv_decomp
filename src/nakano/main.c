@@ -1,4 +1,8 @@
-#include "common.h"
+#include "main.h"
+#include "nkpad.h"
+#include "init.h"
+#include "harada/hr_pall.h"
+#include "harada/hr_main.h"
 
 NKDEBGBL nkDG = {};
 SYSGBL SysGbl = {};

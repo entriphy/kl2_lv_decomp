@@ -1,4 +1,4 @@
-#include "common.h"
+#include "hr_mirr.h"
 
 s32 hfmircnt = 0;
 s32 hcmircnt = 0;

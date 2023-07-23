@@ -1,4 +1,12 @@
-#include "common.h"
+#include "h_sound.h"
+#include "h_rpc.h"
+#include "h_gamesnd.h"
+#include "h_menu.h"
+#include "h_str.h"
+#include "h_util.h"
+#include "h_cdvd.h"
+#include "okanoyo/okio.h"
+#include "h_file.h"
 
 EFXSE efdm[1] = {
     {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}

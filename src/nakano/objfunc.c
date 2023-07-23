@@ -1,4 +1,5 @@
-#include "common.h"
+#include "objfunc.h"
+#include "game.h"
 
 void (*ObjJTbl[10])(OBJWORK *objw) = {
     NULL,

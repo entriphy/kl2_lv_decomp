@@ -1,4 +1,6 @@
-#include "common.h"
+#include "mfunc.h"
+#include "abe/ab_func.h"
+#include "nkfunc.h"
 
 static FUNCTBL NameFuncTbl[8] = {
     {nkFuncTbl, -1},

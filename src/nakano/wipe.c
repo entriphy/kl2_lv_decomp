@@ -1,4 +1,6 @@
-#include "common.h"
+#include "wipe.h"
+#include "main.h"
+#include "take/object.h"
 
 static PsfxMODEL PsfxWipeKlo;
 

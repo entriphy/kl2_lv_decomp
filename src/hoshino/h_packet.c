@@ -1,4 +1,4 @@
-#include "common.h"
+#include "h_packet.h"
 
 static hPACKET_DATA *pk;
 

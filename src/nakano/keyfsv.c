@@ -1,4 +1,4 @@
-#include "common.h"
+#include "keyfsv.h"
 
 // static nkKEY_DATA *key_data_top;
 // static s32 key_data_top_index; // ?

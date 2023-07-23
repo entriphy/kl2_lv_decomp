@@ -1,4 +1,14 @@
-#include "common.h"
+#include "firetest.h"
+#include "nakano/main.h"
+#include "nakano/objfunc.h"
+#include "okanoyo/okio.h"
+#include "ab_mfifo.h"
+#include "nakano/dma.h"
+#include "nakano/mapview.h"
+#include "okanoyo/okprint.h"
+#include "harada/hr_main.h"
+#include "nakano/nkpad.h"
+#include "ab_util.h"
 
 static s32 FiretestInit() {
     vpmINFO *vpmi;

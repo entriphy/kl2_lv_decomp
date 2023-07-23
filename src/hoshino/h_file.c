@@ -1,4 +1,5 @@
-#include "common.h"
+#include "h_file.h"
+#include "h_cdvd.h"
 
 static s32 GameDataTop;
 static s32 SysDataTop;

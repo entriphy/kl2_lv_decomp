@@ -1,4 +1,5 @@
-#include "common.h"
+#include "dma.h"
+#include "main.h"
 
 #define setCHCR(ch, m, t) *((u16 *)&(ch)->chcr) = (m) << D_CHCR_MOD_O | (t) << D_CHCR_TTE_O
 

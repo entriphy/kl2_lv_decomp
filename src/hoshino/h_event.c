@@ -1,4 +1,7 @@
-#include "common.h"
+#include "h_event.h"
+#include "h_wkmng.h"
+#include "h_gamesnd.h"
+#include "nakano/light.h"
 
 hMNGLIST EvMng[64];
 hEvOBJECT EvObj[64];

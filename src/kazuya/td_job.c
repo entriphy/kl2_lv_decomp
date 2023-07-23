@@ -1,4 +1,4 @@
-#include "common.h"
+#include "td_job.h"
 
 s32 first_enter = 0;
 s32 after_puppet_dst = 0;

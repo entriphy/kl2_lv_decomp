@@ -1,4 +1,4 @@
-#include "common.h"
+#include "hr_vpa.h"
 
 //static void (*read_animetbl[0])(/* parameters unknown */) = {};
 VPAINFO infovpa = {};

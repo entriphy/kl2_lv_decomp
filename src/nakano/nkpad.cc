@@ -1,4 +1,5 @@
-#include "common.h"
+#include "nkpad.h"
+#include "cpad.h"
 
 extern "C" {
 
@@ -87,7 +88,7 @@ s32 nkGetPlooks(s32 id) {
 }
 
 void nkGetPad() {
-    pad.Update();
+    pad.Update(false);
 }
 
 }

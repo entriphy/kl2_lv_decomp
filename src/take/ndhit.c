@@ -1,4 +1,8 @@
-#include "common.h"
+#include "ndhit.h"
+#include "nakano/objfunc.h"
+#include "okanoyo/okio.h"
+#include "okanoyo/okmain.h"
+#include "object.h"
 
 static sceVu0FVECTOR StarVec[12] = {
     { 0.0f, 0.0f, 1.0f, 1.0f },

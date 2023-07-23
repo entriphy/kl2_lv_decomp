@@ -1,4 +1,7 @@
-#include "common.h"
+#include "h_test_se.h"
+#include "h_sound.h"
+#include "h_pad.h"
+#include "h_test.h"
 
 static char *bankname[50] = {
     "main",

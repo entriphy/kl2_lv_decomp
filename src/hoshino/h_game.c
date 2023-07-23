@@ -1,4 +1,7 @@
-#include "common.h"
+#include "h_game.h"
+#include "h_event.h"
+#include "harada/hr_pbgm.h"
+#include "h_str.h"
 
 BGMAREA v____[8] = {
     {-1, 0, 0.0f, 0.0f},

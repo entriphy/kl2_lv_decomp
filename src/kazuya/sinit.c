@@ -1,4 +1,6 @@
-#include "common.h"
+#include "sinit.h"
+#include "interfac.h"
+#include "bios.h"
 
 s32 ENGLISH_30[] = {0, 5, 10, 11, 12, 13, -1};
 s32 FRENCH_30[]  = {1, 6, 10, 11, 12, 13, -1};

@@ -1,4 +1,9 @@
-#include "common.h"
+#include "h_test.h"
+#include "h_str.h"
+#include "h_pad.h"
+#include "h_gamesnd.h"
+#include "nakano/gssub.h"
+#include "h_movie.h"
 
 static char *bgmdebug_str[86] = {
     "BGM000",

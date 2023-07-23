@@ -1,4 +1,6 @@
-#include "common.h"
+#include "ab_objtest.h"
+#include "nakano/main.h"
+#include "nakano/objfunc.h"
 
 static void DrawObjTest(OBJWORK *objw) {
     abGifPacket pack;

@@ -1,4 +1,4 @@
-#include "common.h"
+#include "h_util.h"
 
 void dump8(u8 *p) {
     s32 i;

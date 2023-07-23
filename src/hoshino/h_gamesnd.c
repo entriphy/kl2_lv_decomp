@@ -1,4 +1,6 @@
-#include "common.h"
+#include "h_gamesnd.h"
+#include "hato/ht_bcommon.h"
+#include "h_sound.h"
 
 ENVSE dm[1] = {
     {-1, 0.0f, 0.0f, 0.0f, 0.0f, 0, 1.0f, 0.0f, 0, 0}
@@ -687,7 +689,6 @@ ENVSE *EnvSE[50][20] = {
     { dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm },
     { dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm, dm },
 };
-
 
 SEGRP SeGrp[4] = {};
 SEGRP *seGrp = NULL;

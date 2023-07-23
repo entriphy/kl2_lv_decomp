@@ -1,4 +1,5 @@
-#include "common.h"
+#include "okio.h"
+#include "okmain.h"
 
 s32 testcbp = 0;
 s32 memtest = 0;

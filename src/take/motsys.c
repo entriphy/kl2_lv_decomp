@@ -1,4 +1,7 @@
-#include "common.h"
+#include "motsys.h"
+#include "object.h"
+#include "motip.h"
+#include "sfxbios.h"
 
 void GetMotion(SFXOBJ *pObj) {
     if (pObj->pObjTop->Pause == 0 && SfxAllPause == 0 && pObj->MotionSyncFlag != 1)

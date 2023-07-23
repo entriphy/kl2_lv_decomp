@@ -45,9 +45,9 @@ target_compile_options(${PROJECT_NAME} PUBLIC
 )
 target_compile_definitions(${PROJECT_NAME} PUBLIC SCE)
 target_link_options(${PROJECT_NAME} PUBLIC -T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0)
-target_include_directories(${PROJECT_NAME} PUBLIC ${SCESDK}/common/include ${SCESDK}/ee/include include)
+target_include_directories(${PROJECT_NAME} PUBLIC ${SCESDK}/common/include ${SCESDK}/ee/include include src)
 target_link_directories(${PROJECT_NAME} PUBLIC ${SCESDK}/ee/lib)
-target_link_libraries(${PROJECT_NAME} PUBLIC m cdvd graph dma vu0 dev sdr)
+target_link_libraries(${PROJECT_NAME} PUBLIC m cdvd graph dma vu0 dev sdr pad)
 
 # Copy kl2.irx to build directory
 add_custom_command(TARGET ${PROJECT_NAME}

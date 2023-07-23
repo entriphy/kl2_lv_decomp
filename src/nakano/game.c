@@ -1,4 +1,29 @@
-#include "common.h"
+#include "game.h"
+#include "harada/hr_pall.h"
+#include "taka/tk_effect.h"
+#include "main.h"
+#include "dma.h"
+#include "gssub.h"
+#include "wipe.h"
+#include "okanoyo/okio.h"
+#include "hoshino/h_file.h"
+#include "keyfsv.h"
+#include "kazuya/interfac.h"
+#include "hoshino/h_init.h"
+#include "kazuya/sinit.h"
+#include "sinit.h"
+#include "hoshino/h_game.h"
+#include "abe/ab_init.h"
+#include "kazuya/disp.h"
+#include "harada/hr_mirr.h"
+#include "nkpad.h"
+#include "objfunc.h"
+#include "okanoyo/okmain.h"
+#include "take/object.h"
+#include "hoshino/h_event.h"
+#include "harada/hr_main.h"
+#include "kazuya/td_job.h"
+#include "gflow.h"
 
 static s32 GameInit();
 static s32 GameLoad();
@@ -23,6 +48,14 @@ static u32 *nkLoadBuff;
 
 // Unknown
 qword *DAT_003fb93c = NULL;
+
+static inline f32 nkRadMask(f32 rad) {
+    if (rad <= -M_PIf)
+        rad += M_TWOPIf;
+    else if (rad> M_PIf)
+        rad -= M_TWOPIf;
+    return rad;
+}
 
 void nkGoPlayDemo() {
     GameGbl.kpd[0].cnt = 1;

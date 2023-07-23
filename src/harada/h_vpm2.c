@@ -1,4 +1,4 @@
-#include "common.h"
+#include "h_vpm2.h"
 
 VPCLIP cvpm = {};
 VPCLIP cvbg = {};

@@ -1,4 +1,4 @@
-#include "common.h"
+#include "hr_pbgm.h"
 
 // static PTBGM ptbgm_table[82] = {};
 // static PTBGM *ptb;

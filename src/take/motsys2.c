@@ -1,4 +1,6 @@
-#include "common.h"
+#include "motsys2.h"
+#include "motsys.h"
+#include "motip.h"
 
 void GetSfxWorldMatrix(SFXOBJ *pObj) {
     s32 i;

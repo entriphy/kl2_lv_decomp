@@ -1,8 +1,8 @@
 // Unknown filename
-#include "common.h"
+#include "h_movie.h"
 
 hMOVDATA MovData = {};
-hMOVDATA* mD = NULL;
+hMOVDATA *mD = NULL;
 
 void hMovInit() {
     mD = &MovData;

@@ -1,5 +1,4 @@
-#include "types.h"
-#include "abe.h"
+#include "ab_tex.h"
 
 static CTexManager m_instance;
 

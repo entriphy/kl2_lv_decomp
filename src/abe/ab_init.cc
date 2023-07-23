@@ -1,4 +1,5 @@
-#include "abe.h"
+#include "ab_init.h"
+#include "ab_tex.h"
 
 extern "C" {
     void abGimInit() {

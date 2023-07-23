@@ -1,4 +1,6 @@
-#include "common.h"
+#include "ab_menu.h"
+#include "okanoyo/okprint.h"
+#include "nakano/nkpad.h"
 
 static MENU_WORK MenuGbl;
 s32 (*abMenuFuncTbl[2])() = {

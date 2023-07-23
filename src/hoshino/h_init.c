@@ -1,4 +1,12 @@
-#include "common.h"
+#include "h_init.h"
+#include "nakano/init.h"
+#include "h_cdvd.h"
+#include "h_file.h"
+#include "hato/ht_bcommon.h"
+#include "h_rpc.h"
+#include "h_movie.h"
+#include "h_sound.h"
+#include "okanoyo/okio.h"
 
 #ifdef RELEASE
 char *LoadModuleList[] = {

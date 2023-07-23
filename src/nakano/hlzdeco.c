@@ -1,4 +1,4 @@
-#include "common.h"
+#include "hlzdeco.h"
 
 static void decode_init(HLZWork *wk);
 static u16 decode_c(HLZWork *wk);

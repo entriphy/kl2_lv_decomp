@@ -1,4 +1,5 @@
-#include "common.h"
+#include "gssub.h"
+#include "main.h"
 
 void nkGsInitFrm() {
     sceGsResetGraph(0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME);

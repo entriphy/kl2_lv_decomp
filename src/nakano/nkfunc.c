@@ -1,4 +1,6 @@
-#include "common.h"
+#include "nkfunc.h"
+#include "menu.h"
+#include "game.h"
 
 static FUNCTBL MainFuncTbl[5] = {
     {MenuFuncTbl, -1},

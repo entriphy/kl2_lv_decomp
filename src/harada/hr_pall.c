@@ -1,4 +1,6 @@
-#include "common.h"
+#include "hr_pall.h"
+#include "hr_pbgm.h"
+#include "hr_pflag.h"
 
 // PCAMS ppcam = {};
 // PCAMS *hrpcam = NULL;

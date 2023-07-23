@@ -1,7 +1,6 @@
 #ifndef OBJWORK_H
 #define OBJWORK_H
 
-#include "gim.h"
 #include "route.h"
 #include "types.h"
 

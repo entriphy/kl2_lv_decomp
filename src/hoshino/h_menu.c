@@ -1,4 +1,5 @@
-#include "common.h"
+#include "h_menu.h"
+#include "nakano/nkpad.h"
 
 static s32 hMenuInit();
 static s32 hMenuMain();

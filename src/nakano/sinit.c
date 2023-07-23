@@ -1,4 +1,5 @@
-#include "common.h"
+#include "sinit.h"
+#include "dma.h"
 
 void nkStageInit0() {
     u32 *adr;

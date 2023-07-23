@@ -1,4 +1,4 @@
-#include "common.h"
+#include "h_gamehall.h"
 
 CHALL CHall = {};
 CHALL *cH = NULL;

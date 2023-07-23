@@ -1,4 +1,7 @@
-#include "common.h"
+#include "hr_anmvp.h"
+#include "h_vpm2.h"
+#include "nakano/dma.h"
+#include "nakano/main.h"
 
 static s32 hr_avp_sint(HRANMV *av, s32 mno);
 static s32 hr_avp_sint2(HRANMV *av, s32 mno);
@@ -176,7 +179,7 @@ static s32 hr_avp_sint(HRANMV *av, s32 mno) {
     ATR_AVPSINT0 *pp;
     u32 cnt;
     u32 cnt2;
-    vpmINFO2 *info;
+    vpmINFO *info;
     u32 *list0;
     u32 *list1;
     sceVu0FVECTOR pos;
@@ -234,7 +237,7 @@ static s32 hr_avp_sint2(HRANMV *av, s32 mno) {
     ATR_AVPSINT2Z *ppz;
     u32 cnt;
     u32 cnt2;
-    vpmINFO2 *info;
+    vpmINFO *info;
     u32 *list0;
     u32 *list1;
     sceVu0FVECTOR pos;

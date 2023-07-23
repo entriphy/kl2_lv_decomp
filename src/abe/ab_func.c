@@ -1,4 +1,7 @@
-#include "common.h"
+#include "ab_func.h"
+#include "ab_menu.h"
+#include "firetest.h"
+#include "sample.h"
 
 static FUNCTBL MainFuncTbl[5] = {
     {abMenuFuncTbl,     -1},

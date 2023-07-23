@@ -1,4 +1,7 @@
-#include "common.h"
+#include "ab_dummy.h"
+#include "ab_jigen_a.h"
+#include "okanoyo/okio.h"
+#include "nakano/objfunc.h"
 
 static void ObjDraw(OBJWORK *objw) {
     abJigenDraw(objw, (JIGEN_WORK *)objw->work);

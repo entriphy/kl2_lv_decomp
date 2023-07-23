@@ -1,4 +1,8 @@
-#include "common.h"
+#include "gflow.h"
+#include "kazuya/disp.h"
+#include "dma.h"
+#include "game.h"
+#include "gssub.h"
 
 void GameFlow() {
     if (GameGbl.wipe.intime > 0)

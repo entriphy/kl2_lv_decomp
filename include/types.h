@@ -21,10 +21,17 @@ typedef volatile u64 vu64;
 typedef signed long long s64;
 typedef volatile s64 vs64;
 
+#ifdef PS2_TYPE_STUBS
+typedef unsigned int u128[4];
+typedef volatile u128 vu128;
+typedef signed int s128[4];
+typedef volatile s128 vs128;
+#else
 typedef unsigned int u128 __attribute__((mode(TI)));
 typedef volatile u128 vu128 __attribute__((mode(TI)));
 typedef signed int s128 __attribute__((mode(TI)));
 typedef volatile s128 vs128 __attribute__((mode(TI)));
+#endif
 
 typedef float f32;
 typedef double f64;
