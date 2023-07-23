@@ -3,6 +3,10 @@
 #include "init.h"
 #include "harada/hr_pall.h"
 #include "harada/hr_main.h"
+#include "okanoyo/okinit.h"
+#include "hoshino/h_init.h"
+#include "okanoyo/okio.h"
+#include "mfunc.h"
 
 NKDEBGBL nkDG = {};
 SYSGBL SysGbl = {};

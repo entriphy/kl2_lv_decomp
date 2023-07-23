@@ -2,6 +2,7 @@
 #define H_CDVD_H
 
 #include "hoshino.h"
+#include <libcdvd.h>
 
 typedef enum {
     CDREAD_IDLE,

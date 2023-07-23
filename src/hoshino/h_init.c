@@ -1,3 +1,5 @@
+#include <sifdev.h>
+#include <sifrpc.h>
 #include "h_init.h"
 #include "nakano/init.h"
 #include "h_cdvd.h"

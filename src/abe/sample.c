@@ -1,5 +1,4 @@
 #include "sample.h"
-#include "harada/hr_mapdr.h"
 #include "nakano/main.h"
 #include "nakano/objfunc.h"
 #include "nakano/dma.h"

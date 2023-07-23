@@ -1,5 +1,5 @@
 #include <libvu0.h>
-#include "../../../types.h"
+#include "types.h"
 
 template <class T>
 class CVector {

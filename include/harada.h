@@ -13,6 +13,7 @@
 #pragma region Structs
 
 typedef enum {
+    unk = -1,
     PTOPENING,
     PT0100_S2,
     PT0100_S0,

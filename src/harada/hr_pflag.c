@@ -1,5 +1,5 @@
-#include "hr_pflag.h"
-#include "hr_pall.h"
+#include "harada/hr_pflag.h"
+#include "harada/hr_pall.h"
 
 static PTDATA scene_table[90] = {};
 
@@ -19,11 +19,15 @@ void hr_pflag_init() {
 }
 
 PT hr_pflag_get_id() {
-    s32 i;
+    PTDATA *table = scene_table;
+    PT i;
 
-    for (i = 0; i < 90; i++) {
-        if (scene_table[i].area == GameGbl.vision && scene_table[i].scene == hrpt_scene)
-            return (PT)i;
+    for (i = PTOPENING; i < PTSCENE_NUM; i++) {
+        if (table->area == GameGbl.vision && table->scene == hrpt_scene) {
+            return i;
+        }
+        table++;
     }
+
     return -1;
 }

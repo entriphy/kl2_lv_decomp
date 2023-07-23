@@ -2,6 +2,8 @@
 #include "h_sound.h"
 #include "h_str.h"
 #include "h_menu.h"
+#include <sif.h>
+#include <sifrpc.h>
 
 static s32 sbuff[16] __attribute__((aligned(16)));
 static s32 sndBuff[16] __attribute__((aligned(16)));

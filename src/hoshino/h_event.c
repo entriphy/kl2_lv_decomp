@@ -2,6 +2,7 @@
 #include "h_wkmng.h"
 #include "h_gamesnd.h"
 #include "nakano/light.h"
+#include "take/motsys.h"
 
 hMNGLIST EvMng[64];
 hEvOBJECT EvObj[64];

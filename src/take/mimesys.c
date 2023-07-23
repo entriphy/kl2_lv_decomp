@@ -1,4 +1,5 @@
-#include "common.h"
+#include "mimesys.h"
+#include "sfxbios.h"
 
 void MimeWork(SFXOBJ *pObj) {
     VoiceMime(pObj);

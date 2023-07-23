@@ -3,6 +3,7 @@
 
 #include "hoshino.h"
 #include "h_sound.h"
+#include <libcdvd.h>
 
 typedef enum {
     BGMNO = -1,

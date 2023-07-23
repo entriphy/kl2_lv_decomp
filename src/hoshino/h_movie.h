@@ -2,6 +2,7 @@
 #define H_MOVIE_H
 
 #include "hoshino.h"
+#include <libcdvd.h>
 
 typedef struct {
     sceCdlFILE file;

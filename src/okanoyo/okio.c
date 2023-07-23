@@ -1,3 +1,4 @@
+#include <sifdev.h>
 #include "okio.h"
 #include "okmain.h"
 

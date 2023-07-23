@@ -1,9 +1,13 @@
+#include <sifdev.h>
+#include <eetypes.h>
+#include <libdev.h>
 #include "mapview.h"
 #include "main.h"
 #include "dma.h"
 #include "harada/hr_main.h"
 #include "harada/hr_bgwk.h"
 #include "nkpad.h"
+#include "okanoyo/okprint.h"
 
 static s32 MapVMenu;
 static s32 MapVMsw;

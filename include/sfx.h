@@ -2,6 +2,7 @@
 #define SFX_H
 
 #include "types.h"
+#include "ps2.h"
 
 typedef struct { // 0x10
     /* 0x0 */ u64 data;
