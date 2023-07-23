@@ -1,0 +1,132 @@
+#ifndef HT_BOSS00_H
+#define HT_BOSS00_H
+
+#include "hato.h"
+
+typedef struct {
+    f32 rot_tar;
+    f32 rot_st;
+    f32 ydd;
+    s32 next_bound;
+} htBoss00MoveData;
+
+typedef struct {
+    SFXOBJ *sfx_boss;
+    OBJWORK *hand[3];
+    OBJWORK *top[4];
+    sceVu0FVECTOR weak_offset;
+    sceVu0FVECTOR weak_pos;
+    sceVu0FVECTOR ref_offset;
+    sceVu0FVECTOR ref_pos;
+    sceVu0FVECTOR ref_vp;
+    sceVu0FVECTOR hand_offset[4];
+    sceVu0FVECTOR ref_move_vec;
+    sceVu0FVECTOR ref_spd_vec;
+    sceVu0FVECTOR tmp_pos;
+    sceVu0FVECTOR nose1_pos;
+    sceVu0FVECTOR nose2_pos;
+    sceVu0FVECTOR nose3_pos;
+    f32 ref_move_dd;
+    f32 ref_move_len;
+    f32 ref_move_inter;
+    f32 ref_pad02;
+    f32 ref_spd;
+    f32 ref_grav;
+    f32 ref_spd_def;
+    f32 ref_grav_def;
+    f32 hit_div;
+    f32 hit_spd_mul;
+    f32 y_limit;
+    f32 hit_pad00;
+    s32 fl_jigen[8];
+    s32 rt_max;
+    s32 n_mot;
+    s32 f_slot_stop;
+    s32 mode_sub_sub;
+    s32 n_bound;
+    s32 f_bound;
+    s32 next_bound;
+    s32 f_slot;
+    s32 anger_wait;
+    s32 hand_set_wait;
+    s32 ref_ret_count;
+    s32 f_anger_end;
+    s32 hit_damage;
+    s32 hit_2nd;
+    s32 hit_3rd;
+    s32 hit_max;
+    f32 fall_g;
+    f32 fly_y_def;
+    f32 fly_high;
+    f32 fly_dd;
+    f32 weak_clut_st;
+    f32 weak_clut;
+    f32 hit_range;
+    f32 hit_range_weak;
+    f32 atk_rot;
+    f32 atk_rot_tar;
+    f32 atk_rot_tar_def;
+    f32 atk_high_dd;
+    s32 cam_now;
+    s32 cam_set;
+    s32 cam_pre_klo_spd;
+    s32 f_clut_anm;
+    s32 j_st;
+    s32 zako_max;
+    s32 f_nail_spd_up_count;
+    s32 f_heart_count;
+    htBoss00MoveData atk_dat[8];
+    htDelaySetData voice;
+    htSndData se_laugh;
+    htSndData se_vox3;
+    htSndData se_roulet;
+    s32 debug;
+    s32 deb_sub;
+    s32 deb_sub_sub;
+    s32 deb_num;
+    s32 f_hit_view;
+    s32 f_2nd_return;
+    s32 fl_pad01;
+    s32 fl_pad00;
+    s32 deb_hand_num;
+    s32 deb_pad03;
+    s32 deb_pad02;
+    s32 deb_pad01;
+} htBoss00Data;
+
+typedef struct {
+    SFXOBJ *sfx_hand;
+    OBJWORK *boss;
+    s32 me_num;
+    s32 ref_wait;
+    sceVu0FVECTOR offset1;
+    sceVu0FVECTOR offset2;
+    sceVu0FVECTOR pos_offset;
+    sceVu0FVECTOR mvec;
+    sceVu0FVECTOR last_pos;
+    sceVu0FVECTOR tpos;
+    sceVu0FVECTOR tvec;
+    sceVu0FVECTOR axis_pos;
+    f32 weak_clut_st;
+    f32 weak_clut;
+    f32 hit_range_len;
+    f32 hit_range_wid;
+    f32 mukiy;
+    f32 ref_high;
+    f32 fall_g;
+    f32 f_pad00;
+    s32 time_huttobi;
+    s32 time_anger;
+    s32 f_bez;
+    s32 fl_pad00;
+    sceVu0FVECTOR bez[4];
+    sceVu0FVECTOR bpos[20];
+    s32 *abe_eff[4]; // TODO
+    htSndData se_spark;
+    s32 debug;
+    s32 deb_sub;
+    s32 deb_sub_sub;
+    s32 deb_num;
+} htBoss00HandData;
+
+#endif
