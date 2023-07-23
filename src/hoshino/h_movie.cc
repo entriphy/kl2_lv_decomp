@@ -1,8 +1,10 @@
 // Unknown filename
-#include "h_movie.h"
+#include "hoshino/h_movie.h"
 
 hMOVDATA MovData = {};
 hMOVDATA *mD = NULL;
+
+extern "C" {
 
 void hMovInit() {
     mD = &MovData;
@@ -12,4 +14,6 @@ void hMovInit() {
 
 s32 hMov_002da2b0() {
     // TODO
+}
+
 }

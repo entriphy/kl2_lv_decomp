@@ -8,7 +8,15 @@ typedef struct {
     sceCdlFILE file;
 } hMOVDATA; // ?
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern void hMovInit();
-extern s32  hMov_002da2b0();
+extern s32 hMov_002da2b0();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
