@@ -98,15 +98,15 @@ typedef struct { // 0xa0
     /* 0x90 */ kitADDR_DATA test2;
 } kitInitAlphaPlanePacket;
 
-typedef struct COORD { // 0xb0
+typedef struct tagCOORD { // 0xb0
     /* 0x00 */ sceVu0FVECTOR Rot;
     /* 0x10 */ sceVu0FVECTOR Trans;
     /* 0x20 */ sceVu0FMATRIX Mtx;
     /* 0x60 */ sceVu0FMATRIX MtxSav;
     /* 0xa0 */ f32 WipCnt;
-    /* 0xa4 */ struct COORD *Super;
+    /* 0xa4 */ struct tagCOORD *Super;
     /* 0xa8 */ s32 Flag;
-} COORD;
+} tagCOORD;
 
 typedef struct { // 0x40
     /* 0x00 */ sceVu0FMATRIX Matrix;
@@ -331,8 +331,8 @@ typedef struct { // 0x218
     /* 0x004 */ f32 SubScale;
     /* 0x008 */ s16 ActNum;
     /* 0x00a */ s16 ActNumMax;
-    /* 0x00c */ COORD *pBaseCoord;
-    /* 0x010 */ COORD *pCoord;
+    /* 0x00c */ tagCOORD *pBaseCoord;
+    /* 0x010 */ tagCOORD *pCoord;
     /* 0x014 */ u8 *pInf;
     /* 0x018 */ u8 *pItr;
     /* 0x01c */ u8 *pItrW;
