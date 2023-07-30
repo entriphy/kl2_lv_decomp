@@ -183,7 +183,7 @@ s32 SetSfxAct(u32 *DataBuff, SFXOBJ *pObj, u32 *ActAdrs) {
     InitSfxCoord(pObj->pMot, Fadr(ActAdrs, 0), TmpDataBuff);
     m->pActtbl = DfMot;
     m->pBaseCoord = pObj->pObjTop->pMot->pBaseCoord;
-    CoordBuffSize = sizeof(COORD);
+    CoordBuffSize = sizeof(tagCOORD);
     TmpDataBuff = (s32 *)((u32)TmpDataBuff + CoordBuffSize * (m->CoordNum + 1));
     TmpDataBuff = (s32 *)ALIGN(TmpDataBuff);
     m->pBaseCoord->Trans[0] = 0.0f;
@@ -451,8 +451,8 @@ s32 SetSfxActSimple(u32 *DataBuff, SFXOBJ *pObj) {
     pObj->pMot = m;
     TmpDataBuff = (s32 *)ALIGN_ALT(TmpDataBuff, sizeof(MOTION));
     m->CoordNum = 0;
-    m->pBaseCoord = (COORD *)TmpDataBuff;
-    TmpDataBuff = (s32 *)((u32)TmpDataBuff + sizeof(COORD));
+    m->pBaseCoord = (tagCOORD *)TmpDataBuff;
+    TmpDataBuff = (s32 *)((u32)TmpDataBuff + sizeof(tagCOORD));
     m->pBaseCoord->Trans[0] = 0.0f;
     m->pBaseCoord->Trans[1] = 0.0f;
     m->pBaseCoord->Trans[2] = 0.0f;

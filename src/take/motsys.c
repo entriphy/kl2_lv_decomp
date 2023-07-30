@@ -75,7 +75,7 @@ void GetNormalLightMatrix(SFXOBJ *pObj) {
         sceVu0MulMatrix(SfxLcLightMtx[i], *pObj->pNormalLight, pObj->pMot->pCoord[i].Mtx);
 }
 
-void InitSfxCoord(MOTION *m, u8 *pInf, COORD *pCoord) {
+void InitSfxCoord(MOTION *m, u8 *pInf, tagCOORD *pCoord) {
     s32 i;
     s16 *pInfs;
 
@@ -102,7 +102,7 @@ void InitSfxCoord(MOTION *m, u8 *pInf, COORD *pCoord) {
     }
 }
 
-void InitCoord( MOTION *m, u8 *pInf, u8 *pItr, u8 *pItrW, COORD *pCoord) {
+void InitCoord( MOTION *m, u8 *pInf, u8 *pItr, u8 *pItrW, tagCOORD *pCoord) {
     s32 i;
     s16 *pInfs;
 
@@ -198,9 +198,9 @@ void ChangeLocalMatrix(sceVu0FMATRIX lm,sceVu0FMATRIX wm,sceVu0FMATRIX lwm) {
     sceVu0MulMatrix(lm, TmpMtx, lwm);
 }
 
-void GetLwMtx(COORD *pCoord) {
+void GetLwMtx(tagCOORD *pCoord) {
     sceVu0FMATRIX *pLwMtx;
-    COORD *stack[64];
+    tagCOORD *stack[64];
     s32 index;
 
     index = 0;
