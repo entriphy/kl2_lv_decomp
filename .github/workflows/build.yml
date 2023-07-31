@@ -21,7 +21,7 @@ jobs:
     - name: Untar SDK
       run: sudo mkdir /sce; sudo tar -xf sdk.tar.xz -C /sce; sudo ln -s /sce /usr/local/sce
     - name: Configure CMake
-      run: cmake -DCMAKE_TOOLCHAIN_FILE=ps2_ee.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -Bbuild
+      run: cmake -DCMAKE_TOOLCHAIN_FILE=ps2_ee.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DKL2_RETAIL=ON -Bbuild
     - name: Build
       run: cmake --build build
     - name: Download original ELF

@@ -39,15 +39,19 @@ endforeach()
 add_executable(${PROJECT_NAME} ${EXECUTABLES})
 add_dependencies(${PROJECT_NAME} PS2_CRT0 kl2_irx)
 set(CMAKE_EXECUTABLE_SUFFIX ".elf")
-target_compile_options(${PROJECT_NAME} PUBLIC
+target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<COMPILE_LANGUAGE:C>:-O1 -gstabs>
         $<$<COMPILE_LANGUAGE:CXX>:-O2 -gstabs -fno-exceptions>
 )
-target_compile_definitions(${PROJECT_NAME} PUBLIC SCE)
-target_link_options(${PROJECT_NAME} PUBLIC -T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0)
-target_include_directories(${PROJECT_NAME} PUBLIC ${SCESDK}/common/include ${SCESDK}/ee/include include src)
-target_link_directories(${PROJECT_NAME} PUBLIC ${SCESDK}/ee/lib)
-target_link_libraries(${PROJECT_NAME} PUBLIC m cdvd graph dma vu0 dev sdr pad)
+target_compile_definitions(${PROJECT_NAME} PRIVATE SCE)
+target_link_options(${PROJECT_NAME} PRIVATE -T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0)
+target_include_directories(${PROJECT_NAME} PRIVATE ${SCESDK}/common/include ${SCESDK}/ee/include include src)
+target_link_directories(${PROJECT_NAME} PRIVATE ${SCESDK}/ee/lib)
+target_link_libraries(${PROJECT_NAME} PRIVATE m cdvd graph dma vu0 dev sdr pad)
+
+if (DEFINED KL2_RETAIL)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE RETAIL)
+endif()
 
 # Copy kl2.irx to build directory
 add_custom_command(TARGET ${PROJECT_NAME}

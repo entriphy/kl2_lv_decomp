@@ -10,7 +10,7 @@
 #include "h_sound.h"
 #include "okanoyo/okio.h"
 
-#ifdef RELEASE
+#ifdef RETAIL
 char *LoadModuleList[] = {
     "cdrom:\\M\\SIFCMD.IRX;1",
     "cdrom:\\M\\SIO2MAN.IRX;1",

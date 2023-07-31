@@ -34,7 +34,7 @@
 
 # Build output
 bin/
-build/
+build*/
 
 # Editors
 .vscode/
