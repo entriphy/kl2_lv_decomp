@@ -1,5 +1,6 @@
 from elf_diff import diff
 import argparse
+from colorama import Style
 import json
 import os
 import re
@@ -25,5 +26,9 @@ if __name__ == "__main__":
             objects.append(o[0])
     for o in objects:
         object_path = os.path.join(args.build_path, o)
-        diff(args.orig_elf, object_path, args.json)
+        try:
+            diff(args.orig_elf, object_path, args.json)
+        except Exception as e:
+            print(Style.BRIGHT + f"{os.path.basename(args.orig_elf)} -> {'/'.join(os.path.abspath(object_path).split('/')[-2:])[:-2]}: FAILED" + Style.RESET_ALL)
+            print("\t" + str(e))
         print()

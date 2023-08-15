@@ -1,5 +1,5 @@
 from elftools.elf.elffile import ELFFile, SymbolTableSection, RelocationSection
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 import argparse
 import json
 import os
