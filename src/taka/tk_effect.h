@@ -28,6 +28,7 @@ typedef struct {
 extern "C" {
 #endif
 
+extern void TkInit(u32 *dat_addr);
 extern void TkMainLoop(s32 tick);
 extern void TkAddEffect(s32 id);
 

@@ -1,3 +1,5 @@
+#include <eetypes.h>
+#include <libdev.h>
 #include "game.h"
 #include "harada/hr_pall.h"
 #include "taka/tk_effect.h"
@@ -46,9 +48,6 @@ static s32 nkGamePauseRepTimerB;
 OBJWORK ObjWorkBuff[128] = {};
 qword *nkDstAdr = NULL;
 static u32 *nkLoadBuff;
-
-// Unknown
-qword *DAT_003fb93c = NULL;
 
 static inline f32 nkRadMask(f32 rad) {
     if (rad <= -M_PIf)
@@ -149,8 +148,8 @@ static s32 GameLoad() {
         nkLoadBun++;
     }
 
-    if (GameGbl.vision != 0x0106 && DAT_003fb93c != NULL) {
-        nkLoadGms(DAT_003fb93c);
+    if (GameGbl.vision != 0x0106 && D_3FB93C != NULL) {
+        nkLoadGms(D_3FB93C);
         sceGsSyncPath(0, 0);
     }
 

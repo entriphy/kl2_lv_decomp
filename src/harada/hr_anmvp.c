@@ -2,6 +2,7 @@
 #include "h_vpm2.h"
 #include "nakano/dma.h"
 #include "nakano/main.h"
+#include "hr_mapdr.h"
 
 static s32 hr_avp_sint(HRANMV *av, s32 mno);
 static s32 hr_avp_sint2(HRANMV *av, s32 mno);
@@ -156,8 +157,8 @@ static void hr_avp_vlight(HRAVL *vlight, ATR_LIGHTP *pp2) {
 
     nf = vlight->n - vlight->f;
     hr_sint_fogab(vlight->n, vlight->f, nf, vlight->r, vlight->ri, (u32 *)&pp2->foga[0], (u32 *)&pp2->fogb[0]);
-    hr_sint_fogab(vlight->n, vlight->f, nf, vlight->r, vlight->ri, (u32 *)&pp2->foga[1], (u32 *)&pp2->fogb[1]);
-    hr_sint_fogab(vlight->n, vlight->f, nf, vlight->r, vlight->ri, (u32 *)&pp2->foga[2], (u32 *)&pp2->fogb[2]);
+    hr_sint_fogab(vlight->n, vlight->f, nf, vlight->g, vlight->gi, (u32 *)&pp2->foga[1], (u32 *)&pp2->fogb[1]);
+    hr_sint_fogab(vlight->n, vlight->f, nf, vlight->b, vlight->bi, (u32 *)&pp2->foga[2], (u32 *)&pp2->fogb[2]);
 
     pp2->max[0] = *(s32 *)&vlight->r;
     pp2->max[1] = *(s32 *)&vlight->g;

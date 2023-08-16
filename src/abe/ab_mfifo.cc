@@ -1,9 +1,18 @@
-#include "ab_mfifo.h"
+#include "abe/ab_mfifo.h"
 
 /*
  * In order to get this file to match, D_CTRL and Dn_CHCR must be changed to a non-volatile s32 pointer.
  * Why the devs didn't just use whatever is in the SDK headers, I have no idea.
  */
+
+
+#define AB_D_CTRL          ((s32 *)(0x1000E000))
+#define AB_DGET_D_CTRL()   (*AB_D_CTRL)
+#define AB_DPUT_D_CTRL(x)  (*AB_D_CTRL = x)
+
+#define AB_D8_CHCR         ((s32 *)(0x1000D000))
+#define AB_DGET_D8_CHCR()  (*AB_D8_CHCR)
+#define AB_DPUT_D8_CHCR(x) (*AB_D8_CHCR = x)
 
 #define	MFIFO_SIZE 0x8000
 static char mfifo_base[MFIFO_SIZE];
@@ -19,10 +28,10 @@ void abMfifoInit() {
 
 void abMfifoSwapDBuffDc(sceGsDBuffDc *db, s32 id) {
     sceGsSyncPath(0, 0);
-    DPUT_D_CTRL(DGET_D_CTRL() & ~D_CTRL_MFD_M);
+    AB_DPUT_D_CTRL(AB_DGET_D_CTRL() & ~D_CTRL_MFD_M);
     sceGsSwapDBuffDc(db, id);
     while (DGET_D2_CHCR() & D_CHCR_STR_M);
-    DPUT_D_CTRL(DGET_D_CTRL() | D_CTRL_MFD_M);
+    AB_DPUT_D_CTRL(AB_DGET_D_CTRL() | D_CTRL_MFD_M);
     DPUT_D8_MADR((u32)mfifo_base);
     DPUT_D2_TADR((u32)mfifo_base);
     DPUT_D2_CHCR(0x104);
@@ -36,12 +45,12 @@ void abMfifoBegin() {
     DPUT_D2_CHCR(0x104);
 }
 
-void abMfifoEnd(/* v0 2 */ void *tagw) {
+void abMfifoEnd(void *tagw) {
     *(u128 *)tagw = 0;
     *(u32 *)tagw = 0x70000000;
     abMfifoSend(tagw, 1);
     while (DGET_D2_CHCR() & D_CHCR_STR_M);
-    DPUT_D_CTRL(DGET_D_CTRL() & ~D_CTRL_MFD_M);
+    DPUT_D_CTRL(AB_DGET_D_CTRL() & ~D_CTRL_MFD_M);
 }
 
 s32 abMfifoSync(s32 mode) {
@@ -68,7 +77,7 @@ void abMfifoSend(void *sadr, u32 qwc) {
         madr = DGET_D8_MADR();
         remain = tadr != madr ? (tadr - madr & 0x7FF0) : 0x8000;
     } while (remain <= qwc);
-    DPUT_D8_CHCR(DGET_D8_CHCR() | 0x100);
+    AB_DPUT_D8_CHCR(DGET_D8_CHCR() | 0x100);
 }
 
 }

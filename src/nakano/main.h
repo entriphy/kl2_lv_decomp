@@ -38,6 +38,7 @@ extern qword vu0mem_image[256];
 extern qword vu1mem_image[1024];
 extern u32 *NakanoPackAdr;
 extern u32 *nkGimPackAdr;
+extern qword *D_3FB93C;
 extern u32 *vtWaveAdr;
 extern u32 *vtSprayAdr;
 extern u32 *vtMovieAdr[8];

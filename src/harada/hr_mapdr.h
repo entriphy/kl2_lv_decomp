@@ -145,7 +145,7 @@ typedef struct { // 0xf0
 
 extern void DecodeVpm(u32 *vpm_top);
 extern void DecodeVpm2(u32 *vpm_top, vpmINFO *vpmi);
-extern void DecodeVpmMini(u32 *vpm_top, vpmINFO *vpmi);
+extern void DecodeVpmMini(u32 *vpm_top, mINFO *vpmi);
 extern void DecodeVpmTag(u32 *vpm_top);
 extern void DecodeVpmS(u32 *vpm_top, vpmINFO *vpmi);
 extern void DecodeVpmMiniS(u32 *vpm_top, mINFO *vpmi);

@@ -62,7 +62,7 @@ void DecodeVpm2(u32 *vpm_top, vpmINFO *vpmi) {
     vpmi->vpm_data_top = vpm_top;
 }
 
-void DecodeVpmMini(u32 *vpm_top, vpmINFO *vpmi) {
+void DecodeVpmMini(u32 *vpm_top, mINFO *vpmi) {
     u32 i;
     u32 *headptr;
     qword *tagptr;

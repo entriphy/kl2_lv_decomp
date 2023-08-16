@@ -34,9 +34,7 @@ void nkInitDma() {
 void nk_PrintOT(qword *tag) {
     u32 mode;
     u32 qwc;
-    qword *ret_tag[2];
-
-    memset(ret_tag, 0, sizeof(ret_tag));
+    qword *ret_tag[2] = {};
 
     do {
         mode = (*tag)[0] & 0x70000000;

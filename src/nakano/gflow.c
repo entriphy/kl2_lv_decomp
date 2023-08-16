@@ -3,10 +3,13 @@
 #include "dma.h"
 #include "game.h"
 #include "gssub.h"
+#include "hoshino/h_game.h"
+#include "wipe.h"
 
 void GameFlow() {
-    if (GameGbl.wipe.intime > 0)
+    if (GameGbl.wipe.intime > 0) {
         GameGbl.wipe.intime--;
+    }
     
     if (GameGbl.init_vision != 0) {
         kzSetDispMaskOn();
@@ -29,8 +32,10 @@ void GameFlow() {
         }
     } else if (GameGbl.wipe.outtime > 0) {
         if (GameGbl.wipe.flag & 2 && GameGbl.wipe.fdata > 0) {
-            if (--GameGbl.wipe.fdata == 0)
+            GameGbl.wipe.fdata--;
+            if (GameGbl.wipe.fdata - 1 == -1) {
                 hGameAreaEnd(GameGbl.wipe.next_vision);
+            }
         } else {
             if (--GameGbl.wipe.outtime < 1) {
                 GameGbl.wipe.flag &= 0xFFFD;

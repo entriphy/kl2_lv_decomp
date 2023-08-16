@@ -4,6 +4,10 @@ SEffectParam EffectParamObj = {};
 
 extern "C" {
 
+void TkInit(u32 *dat_addr) {
+    // TODO
+}
+
 void TkMainLoop(s32 tick) {
     // TODO
 }

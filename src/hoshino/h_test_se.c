@@ -97,7 +97,7 @@ void hTestSE() {
     if (pad.on & 0x10)
         TestKeyon(SEinfo[vag].prog, SEinfo[vag].splt, 2);
     if (pad.on & 0x80)
-        TestKeyon(SEinfo[vag].prog, SEinfo[vag].splt, 2);
+        TestKeyon(SEinfo[vag].prog, SEinfo[vag].splt, 3);
     if (pad.on & 0x20)
         hSndPkKeyOff(0);
 
@@ -114,7 +114,7 @@ void hTestSE() {
             bank = 49;
     }
     if ((pad.r2 | pad.on) & 0x2000) {
-        if (--bank > 49)
+        if (++bank > 49)
             bank = 0;
     }
 

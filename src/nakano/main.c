@@ -31,6 +31,7 @@ qword vu0mem_image[256] = {};
 qword vu1mem_image[1024] = {};
 u32 *NakanoPackAdr = NULL;
 u32 *nkGimPackAdr = NULL;
+qword *D_3FB93C = NULL;
 u32 *vtWaveAdr = NULL;
 u32 *vtSprayAdr = NULL;
 u32 *vtMovieAdr[8] = {};

@@ -283,12 +283,12 @@ void hTestPPT() {
     if (pad.on & 0x10)
         hPptSetList(templist);
 
-    if (pad.on & 0x1000) {
+    if (pad.l & 0x1000) {
         sD->pptMVol -= 0.02f;
         if (sD->pptMVol < 0.0f)
             sD->pptMVol = 0.0f;
     }
-    if (pad.on & 0x4000) {
+    if (pad.l & 0x4000) {
         sD->pptMVol += 0.02f;
         if (sD->pptMVol > 1.0f)
             sD->pptMVol = 1.0f;

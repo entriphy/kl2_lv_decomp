@@ -2223,7 +2223,7 @@ void hGameMain() {
 
     gD->BGMchgreq = 0;
     if (gD->deadFlag != 0) {
-        if (gD->deadCnt == 1) {
+        if (gD->deadCnt == 49) {
             hSeKeyOffAll();
             hSeLock(1);
         }
