@@ -92,12 +92,26 @@ typedef struct { // 0x30
     /* 0x2c */ u32 men;
 } HCMIR;
 
+typedef struct { // 0x10
+    /* 0x0 */ s32 x;
+    /* 0x4 */ s32 y;
+    /* 0x8 */ s32 z;
+    /* 0xc */ s32 w;
+} QWIV;
+
+typedef struct { // 0x10
+    /* 0x0 */ f32 x;
+    /* 0x4 */ f32 y;
+    /* 0x8 */ f32 z;
+    /* 0xc */ f32 w;
+} QWFV;
+
 extern s32 hfmircnt;
 extern s32 hcmircnt;
 extern s32 hrmirflush;
 extern s32 hroldflush;
-// extern HFMIR hfmirbuf[4];
-// extern HCMIR hcmirbuf[1];
+extern HFMIR hfmirbuf[4];
+extern HCMIR hcmirbuf[1];
 extern HFMIRC hfmcam;
 extern u8 *hfm_addr;
 extern u8 *hcm_addr;
@@ -106,5 +120,22 @@ extern u32 hcm_size;
 extern f32 *hfm_scale;
 extern f32 *hcm_scale;
 extern V1100MIR *hrm1100;
+
+extern void hr_mir_set();
+extern s32 hr_check_mir();
+extern f32 hr_rot_pai(f32 r);
+extern s32 hr_mir_cmpx(const void *t0, const void *t1);
+extern s32 hr_mir_cmpy(const void *t0, const void *t1);
+extern s32 hr_mir_cmpz(const void *t0, const void *t1);
+extern s32 hr_mir_cmpxf(QWFV *v0, QWFV *v1);
+extern s32 hr_mir_cmpyf(QWFV *v0, QWFV *v1);
+extern s32 hr_mir_cmpzf(QWFV *v0, QWFV *v1);
+extern u32 hr_mirsys_ver(u8 *addr);
+extern f32* hr_fmirver1_scale(HFMIR *fmir);
+extern f32* hr_cmirver1_scale(HCMIR *cmir);
+extern void hr_make_dum(sceVu0FVECTOR *cent, s16 *dst, u32 men, sceVu0FVECTOR *v, u32 count, s32 d);
+extern s32 func_0010DB60(s32 vision);
+extern vpmINFO* func_0010DBC0();
+
 
 #endif
