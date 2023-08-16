@@ -32,7 +32,6 @@ typedef struct {
     u8 *Pk;
     s32 PkNum;
     s32 PkMax;
-    s32 pad;
     s32 fadeFlag;
     f32 fadeCnt;
     f32 fadeMax;
