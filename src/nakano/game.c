@@ -24,6 +24,7 @@
 #include "harada/hr_main.h"
 #include "kazuya/td_job.h"
 #include "gflow.h"
+#include "okanoyo/okprint.h"
 
 static s32 GameInit();
 static s32 GameLoad();
@@ -155,7 +156,7 @@ static s32 GameLoad() {
 
     TkMainLoop(1);
     sceGsSyncPath(0, 0);
-    OkPFontFlush(GameGbl.kpd[1].rep & 0x100);
+    OkPFontFlush(GameGbl.kpd[1].trg & 0x100);
     hLoopBottom();
     GameGbl.inter = sceGsSyncV(0) ^ 1;
     if (GameGbl.fr & 1) {
@@ -376,7 +377,7 @@ static s32 GameMain() {
         GameGbl.pause_flag = 1;
     else
         GameGbl.pause_flag = 0;
-    GameGbl.retry_bun1++;
+    GameGbl.area_cnt++;
     
     return 0;
 }

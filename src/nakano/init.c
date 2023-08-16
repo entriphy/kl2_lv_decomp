@@ -1,3 +1,5 @@
+#include <eetypes.h>
+#include <libdev.h>
 #include "init.h"
 #include "harada/hr_pall.h"
 #include "main.h"
@@ -19,10 +21,10 @@ void init_config_system() {
     SysGbl.nsmode = 0;
     SysGbl.fmode = 0;
     SysGbl.smode = 0;
-    GameGbl.kpd[0].cnt = 0;
+    GameGbl.playdemo_flag = 0;
     GameGbl.kloZanki[0] = 3;
-    GameGbl.vs_clear_cnt = 160;
-    GameGbl.time_atack_best = 80;
+    GameGbl.field_0x438 = 160;
+    GameGbl.field_0x43c = 80;
     nkGsInitFrm();
     SysGbl.Language = 1;
     SysGbl.TVSystem = 2;
