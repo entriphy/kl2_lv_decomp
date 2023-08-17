@@ -108,6 +108,14 @@ typedef enum {
 } PT;
 
 typedef enum {
+    HRTMV_WP,
+    HRTMV_WI,
+    HRTMV_WA,
+    HRTMV_LRP,
+    HRTMV_LRI,
+} HRTMV;
+
+typedef enum {
     PTEFC_NON,
     PT0100_LTBALL,
     PT0100_RINGLT,
