@@ -23,6 +23,8 @@ extern u32 *hr_mt_addr;
 extern vpmINFO hr_mtexi;
 extern s32 hr_resKeep;
 extern s32 hr_resTmp;
+extern s16 hr_resFg;
+extern s16 hr_resSV;
 extern u32 *hr_obcdata;
 extern u32 *hr_obcvpf;
 extern VPOINFO *hr_obcvpo;

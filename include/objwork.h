@@ -129,10 +129,10 @@ typedef struct {
     f32 motcnt_end;
     s32 motstop_flag;
     s32 mot_actno;
-    s32 kasokuLvL; // 0x144
-    f32 kasokuTime; // 0x148
-    f32 kasokuMTime; // 0x14C
-    f32 center_time;
+    /* 0x144 */ s32 kasokuLvL;
+    /* 0x148 */ f32 kasokuTime;
+    /* 0x14c */ f32 kasokuMTime;
+    /* 0x150 */ f32 center_time;
     s32 rupu_cnt;
     s32 run_ef_cnt;
     s32 dead_cnt;

@@ -460,11 +460,11 @@ typedef struct { // 0x24
     /* 0x20 */ u32 daddr;
 } HR_HPDEB;
 
-typedef struct {
-    u32 ntag;
-    qword *dmatag;
-    u32 *data_top;
-    u32 pad0;
+typedef struct { // 0x10
+    /* 0x00 */ u32 ntag;
+    /* 0x04 */ qword *dmatag;
+    /* 0x08 */ u32 *data_top;
+    /* 0x0c */ u32 pad0;
 } VPOINFO;
 
 typedef struct { // 0x50
