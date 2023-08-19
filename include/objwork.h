@@ -56,9 +56,9 @@ typedef struct OBJWORK {
 
 // Most likely incorrect
 typedef struct {
-    RT_WRK rtw;
+    /* 0x00 */ RT_WRK rtw;
     s32 idk;
-    s32 miexspd; // 0x14
+    /* 0x14 */ s32 miexspd;
     s32 tumspd;
     s32 gimspd;
     u32 bun_buf;
@@ -67,7 +67,7 @@ typedef struct {
     u32 timer;
     u32 timer2;
     s32 yarare_bun;
-    s32 tenmetu; // 0x38
+    /* 0x38 */ s32 tenmetu;
     u32 Muki_buf;
     u32 door_muki;
     s32 total_rakka_time;
@@ -76,12 +76,12 @@ typedef struct {
     s32 michinori;
     s32 michispd;
     s32 mispd_buf;
-    s32 mispd; // 0x5C
+    /* 0x5c */ s32 mispd;
     s32 spflag;
     s32 spflag2;
-    s32 da_muteki; // 0x68
+    /* 0x68 */ s32 da_muteki;
     s32 noyukatime;
-    OBJWORK* mochifuku; // 0x70
+    /* 0x70 */ OBJWORK* mochifuku;
     s32 jmp_cnt;
     f32 saka;
     f32 yarare_yposi;
@@ -140,10 +140,10 @@ typedef struct {
     s32 taiho_bun;
     s32 area_cnt;
     s32 kage_flag;
-    f32 jumpspd_limit; // 0x16C
+    /* 0x16c */ f32 jumpspd_limit;
     s32 rakka_cnt;
     s32 pad;
-    sceVu0FVECTOR slant; // 0x180
+    /* 0x180 */ sceVu0FVECTOR slant;
     OBJWORK *effBoardFlear;
 } HERO_WORK;
 

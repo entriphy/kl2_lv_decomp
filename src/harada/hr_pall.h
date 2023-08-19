@@ -3,6 +3,7 @@
 
 #include "harada.h"
 
+extern HRPMOJI ppmes;
 extern HRPMWAKU ppwaku;
 extern s32 ptflag_buff[4];
 extern s32 ptflag_st[4];

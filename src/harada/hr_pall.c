@@ -4,7 +4,7 @@
 
 // PCAMS ppcam = {};
 // PCAMS *hrpcam = NULL;
-// HRPMOJI ppmes = {};
+HRPMOJI ppmes = {};
 HRPMWAKU ppwaku = {};
 s32 ptflag_buff[4] = {};
 s32 ptflag_st[4] = {};

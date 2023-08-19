@@ -656,6 +656,58 @@ typedef struct { // 0x10
     /* 0xe */ s16 count;
 } HRMESP;
 
+typedef struct { // 0x4
+    /* 0x0 */ u16 code;
+    /* 0x2 */ s16 ss0;
+} PT32A;
+
+typedef struct { // 0x4
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u16 us0;
+} PT32B;
+
+typedef struct { // 0x8
+    /* 0x0 */ u16 code;
+    /* 0x2 */ s16 ss0;
+    /* 0x4 */ s16 ss1;
+    /* 0x6 */ s16 ss2;
+} PT64A;
+
+typedef struct { // 0x8
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u16 us0;
+    /* 0x4 */ s32 si0;
+} PT64B;
+
+typedef struct { // 0x8
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u16 us0;
+    /* 0x4 */ float f0;
+} PT64C;
+
+typedef struct { // 0x8
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u8 uc0;
+    /* 0x3 */ u8 uc1;
+    /* 0x4 */ s32 si0;
+} PT64D;
+
+typedef struct { // 0x8
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u16 us0;
+    /* 0x4 */ u8 uc0;
+    /* 0x5 */ u8 uc1;
+    /* 0x6 */ u8 uc2;
+    /* 0x7 */ u8 uc3;
+} PT64E;
+
+typedef struct { // 0x8
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u8 uc0;
+    /* 0x3 */ u8 uc1;
+    /* 0x4 */ float f0;
+} PT64F;
+
 typedef struct { // 0xc
     /* 0x0 */ u16 code;
     /* 0x2 */ u16 us0;
@@ -663,6 +715,82 @@ typedef struct { // 0xc
     /* 0x6 */ s16 ss0;
     /* 0x8 */ u32 ui0;
 } PT96A;
+
+typedef struct { // 0xc
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u16 us0;
+    /* 0x4 */ u16 us1;
+    /* 0x6 */ s16 ss0;
+    /* 0x8 */ float f0;
+} PT96B;
+
+typedef struct { // 0xc
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u16 us0;
+    /* 0x4 */ u32 ui0;
+    /* 0x8 */ u32 ui1;
+} PT96C;
+
+typedef struct { // 0xc
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u16 us0;
+    /* 0x4 */ s32 si0;
+    /* 0x8 */ float f0;
+} PT96D;
+
+typedef struct { // 0xc
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u8 uc0;
+    /* 0x3 */ u8 uc1;
+    /* 0x4 */ s32 si0;
+    /* 0x8 */ u32 ui0;
+} PT96E;
+
+typedef struct { // 0xc
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u8 uc0;
+    /* 0x3 */ u8 uc1;
+    /* 0x4 */ float f0;
+    /* 0x8 */ u32 ui0;
+} PT96F;
+
+typedef struct { // 0x10
+    /* 0x0 */ u16 code;
+    /* 0x2 */ s16 ss0;
+    /* 0x4 */ float f0;
+    /* 0x8 */ float f1;
+    /* 0xc */ float f2;
+} PT128A;
+
+typedef struct { // 0x10
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u8 uc0;
+    /* 0x3 */ u8 uc1;
+    /* 0x4 */ float f0;
+    /* 0x8 */ float f1;
+    /* 0xc */ float f2;
+} PT128B;
+
+typedef struct { // 0x10
+    /* 0x0 */ u16 code;
+    /* 0x2 */ u16 us0;
+    /* 0x4 */ u16 us1;
+    /* 0x6 */ s16 ss0;
+    /* 0x8 */ u32 ui0;
+    /* 0xc */ s16 ss1;
+    /* 0xe */ s16 ss2;
+} PT128C;
+
+typedef struct { // 0x14
+    /* 0x00 */ u16 code;
+    /* 0x02 */ u8 uc0;
+    /* 0x03 */ u8 uc1;
+    /* 0x04 */ float f0;
+    /* 0x08 */ float f1;
+    /* 0x0c */ float f2;
+    /* 0x10 */ s16 ss0;
+    /* 0x12 */ s16 ss1;
+} PT160A;
 
 typedef struct {
     sceVu0FMATRIX wmat;
