@@ -289,8 +289,8 @@ typedef enum {
 } hKEI;
 
 typedef struct {
-    short area;
-    short scene;
+    s16 area;
+    s16 scene;
 } PTDATA;
 
 typedef struct tCOORD {
