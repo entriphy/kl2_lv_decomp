@@ -63,7 +63,6 @@ void hr_avw_sint2(HRANMV *av) {
     av->flag = av->flag | 2;
 }
 
-// Technically matches
 void hr_crossline(sceVu0FVECTOR v, u32 wh, u32 r, u32 g, u32 b, u32 fg) {
     ATR_HRCL *pp;
     sceVu0IVECTOR iv;
@@ -73,8 +72,7 @@ void hr_crossline(sceVu0FVECTOR v, u32 wh, u32 r, u32 g, u32 b, u32 fg) {
     f32 f;
 
     sceVu0RotTransPers(iv, GameGbl.wsm, v, 0);
-    wh /= 2;
-    wh *= 16;
+    wh = (wh / 2) << 4;
     h = wh >> 1;
     f = 1.0f;
     t1 = *(u32 *)&f;
