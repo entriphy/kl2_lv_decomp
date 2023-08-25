@@ -60,7 +60,43 @@ static void hr_mir_setf() {
 }
 
 static void hr_mir_setc() {
-    // TODO
+    HCMIR *cmir;
+    K2M_HEADC *head;
+    u32 *d;
+    u32 cnt;
+    s32 i;
+    sceVu0FVECTOR *data;
+
+    d = (u32 *)hcm_addr;
+    if (*d++ != 0x43)
+        return;
+
+    hcmircnt = *d;
+    if (hcmircnt > 1) {
+        hcmircnt = 1;
+    }
+    cnt = *d++;
+
+    if (*d == 1) {
+        d += 2;
+        hcm_scale = (f32 *)d;
+        d += cnt * 2;
+    } else {
+        d += 2;
+    }
+    head = (K2M_HEADC *)d;
+
+    for (i = 0, cmir = hcmirbuf; i < hcmircnt; i++, cmir++) {
+        data = (sceVu0FVECTOR *)((u32)hcm_addr + head->addr);
+        cmir->count = head->count;
+        cmir->poly = head->poly;
+        cmir->hc2 = (K2M_HC2 *)((u32)hcm_addr + head->addr2);
+        cmir->norm = data;
+        cmir->center = &cmir->norm[cmir->poly];
+        cmir->vert = &cmir->center[cmir->poly];
+        cmir->dst = (s16 *)&cmir->vert[cmir->count];
+        head++;
+    }
 }
 
 void hr_mir_set() {
