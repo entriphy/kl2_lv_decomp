@@ -2,22 +2,7 @@
 #define HR_PEFC_H
 
 #include "harada.h"
-
-typedef struct { // 0xd0
-    /* 0x00 */ qword dmatag;
-    /* 0x10 */ qword gif0;
-    /* 0x20 */ qword test;
-    /* 0x30 */ qword alpha;
-    /* 0x40 */ qword xyofs;
-    /* 0x50 */ qword tex0;
-    /* 0x60 */ qword gif1;
-    /* 0x70 */ qword rgb0;
-    /* 0x80 */ qword uv0;
-    /* 0x90 */ qword xyz0;
-    /* 0xa0 */ qword rgb1;
-    /* 0xb0 */ qword uv1;
-    /* 0xc0 */ qword xyz1;
-} ATR_MWAKU;
+#include "hr_pmes.h"
 
 typedef struct { // 0x60
     /* 0x00 */ qword dmatag;
@@ -48,5 +33,17 @@ typedef struct { // 0x120
     /* 0x100 */ qword rgb5;
     /* 0x110 */ qword xyz5;
 } ATR_MSKIP;
+
+extern void hr_pfade_init(HR_FADE *fade);
+extern void hr_pfade_sinit();
+extern void hr_pfade_set(HR_FADE *fade, u8 r, u8 g, u8 b, u8 a);
+extern void hr_pfade_in(HR_FADE *fade, u8 r, u8 g, u8 b, u8 a, u16 time);
+extern void hr_pfade_out(HR_FADE *fade, u8 r, u8 g, u8 b, u8 a, u16 time);
+extern void hr_pfade_x(HR_FADE *fade, u16 time);
+extern void hr_pfade_work(HR_FADE *fade);
+extern void hr_pfade_drawN(HR_FADE *fade);
+extern void hr_pfade_drawX(HR_FADE *fade);
+extern void hr_pfade_draw(HR_FADE *fade);
+extern void hr_pt_skipdraw(HR_PSYS *ps);
 
 #endif

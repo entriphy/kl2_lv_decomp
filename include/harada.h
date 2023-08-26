@@ -288,6 +288,22 @@ typedef enum {
     hKEI_MAX
 } hKEI;
 
+typedef enum {
+    HRPSIZE_L,
+    HRPSIZE_M,
+    HRPSIZE_S,
+    HRPSIZE_F
+} HRPSIZE;
+
+typedef enum {
+    PGETFT_ML,
+    PGETFT_MP,
+    PGETFT_LP,
+    PGETFT_TM,
+    PGETFT_ZN,
+    PGETFT_NUM
+} PGETFT;
+
 typedef struct {
     s16 area;
     s16 scene;
@@ -317,6 +333,9 @@ typedef struct {
     MOTION *pMot;
     s32 ret;
 } tOBJECT;
+
+typedef tOBJECT HOT;
+typedef tCOORD COLD;
 
 typedef struct { // 0x4
 	/* 0x0 */ u8 r;
@@ -682,7 +701,7 @@ typedef struct { // 0x8
 typedef struct { // 0x8
     /* 0x0 */ u16 code;
     /* 0x2 */ u16 us0;
-    /* 0x4 */ float f0;
+    /* 0x4 */ f32 f0;
 } PT64C;
 
 typedef struct { // 0x8
@@ -705,7 +724,7 @@ typedef struct { // 0x8
     /* 0x0 */ u16 code;
     /* 0x2 */ u8 uc0;
     /* 0x3 */ u8 uc1;
-    /* 0x4 */ float f0;
+    /* 0x4 */ f32 f0;
 } PT64F;
 
 typedef struct { // 0xc
@@ -721,7 +740,7 @@ typedef struct { // 0xc
     /* 0x2 */ u16 us0;
     /* 0x4 */ u16 us1;
     /* 0x6 */ s16 ss0;
-    /* 0x8 */ float f0;
+    /* 0x8 */ f32 f0;
 } PT96B;
 
 typedef struct { // 0xc
@@ -735,7 +754,7 @@ typedef struct { // 0xc
     /* 0x0 */ u16 code;
     /* 0x2 */ u16 us0;
     /* 0x4 */ s32 si0;
-    /* 0x8 */ float f0;
+    /* 0x8 */ f32 f0;
 } PT96D;
 
 typedef struct { // 0xc
@@ -750,25 +769,25 @@ typedef struct { // 0xc
     /* 0x0 */ u16 code;
     /* 0x2 */ u8 uc0;
     /* 0x3 */ u8 uc1;
-    /* 0x4 */ float f0;
+    /* 0x4 */ f32 f0;
     /* 0x8 */ u32 ui0;
 } PT96F;
 
 typedef struct { // 0x10
     /* 0x0 */ u16 code;
     /* 0x2 */ s16 ss0;
-    /* 0x4 */ float f0;
-    /* 0x8 */ float f1;
-    /* 0xc */ float f2;
+    /* 0x4 */ f32 f0;
+    /* 0x8 */ f32 f1;
+    /* 0xc */ f32 f2;
 } PT128A;
 
 typedef struct { // 0x10
     /* 0x0 */ u16 code;
     /* 0x2 */ u8 uc0;
     /* 0x3 */ u8 uc1;
-    /* 0x4 */ float f0;
-    /* 0x8 */ float f1;
-    /* 0xc */ float f2;
+    /* 0x4 */ f32 f0;
+    /* 0x8 */ f32 f1;
+    /* 0xc */ f32 f2;
 } PT128B;
 
 typedef struct { // 0x10
@@ -785,9 +804,9 @@ typedef struct { // 0x14
     /* 0x00 */ u16 code;
     /* 0x02 */ u8 uc0;
     /* 0x03 */ u8 uc1;
-    /* 0x04 */ float f0;
-    /* 0x08 */ float f1;
-    /* 0x0c */ float f2;
+    /* 0x04 */ f32 f0;
+    /* 0x08 */ f32 f1;
+    /* 0x0c */ f32 f2;
     /* 0x10 */ s16 ss0;
     /* 0x12 */ s16 ss1;
 } PT160A;

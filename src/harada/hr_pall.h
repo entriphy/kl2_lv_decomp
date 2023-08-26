@@ -23,7 +23,7 @@ extern s16 hrpt_view;
 extern s16 hrpt_th;
 extern s16 hrpt_vt;
 extern s16 hrpt_deb;
-// extern PCAMSC *hrpcc;
+extern PCAMSC *hrpcc;
 extern u32 *hrpt_pack;
 extern u32 *hrpt_gms;
 extern s16 hrpt_patch;

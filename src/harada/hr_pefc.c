@@ -20,7 +20,6 @@ void hr_pfade_set(HR_FADE *fade, u8 r, u8 g, u8 b, u8 a) {
     fade->flag |= 1;
 }
 
-
 void hr_pfade_in(HR_FADE *fade, u8 r, u8 g, u8 b, u8 a, u16 time) {
     fade->r = r;
     fade->g = g;
@@ -136,9 +135,9 @@ void hr_pfade_drawN(HR_FADE *fade) {
     sceDmaSync(DmaChGIF, 0, 0);
 }
 
-void hr_pfade_drawX(/* a0 4 */ HR_FADE *fade) {
-    /* s0 16 */ ATR_VTOV *pp;
-    /* v0 2 */ u32 fr;
+void hr_pfade_drawX(HR_FADE *fade) {
+    ATR_VTOV *pp;
+    u32 fr;
 
     pp = (ATR_VTOV *)0x70000000;
     pp->dmatag[0] = 0x70000000 | (sizeof(ATR_VTOV) / sizeof(qword) - 1);
