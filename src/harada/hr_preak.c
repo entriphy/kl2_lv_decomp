@@ -172,6 +172,14 @@ static s32 pt_k_camcat(HR_CALL *ca, HR_PSYS *ps) {
     return 1;
 }
 
+static s32 pt_k_camrel(HR_CALL *ca, HR_PSYS *ps) {
+    p32a = (PT32A *)ca->read;
+    ptrel_camera(p32a->ss0);
+    ps->flag &= -0x2001;
+    ca->read++;
+    return 1;
+}
+
 static s32 pt_k_w2rt(HR_CALL *ca, HR_PSYS *ps) {
     sceVu0FVECTOR v;
 
@@ -510,3 +518,42 @@ static s32 pt_k_lcol(HR_CALL *ca, HR_PSYS *ps) {
     ca->read += 2;
     return 1;
 }
+
+s32 (*HrPtKl2Tbl[36])(HR_CALL *ca, HR_PSYS *ps) = {
+    pt_k_rtdata,
+    pt_k_rtpos,
+    pt_k_rtspd,
+    pt_k_rtacc,
+    pt_k_rtoff,
+    pt_k_rtmv,
+    pt_k_rtmvp,
+    pt_k_strt,
+    pt_k_stsw,
+    pt_k_rtwait,
+    pt_k_copy,
+    pt_k_camcat,
+    pt_k_camrel,
+    pt_k_w2rt,
+    pt_k_rt2w,
+    pt_k_gamej,
+    pt_k_gamer,
+    pt_k_back,
+    pt_k_posj,
+    pt_k_key,
+    pt_k_rtjmp,
+    pt_k_cent,
+    pt_k_keyj,
+    pt_k_jump,
+    pt_k_shadow,
+    pt_k_stsw,
+    pt_k_mir,
+    pt_k_mesp,
+    pt_k_mir,
+    pt_k_backv,
+    pt_k_backy,
+    pt_k_switch,
+    pt_k_vclr,
+    pt_k_reset,
+    pt_k_nskip,
+    pt_k_lcol,
+};

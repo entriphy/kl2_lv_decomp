@@ -20,4 +20,6 @@ typedef enum {
     PTKEY_NUM
 } PTKEY;
 
+extern s32 (*HrPtKl2Tbl[36])(HR_CALL *ca, HR_PSYS *ps);
+
 #endif

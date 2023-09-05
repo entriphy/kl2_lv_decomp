@@ -7,16 +7,13 @@
 #include "hoshino/h_gamesnd.h"
 #include "hoshino/h_str.h"
 
-// TODO: fill these in
-///* data 2e80e8 */ s32 (*HrPtMotTbl[8])(/* parameters unknown */);
-///* data 2e8108 */ s32 (*HrPtSndTbl[14])(/* parameters unknown */);
-/* sbss 375870 */ static PT32A *p32a;
-/* sbss 375874 */ static PT32B *p32b;
-/* sbss 375878 */ static PT64A *p64a;
-/* sbss 37587c */ static PT64B *p64b;
-/* sbss 375880 */ static PT96D *p96d;
-/* sbss 375884 */ static PT96E *p96e;
-/* sbss 375888 */ static PT96F *p96f;
+static PT32A *p32a;
+static PT32B *p32b;
+static PT64A *p64a;
+static PT64B *p64b;
+static PT96D *p96d;
+static PT96E *p96e;
+static PT96F *p96f;
 
 void hr_set_motion(HR_CALL *ca, s32 noth) {
     if (noth == 0) {
@@ -333,3 +330,36 @@ static s32 pt_snd_ac3s(HR_CALL *ca, HR_PSYS *ps) {
     }
     return 1;
 }
+
+s32 (*HrPtMotTbl[10])(HR_CALL *ca, HR_PSYS *ps) = {
+    pt_mot_play,
+    pt_mot_wait,
+    pt_mime_set,
+    pt_lips,
+    pt_mot_play,
+    pt_mot_clip,
+    pt_mot_line,
+    pt_mot_lpdata,
+    pt_mot_play,
+    pt_mot_play,
+};
+
+s32 (*HrPtSndTbl[17])(HR_CALL *ca, HR_PSYS *ps) = {
+    pt_snd_voice,
+    pt_snd_se,
+    pt_snd_vcdata,
+    pt_snd_se,
+    pt_snd_se,
+    pt_snd_bgm,
+    pt_snd_bgm,
+    pt_se_pitset,
+    pt_se_pitmv,
+    pt_se_pitmvp,
+    pt_se_volset,
+    pt_se_volmv,
+    pt_se_volmvp,
+    pt_snd_sev,
+    pt_snd_bgmsync,
+    pt_snd_ac3j,
+    pt_snd_ac3s,
+};

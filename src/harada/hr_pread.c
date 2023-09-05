@@ -5,21 +5,11 @@
 #include "harada/hr_pefc.h"
 #include "harada/hr_bgwk.h"
 #include "harada/hr_main.h"
+#include "harada/hr_preak.h"
+#include "harada/hr_pream.h"
 #include "hoshino/h_util.h"
 #include "nakano/main.h"
 
-
-// TODO delete
-extern f32 hr_take_motionGetFMAX(tOBJECT *hot);
-extern f32 hr_take_motionGetFrm(tOBJECT *hot);
-extern void hr_take_modelscale(HOT *hobj, f32 scale);
-extern HR_CALL* hr_id_search(HR_PSYS *ps, s16 id);
-
-// TODO: fill these in
-///* data 2e7e18 */ static s32 (*HrPtSysTbl[81])(/* parameters unknown */);
-///* data 2e7f60 */ static s32 (*HrPtCamTbl[62])(/* parameters unknown */);
-///* data 2e8058 */ static s32 (*HrPtKl2Tbl[30])(/* parameters unknown */);
-///* data 2e80d0 */ s32 (**hrPtFuncTbl[0])(/* parameters unknown */);
 static PT32A *p32a;
 static PT32B *p32b;
 static PT64A *p64a;
@@ -1600,3 +1590,164 @@ static s32 pt_ang_mhp(HR_CALL *ca, HR_PSYS *ps) {
     hr_pall_rot180V(ps->cam->wa.moku);
     return 1;
 }
+
+static s32 (*HrPtSysTbl[85])(HR_CALL *ca, HR_PSYS *ps) = {
+    pt_sys_call,
+    pt_sys_end,
+    pt_sys_time,
+    pt_sys_sub,
+    pt_sys_ret,
+    pt_sys_type,
+    pt_sys_pos,
+    pt_sys_rot,
+    pt_sys_draw,
+    pt_sys_jmp,
+    pt_sys_flag,
+    pt_sys_flagj,
+    pt_sys_pos_spd,
+    pt_sys_pos_acc,
+    pt_sys_rot_spd,
+    pt_sys_rot_acc,
+    pt_sys_pos_mv,
+    pt_sys_callclr,
+    pt_sys_rot_mv,
+    pt_sys_timemp,
+    pt_sys_time,
+    pt_sys_nlight,
+    pt_sys_lcolor,
+    pt_sys_ambient,
+    pt_sys_size,
+    pt_sys_mes_data,
+    pt_sys_mes_start,
+    pt_sys_mes_window,
+    pt_sys_mes_spd,
+    pt_sys_mes_reta,
+    pt_sys_get_ft,
+    pt_sys_pos_mvp,
+    pt_sys_rot_mvp,
+    pt_sys_scale,
+    pt_sys_pos_spd1,
+    pt_sys_rot_spd1,
+    pt_sys_light_no,
+    pt_sys_light_sw,
+    pt_sys_ltcol_spd,
+    pt_sys_ltcol_acc,
+    pt_sys_ltcol_mv,
+    pt_sys_ltcol_mvp,
+    pt_sys_ltcol_spd1,
+    pt_sys_ltrot_spd,
+    pt_sys_ltrot_acc,
+    pt_sys_ltrot_mv,
+    pt_sys_ltrot_mvp,
+    pt_sys_ltrot_spd1,
+    pt_sys_effect,
+    pt_sys_col,
+    pt_sys_col_in,
+    pt_sys_col_out,
+    pt_sys_pos_cp,
+    pt_sys_rot_cp,
+    pt_sys_pos_mvpc,
+    pt_sys_ltrot,
+    pt_sys_vtmode,
+    pt_sys_pos_cpt,
+    pt_sys_id,
+    pt_sys_chr,
+    pt_sys_exit,
+    pt_sys_acol,
+    pt_sys_acol_in,
+    pt_sys_acol_out,
+    pt_sys_econt,
+    pt_sys_xfade,
+    pt_sys_xfade_w,
+    pt_sys_pos_mh,
+    pt_sys_rot_mh,
+    pt_sys_pos_mhp,
+    pt_sys_rot_mhp,
+    pt_sys_mk_mat,
+    pt_sys_pos_cp,
+    pt_sys_the_ft,
+    pt_sys_time_ft,
+    pt_sys_loop,
+    pt_sys_bgmode,
+    pt_sys_fogset,
+    pt_sys_fogset,
+    pt_sys_next,
+    pt_sys_vtwave,
+    pt_sys_del,
+    pt_sys_mes_nskip,
+    pt_sys_ntscj,
+    pt_sys_palj,
+};
+
+static s32 (*HrPtCamTbl[62])(HR_CALL *ca, HR_PSYS *ps) = {
+    pt_cam_pos,
+    pt_cam_work,
+    pt_cam_hold,
+    pt_cam_vec,
+    pt_cam_mat,
+    pt_icam_hold,
+    pt_icam_vec,
+    pt_icam_mat,
+    pt_cam_spd,
+    pt_cam_acc,
+    pt_icam_pos,
+    pt_icam_spd,
+    pt_icam_acc,
+    pt_ang_set,
+    pt_ang_spd,
+    pt_ang_acc,
+    pt_clen_set,
+    pt_clen_spd,
+    pt_clen_acc,
+    pt_cam_matg,
+    pt_icam_matg,
+    pt_cam_mvp,
+    pt_icam_mvp,
+    pt_cam_vecg,
+    pt_icam_vecg,
+    pt_cam_lrset,
+    pt_cam_lrspd,
+    pt_cam_lracc,
+    pt_cam_lrmvp,
+    pt_icam_lrset,
+    pt_icam_lrspd,
+    pt_icam_lracc,
+    pt_icam_lrmvp,
+    pt_cam_lrmv,
+    pt_icam_lrmv,
+    pt_cam_mv,
+    pt_icam_mv,
+    pt_ang_mv,
+    pt_ang_mvp,
+    pt_cam_spd1,
+    pt_icam_spd1,
+    pt_cam_lrspd1,
+    pt_icam_lrspd1,
+    pt_ang_spd1,
+    pt_cam_data,
+    pt_clen_mvp,
+    pt_clen_mv,
+    pt_proj_set,
+    pt_proj_spd,
+    pt_proj_acc,
+    pt_proj_mvp,
+    pt_proj_mv,
+    pt_cam_mhp,
+    pt_icam_mhp,
+    pt_cam_lrmhp,
+    pt_icam_lrmhp,
+    pt_cam_lrmh,
+    pt_icam_lrmh,
+    pt_cam_mh,
+    pt_icam_mh,
+    pt_ang_mh,
+    pt_ang_mhp,
+};
+
+s32 (**hrPtFuncTbl[5])(HR_CALL *ca, HR_PSYS *ps) = {
+    HrPtSysTbl,
+    HrPtMotTbl,
+    HrPtCamTbl,
+    HrPtKl2Tbl,
+    HrPtSndTbl
+};

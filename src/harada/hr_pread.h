@@ -8,4 +8,6 @@ extern void pt_set_mkmat(HR_CALL *ca, HR_PSYS *ps);
 extern void comm_getft_mvF(HR_CALL *ca, PCAMSL *pcf);
 extern void comm_getft_mvpF(HR_CALL *ca, PCAMSL *pcf);
 
+extern s32 (**hrPtFuncTbl[5])(HR_CALL *ca, HR_PSYS *ps);
+
 #endif
