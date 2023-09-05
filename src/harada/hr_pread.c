@@ -928,7 +928,7 @@ static s32 pt_sys_rot_mhp(HR_CALL *ca, HR_PSYS *ps) {
     return 1;
 }
 
-static void pt_set_mkmat(HR_CALL *ca, HR_PSYS *ps) {
+void pt_set_mkmat(HR_CALL *ca, HR_PSYS *ps) {
     HR_CALL *pfg;
 
     pfg = hr_pfg_search(ps, 0x200);
