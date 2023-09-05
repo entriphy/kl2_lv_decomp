@@ -583,7 +583,8 @@ typedef struct { // 0x3d0
     /* 0x384 */ s32 lightno;
     /* 0x388 */ s32 efc;
     /* 0x38c */ s32 *mem;
-    /* 0x390 */ f32 shady;
+    /* 0x390    f32 shady; */
+    /* 0x390 */ s32 sevag; // ?
     /* 0x394 */ s32 pad0;
     /* 0x398 */ s16 loop[2];
     /* 0x39c */ s16 pad2;

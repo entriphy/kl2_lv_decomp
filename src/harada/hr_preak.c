@@ -3,7 +3,7 @@
 #include "harada/hr_nak.h"
 #include "harada/hr_pcam.h"
 #include "harada/hr_pall.h"
-#include "hr_pbgm.h"
+#include "harada/hr_pbgm.h"
 
 static PT32A *p32a;
 static PT32B *p32b;

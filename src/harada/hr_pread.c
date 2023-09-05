@@ -1490,7 +1490,7 @@ void hr_pcamsl_spdclr(PCAMSL *pcf) {
     pcf->flag &= -2;
 }
 
-static void comm_getft_mvF(HR_CALL *ca, PCAMSL *pcf) {
+void comm_getft_mvF(HR_CALL *ca, PCAMSL *pcf) {
     comm_p64f_read(ca, &pcf->spd);
     if (ca->getft == 0) {
         hr_pcamsl_spdclr(pcf);
@@ -1500,7 +1500,7 @@ static void comm_getft_mvF(HR_CALL *ca, PCAMSL *pcf) {
     }
 }
 
-static void comm_getft_mvpF(HR_CALL *ca, PCAMSL *pcf) {
+void comm_getft_mvpF(HR_CALL *ca, PCAMSL *pcf) {
     comm_p64f_read(ca, &pcf->moku);
     if (ca->getft == 0) {
         hr_pcamsl_spdclr(pcf);
