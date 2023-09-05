@@ -8,7 +8,7 @@ for symbol in list(getCurrentProgram().getSymbolTable().getAllSymbols(False)):
     if symbol.symbolType.equals(symbol.symbolType.FUNCTION):
         address = symbol.address.unsignedOffset
         function = getFunctionAt(symbol.address)
-        name = None if symbol.name.startswith("FUN") else symbol.getName(True)
+        name = None if symbol.name.startswith("FUN") else symbol.getName(address >= 0x0023A3E8)
         params = function.getParameters(None)
         return_type = function.getReturnType().getName()
 
