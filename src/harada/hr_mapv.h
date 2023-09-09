@@ -105,6 +105,20 @@ typedef struct { // 0x90
     /* 0x80 */ qword mscal;
 } ATR_VU1M_IV;
 
+typedef struct { // 0xb0
+    /* 0x00 */ qword dmatag;
+    /* 0x10 */ qword viftag;
+    /* 0x20 */ qword gif0;
+    /* 0x30 */ qword tex0;
+    /* 0x40 */ qword gif1;
+    /* 0x50 */ qword st0;
+    /* 0x60 */ qword rgb0;
+    /* 0x70 */ qword xyz0;
+    /* 0x80 */ qword st1;
+    /* 0x90 */ qword rgb1;
+    /* 0xa0 */ qword xyz1;
+} HRVV;
+
 extern void hr_avw_sint(HRANMV *av);
 extern void hr_avw_sint2(HRANMV *av);
 extern void hr_crossline(sceVu0FVECTOR v, u32 wh, u32 r, u32 g, u32 b, u32 fg);
