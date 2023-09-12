@@ -14,7 +14,7 @@ void h_vp_init(VPCLIP *vpc, f32 proj, f32 near, f32 far, f32 hamix, f32 hamiy, f
     vpc->cmin[2] = 0.0f;
     vpc->cmin[3] = 0.0f;
 
-    if (fg == 0) {
+    if (!fg) {
         hamix = hamiy = hamiz = sqrtf(hamix * hamix + hamiy * hamiy + hamiz * hamiz);;
         if (proj < 320.0f) {
             hamix += ((320.0f - proj) * hamix) / proj + 724.0f;
@@ -22,17 +22,14 @@ void h_vp_init(VPCLIP *vpc, f32 proj, f32 near, f32 far, f32 hamix, f32 hamiy, f
                 hamiy += ((240.0f - proj) * hamiy) / proj + 724.0f;
             }
         }
-        if (GameGbl.vision != 0x1101) {
-            vpc->hmax[0] = hamix;
-            goto LAB_00101788;
+        if (GameGbl.vision == 0x1101) {
+            hamix *= 2;
+            hamiy *= 2;
+            hamiz *= 1.5f;
         }
-        hamix *= 2;
-        hamiy *= 2;
-        hamiz *= 1.5f;
     }
-    vpc->hmax[0] = hamix;
 
-LAB_00101788:
+    vpc->hmax[0] = hamix;
     vpc->hmax[1] = hamiy;
     vpc->hmax[2] = far + hamiz;
     vpc->hmax[3] = 0.0f;
