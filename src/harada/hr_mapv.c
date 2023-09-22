@@ -1194,15 +1194,15 @@ void hrDrawMap_VO() {
 }
 
 static s32 MapvMain() {
-    /* t1 9 */ s32 work;
-    /* s2 18 */ vpmINFO *vpmi;
-    /* s0 16 */ s32 inter;
-    /* s0 16 */ kPadDATA *kpd0;
-    /* s0 16 */ kPadDATA *kpd1;
-    /* s0 16 */ s32 i;
-    /* s6 22 */ u32 psize;
-    /* -0xa0(sp) */ s32 tfg[6];
-    /* s1 17 */ BGWK *bg;
+    s32 work;
+    vpmINFO *vpmi;
+    s32 inter;
+    kPadDATA *kpd0;
+    kPadDATA *kpd1;
+    s32 i;
+    u32 psize;
+    s32 tfg[6];
+    BGWK *bg;
 
     vpmi = &VpmInfo;
 

@@ -264,6 +264,13 @@ typedef enum {
     PTEFC_NUM,
 } PTEFC;
 
+typedef enum {
+    PTE_HARADA,
+    PTE_ABE,
+    PTE_HATO,
+    PTE_ALLNUM,
+} PTE;
+
 typedef struct { // 0x2050
     /* 0x0000 */ u32 block_list[2049];
     /* 0x2004 */ qword *block_head_ptr;
