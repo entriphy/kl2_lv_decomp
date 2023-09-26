@@ -263,7 +263,7 @@ void hr_call_efcon(HR_CALL *ca, HR_PSYS *ps, s32 id, s32 cmd) {
         hr_hato_efcOn(id, hrvo, hatrot);
     } else {
         if (ps->efc == NULL) {
-            ps->efc = hr_init_obconM(HR_PTEFFECT, NULL);
+            ps->efc = (OBJWORK *)hr_init_obconM(HR_PTEFFECT, NULL);
             if (ps->efc == NULL) {
                 return;
             }

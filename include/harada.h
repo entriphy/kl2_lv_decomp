@@ -333,7 +333,7 @@ typedef struct {
     sceVu0FMATRIX *pNormalLight;
     sceVu0FMATRIX *pLightColor;
     f32 Scale;
-    hKEI Size;
+    s32 Size;
     s32 Fuku;
     s32 OutLine;
     SFXOBJ *pSfx;
