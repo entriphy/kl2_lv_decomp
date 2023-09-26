@@ -1,6 +1,7 @@
 #include "harada/hr_obcon.h"
 #include "harada/hr_mapdr.h"
 #include "harada/hr_pall.h"
+#include "harada/hr_tobc.h"
 #include "hoshino/h_event.h"
 #include "hoshino/h_gamesnd.h"
 #include "nakano/objfunc.h"

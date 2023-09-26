@@ -1,8 +1,9 @@
-#include "hr_anmvp.h"
-#include "h_vpm2.h"
+#include "harada/hr_anmvp.h"
+#include "harada/h_vpm2.h"
+#include "harada/hr_mapdr.h"
+#include "harada/hr_mapv.h"
 #include "nakano/dma.h"
 #include "nakano/main.h"
-#include "hr_mapdr.h"
 
 static s32 hr_avp_sint(HRANMV *av, s32 mno);
 static s32 hr_avp_sint2(HRANMV *av, s32 mno);

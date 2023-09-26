@@ -1155,7 +1155,6 @@ void pt_set_skip(HR_PSYS *ps) {
     hr_hse_areaend();
 }
 
-// This should match...
 void pt_set_skip2(HR_PSYS *ps) {
     HR_CALL *ca;
     s32 i;

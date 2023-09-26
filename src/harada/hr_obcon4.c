@@ -1,6 +1,7 @@
 #include "harada/hr_obcon4.h"
 #include "harada/hr_obcon.h"
 #include "harada/hr_main.h"
+#include "harada/hr_tobc.h"
 
 static void hr_0100_tree(OBJWORK *objw);
 static void hr_0900_oksave(OBJWORK *objw);
@@ -19,19 +20,19 @@ static s16 hrExResTbl[2] = {};
 
 static void hr_obcex_draw2(OBJWORK *objw) {
     if (objw->reg2 != NULL) {
-        hr_to_modeldrawRL(objw->reg2, objw->reg4);
+        hr_to_modeldrawRL((HOT *)objw->reg2, objw->reg4);
     }
 }
 
 static void hr_tree0100_setG(OBJWORK *objw) {
     objw->reg2 = (s32)hr_to_workget();
     if (objw->reg2 != NULL) {
-        hr_to_modelinit2(objw->reg2, 73);
-        hr_to_motionset(objw->reg2, 2, 0);
-        hr_to_modelclip(objw->reg2);
-        hr_to_setpos(objw->reg2, -1300.6832f, -321.7744f, 1567.7184f);
-        hr_to_setrot(objw->reg2, 0.0f, 0.0f, 0.0f);
-        hr_to_setscale(objw->reg2, 6.4f);
+        hr_to_modelinit2((HOT *)objw->reg2, 73);
+        hr_to_motionset((HOT *)objw->reg2, 2, 0);
+        hr_to_modelclip((HOT *)objw->reg2);
+        hr_to_setpos((HOT *)objw->reg2, -1300.6832f, -321.7744f, 1567.7184f);
+        hr_to_setrot((HOT *)objw->reg2, 0.0f, 0.0f, 0.0f);
+        hr_to_setscale((HOT *)objw->reg2, 6.4f);
     }
 }
 
@@ -60,18 +61,18 @@ static void hr_0100_tree(OBJWORK *objw) {
             if (objw->reg0 == 0) {
                 objw->draw = NULL;
                 if (objw->reg2 != NULL) {
-                    hr_to_workdel(objw->reg2);
+                    hr_to_workdel((HOT *)objw->reg2);
                     objw->reg2 = NULL;
                 }
             } else {
                 if (objw->reg2 == NULL) {
                     objw->reg2 = hr_to_workget();
                     if (objw->reg2 != NULL) {
-                        hr_to_modelinit2(objw->reg2, 72);
-                        hr_to_motionset(objw->reg2, 2, 0);
-                        hr_to_setpos(objw->reg2, -1300.6832f, -321.7744f, 1567.7184f);
-                        hr_to_setrot(objw->reg2, 0.0f, 0.0f, 0.0f);
-                        hr_to_setscale(objw->reg2, 6.4f);
+                        hr_to_modelinit2((HOT *)objw->reg2, 72);
+                        hr_to_motionset((HOT *)objw->reg2, 2, 0);
+                        hr_to_setpos((HOT *)objw->reg2, -1300.6832f, -321.7744f, 1567.7184f);
+                        hr_to_setrot((HOT *)objw->reg2, 0.0f, 0.0f, 0.0f);
+                        hr_to_setscale((HOT *)objw->reg2, 6.4f);
                     } else {
                         objw->draw = NULL;
                     }
@@ -88,7 +89,7 @@ static void hr_0100_tree(OBJWORK *objw) {
         case 1:
             objw->reg3--;
             if (objw->reg3 == 0) {
-                hr_to_workdel(objw->reg2);
+                hr_to_workdel((HOT *)objw->reg2);
                 hr_tree0100_setG(objw);
                 objw->bun0 += 1;
                 objw->reg3 = 240;
@@ -108,7 +109,7 @@ static void hr_0100_tree(OBJWORK *objw) {
     }
 
     if (objw->reg2 != NULL) {
-        hr_to_motion(objw->reg2, 0);
+        hr_to_motion((HOT *)objw->reg2, 0);
     }
 }
 
