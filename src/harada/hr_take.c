@@ -69,7 +69,7 @@ void hr_take_modelinit2(HOT *hot, s32 id) {
     hot->pSfx = GetSfxObjectData(id);
 }
 
-void hr_take_motionnPause(HOT *hot, s32 pause) {
+void hr_take_motionPause(HOT *hot, s32 pause) {
     SetObjPause(hot->pSfx);
 }
 

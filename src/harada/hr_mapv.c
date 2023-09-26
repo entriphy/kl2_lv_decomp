@@ -9,6 +9,7 @@
 #include "harada/hr_pefc.h"
 #include "harada/hr_bgwk.h"
 #include "harada/hr_nak.h"
+#include "harada/hr_take.h"
 #include "hoshino/h_sound.h"
 #include "hoshino/h_game.h"
 #include "nakano/main.h"

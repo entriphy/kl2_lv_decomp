@@ -11,7 +11,7 @@ extern HOT* hr_take_workGet();
 extern void hr_take_workDel(HOT *ho);
 extern void hr_take_modelinit(HOT *hot, u32 *addr);
 extern void hr_take_modelinit2(HOT *hot, s32 id);
-extern void hr_take_motionnPause(HOT *hot, s32 pause);
+extern void hr_take_motionPause(HOT *hot, s32 pause);
 extern s32 hr_take_modeldraw(HOT *hot, s32 mode);
 extern s32 hr_take_modeldraw2(HOT *hot);
 extern void hr_take_modeldrawMir(HOT *hot, s32 id);

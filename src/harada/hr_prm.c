@@ -10,6 +10,7 @@
 #include "harada/hr_preak.h"
 #include "harada/hr_pflag.h"
 #include "harada/hr_mapv.h"
+#include "harada/hr_take.h"
 #include "okanoyo/okio.h"
 #include "hoshino/h_gamesnd.h"
 #include "hoshino/h_sound.h"
@@ -1273,7 +1274,7 @@ void hr_ptvoice_call(HR_PSYS *ps, HRPMOJI *pmes) {
         if (ptr[1] != 0) {
             cap = hr_id_search(ps, ptr[0]);
             if (cap != NULL && cap->hObj != NULL) {
-                hr_take_lips(cap->hObj, pt_al_dataB(ptr, ptr[1]));
+                hr_take_lips(cap->hObj, (s16 *)pt_al_dataB((s32 *)ptr, ptr[1]));
                 ps->flag |= 0x400;
             }
         }

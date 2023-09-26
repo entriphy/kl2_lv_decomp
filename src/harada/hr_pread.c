@@ -7,6 +7,7 @@
 #include "harada/hr_main.h"
 #include "harada/hr_preak.h"
 #include "harada/hr_pream.h"
+#include "harada/hr_take.h"
 #include "hoshino/h_util.h"
 #include "nakano/main.h"
 

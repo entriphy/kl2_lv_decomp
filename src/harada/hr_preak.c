@@ -4,6 +4,7 @@
 #include "harada/hr_pcam.h"
 #include "harada/hr_pall.h"
 #include "harada/hr_pbgm.h"
+#include "harada/hr_take.h"
 
 static PT32A *p32a;
 static PT32B *p32b;

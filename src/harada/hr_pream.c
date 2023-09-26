@@ -4,6 +4,7 @@
 #include "harada/hr_pmes.h"
 #include "harada/hr_pall.h"
 #include "harada/hr_pread.h"
+#include "harada/hr_take.h"
 #include "hoshino/h_gamesnd.h"
 #include "hoshino/h_str.h"
 

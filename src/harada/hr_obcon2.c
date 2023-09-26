@@ -4,6 +4,7 @@
 #include "harada/hr_nak.h"
 #include "harada/hr_pall.h"
 #include "harada/hr_pbgm.h"
+#include "harada/hr_take.h"
 #include "hoshino/h_util.h"
 
 static void hr_gipt_check(OBJWORK *objw);
