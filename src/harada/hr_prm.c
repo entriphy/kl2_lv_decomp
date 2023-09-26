@@ -17,6 +17,7 @@
 #include "kazuya/interfac.h"
 #include "hoshino/h_str.h"
 
+static s32 hrpt_vcntid;
 static sceVu0FVECTOR hatrot; // TODO: find out where this is supposed to go
 
 s32* pt_al_data(HR_CALL *ca, s16 ptr) {
