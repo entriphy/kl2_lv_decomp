@@ -1,0 +1,89 @@
+.include "vumacros.h"
+
+.global hr_vu1m_avi
+.global hr_vu1m_av0
+.global hr_vu1m_av1
+.global hr_vu1m_av1o
+.global hr_vu1m_av2
+.global hr_vu1_vpa
+.global hr_vu1_vpa_v
+
+.data
+
+.align 8
+hr_vu1m_avi:
+DmaRef *, prog000
+.DmaData prog000
+.align 4
+MPG 0, *
+.include "code/hr_vu1m_avi.vsm"
+.EndMPG
+.EndDmaData
+DMAend
+
+.align 8
+hr_vu1m_av0:
+DmaRef *, prog0
+.DmaData prog0
+.align 4
+MPG 0, *
+.include "code/hr_vu1m_av0.vsm"
+.EndMPG
+.EndDmaData
+DMAend
+
+.align 8
+hr_vu1m_av1:
+DmaRef *, prog1
+.DmaData prog1
+.align 4
+MPG 0, *
+.include "code/hr_vu1m_av1.vsm"
+.EndMPG
+.EndDmaData
+DMAend
+
+.align 8
+hr_vu1m_av1o:
+DmaRef *, prog1o
+.DmaData prog1o
+.align 4
+MPG 0, *
+.include "code/hr_vu1m_av1o.vsm"
+.EndMPG
+.EndDmaData
+DMAend
+
+.align 8
+hr_vu1m_av2:
+DmaRef *, prog2
+.DmaData prog2
+.align 4
+MPG 0, *
+.include "code/hr_vu1m_av2.vsm"
+.EndMPG
+.EndDmaData
+DMAend
+
+.align 8
+hr_vu1_vpa:
+DmaRef *, progvpa
+.DmaData progvpa
+.align 4
+MPG 0, *
+.include "code/hr_vu1_vpa.vsm"
+.EndMPG
+.EndDmaData
+DMAend
+
+
+.align 8
+hr_vu1_vpa_v:
+DmaRef *, progvpav
+.DmaData progvpav
+.align 4
+MPG 0, *
+.include "code/hr_vu1_vpa_v.vsm"
+.EndMPG
+.EndDmaData
+DMAend

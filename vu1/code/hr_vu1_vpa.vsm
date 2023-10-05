@@ -1,0 +1,239 @@
+LAB_6_0000:
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+    NOP                              B LAB_6_0080                    
+    NOP                              NOP                             
+    NOP                              B LAB_6_0118                    
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+    NOP                              B LAB_6_02e8                    
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+    NOP                              B LAB_6_04e0                    
+    NOP                              NOP                             
+
+LAB_6_0080:
+    NOP                              IADDIU vi12, vi00, 32767        
+    NOP                              ILW.y vi13, 940(vi00)           
+    NOP                              IADDIU vi14, vi00, 986          
+    NOP                              LQ.w vf23, 941(vi00)            
+    NOP                              LQ.x vf24, 941(vi00)            
+    NOP                              LQ.xyzw vf25, 940(vi00)         
+    NOP                              LQ.w vf26, 916(vi00)            
+    NOP                              LQ.w vf27, 917(vi00)            
+    NOP                              MR32.xyzw vf24, vf24            
+    NOP                              LQ.xyzw vf04, 944(vi00)         
+    NOP                              LQ.xyzw vf05, 908(vi00)         
+    NOP                              LQ.xyzw vf06, 909(vi00)         
+    NOP                              LQ.xyzw vf07, 910(vi00)         
+    NOP                              LQ.y vf24, 945(vi00)            
+    NOP                              LQ.xyzw vf28, 912(vi00)         
+    NOP                              LQ.xyzw vf29, 913(vi00)         
+    NOP                              LQ.xyzw vf30, 914(vi00)         
+    NOP[E]                           LQ.xyzw vf31, 915(vi00)         
+    NOP                              NOP                             
+
+LAB_6_0118:
+    NOP                              XTOP vi11                       
+    NOP                              IADD vi08, vi00, vi11           
+    NOP                              IADD vi09, vi00, vi11           
+    NOP                              IADDIU vi10, vi11, 222          
+    NOP                              IADDIU vi11, vi11, 222          
+    NOP                              LQ.xyz vf22, 923(vi00)          
+
+LAB_6_0148:
+    NOP                              ILW.x vi07, 0(vi09)             
+    NOP                              LQ.xyz vf20, 18(vi08)           
+    NOP                              LQ.xyzw vf21, 0(vi09)           
+    NOP                              MOVE.w vf22, vf00               
+    NOP                              IAND vi07, vi07, vi12           
+    ITOF4.xyz vf20, vf20             IADDIU vi09, vi09, 1            
+    NOP                              IBEQ vi07, vi00, LAB_6_02d8     
+    NOP                              SQ.xyzw vf21, 0(vi10)           
+    NOP                              IADDIU vi10, vi10, 1            
+    MULAx.xyzw ACC, vf05, vf20x      FCSET 0                         
+    MADDAy.xyzw ACC, vf06, vf20y     IADDIU vi08, vi08, 1            
+    MADDAz.xyzw ACC, vf07, vf20z     LQ.xyz vf02, 18(vi08)           
+    MADDw.xyzw vf01, vf22, vf00w     LQ.w vf18, 922(vi00)            
+    NOP                              NOP                             
+    NOP                              NOP                             
+    ITOF4.xyz vf20, vf02             NOP                             
+    MULAx.xyzw ACC, vf28, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf29, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf30, vf01z     NOP                             
+    MADDw.xyzw vf17, vf31, vf00w     NOP                             
+    MULAx.xyzw ACC, vf05, vf20x      NOP                             
+    MADDAy.xyzw ACC, vf06, vf20y     NOP                             
+    MADDAz.xyzw ACC, vf07, vf20z     NOP                             
+    MADDw.xyzw vf01, vf22, vf00w     DIV Q, vf00w, vf17w             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+
+LAB_6_0220:
+    MULAx.xyzw ACC, vf28, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf29, vf01y     LQ.xyz vf18, 119(vi08)          
+    MADDAz.xyzw ACC, vf30, vf01z     NOP                             
+    MULq.xyz vf14, vf17, Q           IADDIU vi08, vi08, 1            
+    MADDw.xyzw vf17, vf31, vf00w     LQ.xyz vf02, 18(vi08)           
+    NOP                              SQ.xyzw vf18, 0(vi10)           
+    NOP                              NOP                             
+    SUBw.xyz vf23, vf14, vf24w       NOP                             
+    ITOF4.xyz vf20, vf02             DIV Q, vf00w, vf17w             
+    FTOI4.xyz vf14, vf14             NOP                             
+    NOP                              NOP                             
+    CLIPw.xyz vf23, vf23w            NOP                             
+    MULAx.xyzw ACC, vf05, vf20x      NOP                             
+    MADDAy.xyzw ACC, vf06, vf20y     SQ.xyz vf14, 1(vi10)            
+    MADDAz.xyzw ACC, vf07, vf20z     ISUBIU vi07, vi07, 1            
+    MADDw.xyzw vf01, vf22, vf00w     FCAND vi01, 0x2fbef             
+    NOP                              IBEQ vi01, vi00, LAB_6_02b8     
+    NOP                              IADDIU vi10, vi10, 2            
+    NOP                              IADD vi01, vi00, vi13           
+
+LAB_6_02b8:
+    NOP                              IBGTZ vi07, LAB_6_0220          
+    NOP                              ISW.w vi01, -1(vi10)            
+    NOP                              B LAB_6_0148                    
+    NOP                              ISUBIU vi08, vi08, 1            
+
+LAB_6_02d8:
+    NOP[E]                           XGKICK vi11                     
+    NOP                              NOP                             
+
+LAB_6_02e8:
+    NOP                              XTOP vi11                       
+    NOP                              IADD vi08, vi00, vi11           
+    NOP                              IADD vi09, vi00, vi11           
+    NOP                              LQ.xyzw vf01, 919(vi00)         
+    NOP                              LQ.xyzw vf02, 920(vi00)         
+    NOP                              IADDIU vi10, vi11, 222          
+    NOP                              IADDIU vi11, vi11, 222          
+    NOP                              SQ.xyzw vf01, 0(vi10)           
+    NOP                              SQ.xyzw vf02, 1(vi10)           
+    NOP                              IADDIU vi10, vi10, 2            
+    NOP                              LQ.xyz vf22, 923(vi00)          
+
+LAB_6_0340:
+    NOP                              ILW.x vi07, 0(vi09)             
+    NOP                              LQ.xyz vf20, 12(vi08)           
+    NOP                              LQ.xyzw vf21, 0(vi09)           
+    NOP                              MOVE.w vf22, vf00               
+    NOP                              IAND vi07, vi07, vi12           
+    ITOF4.xyz vf20, vf20             IADDIU vi09, vi09, 1            
+    NOP                              IBEQ vi07, vi00, LAB_6_04d0     
+    NOP                              SQ.xyzw vf21, 0(vi10)           
+    NOP                              IADDIU vi10, vi10, 1            
+    MULAx.xyzw ACC, vf05, vf20x      FCSET 0                         
+    MADDAy.xyzw ACC, vf06, vf20y     IADDIU vi08, vi08, 1            
+    MADDAz.xyzw ACC, vf07, vf20z     LQ.xyz vf02, 12(vi08)           
+    MADDw.xyzw vf01, vf22, vf00w     LQ.w vf18, 922(vi00)            
+    NOP                              LQ.z vf19, 940(vi00)            
+    NOP                              NOP                             
+    ITOF4.xyz vf20, vf02             NOP                             
+    MULAx.xyzw ACC, vf28, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf29, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf30, vf01z     NOP                             
+    MADDw.xyzw vf17, vf31, vf00w     NOP                             
+    MULAx.xyzw ACC, vf05, vf20x      NOP                             
+    MADDAy.xyzw ACC, vf06, vf20y     LQ.xy vf19, 81(vi08)            
+    MADDAz.xyzw ACC, vf07, vf20z     NOP                             
+    MADDw.xyzw vf01, vf22, vf00w     DIV Q, vf00w, vf17w             
+    NOP                              NOP                             
+    ITOF12.xy vf19, vf19             NOP                             
+    NOP                              NOP                             
+
+LAB_6_0418:
+    MULAx.xyzw ACC, vf28, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf29, vf01y     LQ.xyz vf18, 151(vi08)          
+    MADDAz.xyzw ACC, vf30, vf01z     NOP                             
+    MULq.xyz vf14, vf17, Q           IADDIU vi08, vi08, 1            
+    MADDw.xyzw vf17, vf31, vf00w     LQ.xyz vf02, 12(vi08)           
+    MULq.xyz vf16, vf19, Q           SQ.xyzw vf18, 1(vi10)           
+    NOP                              NOP                             
+    SUBw.xyz vf23, vf14, vf24w       NOP                             
+    ITOF4.xyz vf20, vf02             DIV Q, vf00w, vf17w             
+    FTOI4.xyz vf14, vf14             SQ.xyz vf16, 0(vi10)            
+    NOP                              LQ.xy vf19, 81(vi08)            
+    CLIPw.xyz vf23, vf23w            NOP                             
+    MULAx.xyzw ACC, vf05, vf20x      NOP                             
+    MADDAy.xyzw ACC, vf06, vf20y     SQ.xyz vf14, 2(vi10)            
+    MADDAz.xyzw ACC, vf07, vf20z     ISUBIU vi07, vi07, 1            
+    MADDw.xyzw vf01, vf22, vf00w     FCAND vi01, 0x2fbef             
+    ITOF12.xy vf19, vf19             IBEQ vi01, vi00, LAB_6_04b0     
+    NOP                              IADDIU vi10, vi10, 3            
+    NOP                              IADD vi01, vi00, vi13           
+
+LAB_6_04b0:
+    NOP                              IBGTZ vi07, LAB_6_0418          
+    NOP                              ISW.w vi01, -1(vi10)            
+    NOP                              B LAB_6_0340                    
+    NOP                              ISUBIU vi08, vi08, 1            
+
+LAB_6_04d0:
+    NOP[E]                           XGKICK vi11                     
+    NOP                              NOP                             
+
+LAB_6_04e0:
+    NOP                              XTOP vi11                       
+    NOP                              IADD vi08, vi00, vi11           
+    NOP                              LQ.xyzw vf01, 919(vi00)         
+    NOP                              LQ.xyzw vf02, 920(vi00)         
+    NOP                              IADDIU vi10, vi11, 68           
+    NOP                              LQ.xy vf12, 1(vi08)             
+    NOP                              SQ.xyzw vf01, 0(vi10)           
+    NOP                              SQ.xyzw vf02, 1(vi10)           
+    NOP                              LQ.xy vf19, 2(vi08)             
+    ITOF4.xy vf12, vf12              LQ.xy vf21, 3(vi08)             
+    NOP                              LQ.yzw vf02, 0(vi08)            
+    NOP                              LQ.x vf02, 67(vi08)             
+    NOP                              LQ.xyz vf20, 5(vi08)            
+    ITOF12.xy vf19, vf19             ILW.x vi07, 67(vi08)            
+    ITOF12.xy vf21, vf21             IADDIU vi10, vi10, 2            
+    MULy.y vf12, vf12, vf24y         SQ.xyzw vf02, 0(vi10)           
+    MULAx.xyzw ACC, vf28, vf20x      IADDIU vi10, vi10, 1            
+    MADDAy.xyzw ACC, vf29, vf20y     IAND vi07, vi07, vi12           
+    MADDAz.xyzw ACC, vf30, vf20z     IADDIU vi11, vi11, 68           
+    MADDw.xyzw vf17, vf31, vf00w     NOP                             
+    MULw.xy vf12, vf12, vf04w        MOVE.z vf22, vf00               
+    NOP                              LQ.z vf19, 940(vi00)            
+    NOP                              LQ.z vf21, 940(vi00)            
+    NOP                              DIV Q, vf00w, vf17w             
+    NOP                              LQ.xyz vf18, 4(vi08)            
+    NOP                              LQ.w vf18, 922(vi00)            
+
+LAB_6_05b0:
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              SQ.xyzw vf18, 1(vi10)           
+    NOP                              SQ.xyzw vf18, 4(vi10)           
+    MULAq.xyz ACC, vf17, Q           NOP                             
+    MADDq.xyz vf13, vf12, Q          NOP                             
+    MSUBq.xyz vf11, vf12, Q          NOP                             
+    MULq.xyz vf15, vf19, Q           NOP                             
+    MULq.xyz vf16, vf21, Q           NOP                             
+    SUBw.xyz vf23, vf13, vf24w       NOP                             
+    SUBw.xyz vf22, vf11, vf24w       IADDIU vi08, vi08, 1            
+    FTOI4.xyz vf13, vf13             LQ.xyz vf20, 5(vi08)            
+    FTOI4.xyz vf11, vf11             SQ.xyz vf15, 0(vi10)            
+    CLIPw.xyz vf23, vf23w            SQ.xyz vf16, 3(vi10)            
+    CLIPw.xyz vf22, vf23w            NOP                             
+    MULAx.xyzw ACC, vf28, vf20x      SQ.xyz vf13, 5(vi10)            
+    MADDAy.xyzw ACC, vf29, vf20y     SQ.xyz vf11, 2(vi10)            
+    MADDAz.xyzw ACC, vf30, vf20z     ISUBIU vi07, vi07, 1            
+    MADDw.xyzw vf17, vf31, vf00w     FCAND vi01, 0xbef               
+    NOP                              IBEQ vi01, vi00, LAB_6_0660     
+    NOP                              IADDIU vi10, vi10, 6            
+    NOP                              IADD vi01, vi00, vi13           
+
+LAB_6_0660:
+    NOP                              ISW.w vi01, -1(vi10)            
+    NOP                              DIV Q, vf00w, vf17w             
+    NOP                              IBGTZ vi07, LAB_6_05b0          
+    NOP                              ISW.w vi01, -4(vi10)            
+    NOP[E]                           XGKICK vi11                     
+    NOP                              NOP                             

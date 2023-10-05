@@ -1,0 +1,16 @@
+.include "vumacros.h"
+
+.global p_polhit
+
+.data
+
+.align 8
+p_polhit:
+DmaRef *, prog1
+.DmaData prog1
+.align 4
+MPG 0, *
+.include "code/p_polhit.vsm"
+.EndMPG
+.EndDmaData
+DMAend

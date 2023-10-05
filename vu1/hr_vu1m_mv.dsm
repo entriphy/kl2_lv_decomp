@@ -1,0 +1,40 @@
+.include "vumacros.h"
+
+.global hr_vu1m_wire
+.global hr_vu1m_ioff
+.global hr_vu1m_fogc
+
+.data
+
+.align 8
+hr_vu1m_wire:
+DmaRef *, prog2
+.DmaData prog2
+.align 4
+MPG 0, *
+.include "code/hr_vu1m_wire.vsm"
+.EndMPG
+.EndDmaData
+DMAend
+
+.align 8
+hr_vu1m_ioff:
+DmaRef *, prog4
+.DmaData prog4
+.align 4
+MPG 0, *
+.include "code/hr_vu1m_ioff.vsm"
+.EndMPG
+.EndDmaData
+DMAend
+
+.align 8
+hr_vu1m_fogc:
+DmaRef *, prog8
+.DmaData prog8
+.align 4
+MPG 0, *
+.include "code/hr_vu1m_fogc.vsm"
+.EndMPG
+.EndDmaData
+DMAend

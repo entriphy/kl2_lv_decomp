@@ -1,0 +1,16 @@
+.include "vumacros.h"
+
+.global Ao_particle_start
+.global Ao_particle_end
+
+.data
+
+.align 8
+Ao_particle_start:
+DMAcnt *
+MPG 0, *
+.include "code/Ao_particle_start.vsm"
+.EndMPG
+.EndDmaData
+
+Ao_particle_end:
