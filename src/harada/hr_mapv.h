@@ -125,6 +125,7 @@ extern void hr_crossline(sceVu0FVECTOR v, u32 wh, u32 r, u32 g, u32 b, u32 fg);
 extern void hrMapFileRead();
 extern void hr_okmem_reset();
 extern void hrGetMapBuf();
+extern void hrCamMonitor(CAM_WORK *cam);
 extern void hrSetVu1MemImage();
 extern void hrDrawMap_VO();
 extern s32 hrPtInit();
