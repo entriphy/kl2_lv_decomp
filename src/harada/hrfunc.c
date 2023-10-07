@@ -1,9 +1,10 @@
 #include "harada/hrfunc.h"
 #include "harada/hr_vpov.h"
 #include "harada/hr_mapv.h"
+#include "harada/hrmenu.h"
 
 static FUNCTBL MainFuncTbl[5] = {
-//    { hrMenuFuncTbl, -1 },
+    { hrMenuFuncTbl, -1 },
     { hrMapVFuncTbl, -1 },
     { NULL,          -1 },
     { HrPtFuncTbl,   -1 },
