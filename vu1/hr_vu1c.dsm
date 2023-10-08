@@ -10,7 +10,7 @@ DmaRef *, prog2
 .DmaData prog2
 .align 4
 MPG 0, *
-.include "code/hr_vu1c_mp.vsm"
+.include "hr_vu1c_mp.vsm"
 .EndMPG
 .EndDmaData
 DMAend

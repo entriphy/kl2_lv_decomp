@@ -10,7 +10,7 @@ DmaRef *, prog1
 .DmaData prog1
 .align 4
 MPG 0, *
-.include "code/p_polhit.vsm"
+.include "p_polhit.vsm"
 .EndMPG
 .EndDmaData
 DMAend

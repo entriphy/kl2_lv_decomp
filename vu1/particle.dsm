@@ -9,7 +9,7 @@
 Ao_particle_start:
 DMAcnt *
 MPG 0, *
-.include "code/Ao_particle_start.vsm"
+.include "Ao_particle_start.vsm"
 .EndMPG
 .EndDmaData
 

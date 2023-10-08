@@ -13,7 +13,7 @@ DmaRef *, prog2
 .DmaData prog2
 .align 4
 MPG 0, *
-.include "code/hr_vu1m_iv.vsm"
+.include "hr_vu1m_iv.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -24,7 +24,7 @@ DmaRef *, prog6
 .DmaData prog6
 .align 4
 MPG 0, *
-.include "code/hr_vu1m_bg.vsm"
+.include "hr_vu1m_bg.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -35,7 +35,7 @@ DmaRef *, prog8
 .DmaData prog8
 .align 4
 MPG 0, *
-.include "code/hr_vu1m_mirr.vsm"
+.include "hr_vu1m_mirr.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -46,7 +46,7 @@ DmaRef *, prog10
 .DmaData prog10
 .align 4
 MPG 0, *
-.include "code/hr_vu1_vpo.vsm"
+.include "hr_vu1_vpo.vsm"
 .EndMPG
 .EndDmaData
 DMAend

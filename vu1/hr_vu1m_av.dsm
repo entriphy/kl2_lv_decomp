@@ -16,7 +16,7 @@ DmaRef *, prog000
 .DmaData prog000
 .align 4
 MPG 0, *
-.include "code/hr_vu1m_avi.vsm"
+.include "hr_vu1m_avi.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -27,7 +27,7 @@ DmaRef *, prog0
 .DmaData prog0
 .align 4
 MPG 0, *
-.include "code/hr_vu1m_av0.vsm"
+.include "hr_vu1m_av0.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -38,7 +38,7 @@ DmaRef *, prog1
 .DmaData prog1
 .align 4
 MPG 0, *
-.include "code/hr_vu1m_av1.vsm"
+.include "hr_vu1m_av1.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -49,7 +49,7 @@ DmaRef *, prog1o
 .DmaData prog1o
 .align 4
 MPG 0, *
-.include "code/hr_vu1m_av1o.vsm"
+.include "hr_vu1m_av1o.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -60,7 +60,7 @@ DmaRef *, prog2
 .DmaData prog2
 .align 4
 MPG 0, *
-.include "code/hr_vu1m_av2.vsm"
+.include "hr_vu1m_av2.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -71,7 +71,7 @@ DmaRef *, progvpa
 .DmaData progvpa
 .align 4
 MPG 0, *
-.include "code/hr_vu1_vpa.vsm"
+.include "hr_vu1_vpa.vsm"
 .EndMPG
 .EndDmaData
 DMAend
@@ -83,7 +83,7 @@ DmaRef *, progvpav
 .DmaData progvpav
 .align 4
 MPG 0, *
-.include "code/hr_vu1_vpa_v.vsm"
+.include "hr_vu1_vpa_v.vsm"
 .EndMPG
 .EndDmaData
 DMAend

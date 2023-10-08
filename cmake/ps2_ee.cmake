@@ -9,6 +9,7 @@ endif()
 SET(CMAKE_C_COMPILER ${SCESDK}/ee/gcc/bin/ee-gcc)
 SET(CMAKE_CXX_COMPILER ${SCESDK}/ee/gcc/bin/ee-g++)
 SET(CMAKE_ASM_COMPILER ${SCESDK}/ee/gcc/bin/ee-gcc)
+SET(CMAKE_DSM_COMPILER ${SCESDK}/ee/gcc/bin/ee-dvp-as)
 
 # Clear these flags since they don't work with GCC <3.x
 unset(CMAKE_DEPFILE_FLAGS_C)
