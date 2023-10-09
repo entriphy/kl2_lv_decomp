@@ -1,6 +1,6 @@
-#include "object.h"
-#include "sfxbios.h"
-#include "motsys.h"
+#include "take/object.h"
+#include "take/sfxbios.h"
+#include "take/motsys.h"
 
 ACTTBL DfMot[128] = {}; // TODO: This needs to be initialized
 static char OutLineStatusDef[64] = {};
@@ -180,7 +180,7 @@ s32 SetSfxAct(u32 *DataBuff, SFXOBJ *pObj, u32 *ActAdrs) {
     m->ActAdrs = (u8 *)ActAdrs;
     m->ActNum = 1;
     m->ActNumMax = *(u16 *)ActAdrs;
-    InitSfxCoord(pObj->pMot, Fadr(ActAdrs, 0), TmpDataBuff);
+    InitSfxCoord(pObj->pMot, (u8 *)Fadr(ActAdrs, 0), (tagCOORD *)TmpDataBuff);
     m->pActtbl = DfMot;
     m->pBaseCoord = pObj->pObjTop->pMot->pBaseCoord;
     CoordBuffSize = sizeof(tagCOORD);

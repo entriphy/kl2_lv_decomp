@@ -3,6 +3,10 @@
 #include "harada/hr_pflag.h"
 #include "harada/hr_main.h"
 #include "harada/hr_obcon2.h"
+#include "harada/hr_prm.h"
+#include "harada/hr_pcam.h"
+#include "harada/hr_pmes.h"
+#include "harada/hr_pefc.h"
 #include "hoshino/h_util.h"
 #include "hoshino/h_str.h"
 #include "okanoyo/okio.h"
@@ -379,5 +383,5 @@ void hr_pall_aftdraw() {
             hr_pmes_draw(&ppmes);
         }
     }
-    hr_pt_skipdraw(ppsys);
+    hr_pt_skipdraw(&ppsys);
 }

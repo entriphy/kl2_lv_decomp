@@ -1,6 +1,7 @@
 #include "harada/hr_pbgm.h"
-#include "hoshino/h_str.h"
 #include "harada/hr_pall.h"
+#include "harada/hr_prm.h"
+#include "hoshino/h_str.h"
 
 static PTBGM ptbgm_table[82] = {}; // TODO
 static PTBGM *ptb;

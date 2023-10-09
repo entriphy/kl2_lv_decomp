@@ -11,11 +11,15 @@
 #include "harada/hr_pflag.h"
 #include "harada/hr_mapv.h"
 #include "harada/hr_take.h"
+#include "harada/hr_abe.h"
+#include "harada/hr_obcon3.h"
+#include "harada/hr_pream.h"
 #include "okanoyo/okio.h"
 #include "hoshino/h_gamesnd.h"
 #include "hoshino/h_sound.h"
 #include "kazuya/interfac.h"
 #include "hoshino/h_str.h"
+#include "take/object.h"
 
 static s32 hrpt_vcntid;
 static sceVu0FVECTOR hatrot; // TODO: find out where this is supposed to go
@@ -188,7 +192,7 @@ void hr_call_efcdel(HR_CALL *ca, HR_PSYS *ps) {
         hr_hato_efcDel(ca->efc);
     } else {
         if (ps->efc != NULL) {
-            hr_ptes_DEL(ps->efc, ca->efc);
+            hr_ptes_DEL((s32 *)ps->efc, ca->efc);
         }
     }
 
@@ -217,7 +221,7 @@ static void hr_del_econt(HR_PSYS *ps, HR_ECONT *ec) {
         hr_hato_efcDel(ec->id);
     } else {
         if (ps->efc != NULL) {
-            hr_ptes_DEL(ps->efc, ec->id);
+            hr_ptes_DEL((s32 *)ps->efc, ec->id);
         }
     }
     ec->id = PTEFC_NON;
@@ -270,7 +274,7 @@ void hr_call_efcon(HR_CALL *ca, HR_PSYS *ps, s32 id, s32 cmd) {
                 return;
             }
         }
-        if (hr_ptes_ON(ps->efc, id, hrvo, ca->rot.p) == 0) {
+        if (hr_ptes_ON((s32 *)ps->efc, id, hrvo, ca->rot.p) == 0) {
             return;
         }
     }
@@ -584,7 +588,7 @@ s32 hr_psys_exit(HR_PSYS *ps) {
     hr_callbuff_init(ps, 1);
     hr_call_memOFF(&ps->sys);
     if (ps->efc != NULL) {
-        hr_ptefc_erase(ps->efc);
+        hr_ptefc_erase((s32 *)ps->efc);
     }
     hr_del_econtALL(ps);
     hr_pt_fclear();
@@ -703,14 +707,14 @@ static void hr_call_efcwork(HR_CALL *ca, HR_PSYS *ps) {
         hatrot[3] = 1.0f;
         hr_hato_efcWork(ca->efc, hrvo, hatrot);
     } else if (ps->efc != NULL) {
-        hr_ptes_WORK(ps->efc, ca->efc, hrvo, ca->rot.p);
+        hr_ptes_WORK((s32 *)ps->efc, ca->efc, hrvo, ca->rot.p);
     }
 }
 
 void hr_call_efcworkDeb(HR_CALL *ca, HR_PSYS *ps) {
     if (ca->efc != 0 && hr_efc_why(ca->efc) == PTE_HARADA && ps->efc != NULL) {
         hr_efc_ofs(ca, ca->efc);
-        hr_ptes_WORK(ps->efc, ca->efc, hrvo, ca->rot.p);
+        hr_ptes_WORK((s32 *)ps->efc, ca->efc, hrvo, ca->rot.p);
     }
 }
 
@@ -738,7 +742,7 @@ static void hr_econt_work(HR_PSYS *ps) {
                 hatrot[3] = 1.0f;
                 hr_hato_efcWork(ec->id, hrvo, hatrot);
             } else if (ps->efc != NULL) {
-                hr_ptes_WORK(ps->efc, ec->id, hrvo, hrvi);
+                hr_ptes_WORK((s32 *)ps->efc, ec->id, hrvo, hrvi);
             }
         }
     }

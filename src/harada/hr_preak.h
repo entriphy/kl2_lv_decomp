@@ -22,6 +22,7 @@ typedef enum {
 
 extern s32 (*HrPtKl2Tbl[36])(HR_CALL *ca, HR_PSYS *ps);
 
+extern void hr_rt_movework(HR_CALL *ca);
 extern void hr_pcamsr_spdclr(PCAMSR *pcr);
 
 #endif

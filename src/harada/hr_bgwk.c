@@ -1,5 +1,6 @@
-#include "hr_bgwk.h"
-#include "h_vpm2.h"
+#include "harada/hr_bgwk.h"
+#include "harada/h_vpm2.h"
+#include "harada/hr_vpa.h"
 #include "okanoyo/okio.h"
 
 static void hr_bg_workclipM();
@@ -14,7 +15,7 @@ void hr_bg_onoff(s32 no, s32 fg) {
     BGWK *bg;
 
     bg = hrbgbuff;
-    if (HR_DUMB_STUPID_NULL_CHECK(bg) && no < hrcntbg) {
+    if ((s32)bg != -1 && no < hrcntbg) {
         hrbgbuff[no].fg = fg;
     }
 }
@@ -25,7 +26,7 @@ void hr_bginit() {
     s32 i;
 
     hrbgbuff = (BGWK *)getBuff(1, sizeof(BGWK) * 6, "hrbgbuff", &i);
-    if (!HR_DUMB_STUPID_NULL_CHECK(hrbgbuff)) {
+    if ((s32)hrbgbuff == -1) {
         // printf("☆☆☆☆BG cansel\n");
         hrcntbg = 0;
     } else {

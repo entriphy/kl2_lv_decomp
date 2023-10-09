@@ -44,6 +44,7 @@ extern void hr_pfade_work(HR_FADE *fade);
 extern void hr_pfade_drawN(HR_FADE *fade);
 extern void hr_pfade_drawX(HR_FADE *fade);
 extern void hr_pfade_draw(HR_FADE *fade);
+extern void hr_skip_drawM(s32 count);
 extern void hr_pt_skipdraw(HR_PSYS *ps);
 
 #endif

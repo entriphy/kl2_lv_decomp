@@ -508,7 +508,7 @@ static void hr_pmes_waku_draw(HRPMWAKU *waku) {
 
     sceGsSyncPath(0, 0);
     *((u16 *)&DmaChGIF->chcr) = 4;
-    sceDmaSend(DmaChGIF, (u32)pp | 0x80000000);
+    sceDmaSend(DmaChGIF, (void *)((u32)pp | 0x80000000));
 }
 
 static void hr_pmes_sprite(ATR_MMOJI *moji, s32 x, s32 y, s32 w, s32 v0, s32 no, s32 fw, s32 alpha, s32 dx, s32 dy) {
@@ -696,7 +696,7 @@ static void hr_pmes_moji_draw(HRPMOJI *pmes, s32 id) {
     if (flag) {
         sceDmaSync(DmaChVIF1, 0, 0);
     }
-    sceDmaSend(DmaChGIF, (u32)pp | 0x80000000);
+    sceDmaSend(DmaChGIF, (void *)((u32)pp | 0x80000000));
 }
 
 void hr_pmes_draw(HRPMOJI *pmes) {
@@ -778,7 +778,7 @@ void hr_mesp_draw(HRMESP *mesp, HRPMOJI *pmes) {
         sceDmaSync(DmaChGIF, 0, 0);
         *((vu16 *)&DmaChGIF->chcr) = 4;
         sceDmaSync(DmaChVIF1, 0, 0);
-        sceDmaSend(DmaChGIF, (u32)pp | 0x80000000);
+        sceDmaSend(DmaChGIF, (void *)((u32)pp | 0x80000000));
         sceGsSyncPath(0, 0);
     }
 }

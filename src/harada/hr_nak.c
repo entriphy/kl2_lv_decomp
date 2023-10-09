@@ -1,5 +1,6 @@
 #include "harada/hr_nak.h"
 #include "harada/hr_mapdr.h"
+#include "harada/hr_pcam.h"
 #include "nakano/objfunc.h"
 #include "okanoyo/okio.h"
 

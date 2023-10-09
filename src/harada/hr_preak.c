@@ -5,6 +5,7 @@
 #include "harada/hr_pall.h"
 #include "harada/hr_pbgm.h"
 #include "harada/hr_take.h"
+#include "harada/hr_prm.h"
 
 static PT32A *p32a;
 static PT32B *p32b;
@@ -30,7 +31,7 @@ void hr_rt_movework(HR_CALL *ca) {
 static s32 pt_k_rtdata(HR_CALL *ca,  HR_PSYS *ps) {
     p32a = (PT32A *)ca->read;
     if (p32a->ss0 != 0) {
-        ca->route.addr = pt_al_data(ca, p32a->ss0);
+        ca->route.addr = (u32 *)pt_al_data(ca, p32a->ss0);
     }
     ca->read++;
     return 1;
@@ -310,7 +311,7 @@ static s32 pt_k_key(HR_CALL *ca, HR_PSYS *ps) {
         case PTKEY_SYS:
             if (p64b->si0 == 0x40000000) {
                 if (!ps->key.open) {
-                    hr_pkey_init(ps->key);
+                    hr_pkey_init(&ps->key);
                     ps->key.open++;
                     hr_open_klokey(1);
                 }
@@ -446,9 +447,9 @@ static s32 pt_k_mir(HR_CALL *ca, HR_PSYS *ps) {
 static s32 pt_k_mesp(HR_CALL *ca, HR_PSYS *ps) {
     p64a = (PT64A *)ca->read;
     if (p64a->ss0 == 0) {
-        pt_set_mesp(ca, ps, pt_al_data(ca, p64a->ss1), p64a->ss2);
+        pt_set_mesp(ca, ps, (u16 *)pt_al_data(ca, p64a->ss1), p64a->ss2);
     } else {
-        pt_del_mesp(ca, ps, pt_al_data(ca, p64a->ss1), p64a->ss2);
+        pt_del_mesp(ca, ps, (u16 *)pt_al_data(ca, p64a->ss1), p64a->ss2);
     }
 
     ca->read += 2;

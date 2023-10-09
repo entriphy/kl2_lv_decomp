@@ -5,9 +5,6 @@
 
 #pragma region Defines
 
-#define HR_DUMB_STUPID_NULL_SET(x) (x = (u32 *)-1)
-#define HR_DUMB_STUPID_NULL_CHECK(x) ((s32)x != -1)
-
 #pragma endregion Defines
 
 #pragma region Structs

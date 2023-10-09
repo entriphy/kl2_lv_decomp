@@ -1,4 +1,5 @@
 #include "harada/hr_obcon1.h"
+#include "harada/hr_pcam.h"
 #include "okanoyo/okio.h"
 
 static void hr_check_switchTrg(HR_OBJSW *sw, s32 id, s32 on);

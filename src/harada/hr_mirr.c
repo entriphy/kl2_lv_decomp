@@ -882,6 +882,41 @@ static void hr_cmir_workD(CAM_WORK *cam) {
     hr_mir_screenclipC((sceVu0IVECTOR *)0x70000000, wkcm->count, wkcm->cx, wkcm->cy);
 }
 
+void hr_mir_work() {
+    sceVu0IVECTOR vert[8];
+    CAM_WORK *cam;
+    u32 maxsz;
+    sceVu0FMATRIX m;
+
+    hfmcam.mir = NULL;
+    hfmcam.type = 0;
+    maxsz = 0;
+    cam = &GameGbl.cam;
+    hfmcam.vn[0] = hfmcam.vn[1] = 0.0f;
+    hfmcam.vn[2] = -1.0f;
+    hfmcam.vn[3] = 1.0f;
+    sceVu0UnitMatrix(m);
+    sceVu0RotMatrixX(m, m, -cam->ang[0]);
+    sceVu0RotMatrixY(m, m, -cam->ang[1]);
+    sceVu0ApplyMatrix(hfmcam.vn, m, hfmcam.vn);
+    hfmcam.vn[3] = 1.0f;
+    sceVu0Normalize(hfmcam.vn, hfmcam.vn);
+    hfmcam.count = 0;
+    if (!(hfmcam.flag & 1)) {
+        if (hfmircnt != 0) {
+            maxsz = hr_fmir_workM(vert, cam, 0);
+        }
+        if (hcmircnt != 0) {
+            hr_cmir_workM(cam, maxsz);
+        }
+        if (hfmcam.type == 0x46) {
+            hr_fmir_workD(vert, cam);
+        } else if (hfmcam.type == 0x43) {
+            hr_cmir_workD(cam);
+        }
+    }
+}
+
 s32 func_0010DB60(s32 vision) {
     switch (vision) {
         case 0x0B04:

@@ -8,6 +8,8 @@
 #include "harada/hr_preak.h"
 #include "harada/hr_pream.h"
 #include "harada/hr_take.h"
+#include "harada/hr_prm.h"
+#include "harada/hr_vtprg.h"
 #include "hoshino/h_util.h"
 #include "nakano/main.h"
 
@@ -692,13 +694,13 @@ static s32 pt_sys_pos_cp(HR_CALL *ca, HR_PSYS *ps) {
     cap = hr_id_search(ps, p128a->ss0);
     if (cap != NULL) {
         if (p128a->code == 0x34) {
-            hr_pt_getpos(cap, hrpcc->p);
+            hr_pt_getpos(cap, &hrpcc->p);
             hrpcc->p[0] += p128a->f0;
             hrpcc->p[1] += p128a->f1;
             hrpcc->p[2] += p128a->f2;
         } else {
-            hr_pt_getpos(cap, hrpcc->p);
-            hr_pt_getrot(cap, hrvi);
+            hr_pt_getpos(cap, &hrpcc->p);
+            hr_pt_getrot(cap, &hrvi);
             hr_pcall_mkm(hrpcc->p, hrvi, hrpm);
             hrvi[0] = p128a->f0;
             hrvi[1] = p128a->f1;
@@ -724,7 +726,7 @@ static s32 pt_sys_rot_cp(HR_CALL *ca, HR_PSYS *ps) {
 
     cap = hr_id_search(ps, p128a->ss0);
     if (cap != NULL) {
-        hr_pt_getrotD(cap, hrpcc->p);
+        hr_pt_getrotD(cap, &hrpcc->p);
         hrpcc->p[0] += p128a->f0;
         hrpcc->p[1] += p128a->f1;
         hrpcc->p[2] += p128a->f2;
@@ -1269,8 +1271,8 @@ static void pt_comm_cam_matg(HR_CALL *ca, HR_PSYS *ps, sceVu0FVECTOR *pi, PCAMSC
     p32a = (PT32A *)ca->read;
     if (ca->hObj != NULL) {
         if (p32a->ss0 == -1) {
-            hr_pt_getpos(ca, ca->hObj->Base.Trans);
-            hr_pt_getrot(ca, ca->hObj);
+            hr_pt_getpos(ca, &ca->hObj->Base.Trans);
+            hr_pt_getrot(ca, &ca->hObj->Base.Rot);
             hr_take_GetLCMatYXZ(&ca->hObj->Base);
             m = &ca->hObj->Base.LcMtx;
         } else {

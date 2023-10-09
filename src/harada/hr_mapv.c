@@ -10,6 +10,10 @@
 #include "harada/hr_bgwk.h"
 #include "harada/hr_nak.h"
 #include "harada/hr_take.h"
+#include "harada/hr_vpa.h"
+#include "harada/hr_obcon2.h"
+#include "harada/hr_prm.h"
+#include "harada/hr_pread.h"
 #include "hoshino/h_sound.h"
 #include "hoshino/h_game.h"
 #include "nakano/main.h"
@@ -183,7 +187,7 @@ void hrMapFileRead() {
     strcpy(VpmName, FileName);
     strcat(VpmName, ".vpm");
     read_file(VpmName, vpmi->data_buff);
-    DecodeVpm(vpmi->data_buff);
+    DecodeVpm((u32 *)vpmi->data_buff);
     vpmi->vpm_data_top = (u32 *)vpmi->data_buff;
     printf("DecodeVpm....ok\n");
     strcpy(RtName, FileName);
@@ -527,7 +531,7 @@ static void hr_mv_avt_menu(kPadDATA *kpd, s32 irep, f32 frep) {
 }
 
 static void hr_clutsp2(HRGMSH *gmsh) {
-    // 1100 00000000110 1 0000000000000000000000000000001 000000000000000
+    // TODO
 }
 
 static void hr_sendclut(HRGMSH *gmsh) {
@@ -1318,7 +1322,7 @@ static s32 MapvMain() {
         nkVT_Exec();
         hrSetMapREG();
         hrDrawMTex();
-        nkP1Flush(p1_ot[1]);
+        nkP1Flush(&p1_ot[1]);
     }
 
     sceGsSyncPath(0,0);
@@ -1869,25 +1873,25 @@ s32 hrPtMain() {
                 MapVMenu = 0;
                 MapVMsw = 0;
 
-                sceVu0CopyVector(stkv, &pcam->wp.p);
+                sceVu0CopyVector(stkv, pcam->wp.p);
                 pcam->wp = ptmp_wp;
-                sceVu0CopyVector(&pcam->wp.p, stkv);
+                sceVu0CopyVector(pcam->wp.p, stkv);
 
-                sceVu0CopyVector(stkv, &pcam->wi.p);
+                sceVu0CopyVector(stkv, pcam->wi.p);
                 pcam->wi = ptmp_wi;
-                sceVu0CopyVector(&pcam->wi.p, stkv);
+                sceVu0CopyVector(pcam->wi.p, stkv);
 
-                sceVu0CopyVector(stkv, &pcam->wa.p);
+                sceVu0CopyVector(stkv, pcam->wa.p);
                 pcam->wa = ptmp_wa;
-                sceVu0CopyVector(&pcam->wa.p, stkv);
+                sceVu0CopyVector(pcam->wa.p, stkv);
 
-                sceVu0CopyVector(stkv, &pcam->mp.r);
+                sceVu0CopyVector(stkv, pcam->mp.r.p);
                 pcam->mp.r = ptmp_mpr;
-                sceVu0CopyVector(&pcam->mp.r, stkv);
+                sceVu0CopyVector(pcam->mp.r.p, stkv);
 
-                sceVu0CopyVector(stkv, &pcam->mi.r);
+                sceVu0CopyVector(stkv, pcam->mi.r.p);
                 pcam->mi.r = ptmp_mir;
-                sceVu0CopyVector(&pcam->mi.r, stkv);
+                sceVu0CopyVector(pcam->mi.r.p, stkv);
 
                 pcam->len = ptmp_len;
             } else {

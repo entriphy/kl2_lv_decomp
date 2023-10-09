@@ -4,6 +4,7 @@
 #include "harada/hr_pmes.h"
 #include "harada/hr_pall.h"
 #include "harada/hr_pread.h"
+#include "harada/hr_prm.h"
 #include "harada/hr_take.h"
 #include "hoshino/h_gamesnd.h"
 #include "hoshino/h_str.h"
@@ -29,7 +30,7 @@ void hr_set_motion(HR_CALL *ca, s32 noth) {
 f32* pt_se_panpos(HR_CALL *ca, u16 on) {
     if (on == 0) {
         if (ca->hObj != NULL) {
-            hr_pt_getpos(ca, ca->hObj->Base.Trans);
+            hr_pt_getpos(ca, &ca->hObj->Base.Trans);
             return ca->hObj->Base.Trans;
         } else {
             return ca->pos.p;
@@ -49,7 +50,7 @@ s32 pt_se_changer(s32 id) {
     return hrse_pack[id + 1];
 }
 
-static s32 pt_motlp_secall(HR_CALL *ca) {
+s32 pt_motlp_secall(HR_CALL *ca) {
     hSeKeyOn(ca->sevag & 0xFFFFFFFF, pt_se_panpos(ca, 0), 0);
 }
 
@@ -107,7 +108,7 @@ static s32 pt_lips(HR_CALL *ca, HR_PSYS *ps) {
     p32a = (PT32A *)ca->read;
     if (hrpt_id == PT13XX_S0) {
         if (ca->hObj != NULL) {
-            hr_take_lips(ca->hObj, pt_al_data(ca, p32a->ss0));
+            hr_take_lips(ca->hObj, (s16 *)pt_al_data(ca, p32a->ss0));
         }
     }
 

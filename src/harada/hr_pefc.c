@@ -131,7 +131,7 @@ void hr_pfade_drawN(HR_FADE *fade) {
 
     sceGsSyncPath(0, 0);
     *((u16 *)&DmaChGIF->chcr) = 4;
-    sceDmaSend(DmaChGIF, (u32)pp | 0x80000000);
+    sceDmaSend(DmaChGIF, (void *)((u32)pp | 0x80000000));
     sceDmaSync(DmaChGIF, 0, 0);
 }
 
@@ -159,7 +159,7 @@ void hr_pfade_drawX(HR_FADE *fade) {
 
     sceGsSyncPath(0, 0);
     *((u16 *)&DmaChGIF->chcr) = 4;
-    sceDmaSend(DmaChGIF, (u32)pp | 0x80000000);
+    sceDmaSend(DmaChGIF, (void *)((u32)pp | 0x80000000));
     sceDmaSync(DmaChGIF, 0, 0);
 }
 
@@ -177,7 +177,7 @@ void hr_pfade_draw(HR_FADE *fade) {
     }
 }
 
-static void hr_skip_drawM(s32 count) {
+void hr_skip_drawM(s32 count) {
     ATR_MSKIP *pp;
     s32 x0;
     s32 x1;
@@ -256,7 +256,7 @@ static void hr_skip_drawM(s32 count) {
 
     sceGsSyncPath(0, 0);
     *((u16 *)&DmaChGIF->chcr) = 4;
-    sceDmaSend(DmaChGIF, (u32)pp | 0x80000000);
+    sceDmaSend(DmaChGIF, (void *)((u32)pp | 0x80000000));
     sceDmaSync(DmaChGIF, 0, 0);
 }
 

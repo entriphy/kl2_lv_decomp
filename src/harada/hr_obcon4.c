@@ -50,9 +50,9 @@ static void hr_0100_tree(OBJWORK *objw) {
         objw->reg5 = 0;
         objw->bun0 = 3;
         if (objw->reg2 != NULL) {
-            ret = hr_to_motionGFMAX((void *)objw->reg2);
+            ret = hr_to_motionGFMAX((HOT *)objw->reg2);
             ret--;
-            hr_to_motionSFRM((void *)objw->reg2, (f32)ret);
+            hr_to_motionSFRM((HOT *)objw->reg2, (f32)ret);
         }
     }
 
@@ -66,7 +66,7 @@ static void hr_0100_tree(OBJWORK *objw) {
                 }
             } else {
                 if (objw->reg2 == NULL) {
-                    objw->reg2 = hr_to_workget();
+                    objw->reg2 = (s32)hr_to_workget();
                     if (objw->reg2 != NULL) {
                         hr_to_modelinit2((HOT *)objw->reg2, 72);
                         hr_to_motionset((HOT *)objw->reg2, 2, 0);

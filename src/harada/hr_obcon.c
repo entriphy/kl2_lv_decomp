@@ -2,6 +2,12 @@
 #include "harada/hr_mapdr.h"
 #include "harada/hr_pall.h"
 #include "harada/hr_tobc.h"
+#include "harada/hr_obcon1.h"
+#include "harada/hr_obcon2.h"
+#include "harada/hr_obcon4.h"
+#include "harada/hr_obcon3.h"
+#include "harada/hr_pflag.h"
+#include "harada/hr_vpa.h"
 #include "hoshino/h_event.h"
 #include "hoshino/h_gamesnd.h"
 #include "nakano/objfunc.h"
@@ -69,10 +75,10 @@ static s32 hr_psw_2200[4] = {};
 static s32 hr_psw_2400[4] = {};
 static s32 hr_psw_2600[4] = {};
 static s32 hr_psw_2700[4] = {};
-static s32 hr_respt040a[2] = {};
-static s32 hr_respt040b[2] = {};
-static s32 hr_respt1507[2] = {};
-static s32 hr_respt2400[2] = {};
+static s16 hr_respt040a[2] = {};
+static s16 hr_respt040b[3] = {};
+static s16 hr_respt1507[2] = {};
+static s16 hr_respt2400[2] = {};
 
 
 s32 hr_route_clipM(HR_RTC *hrtc, s32 count, s32 no, s32 mc) {
@@ -256,7 +262,7 @@ s32* hr_init_obconM(s32 id, s32 *tbl) {
             }
             break;
         case 6:
-            hr_obcex_getset(objw, tbl);
+            hr_obcex_getset(objw, (s32)tbl);
             break;
         default:
             objw->stat0 = 0;
@@ -313,7 +319,7 @@ void hr_init_obcon() {
                 var++;
             }
             if (var != 0) {
-                hr_gpt_resReg1(hr_init_obconM(HR_GPUPPET, hr_psw_040a), hr_respt040a, 2);
+                hr_gpt_resReg1((OBJWORK *)hr_init_obconM(HR_GPUPPET, hr_psw_040a), hr_respt040a, 2);
             }
             break;
         case 0x040B:
@@ -323,7 +329,7 @@ void hr_init_obcon() {
                 var++;
             }
             if (var != 0) {
-                hr_gpt_resReg1(hr_init_obconM(HR_GPUPPET, hr_psw_040b), hr_respt040b, 3);
+                hr_gpt_resReg1((OBJWORK *)hr_init_obconM(HR_GPUPPET, hr_psw_040b), hr_respt040b, 3);
             }
             break;
         case 0x0505:
@@ -394,7 +400,7 @@ void hr_init_obcon() {
                 var++;
             }
             if (var != 0) {
-                hr_gpt_resReg1(hr_init_obconM(HR_GPUPPET, hr_psw_1507), hr_respt1507, 2);
+                hr_gpt_resReg1((OBJWORK *)hr_init_obconM(HR_GPUPPET, hr_psw_1507), hr_respt1507, 2);
             }
             break;
         case 0x100A:
@@ -419,7 +425,7 @@ void hr_init_obcon() {
                 var++;
             }
             if (var != 0) {
-                hr_gpt_resReg1(hr_init_obconM(HR_GPUPPET, hr_psw_2400), hr_respt2400, 2);
+                hr_gpt_resReg1((OBJWORK *)hr_init_obconM(HR_GPUPPET, hr_psw_2400), hr_respt2400, 2);
             }
             break;
         case 0x1A00:
@@ -508,7 +514,7 @@ static void hr_mapexpl_flag(HR_OBJW *ow) {
             } else {
                 vp = NULL;
             }
-            hSeKeyOn(hh->vag, vp, 0);
+            hSeKeyOn(hh->vag, *vp, 0);
         } else if (!(obj->extra & 0x4)) {
             ow->drawno = DMAPEXPL_VPO;
             ow->bun0 = MAPEXPL_AFTER;

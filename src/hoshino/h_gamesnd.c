@@ -1060,7 +1060,7 @@ void hSeDist(int obj) {
     }
 }
 
-s32 hSeKeyOn(s64 splt, sceVu0FVECTOR *parent, s32 reserve) {
+s32 hSeKeyOn(s64 splt, f32 *parent, s32 reserve) {
     s32 flag;
     s32 grp;
     s32 pri;
@@ -1115,12 +1115,12 @@ s32 hSeKeyOn(s64 splt, sceVu0FVECTOR *parent, s32 reserve) {
     if (parent == NULL) {
         seObj[obj].Flag |= 12;
     } else if ((flag & 1) != 0 && grp != 3) {
-        seObj[obj].Pos = (f32 *)parent;
+        seObj[obj].Pos = parent;
     } else {
         seObj[obj].Pos = seObj[obj].PosCopy;
-        seObj[obj].PosCopy[0] = (*parent)[0];
-        seObj[obj].PosCopy[1] = (*parent)[1];
-        seObj[obj].PosCopy[2] = (*parent)[2];
+        seObj[obj].PosCopy[0] = parent[0];
+        seObj[obj].PosCopy[1] = parent[1];
+        seObj[obj].PosCopy[2] = parent[2];
         seObj[obj].PosCopy[3] = 1.0f;
     }
 
@@ -1150,7 +1150,7 @@ s32 hSeKeyOn(s64 splt, sceVu0FVECTOR *parent, s32 reserve) {
     return obj;
 }
 
-s32 hSeKeyOnEv(s32 prog, s32 splt, sceVu0FVECTOR *pos, s32 flag) {
+s32 hSeKeyOnEv(s32 prog, s32 splt, f32 *pos, s32 flag) {
     s32 grp;
     s32 obj;
     s32 vnum;
@@ -1188,12 +1188,12 @@ s32 hSeKeyOnEv(s32 prog, s32 splt, sceVu0FVECTOR *pos, s32 flag) {
     if (pos == NULL) {
         seObj[obj].Flag |= 0xC;
     } else if (flag & 1) {
-        seObj[obj].Pos = (f32 *)pos;
+        seObj[obj].Pos = pos;
     } else {
         seObj[obj].Pos = seObj[obj].PosCopy;
-        seObj[obj].PosCopy[0] = (*pos)[0];
-        seObj[obj].PosCopy[1] = (*pos)[1];
-        seObj[obj].PosCopy[2] = (*pos)[2];
+        seObj[obj].PosCopy[0] = pos[0];
+        seObj[obj].PosCopy[1] = pos[1];
+        seObj[obj].PosCopy[2] = pos[2];
     }
 
     hSePan(obj);

@@ -16,4 +16,11 @@ typedef struct HRPT_EFC { // 0x40
     /* 0x3c */ s32 reg3;
 } HRPT_EFC;
 
+extern void hr_ptefc_set(OBJWORK *objw);
+extern void hr_ptefc_erase(s32 *ptr);
+extern void hr_ptefc_work(OBJWORK *objw);
+extern s32 hr_ptes_ON(s32 *ptr, s32 id, sceVu0FVECTOR pos, sceVu0FVECTOR rot);
+extern s32 hr_ptes_WORK(s32 *ptr, s32 id, sceVu0FVECTOR pos, sceVu0FVECTOR rot);
+extern s32 hr_ptes_DEL(s32 *ptr, s32 id);
+
 #endif

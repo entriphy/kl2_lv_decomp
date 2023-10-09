@@ -1,18 +1,21 @@
-#include "hr_main.h"
-#include "hr_pflag.h"
-#include "hr_pall.h"
-#include "hr_pbgm.h"
-#include "hr_mirr.h"
-#include "hr_bgwk.h"
-#include "hr_vpa.h"
+#include "harada/hr_main.h"
+#include "harada/hr_pflag.h"
+#include "harada/hr_pall.h"
+#include "harada/hr_pbgm.h"
+#include "harada/hr_mirr.h"
+#include "harada/hr_bgwk.h"
+#include "harada/hr_vpa.h"
+#include "harada/hr_anmdt.h"
+#include "harada/hr_anmvp.h"
+#include "harada/h_vpm2.h"
+#include "harada/hr_mapdr.h"
+#include "harada/hr_pefc.h"
+#include "harada/hr_obcon.h"
 #include "hoshino/h_util.h"
 #include "okanoyo/okio.h"
 #include "hoshino/h_file.h"
 #include "nakano/dma.h"
 #include "nakano/main.h"
-#include "hr_anmdt.h"
-#include "hr_anmvp.h"
-#include "h_vpm2.h"
 
 MAPVWORK mapvw = {};
 HRSCRST hrmapst = {};
@@ -143,7 +146,7 @@ void hr_stage_no(char *name, s32 fg) {
 }
 
 s32 hr_check_dmy(qword *addr) {
-    if ((*addr)[0] == 0x6d6d7564 && (*addr)[1] == 0x363179) { // "dummy16"
+    if ((*addr)[0] == 0x6D6D7564 && (*addr)[1] == 0x363179) { // "dummy16"
         return 1;
     } else {
         return 0;
@@ -273,19 +276,19 @@ void hrStageDataLoad(s32 fg) {
     s32 num;
     u32 *buff;
 
-    HR_DUMB_STUPID_NULL_SET(hrse_pack);
-    HR_DUMB_STUPID_NULL_SET(hrf_pack);
-    HR_DUMB_STUPID_NULL_SET(hrg_pack);
-    HR_DUMB_STUPID_NULL_SET(hrd_pack);
-    HR_DUMB_STUPID_NULL_SET(ppwaku.gms);
-    HR_DUMB_STUPID_NULL_SET(hrpt_gms);
+    hrse_pack = (u32 *)-1;
+    hrf_pack = (u32 *)-1;
+    hrg_pack = (u32 *)-1;
+    hrd_pack = (u32 *)-1;
+    ppwaku.gms = (u32 *)-1;
+    hrpt_gms = (u32 *)-1;
     hr_retry_set();
 
     hrd_pack = (u32 *)hGetDataAddr(3);
     if (hrd_pack == NULL) {
-        HR_DUMB_STUPID_NULL_SET(hrd_pack);
+        hrd_pack = (u32 *)-1;
     }
-    if (!HR_DUMB_STUPID_NULL_CHECK(hrd_pack)) {
+    if ((s32)hrd_pack == -1) {
         return;
     }
 
@@ -298,22 +301,22 @@ void hrStageDataLoad(s32 fg) {
         case 6:
             hrpt_gms = GetFHMAddress(hrd_pack, 5);
             if (hr_check_dmy((qword *)hrpt_gms)) {
-                HR_DUMB_STUPID_NULL_SET(hrpt_gms);
+                hrpt_gms = (u32 *)-1;
             }
         case 5:
             hrse_pack = GetFHMAddress(hrd_pack, 4);
             if (hr_check_dmy((qword *)hrse_pack)) {
-                HR_DUMB_STUPID_NULL_SET(hrse_pack);
+                hrse_pack = (u32 *)-1;
             }
         case 4:
             hrf_pack = GetFHMAddress(hrd_pack, 3);
             if (hr_check_dmy((qword *)hrf_pack)) {
-                HR_DUMB_STUPID_NULL_SET(hrf_pack);
+                hrf_pack = (u32 *)-1;
             }
         case 3:
             hrg_pack = GetFHMAddress(hrd_pack, 2);
             if (hr_check_dmy((qword *)hrg_pack)) {
-                HR_DUMB_STUPID_NULL_SET(hrg_pack);
+                hrg_pack = (u32 *)-1;
             }
             num = 2;
         case 2:
@@ -327,7 +330,7 @@ void hrStageDataLoad(s32 fg) {
             func_00103508();
             break;
         default:
-            HR_DUMB_STUPID_NULL_SET(hrd_pack);
+            hrd_pack = (u32 *)-1;
             break;
     }
 }
@@ -343,19 +346,19 @@ static void hrAreaGmsSet(s32 area) {
     pack = GetFHMAddress(hrg_pack, area);
     buff = GetFHMAddress(pack, 0);
     if (!hr_check_dmy((qword *)buff)) {
-        nkLoadGms(buff);
+        nkLoadGms((qword *)buff);
         sceGsSyncPath(0, 0);
     }
 
     buff = GetFHMAddress(pack, 1);
     if (!hr_check_dmy((qword *)buff)) {
-        nkLoadGms(buff);
+        nkLoadGms((qword *)buff);
         sceGsSyncPath(0, 0);
     }
 
     buff = GetFHMAddress(pack, 2);
     if (!hr_check_dmy((qword *)buff)) {
-        nkLoadGms(buff);
+        nkLoadGms((qword *)buff);
         sceGsSyncPath(0, 0);
     }
 }
@@ -364,14 +367,14 @@ static void hrAreaDataInit() {
     hrcntbg = 0;
     hfm_addr = NULL;
     hcm_addr = NULL;
-    HR_DUMB_STUPID_NULL_SET(hrm1100);
+    hrm1100 = (V1100MIR *)-1;
     infovpa.vpoi.data_top = NULL;
-    HR_DUMB_STUPID_NULL_SET(hr_mt_addr);
-    HR_DUMB_STUPID_NULL_SET(hr_obcvpf);
-    HR_DUMB_STUPID_NULL_SET(hr_obcdata);
-    HR_DUMB_STUPID_NULL_SET(hr_obcvpo);
-    HR_DUMB_STUPID_NULL_SET(hrpt_mini_addr);
-    HR_DUMB_STUPID_NULL_SET(hrpt_pack);
+    hr_mt_addr = (u32 *)-1;
+    hr_obcvpf = (u32 *)-1;
+    hr_obcdata = (u32 *)-1;
+    hr_obcvpo = (VPOINFO *)-1;
+    hrpt_mini_addr = (s32 *)-1;
+    hrpt_pack = (u32 *)-1;
 }
 
 static void hrAreaDataSet(s32 area) {
@@ -396,18 +399,18 @@ static void hrAreaDataSet(s32 area) {
         if (hr_check_dmy(addr)) {
             break;
         } else {
-            DecodeVpmMiniS(addr, info);
+            DecodeVpmMiniS((u32 *)addr, info);
             hrcntbg++;
         }
     }
 
     for (i = 0, j = 6; i < 6; i++, j++) {
         if (i >= hrcntbg) {
-            HR_DUMB_STUPID_NULL_SET(hrbgbin[i]);
+            hrbgbin[i] = (u32 *)-1;
         } else {
             addr = (qword *)GetFHMAddress(base, j);
             if (hr_check_dmy(addr)) {
-                HR_DUMB_STUPID_NULL_SET(hrbgbin[i]);
+                hrbgbin[i] = (u32 *)-1;
             } else {
                 hrbgbin[i] = (u32 *)addr;
             }
@@ -416,13 +419,13 @@ static void hrAreaDataSet(s32 area) {
 
     addr = (qword *)GetFHMAddress(base, 12);
     if (!hr_check_dmy(addr)) {
-        hfm_addr = (u32 *)addr;
+        hfm_addr = (u8 *)addr;
         hfm_size = (u32)GetFHMAddress(base, 13) - (u32)addr;
     }
 
     addr = (qword *)GetFHMAddress(base, 13);
     if (!hr_check_dmy(addr)) {
-        hcm_addr = (u32 *)addr;
+        hcm_addr = (u8 *)addr;
         hcm_size = (u32)GetFHMAddress(base, 14) - (u32)addr;
     }
 
@@ -437,10 +440,10 @@ static void hrAreaDataSet(s32 area) {
         hr_obcvpf = (u32 *)addr;
         j = (*addr)[0];
         hr_obcvpo = (VPOINFO *)getBuff(1, j * sizeof(VPOINFO), "obcvpo", &i);
-        if (HR_DUMB_STUPID_NULL_CHECK(hr_obcvpo)) {
+        if ((s32)hr_obcvpo != -1) {
             for (i = 0, vinfo = hr_obcvpo; i < j; i++, vinfo++) {
                 addr = (qword *)GetFHMAddress(hr_obcvpf, i);
-                DecodeVpo2S(addr, vinfo);
+                DecodeVpo2S((u32 *)addr, vinfo);
             }
         }
     }
@@ -448,12 +451,12 @@ static void hrAreaDataSet(s32 area) {
     addr = (qword *)GetFHMAddress(base, 16);
     if (!hr_check_dmy(addr)) {
         hr_mt_addr = (u32 *)addr;
-        DecodeVpmS(addr, &hr_mtexi);
+        DecodeVpmS((u32 *)addr, &hr_mtexi);
     }
 
     addr = (qword *)GetFHMAddress(base, 17);
     if (!hr_check_dmy(addr)) {
-        hrpt_mini_addr = (u32 *)addr;
+        hrpt_mini_addr = (s32 *)addr;
     }
 
     addr = (qword *)GetFHMAddress(base, 18);
@@ -464,10 +467,10 @@ static void hrAreaDataSet(s32 area) {
     if (*base > 19) {
         if (func_0010DB60(GameGbl.vision)) {
             hrm1100 = (V1100MIR *)getBuff(1, sizeof(V1100MIR), "m1100", &i);
-            if (HR_DUMB_STUPID_NULL_CHECK(hrm1100)) {
+            if ((s32)hrm1100 != -1) {
                 i = func_00103398(base, GameGbl.vision & 0xFF, 1);
                 if (i == 0) {
-                    HR_DUMB_STUPID_NULL_SET((u32 *)hrm1100);
+                    hrm1100 = (V1100MIR *)-1;
                 } else if (i == 2) {
                     hrm1100->flag = 3;
                 } else {
@@ -526,8 +529,8 @@ void MapConfFileRead() {
 
     vision = GameGbl.vision & 0xFF;
     flag = 0;
-    if (HR_DUMB_STUPID_NULL_CHECK(hrf_pack) && vision < *hrf_pack) {
-        flag = !hr_check_dmy(GetFHMAddress(hrf_pack, vision));
+    if ((s32)hrf_pack != -1 && vision < *hrf_pack) {
+        flag = !hr_check_dmy((qword *)GetFHMAddress(hrf_pack, vision));
     }
 
     if (!flag) {
@@ -570,7 +573,7 @@ void hrDataLoad() {
     strcpy(Name, BgName);
     strcat(Name, ".gms");
     addrn = (qword *)getBuff(0, 0, Name, &i);
-    if (HR_DUMB_STUPID_NULL_CHECK(addrn)) {
+    if ((s32)addrn != -1) {
         nkLoadGms(addrn);
         sceGsSyncPath(0, 0);
         freeBuff(0, 0, Name);
@@ -583,10 +586,10 @@ void hrDataLoad() {
     for (i = 0, info = hrbgi; i < 6; i++, info++) {
         *c = i + '0';
         addrn = (qword *)getBuff(0, 0, Name, &ret);
-        if (!HR_DUMB_STUPID_NULL_CHECK(addrn)) {
+        if ((s32)addrn == -1) {
             break;
         } else {
-            DecodeVpmMini(addrn, info);
+            DecodeVpmMini((u32 *)addrn, info);
         }
         hrcntbg++;
     }
@@ -595,7 +598,7 @@ void hrDataLoad() {
     strcat(Name, ".bin");
     for (i = 0; i < 6; i++) {
         if (i >= hrcntbg) {
-            HR_DUMB_STUPID_NULL_SET(hrbgbin[i]);
+            hrbgbin[i] = (u32 *)-1;
         } else {
             *c = i + '0';
             hrbgbin[i] = (u32 *)getBuff(0, 0, Name, &ret);
@@ -606,7 +609,7 @@ void hrDataLoad() {
     strcat(Name, ".mrf");
     hfm_addr = NULL;
     addrn = (qword *)getBuff(0, 0, Name, &ret);
-    if (HR_DUMB_STUPID_NULL_CHECK(addrn)) {
+    if ((s32)addrn != -1) {
         hfm_addr = (u8 *)addrn;
         hfm_size = ret;
     }
@@ -615,16 +618,16 @@ void hrDataLoad() {
     strcat(Name, ".mrc");
     hcm_addr = NULL;
     addrn = (qword *)getBuff(0, 0, Name, &ret);
-    if (HR_DUMB_STUPID_NULL_CHECK(addrn)) {
+    if ((s32)addrn != -1) {
         hcm_addr = (u8 *)addrn;
         hcm_size = ret;
     }
 
-    HR_DUMB_STUPID_NULL_SET((u32 *)hrm1100);
+    hrm1100 = (V1100MIR *)-1;
     ret = func_0010DB60(GameGbl.vision);
     if (ret) {
         hrm1100 = (V1100MIR *)getBuff(1, sizeof(V1100MIR), "m1100", &i);
-        if (HR_DUMB_STUPID_NULL_CHECK(hrm1100)) {
+        if ((s32)hrm1100 != -1) {
             strcpy(mName, StName);
             strcat(mName, "/m");
             hr_stage_no(mName, 0);
@@ -637,8 +640,8 @@ void hrDataLoad() {
             } else {
                 hrm1100->addrB = NULL;
             }
-            if (!HR_DUMB_STUPID_NULL_CHECK(hrm1100->addrA) || !HR_DUMB_STUPID_NULL_CHECK(hrm1100->addrB)) {
-                HR_DUMB_STUPID_NULL_SET((u32 *)hrm1100);
+            if ((s32)hrm1100->addrA == -1 || (s32)hrm1100->addrB == -1) {
+                hrm1100 = (V1100MIR *)-1;
             } else {
                 DecodeVpm2(hrm1100->addrA, &hrm1100->infoA);
                 if (ret & 2) {
@@ -652,7 +655,7 @@ void hrDataLoad() {
     strcpy(Name, AnmName);
     strcat(Name, ".gms");
     addrn = (qword *)getBuff(0, 0, Name, &i);
-    if (HR_DUMB_STUPID_NULL_CHECK(addrn)) {
+    if ((s32)addrn != -1) {
         nkLoadGms(addrn);
         sceGsSyncPath(0, 0);
         freeBuff(0, 0, Name);
@@ -661,7 +664,7 @@ void hrDataLoad() {
     strcpy(Name, AnmName);
     strcat(Name, ".vpa");
     infovpa.vpoi.data_top = (u32 *)getBuff(0, 0, Name, &i);
-    if (!HR_DUMB_STUPID_NULL_CHECK(infovpa.vpoi.data_top)) {
+    if ((s32)infovpa.vpoi.data_top == -1) {
         infovpa.vpoi.data_top = NULL;
     } else {
         DecodeVpo2(infovpa.vpoi.data_top, &infovpa.vpoi);
@@ -670,7 +673,7 @@ void hrDataLoad() {
     strcpy(Name, FileName);
     strcat(Name, ".mt");
     hr_mt_addr = (u32 *)getBuff(0, 0, Name, &i);
-    if (HR_DUMB_STUPID_NULL_CHECK(hr_mt_addr)) {
+    if ((s32)hr_mt_addr != -1) {
         DecodeVpm2(hr_mt_addr, &hr_mtexi);
     }
 
@@ -687,11 +690,11 @@ void func_00104508() {
     s32 vision;
 
     vision = GameGbl.vision & 0xFF;
-    if (HR_DUMB_STUPID_NULL_CHECK(hrg_pack)) {
-        func_001038C0(vision);
+    if ((s32)hrg_pack != -1) {
+        hrAreaGmsSet(vision);
     }
     hrAreaDataInit();
-    if (HR_DUMB_STUPID_NULL_CHECK(hrg_pack)) {
+    if ((s32)hrg_pack != -1) {
         hrAreaDataSet(vision);
     }
 }
@@ -787,7 +790,7 @@ void hrInitWorkDeb() {
     hr_anmVPA_init();
     hr_ptcall_getbuff();
     hr_set_vpmfog(&VpmInfo);
-    if (HR_DUMB_STUPID_NULL_CHECK(hr_mt_addr)) {
+    if ((s32)hr_mt_addr != -1) {
         hr_set_vpmfog(&hr_mtexi);
     }
     hr_scrst_init(&hrmapst);
@@ -829,10 +832,10 @@ void hrMainDraw() {
         flag = 0;
     }
     hrSetMapREG();
-    if (flag && HR_DUMB_STUPID_NULL_CHECK(hr_mt_addr)) {
+    if (flag && (s32)hr_mt_addr != -1) {
         hrDrawMTex();
     }
-    func_0011E990();
+    hr_anmVPA_draw();
     nkP1Flush(p1_ot);
     hr_objtype = 0;
 }

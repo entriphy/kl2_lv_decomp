@@ -347,7 +347,7 @@ u32 hrSetBlockListSL(vpmINFO *vpmi, VPCLIP *vpc, sceVu0FMATRIX wvm, f32 len, sce
     lcnt = 0;
     for (i = 0, tagptr = vpmi->block_head_ptr, in = 0; i < vpmi->vpm_block_num; i++, tagptr += 2) {
         adr = (u32 *)(*tagptr)[1];
-        if (h_vpm_bclip(vpc, adr, wvm) == 0) {
+        if (h_vpm_bclip(vpc, (s32 *)adr, wvm) == 0) {
             if (lcnt < 0x800) {
                 f = (f32 *)adr + 2;
                 hs->no = i;
@@ -405,7 +405,7 @@ u32 hrSetBlockListSL2(vpmINFO *vpmi, VPCLIP *vpc, sceVu0FMATRIX wvm, f32 len, sc
     lcnt = 0;
     for (i = 0, tagptr = vpmi->block_head_ptr, in = 0; i < vpmi->vpm_block_num; i++, tagptr += 2) {
         adr = (u32 *)(*tagptr)[1];
-        if (h_vpm_bclip(vpc, adr, wvm) == 0) {
+        if (h_vpm_bclip(vpc, (s32 *)adr, wvm) == 0) {
             if (lcnt < 0x800) {
                 f = (f32 *)adr + 2;
                 hs->no = i;

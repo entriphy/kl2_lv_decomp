@@ -5,6 +5,10 @@
 #include "harada/hr_pall.h"
 #include "harada/hr_pbgm.h"
 #include "harada/hr_take.h"
+#include "harada/hr_pflag.h"
+#include "harada/hr_prm.h"
+#include "harada/hr_pefc.h"
+#include "harada/hr_vtprg.h"
 #include "hoshino/h_util.h"
 
 static void hr_gipt_check(OBJWORK *objw);
@@ -212,7 +216,7 @@ static void hr_gipt_draw(OBJWORK *objw) {
 
     var = hr_check_skw();
     if (var) {
-        hrpt_gipt_work(objw);
+        hr_gipt_work(objw);
         if (var == 1 && GameGbl.pause_flag != 0) {
             GameGbl.pause_flag2 = 0;
         }
@@ -223,7 +227,7 @@ static void hr_gipt_draw(OBJWORK *objw) {
 }
 
 static void hr_gipt_drawMir(OBJWORK *objw) {
-    hr_ptmir_draw(objw);
+    hr_ptmir_draw();
 }
 
 void hr_skipvc_draw(OBJWORK *objw) {

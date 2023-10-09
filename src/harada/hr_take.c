@@ -70,7 +70,7 @@ void hr_take_modelinit2(HOT *hot, s32 id) {
 }
 
 void hr_take_motionPause(HOT *hot, s32 pause) {
-    SetObjPause(hot->pSfx);
+    SetObjPause(hot->pSfx, pause);
 }
 
 s32 hr_take_modeldraw(HOT *hot, s32 mode) {

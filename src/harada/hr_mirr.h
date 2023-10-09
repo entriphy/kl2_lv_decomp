@@ -134,8 +134,8 @@ extern u32 hr_mirsys_ver(u8 *addr);
 extern f32* hr_fmirver1_scale(HFMIR *fmir);
 extern f32* hr_cmirver1_scale(HCMIR *cmir);
 extern void hr_make_dum(sceVu0FVECTOR *cent, s16 *dst, u32 men, sceVu0FVECTOR *v, u32 count, s32 d);
+extern void hr_mir_work();
 extern s32 func_0010DB60(s32 vision);
 extern vpmINFO* func_0010DBC0();
-
 
 #endif

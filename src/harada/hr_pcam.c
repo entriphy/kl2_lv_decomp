@@ -1,6 +1,8 @@
 #include "harada/hr_pcam.h"
 #include "harada/hr_pall.h"
 #include "harada/hr_obcon1.h"
+#include "harada/hr_pread.h"
+#include "harada/hr_prm.h"
 
 void hr_pcam_pr2inte(sceVu0FVECTOR pos, sceVu0FVECTOR ang, sceVu0FVECTOR inte, f32 len) {
     hrvi[0] = hrvi[1] = 0.0f;
@@ -429,7 +431,7 @@ static void hr_pcam_comm_tmv(PCAMSC *pcc, f32 x, f32 y, f32 z, s32 time, u8 c0, 
     comm_jigen_spd(pcc->spd, pcc->acc, time, c0, c1);
 }
 
-static void hr_pcam_comm_tmvp(/* s0 16 */ PCAMSC *pcc, /* f12 50 */ f32 x, /* f13 51 */ f32 y, /* f14 52 */ f32 z, /* s2 18 */ s32 time, /* a2 6 */ u8 c0, /* a3 7 */ u8 c1) {
+static void hr_pcam_comm_tmvp(PCAMSC *pcc, f32 x, f32 y, f32 z, s32 time, u8 c0, u8 c1) {
     pcc->moku[0] = x;
     pcc->moku[1] = y;
     pcc->moku[2] = z;

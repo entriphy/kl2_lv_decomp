@@ -1,5 +1,5 @@
-#include "hr_anmdt.h"
-#include "hr_anmvp.h"
+#include "harada/hr_anmdt.h"
+#include "harada/hr_anmvp.h"
 #include "nakano/main.h"
 
 static void hr_anm_v0100i(HRANMV *av);
