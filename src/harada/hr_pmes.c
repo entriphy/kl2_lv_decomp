@@ -470,7 +470,7 @@ static void hr_pmes_waku_draw(HRPMWAKU *waku) {
     ((u64 *)pp->alpha)[1] = SCE_GS_ALPHA_2;
     ((u64 *)pp->xyofs)[0] = *(u64 *)&(((sceGsDrawEnv2 *)hr_get_draw2())->xyoffset2);
     ((u64 *)pp->xyofs)[1] = SCE_GS_XYOFFSET_2;
-    ((u64 *)pp->tex0)[0] = SCE_GS_SET_TEX0_2(0x2300, 10, 19, 10, 7, 1, 0, 0x2440, 0, 0, 0, 1);
+    ((u64 *)pp->tex0)[0] = SCE_GS_SET_TEX0_2(0x2300, 10, SCE_GS_PSMT8, 10, 7, 1, 0, 0x2440, SCE_GS_PSMCT32, 0, 0, 1);
     ((u64 *)pp->tex0)[1] = SCE_GS_TEX0_2;
 
     if (flag) {
