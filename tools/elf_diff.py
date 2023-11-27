@@ -56,13 +56,15 @@ class ElfWithSymbols(GenericElf):
     def __init__(self, elf: ELFFile):
         super().__init__(elf)
         symbol_table = next(s for s in elf.iter_sections() if isinstance(s, SymbolTableSection))
-        relocations = next(s for s in elf.iter_sections() if isinstance(s, RelocationSection))
+        relocation_sections = [s for s in elf.iter_sections() if isinstance(s, RelocationSection)]
+        if len(relocation_sections) > 0:
+            relocations = relocation_sections[0]
         function_symbols = list(sorted(
             [sym for sym in symbol_table.iter_symbols() if sym.entry.st_info.type == "STT_FUNC"],
             key=lambda sym: sym.entry.st_value  # Sort by address
         ))
         self.functions = {func.name: Function(func.name, func.entry.st_value, func.entry.st_size) for func in function_symbols}
-        self.relocation_addrs = [r.entry.r_offset for r in relocations.iter_relocations()]
+        self.relocation_addrs = [r.entry.r_offset for r in relocations.iter_relocations()] if len(relocation_sections) > 0 else []
 
 
 class ElfWithJson(GenericElf):
