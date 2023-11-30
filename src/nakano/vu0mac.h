@@ -11,6 +11,14 @@ static inline void vu0_ITOF12Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
         : : "r" (dst), "r" (src));
 }
 
+static inline void vu0_ITOF0Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
+    __asm__ volatile(
+        "lqc2 $vf8, 0x0(%1)\n"
+        "vitof0.xyzw $vf5, $vf8\n"
+        "sqc2 $vf5, 0x0(%0)\n"
+        : : "r" (dst), "r" (src));
+}
+
 static inline void vu0_FTOI4Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
     __asm__ volatile(
         "lqc2 $vf8, 0x0(%1)\n"
@@ -43,6 +51,14 @@ static inline void vu0_Thing(sceVu0FVECTOR dst, sceVu0FVECTOR src) {
         "vmulq.xyz   $vf12, $vf12, Q\n"
         "sqc2        $vf12, 0x0(%0)\n"
         : : "r" (dst), "r" (src));
+}
+
+static inline f32 nkRadMask(f32 rad) {
+    if (rad <= -M_PIf)
+        rad += M_TWOPIf;
+    else if (rad > M_PIf)
+        rad -= M_TWOPIf;
+    return rad;
 }
 
 #endif

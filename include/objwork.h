@@ -57,16 +57,16 @@ typedef struct OBJWORK {
 // Most likely incorrect
 typedef struct {
     /* 0x00 */ RT_WRK rtw;
-    s32 idk;
+    s32 field_0x10;
     /* 0x14 */ s32 miexspd;
     s32 tumspd;
     s32 gimspd;
     u32 bun_buf;
     u32 Muki;
-    u32 buki_muki;
-    u32 timer;
-    u32 timer2;
-    s32 yarare_bun;
+    /* 0x28 */ u32 buki_muki;
+    /* 0x2c */ u32 timer;
+    /* 0x30 */ u32 timer2;
+    /* 0x34 */ s32 yarare_bun;
     /* 0x38 */ s32 tenmetu;
     u32 Muki_buf;
     u32 door_muki;
@@ -107,7 +107,7 @@ typedef struct {
     s32 rakka_flag;
     s32 wahoo_cnt;
     s32 wahoo_timer;
-    OBJWORK* okuyuka;
+    /* 0xd8 */ OBJWORK *okuyuka;
     s32 con;
     s32 b_action;
     s32 b_act_time;

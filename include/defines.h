@@ -13,6 +13,9 @@
 #define M_TWOPIf         (M_PIf * 2.0f)
 #define M_PI_2f		1.57079632679489661923f
 #define M_PI_4f		0.78539816339744830962f
+#define M_PI_180f   (M_PIf / 180.0f)
+#define M_PI_360f   (M_PIf / 360.0f)
+#define M_3PI_2f		4.71238898038f
 #define M_3PI_4f		2.3561944901923448370E0f
 #define M_SQRTPIf        1.77245385090551602792981f
 #define M_1_PIf		0.31830988618379067154f

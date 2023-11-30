@@ -400,24 +400,3 @@ void nkDrawFilterShadeOff(sceGsDrawEnv1 *env1, sceGsDrawEnv1 *env1_d, f32 pow) {
     sceDmaSend(DmaChGIF, (void *)((u32)tag | 0x80000000));
     sceDmaSync(DmaChGIF, 0, 0);
 }
-
-// ex. TEX0
-// Hex: 0x20048805E932A300
-// Binary: 10000000000100100010000000010111101001001100101010001100000000
-// Split using sceGsTex0 struct: 1 00000 0 0000 10010001000000 00 1 0111 1010 010011 001010 10001100000000
-sceGsTex0
-
-// tbp: 10001100000000 (0x2300)
-// tbw: 001010 (10)
-// psm: 010011 (19 = SCE_GS_PSMCT16)
-// tw:  1010 (10)
-// th:  0111 (7)
-// tcc: 1 (1)
-// tfx: 00 (0)
-// cbp: 10010001000000 (0x2440)
-// cpsm: 0000 (0 = SCE_GS_PSMCT32)
-// csm: 0 (0)
-// csa: 00000 (0)
-// cld: 1 (1)
-
-u64 result = SCE_GS_SET_TEX0(0x2300, 10, SCE_GS_PSMCT16, 10, 7, 1, 0, 0x2440, SCE_GS_PSMCT32, 0, 0, 1);

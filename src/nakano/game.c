@@ -27,6 +27,7 @@
 #include "kazuya/td_job.h"
 #include "gflow.h"
 #include "okanoyo/okprint.h"
+#include "nakano/vu0mac.h"
 
 static s32 GameInit();
 static s32 GameLoad();
@@ -48,14 +49,6 @@ static s32 nkGamePauseRepTimerB;
 OBJWORK ObjWorkBuff[128] = {};
 qword *nkDstAdr = NULL;
 static u32 *nkLoadBuff;
-
-static inline f32 nkRadMask(f32 rad) {
-    if (rad <= -M_PIf)
-        rad += M_TWOPIf;
-    else if (rad> M_PIf)
-        rad -= M_TWOPIf;
-    return rad;
-}
 
 void nkGoPlayDemo() {
     GameGbl.kpd[0].cnt = 1;
