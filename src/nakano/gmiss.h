@@ -10,5 +10,4 @@ extern void nkKloPhCode01(OBJWORK *objw, HERO_WORK *herow);
 extern void nkKloPhCode03(OBJWORK *objw, HERO_WORK *herow);
 extern void nkKloMissMain();
 
-
 #endif

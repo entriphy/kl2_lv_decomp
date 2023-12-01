@@ -1,8 +1,8 @@
 #include "nakano/gmiss.h"
 #include "nakano/filter2.h"
 #include "nakano/gssub.h"
+#include "nakano/wipe.h"
 #include "hoshino/h_game.h"
-#include "wipe.h"
 #include "take/object.h"
 
 static void nkSetReStartParam() {
