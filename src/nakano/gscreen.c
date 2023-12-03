@@ -1,6 +1,7 @@
 #include "nakano/gscreen.h"
 #include "nakano/vu0mac.h"
 #include "nakano/main.h"
+#include "nakano/k_math.h"
 #include "take/motsys.h"
 #include "take/object.h"
 #include "hoshino/h_gamesnd.h"

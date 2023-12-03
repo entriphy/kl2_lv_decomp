@@ -1,6 +1,7 @@
 #include "nakano/camera.h"
 #include "nakano/main.h"
 #include "nakano/vu0mac.h"
+#include "nakano/k_math.h"
 #include "okanoyo/okmain.h"
 #include "harada/hr_pcam.h"
 
