@@ -82,9 +82,9 @@ typedef struct {
     /* 0x68 */ s32 da_muteki;
     /* 0x6c */ s32 noyukatime;
     /* 0x70 */ OBJWORK* mochifuku;
-    s32 jmp_cnt;
-    f32 saka;
-    f32 yarare_yposi;
+    /* 0x74 */ s32 jmp_cnt;
+    /* 0x78 */ f32 saka;
+    /* 0x7c */ f32 yarare_yposi;
     u32 f_phcode;
     s32 lvl;
     s32 trg;
@@ -99,8 +99,8 @@ typedef struct {
     s32 up_move;
     s32 down_move;
     u32 gimm_flag;
-    OBJWORK* norigimm;
-    OBJWORK* movebox;
+    OBJWORK *norigimm;
+    OBJWORK *movebox;
     s32 yuka_hit;
     s32 yuka_hit_buf;
     s32 ottoto;
