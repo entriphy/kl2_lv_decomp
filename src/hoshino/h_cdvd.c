@@ -1,6 +1,6 @@
-#include "h_cdvd.h"
-#include "h_str.h"
-#include "h_util.h"
+#include "hoshino/h_cdvd.h"
+#include "hoshino/h_str.h"
+#include "hoshino/h_util.h"
 
 KLTABLE *FileData = NULL;
 hCDDATA CdData = {};

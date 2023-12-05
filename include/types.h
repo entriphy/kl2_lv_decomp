@@ -34,6 +34,7 @@ typedef volatile s128 vs128 __attribute__((mode(TI)));
 #endif
 
 typedef float f32;
+typedef volatile float vf32;
 typedef double f64;
 
 typedef struct {

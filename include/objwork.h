@@ -1,8 +1,23 @@
 #ifndef OBJWORK_H
 #define OBJWORK_H
 
-#include "route.h"
+#include "nakano/route.h"
 #include "types.h"
+
+typedef struct {
+    SVECTOR vec;
+    IVECTOR posi;
+    u16 co;
+    u16 DUMMY;
+} ROUTE;
+
+typedef struct {
+    s32 cnt;
+    ROUTE *rtp;
+    s16 plc;
+    s16 rtn;
+    s32 mcn;
+} RT_WRK;
 
 // Size: 0xF0
 typedef struct OBJWORK {

@@ -8,7 +8,7 @@ static inline void vu0_ITOF12Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
         "lqc2 $vf8, 0x0(%1)\n"
         "vitof12.xyzw $vf5, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
-        : : "r" (dst), "r" (src));
+    : : "r" (dst), "r" (src));
 }
 
 static inline void vu0_ITOF0Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
@@ -16,7 +16,7 @@ static inline void vu0_ITOF0Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
         "lqc2 $vf8, 0x0(%1)\n"
         "vitof0.xyzw $vf5, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
-        : : "r" (dst), "r" (src));
+    : : "r" (dst), "r" (src));
 }
 
 static inline void vu0_FTOI4Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
@@ -24,7 +24,28 @@ static inline void vu0_FTOI4Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
         "lqc2 $vf8, 0x0(%1)\n"
         "vftoi4.xyzw $vf5, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
-        : : "r" (dst), "r" (src));
+    : : "r" (dst), "r" (src));
+}
+
+static inline void vu0_Square(sceVu0FVECTOR dst, sceVu0FVECTOR src) {
+    __asm__ volatile(
+        "lqc2 $vf8, 0x0(%1)\n"
+        "vmul.xyzw $vf5, $vf8, $vf8\n"
+        "sqc2 $vf5, 0x0(%0)\n"
+    : : "r" (dst), "r" (src));
+}
+
+static inline f32 vu0_SquareRoot(f32 x) {
+    f32 ret;
+    __asm__ volatile(
+        "mfc1 $6, %1\n"
+        "qmtc2 $6, $vf4\n"
+        "vsqrt Q, $vf4x\n"
+        "vwaitq\n"
+        "cfc2 $6, $vi22\n"
+        "mtc1 $6, %0\n"
+    : "=f" (ret) : "f" (x) : "$6");
+    return ret;
 }
 
 // ?
@@ -34,7 +55,7 @@ static inline void vu0_LoadMtx(sceVu0FMATRIX mtx) {
         "lqc2 $vf5, 0x10(%0)\n"
         "lqc2 $vf6, 0x20(%0)\n"
         "lqc2 $vf7, 0x30(%0)\n"
-        : : "r" (mtx));
+    : : "r" (mtx));
 }
 
 // ?
@@ -50,7 +71,7 @@ static inline void vu0_Thing(sceVu0FVECTOR dst, sceVu0FVECTOR src) {
         "vwaitq\n"
         "vmulq.xyz   $vf12, $vf12, Q\n"
         "sqc2        $vf12, 0x0(%0)\n"
-        : : "r" (dst), "r" (src));
+    : : "r" (dst), "r" (src));
 }
 
 static inline f32 nkRadMask(f32 rad) {
