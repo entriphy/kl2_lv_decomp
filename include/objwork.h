@@ -1,7 +1,6 @@
 #ifndef OBJWORK_H
 #define OBJWORK_H
 
-#include "nakano/route.h"
 #include "types.h"
 
 typedef struct {
