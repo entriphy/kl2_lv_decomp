@@ -429,15 +429,23 @@ typedef struct SFXOBJ { // 0xa0
     /* 0x9c */ s32 actNum;
 } SFXOBJ;
 
-typedef struct {
-    sceVu0FVECTOR Trans; // 0x00
-    sceVu0FVECTOR Rot; // 0x10
-    sceVu0FVECTOR Scale; // 0x20
-    SFXOBJ *pObj; // 0x30
-    s32 ActNum; // 0x34
-    s32 old_muki; // 0x38
-    s32 wip_timer; // 0x3C
-    s32 dummy[4]; // 0x40
+typedef struct { // 0x50
+    /* 0x00 */ sceVu0FVECTOR Trans;
+    /* 0x10 */ sceVu0FVECTOR Rot;
+    /* 0x20 */ sceVu0FVECTOR Scale;
+    /* 0x30 */ SFXOBJ *pObj;
+    /* 0x34 */ s32 ActNum;
+    /* 0x38 */ s32 old_muki;
+    /* 0x3c */ s32 wip_timer;
+    /* 0x40 */ s32 dummy[4];
 } PsfxMODEL;
+
+typedef struct { // 0x190
+    /* 0x000 */ PsfxMODEL klm;
+    /* 0x050 */ PsfxMODEL ksm;
+    /* 0x0a0 */ PsfxMODEL kmm;
+    /* 0x0f0 */ PsfxMODEL shm;
+    /* 0x140 */ PsfxMODEL shm2;
+} klMODEL;
 
 #endif
