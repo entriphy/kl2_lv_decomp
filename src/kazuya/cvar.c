@@ -1,0 +1,40 @@
+#include "kazuya/cvar.h"
+
+KZ_MC_INFO kzMcInfo = {};
+KZ_MC_INFO *mci = NULL;
+s32 wm_jobcnt = 0;
+s32 wm_jobcnt_current = 0;
+s32 wm_jobcnt_next0 = 0;
+s32 wm_jobcnt_next1 = 0;
+s32 wm_jobcnt_sub = 0;
+s32 wm_jobcnt_ret = 0;
+s32 td_jobcnt = 0;
+s32 td_jobcnt_current = 0;
+s32 td_jobcnt_next0 = 0;
+s32 td_jobcnt_next1 = 0;
+s32 td_jobcnt_sub = 0;
+s32 td_jobcnt_ret = 0;
+kPadDATA *kpd0 = NULL;
+kPadDATA *kpd1 = NULL;
+s32 fade_count = 0;
+s32 fade_mode = 0;
+s32 vision_count = 0;
+s32 saveornot_flag = 0;
+s32 aftersave_goto = 0;
+s32 status_return = 0;
+s32 pause_return = 0;
+s32 pause_interval = 0;
+s32 cloud_flag = 0;
+s32 retry_vision = 0;
+s32 point_vision = 0;
+s32 route_anime_no = 0;
+s32 clear_event_no = 0;
+s32 wmap_start_act_flag = 0;
+s32 mmd_complete_stage = 0;
+s32 bgm_list_no = 0;
+s32 bgm_index = 0;
+u8 *D_3FAD70 = NULL;
+s32 kz_colsys_mode = 0;
+DVECTOR KZOFFX = {0x6C00, 0x0000 }; // TODO: Should this just be an s32?
+DVECTOR KZOFFY = {0x7900, 0x0000 };
+
