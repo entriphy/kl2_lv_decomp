@@ -2,6 +2,7 @@
 #include "nakano/main.h"
 #include "nakano/vu0mac.h"
 #include "nakano/k_math.h"
+#include "nakano/route.h"
 #include "okanoyo/okmain.h"
 #include "harada/hr_pcam.h"
 
@@ -803,7 +804,7 @@ void CamTblCopy(VCONTBL *vt) {
 
     vwrk = &ViCon;
     vt->AngX = (vwrk->angx / M_TWOPIf) * 360.0f;
-    vt->AngY = (vwrk->angy / M_TWOPIf) * 360.0;
+    vt->AngY = (vwrk->angy / M_TWOPIf) * 360.0f;
     vt->Zoom = vwrk->zoom;
     vt->PosX = vwrk->posix;
     vt->PosY = vwrk->posiy;
