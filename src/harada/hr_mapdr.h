@@ -5,6 +5,7 @@
 #include "harada/hr_main.h"
 #include "harada/h_vpm2.h"
 
+// TODO: pretty sure this belongs in a Kazuya header
 typedef struct { // 0x50
     /* 0x00 */ qword DMAtag;
     /* 0x10 */ qword VIFtag0;
