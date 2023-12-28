@@ -83,7 +83,7 @@ typedef struct {
     /* 0x42c */ f32 gus_cnt;
     /* 0x430 */ s32 popuka_flag;
     /* 0x434 */ s32 time_atack_cnt;
-    /* 0x438 */ s32 field_0x438;
+    /* 0x438 */ s32 k_atck_button;
     /* 0x43c */ s32 k_jump_button;
     /* 0x440 */ s32 vs_clear_cnt;
     /* 0x444 */ s32 time_atack_best;
