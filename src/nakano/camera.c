@@ -294,14 +294,12 @@ static void CamScrLim(OBJWORK *objw, sceVu0FVECTOR posi, sceVu0FVECTOR scrv) {
     MichiPosiXZ(&objw->rtw, scrv);
 }
 
-// TODO: Not matching
 nkCamMNG* CamGetMNG(OBJWORK *objw) {
     VWork *vwrk;
     nkCamMNG *mng;
     s32 rtn;
     s32 rtcnt;
     HERO_WORK *herow;
-    nkCamMNG *b_mng;
 
     vwrk = &ViCon;
     herow = objw->work;
@@ -320,19 +318,25 @@ nkCamMNG* CamGetMNG(OBJWORK *objw) {
         return NULL;
     }
 
-    while (!(mng->flg & 0x40) && rtcnt >= (mng + 1)->rtcnt) {
+    while (1) {
+        if (mng->flg & 0x40) {
+            break;
+        }
+        if (rtcnt < (mng + 1)->rtcnt) {
+            goto cringe;
+        }
         mng++;
         vwrk->tblcnt++;
+
         if (mng->rtcnt == (mng + 1)->rtcnt && objw->posi[1] > mng->height) {
-            b_mng = mng;
-            while (mng->rtcnt == b_mng->rtcnt) {
-                b_mng++;
-            }
+            nkCamMNG *b_mng;
+            for (b_mng = mng; mng->rtcnt == b_mng->rtcnt; b_mng++);
             if (b_mng->rtcnt > rtcnt) {
                 break;
             }
         }
     }
+    cringe: // cringe
     return mng;
 }
 
