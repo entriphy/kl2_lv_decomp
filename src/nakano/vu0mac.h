@@ -27,6 +27,14 @@ static inline void vu0_FTOI4Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
     : : "r" (dst), "r" (src));
 }
 
+static inline void vu0_FTOI12Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
+    __asm__ volatile(
+        "lqc2 $vf8, 0x0(%1)\n"
+        "vftoi12.xyzw $vf5, $vf8\n"
+        "sqc2 $vf5, 0x0(%0)\n"
+    : : "r" (dst), "r" (src));
+}
+
 static inline void vu0_Square(sceVu0FVECTOR dst, sceVu0FVECTOR src) {
     __asm__ volatile(
         "lqc2 $vf8, 0x0(%1)\n"

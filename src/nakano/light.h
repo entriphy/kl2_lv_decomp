@@ -38,6 +38,47 @@ typedef struct { // 0x22
     /* 0x1e */ u8 amb[4];
 } LgtWorkDat;
 
+typedef struct { // 0x8
+    /* 0x0 */ f32 x;
+    /* 0x4 */ f32 y;
+} nkLightDir;
+
+typedef struct { // 0x30
+    /* 0x00 */ nkLightDir dir;
+    /* 0x10 */ sceVu0FVECTOR col;
+    /* 0x20 */ s32 on;
+} nkLightWrk;
+
+typedef struct { // 0x10
+    /* 0x0 */ s32 csl;
+    /* 0x4 */ s32 colc;
+    /* 0x8 */ s32 mode;
+    /* 0xc */ s32 lightno;
+} nkLeMenu;
+
+typedef struct { // 0x28
+    /* 0x00 */ s32 dir[3][2];
+    /* 0x18 */ u8 col[3][4];
+    /* 0x24 */ u8 amb[4];
+} _nkLightData;
+
+extern void nkLeInit();
+extern void nkLightMenu(nkLightWrk *lline);
+extern void nkLightEdit();
+extern void LgtDataNone();
+extern void LgtDataInit(s32 *adrs);
+extern void nkCalcLightMatrix(sceVu0FVECTOR posi);
+extern void _nkLightInit();
 extern void nkLightIp(LgtWorkF *lgt_r, LgtWorkF *lgt_a, LgtWorkF *lgt_b, f32 w);
+extern void nkLightWork2F(LgtWorkF *out, LgtWorkDat *in);
+extern void nkMngLight(LgtWorkF *lgtw, sceVu0FVECTOR posi, RT_WRK *rtw);
+extern void nkSetLight(OBJWORK *objw);
+extern void nkSetLight2(RT_WRK *rtw, sceVu0FVECTOR posi, sceVu0FMATRIX **nl, sceVu0FMATRIX **lc);
+extern void nkSetLight3(RT_WRK *rtw, sceVu0FVECTOR posi, sceVu0FMATRIX **nl, sceVu0FMATRIX **lc);
+extern void nkGetRouteLgtWork(LgtWorkF *lgtw, RT_WRK *rtw, sceVu0FVECTOR posi);
+extern void nkGetLgtWorkF(LgtWorkF *lgt, s32 light_no);
+extern void nkCalcMatLgtWork(sceVu0FMATRIX normal_light, sceVu0FMATRIX light_color,  LgtWorkF *lgtw, sceVu0FVECTOR posi);
+extern void nkCalcMatLgtWork2(sceVu0FMATRIX normal_light, sceVu0FMATRIX light_color,  LgtWorkF *lgtw, sceVu0FVECTOR posi);
+extern void nkSetLightNo(sceVu0FMATRIX normal_light, sceVu0FMATRIX light_color, s32 light_no, sceVu0FVECTOR posi);
 
 #endif
