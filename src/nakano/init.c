@@ -26,7 +26,7 @@ void init_config_system() {
     SysGbl.smode = 0;
     GameGbl.playdemo_flag = 0;
     GameGbl.kloZanki[0] = 3;
-    GameGbl.field_0x438 = 160;
+    GameGbl.k_atck_button = 160;
     GameGbl.k_jump_button = 80;
     nkGsInitFrm();
     SysGbl.Language = 1;
