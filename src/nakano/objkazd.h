@@ -18,4 +18,7 @@ typedef struct { // 0x50
     /* 0x40 */ s16 kaku_flag;
 } BUKI_WORK;
 
+extern void ObjKazd(OBJWORK *objw);
+extern void SetKazd(OBJWORK *objkl);
+
 #endif
