@@ -155,7 +155,6 @@ typedef struct {
     /* 0x16c */ f32 jumpspd_limit;
     /* 0x170 */ s32 rakka_cnt;
     /* 0x180 */ sceVu0FVECTOR slant;
-    OBJWORK *effBoardFlear;
 } HERO_WORK;
 
 #endif
