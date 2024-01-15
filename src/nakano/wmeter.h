@@ -18,5 +18,4 @@ extern void nkResetMeter();
 extern void nkSetMeter();
 extern void nkDrawWorkMeter();
 
-
 #endif
