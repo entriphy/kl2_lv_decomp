@@ -1,4 +1,6 @@
 #include "nakano/objklo0.h"
+#include "nakano/objklo1.h"
+#include "nakano/objklo2.h"
 #include "nakano/klohit0.h"
 #include "nakano/objkazd.h"
 #include "nakano/herosub.h"
@@ -19,7 +21,6 @@
 #include "hoshino/h_gamesnd.h"
 #include "hoshino/h_game.h"
 #include "okanoyo/okmain.h"
-
 
 void Init_ReTry() {
     OBJWORK *klo = GameGbl.klonoa;
@@ -126,7 +127,7 @@ void InitKlonoa(OBJWORK *objw, s32 imuki) {
 
     if (objw->bun1 == 2) {
         herow->mispd = 0x2800;
-        objw->draw = NULL; // TODO: DrawKloSide
+        objw->draw = DrawKloSide;
         objw->rot[1] = _atan2(objw->muki[0], objw->muki[2]) + 3.141592f;
     } else if (objw->bun1 == 3 || objw->bun1 == 4) {
         if (GameGbl.vision == 0x102) {
@@ -136,7 +137,7 @@ void InitKlonoa(OBJWORK *objw, s32 imuki) {
         if (objw->bun1 == 4) {
             nkKpInitJyuryoku();
         }
-        objw->draw = NULL; // TODO: DrawKloBhd
+        objw->draw = DrawKloBhd;
         herow->jumpspd_limit = 20.0f;
         switch (imuki) {
             case 3:
