@@ -6,6 +6,7 @@
 #pragma region Defines
 
 #define nkSPR (nkQWdata *)0x70000000
+#define SETVEC(vec, x, y, z, w) (vec[0] = x, vec[1] = y, vec[2] = z, vec[3] = w)
 
 #pragma endregion Defines
 
