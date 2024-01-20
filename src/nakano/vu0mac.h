@@ -16,7 +16,7 @@ static inline void qword_Copy(void *dst, void *src) {
 
 static inline void vu0_ITOF12Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "lqc2 $vf8, 0x0(%1)\n"
         "vitof12.xyzw $vf5, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
@@ -25,7 +25,7 @@ static inline void vu0_ITOF12Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
 
 static inline void vu0_ITOF0Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "lqc2 $vf8, 0x0(%1)\n"
         "vitof0.xyzw $vf5, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
@@ -34,7 +34,7 @@ static inline void vu0_ITOF0Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
 
 static inline void vu0_ITOF4Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "lqc2 $vf8, 0x0(%1)\n"
         "vitof4.xyzw $vf5, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
@@ -43,7 +43,7 @@ static inline void vu0_ITOF4Vector(sceVu0FVECTOR dst, sceVu0IVECTOR src) {
 
 static inline void vu0_FTOI4Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "lqc2 $vf8, 0x0(%1)\n"
         "vftoi4.xyzw $vf5, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
@@ -52,7 +52,7 @@ static inline void vu0_FTOI4Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
 
 static inline void vu0_FTOI12Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "lqc2 $vf8, 0x0(%1)\n"
         "vftoi12.xyzw $vf5, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
@@ -61,7 +61,7 @@ static inline void vu0_FTOI12Vector(sceVu0IVECTOR dst, sceVu0FVECTOR src) {
 
 static inline void vu0_Square(sceVu0FVECTOR dst, sceVu0FVECTOR src) {
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "lqc2 $vf8, 0x0(%1)\n"
         "vmul.xyzw $vf5, $vf8, $vf8\n"
         "sqc2 $vf5, 0x0(%0)\n"
@@ -71,7 +71,7 @@ static inline void vu0_Square(sceVu0FVECTOR dst, sceVu0FVECTOR src) {
 static inline f32 vu0_SquareRoot(f32 x) {
     f32 ret;
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "mfc1 $6, %1\n"
         "qmtc2 $6, $vf4\n"
         "vsqrt Q, $vf4x\n"
@@ -85,7 +85,7 @@ static inline f32 vu0_SquareRoot(f32 x) {
 // ?
 static inline void vu0_LoadMtx(sceVu0FMATRIX mtx) {
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "lqc2 $vf4, 0x0(%0)\n"
         "lqc2 $vf5, 0x10(%0)\n"
         "lqc2 $vf6, 0x20(%0)\n"
@@ -96,7 +96,7 @@ static inline void vu0_LoadMtx(sceVu0FMATRIX mtx) {
 // ?
 static inline void vu0_Thing(sceVu0FVECTOR dst, sceVu0FVECTOR src) {
     __asm__ volatile(
-        ".set noreoder\n"
+        ".set noreorder\n"
         "lqc2        $vf8, 0x0(%1)\n"
         "vmove.w     $vf8, $vf0\n"
         "vmulax.xyzw ACC, $vf4, $vf8x\n"
