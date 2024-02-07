@@ -31,19 +31,13 @@ u64 MimeIdCheck(SFXOBJ *pObj, s32 StartNum, s32 EndNum) {
 
     pSfz0 = (TYPE_SFZ_HEADER *)Fadr(pObj->MimeAdrs, StartNum);
     pSfz1 = (TYPE_SFZ_HEADER *)Fadr(pObj->MimeAdrs, EndNum);
-    
-    if (*(u64 *)pSfz0 == 0) {
-        if (*(u64*)pSfz1 == 0) {
-            return flag;
-        }
-        if (*(u64 *)pSfz0 == 0) {
-            goto skip; // bleh
-        }
+
+    if (*(u64 *)pSfz0 == 0 && *(u64*)pSfz1 == 0) {
+        return flag;
     }
-    if (*(u64*)pSfz1 == 0) {
+    if (*(u64 *)pSfz0 != 0 && *(u64*)pSfz1 == 0) {
         pSfz1 = pSfz0;
     }
-skip:
     if (*(u64*)pSfz1 != 0 && *(u64 *)pSfz0 == 0) {
         pSfz0 = pSfz1;
     }
