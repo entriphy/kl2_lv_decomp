@@ -68,13 +68,15 @@ typedef struct { // 0x4b0
     /* 0x050 */ kitADDR_DATA sprite[70];
 } kitInitEffectBufAllPacket;
 
-typedef struct { // 0x70
+// Struct had to be changed, hmm...
+typedef struct { // 0xa0
     /* 0x00 */ kitADDR_DATA giftag1;
     /* 0x10 */ kitADDR_DATA tex0;
     /* 0x20 */ kitADDR_DATA texflush;
     /* 0x30 */ kitADDR_DATA test1;
-    /* 0x40 */ kitADDR_DATA giftag2;
-    /* 0x50 */ kitADDR_DATA tri[2];
+    /* 0x48 */ kitADDR_DATA rgba;
+    /* 0x50 */ kitADDR_DATA giftag2;
+    /* 0x60 */ kitADDR_DATA tri[4];
 } kitDrawSpritePacket;
 
 typedef struct { // 0x60
