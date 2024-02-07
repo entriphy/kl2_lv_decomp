@@ -88,7 +88,6 @@ void OutlineColorDefine(kitOutlineDrawEnv *pOutlineEnv, kitOutlineObjEnv *objenv
         pOutlineEnv->spritez >= 0x20000 ? (pOutlineEnv->spritez < 0x100000 ? ((pOutlineEnv->spritez - 0x20000) * 24) / 0xE0000 + 56 : 80) : 56;
 }
 
-// TODO: Technically matches
 kitInitEffectBufAllPacket* InitEffectBufAll(kitInitEffectBufAllPacket *packet) {
     kitADDR_DATA *draw_packet = (kitADDR_DATA *)packet;
     s32 i;
@@ -112,9 +111,9 @@ kitInitEffectBufAllPacket* InitEffectBufAll(kitInitEffectBufAllPacket *packet) {
 
     for (i = 0; i < 7; i++) {
         for (j = 0; j < 10; draw_packet++) {
-            draw_packet->data = SCE_GS_SET_XYZ2(j * 0x400 + 0x6C00, i * 0x200 + 0x7900, 0);
+            draw_packet->data = SCE_GS_SET_XYZ2(0x6C00 + j * 0x400, 0x7900 + i * 0x200, 0);
             j++;
-            draw_packet->addr = SCE_GS_SET_XYZ2(j * 0x400 + 0x6C00, i * 0x200 + 0x7B00, 0);
+            draw_packet->addr = SCE_GS_SET_XYZ2(0x6C00 + j * 0x400, 0x7900 + (i + 1) * 0x200, 0);
         }
     }
 
