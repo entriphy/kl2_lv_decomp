@@ -324,7 +324,6 @@ void DrawBlockGrid() {
     }
 }
 
-// TODO: not matching
 void DrawHitBlock(sceVu0IVECTOR posi) {
     sceVu0IVECTOR vi[8];
     sceVu0FVECTOR vf[8];
@@ -337,14 +336,14 @@ void DrawHitBlock(sceVu0IVECTOR posi) {
     s32 lp0;
     u64 giftag[2] = { SCE_GIF_SET_TAG(24, 1, 1, SCE_GS_SET_PRIM(SCE_GS_PRIM_LINE, 0, 0, 0, 0, 0, 0, 0, 0), 0, 2), SCE_GS_RGBAQ | SCE_GS_XYZ2 << 4 };
 
-    SETVEC(vi[0], posi[0] * hmi->gdw,            posi[1] * hmi->gdh,            posi[2] * hmi->gdw,            1);
-    SETVEC(vi[1], posi[0] * hmi->gdw + hmi->gdw, posi[1] * hmi->gdh,            posi[2] * hmi->gdw,            1);
-    SETVEC(vi[2], posi[0] * hmi->gdw,            posi[1] * hmi->gdh,            posi[2] * hmi->gdw + hmi->gdw, 1);
-    SETVEC(vi[3], posi[0] * hmi->gdw + hmi->gdw, posi[1] * hmi->gdh,            posi[2] * hmi->gdw + hmi->gdw, 1);
-    SETVEC(vi[4], posi[0] * hmi->gdw,            posi[1] * hmi->gdh + hmi->gdh, posi[2] * hmi->gdw,            1);
-    SETVEC(vi[5], posi[0] * hmi->gdw + hmi->gdw, posi[1] * hmi->gdh + hmi->gdh, posi[2] * hmi->gdw,            1);
-    SETVEC(vi[6], posi[0] * hmi->gdw,            posi[1] * hmi->gdh + hmi->gdh, posi[2] * hmi->gdw + hmi->gdw, 1);
-    SETVEC(vi[7], posi[0] * hmi->gdw + hmi->gdw, posi[1] * hmi->gdh + hmi->gdh, posi[2] * hmi->gdw + hmi->gdw, 1);
+    SETVEC(vi[0], posi[0] * hmi->gdw,        posi[1] * hmi->gdh,       posi[2] * hmi->gdw,       1);
+    SETVEC(vi[1], (posi[0] + 1) * hmi->gdw,  posi[1] * hmi->gdh,       posi[2] * hmi->gdw,       1);
+    SETVEC(vi[2], posi[0] * hmi->gdw,        posi[1] * hmi->gdh,       (posi[2] + 1) * hmi->gdw, 1);
+    SETVEC(vi[3], (posi[0] + 1) * hmi->gdw,  posi[1] * hmi->gdh,       (posi[2] + 1) * hmi->gdw, 1);
+    SETVEC(vi[4], posi[0] * hmi->gdw,        (posi[1] + 1) * hmi->gdh, posi[2] * hmi->gdw,       1);
+    SETVEC(vi[5], (posi[0] + 1) * hmi->gdw,  (posi[1] + 1) * hmi->gdh, posi[2] * hmi->gdw,       1);
+    SETVEC(vi[6], posi[0] * hmi->gdw,        (posi[1] + 1) * hmi->gdh, (posi[2] + 1) * hmi->gdw, 1);
+    SETVEC(vi[7], (posi[0] + 1) * hmi->gdw,  (posi[1] + 1) * hmi->gdh, (posi[2] + 1) * hmi->gdw, 1);
 
     for (lp0 = 0; lp0 < 8; lp0++) {
         vu0_ITOF0Vector(vf[lp0], vi[lp0]);
