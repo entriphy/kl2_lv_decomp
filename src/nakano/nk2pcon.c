@@ -1,6 +1,7 @@
 #include "nakano/nk2pcon.h"
 #include "nakano/main.h"
 #include "nakano/camera.h"
+#include "nakano/light.h"
 
 static s32 nkCeCarsol;
 
@@ -120,8 +121,8 @@ void NkDeb2PTbl() {
     } else {
         switch (GameGbl.cam.mode) {
             case 2:
-                CamPadCtrl(GameGbl.klonoa,&GameGbl.cam);
-                CamFollow(GameGbl.klonoa,&GameGbl.cam);
+                CamPadCtrl(GameGbl.klonoa, &GameGbl.cam);
+                CamFollow(GameGbl.klonoa, &GameGbl.cam);
                 break;
             case 3:
                 CamDebug(&GameGbl.cam);

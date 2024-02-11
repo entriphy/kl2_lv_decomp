@@ -1,12 +1,18 @@
 #include <sifdev.h>
 #include <eetypes.h>
 #include <libdev.h>
-#include "mapview.h"
-#include "main.h"
-#include "dma.h"
+#include "nakano/mapview.h"
+#include "nakano/main.h"
+#include "nakano/dma.h"
+#include "nakano/camera.h"
+#include "nakano/map00.h"
+#include "nakano/wmeter.h"
+#include "nakano/game.h"
+#include "nakano/nkpad.h"
+#include "nakano/readfile.h"
 #include "harada/hr_main.h"
 #include "harada/hr_bgwk.h"
-#include "nkpad.h"
+#include "harada/hr_mapdr.h"
 #include "okanoyo/okprint.h"
 
 static s32 MapVMenu;
@@ -14,11 +20,11 @@ static s32 MapVMsw;
 static char MapName[256];
 
 void nkMapFileRead() {
-	vpmINFO *vpmi = &VpmInfo;
-	char FileName[256];
-	char VpmName[256];
-	char GmsName[256];
-	char *hex[16] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
+    vpmINFO *vpmi = &VpmInfo;
+    char FileName[256];
+    char VpmName[256];
+    char GmsName[256];
+    char *hex[16] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
     
     strcpy(FileName, "host0:./dat/st");
     strcat(FileName, hex[(GameGbl.vision / 0x0A00) % 10]);
@@ -37,21 +43,21 @@ void nkMapFileRead() {
 
     strcpy(GmsName, FileName);
     strncat(GmsName, ".gms", 4);
-    read_file(GmsName, vpmi->data_buff);
-    nkLoadGms(vpmi->data_buff);
+    read_file(GmsName, (char *)vpmi->data_buff);
+    nkLoadGms((qword *)vpmi->data_buff);
     sceGsSyncPath(0, 0);
 
     strcpy(VpmName, FileName);
     strncat(VpmName, ".vpm", 4);
-    read_file(VpmName, vpmi->data_buff);
-    DecodeVpm(vpmi->data_buff);
+    read_file(VpmName, (char *)vpmi->data_buff);
+    DecodeVpm((u32 *)vpmi->data_buff);
     vpmi->vpm_data_top = (u32 *)vpmi->data_buff;
 }
 
 void MapConfFileWrite() {
-	s32 wfd;
-	char FileName[256];
-	char *hex[16] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
+    s32 wfd;
+    char FileName[256];
+    char *hex[16] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
     
     strcpy(FileName, "host0:./dat/st");
     strcat(FileName, hex[(GameGbl.vision / 0x0A00) % 10]);
@@ -69,10 +75,8 @@ void MapConfFileWrite() {
 }
 
 static s32 MapvInit() {
-    vpmINFO *vpmi;
-	u32 i;
-
-    vpmi = &VpmInfo;
+    vpmINFO *vpmi = &VpmInfo;
+    u32 i;
 
     _nkGetMapBuf();
     sceGsResetPath();
@@ -115,14 +119,11 @@ static void CamMonitor(CAM_WORK *cam) {
 }
 
 void MapVDrawBG() {
-	static qword_uni packetb[10];
-	static sceDmaTag tag[3];
-	qword_uni *pb;
-	sceDmaTag *tp;
-	s32 qwc;
-
-    pb = packetb;
-    tp = tag;
+    static qword_uni packetb[10];
+    static sceDmaTag tag[3];
+    qword_uni *pb = packetb;
+    sceDmaTag *tp = tag;
+    s32 qwc;
 
     if (hrcntbg < 1) {
         pb->u_u64[0] = SCE_GIF_SET_TAG(4, 1, 1, SCE_GS_SET_PRIM(SCE_GS_PRIM_TRISTRIP, 1, 0, 0, 0, 0, 0, 1, 0), SCE_GIF_PACKED, 2);
@@ -186,28 +187,24 @@ void MapVDrawBG() {
 }
 
 static void MapVConf(CAM_WORK *cam) {
-    kPadDATA *kpd;
-	f32 flr;
-	s32 ilr;
+    kPadDATA *kpd = &GameGbl.kpd[0];
+    f32 flr = 0.0f;
+    s32 ilr = 0;
 
-    kpd = &GameGbl.kpd[0];
-    flr = 0.0f;
-    ilr = 0;
-    
-    if (kpd->rep & 0x1000)
+    if (pPAD_REP_UP(kpd))
         MapVMenu--;
-    if (kpd->rep & 0x4000)
+    if (pPAD_REP_DOWN(kpd))
         MapVMenu++;
     if (MapVMenu < 0) 
         MapVMenu = 12;
     if (MapVMenu > 12)
         MapVMenu = 0;
 
-    if (kpd->lvl & 0x2000) {
+    if (pPAD_LVL_RIGHT(kpd)) {
         flr = 1.0f;
         ilr = 1;
     }
-    if (kpd->lvl & 0x8000) {
+    if (pPAD_LVL_LEFT(kpd)) {
         flr = -1.0f;
         ilr = -1;
     }
@@ -287,10 +284,10 @@ static void MapVConf(CAM_WORK *cam) {
 }
 
 static s32 MapvMain() {
-	s32 work;
-	s32 inter;
-	kPadDATA *kpd0;
-	kPadDATA *kpd1;
+    s32 work;
+    s32 inter;
+    kPadDATA *kpd0;
+    kPadDATA *kpd1;
 
     kpd0 = &GameGbl.kpd[0];
     nkGetPad();
