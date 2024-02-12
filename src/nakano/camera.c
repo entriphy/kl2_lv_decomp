@@ -69,9 +69,7 @@ void nkCeVtAdrInit(VCONTBL *vtp, s32 rtn) {
 }
 
 void CamInit(CAM_WORK *cam) {
-    VWork *vwrk;
-    
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     vwrk->zoom = 340.0f;
     vwrk->angx = M_PIf / 16.0f;
     vwrk->angy = 0.0f;
@@ -138,9 +136,7 @@ void CamCalMatrix(CAM_WORK *cam) {
 }
 
 void CamDebug(CAM_WORK *cam) {
-    kPadDATA *kpd;
-
-    kpd = &GameGbl.kpd[1];
+    kPadDATA *kpd = &GameGbl.kpd[1];
 
     if (pPAD_LVL_CIRCLE(kpd)) {
         cam->ang[1] -= M_PI_180f;
@@ -193,12 +189,10 @@ void CamDebug(CAM_WORK *cam) {
 static void CamScrLim(OBJWORK *objw, sceVu0FVECTOR posi, sceVu0FVECTOR scrv) {
     f32 work;
     HERO_WORK *herow;
-    VWork *vwrk;
-    s32 muki;
+    VWork *vwrk = &ViCon;
+    s32 muki = ((HERO_WORK *)GameGbl.klonoa->work)->buki_muki;
     f32 wlimit;
 
-    vwrk = &ViCon;
-    muki = ((HERO_WORK *)GameGbl.klonoa->work)->buki_muki;
     herow = objw->work;
 
     if (vwrk->flg & 2) {
@@ -295,14 +289,11 @@ static void CamScrLim(OBJWORK *objw, sceVu0FVECTOR posi, sceVu0FVECTOR scrv) {
 }
 
 nkCamMNG* CamGetMNG(OBJWORK *objw) {
-    VWork *vwrk;
+    VWork *vwrk = &ViCon;
     nkCamMNG *mng;
     s32 rtn;
     s32 rtcnt;
-    HERO_WORK *herow;
-
-    vwrk = &ViCon;
-    herow = objw->work;
+    HERO_WORK *herow = objw->work;
 
     if (objw->reg0 & 0x200) {
         rtn = GetMichiNo(herow->okuyuka->rtw.rtp);
@@ -344,14 +335,10 @@ void CamInitNml(nkCamNOR *nml, OBJWORK *objw, CAM_WORK *cam) {
     sceVu0FMATRIX mat;
     sceVu0FVECTOR vf;
     sceVu0FVECTOR rtv;
-    RT_WRK *rtw;
-    ROUTE *rtp;
-    VWork *vwrk;
+    RT_WRK *rtw = &objw->rtw;
+    ROUTE *rtp = &rtw->rtp[rtw->plc];
+    VWork *vwrk = &ViCon;
     sceVu0IVECTOR vi;
-
-    rtw = &objw->rtw;
-    rtp = &rtw->rtp[rtw->plc];
-    vwrk = &ViCon;
 
     vwrk->zoom = nml->zoom;
     vwrk->angx = nml->angx * 2.0f * M_PIf / 360.0f;
@@ -415,20 +402,16 @@ void CamInitNml(nkCamNOR *nml, OBJWORK *objw, CAM_WORK *cam) {
 }
 
 void CamReverseInit() {
-    VWork *vwrk;
-
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     vwrk->frtime = 30.0f;
 }
 
 void CamVWorkInit(OBJWORK *objw, CAM_WORK *cam) {
-    VWork *vwrk;
-    nkCamMNG *mng;
+    VWork *vwrk = &ViCon;
+    nkCamMNG *mng = CamGetMNG(objw);
     s32 type;
     nkCamFIX *fix;
 
-    vwrk = &ViCon;
-    mng = CamGetMNG(objw);
     vwrk->old_rtn = GetMichiNo(objw->rtw.rtp);
     vwrk->release = 0;
 
@@ -532,17 +515,13 @@ void CamFollow(OBJWORK *objw, CAM_WORK *cam) {
     sceVu0IVECTOR vi;
     sceVu0FVECTOR rtv;
     sceVu0FVECTOR angspd;
-    VWork *vwrk;
+    VWork *vwrk = &ViCon;
     sceVu0FVECTOR wsvec;
     sceVu0FMATRIX wmat;
-    RT_WRK *rtw;
-    ROUTE *rtp;
+    RT_WRK *rtw = &objw->rtw;
+    ROUTE *rtp = &rtw->rtp[rtw->plc];
     f32 fw1;
     HERO_WORK *herow;
-
-    vwrk = &ViCon;
-    rtw = &objw->rtw;
-    rtp = &rtw->rtp[rtw->plc];
 
     vi[0] = rtp->vec.x;
     vi[1] = rtp->vec.y;
@@ -659,11 +638,9 @@ void CamFix(CAM_WORK *cam, CAM_WORK *tcam) {
     sceVu0FVECTOR tgtp;
     sceVu0FVECTOR tgta;
     sceVu0FVECTOR vf;
-    f32 adiv;
-    VWork *vwrk;
+    VWork *vwrk = &ViCon;
+    f32 adiv = vwrk->dcnt;
 
-    vwrk = &ViCon;
-    adiv = vwrk->dcnt;
     if (adiv <= 0.0f) {
         return;
     }
@@ -722,9 +699,8 @@ void CamDivTime(CAM_WORK *cam, CAM_WORK *tcam, f32 *divtime) {
     sceVu0FVECTOR tgtp;
     sceVu0FVECTOR tgta;
     sceVu0FVECTOR vf;
-    f32 adiv;
+    f32 adiv = *divtime;
 
-    adiv = *divtime;
     if (adiv <= 0.0f) {
         return;
     }
@@ -784,12 +760,11 @@ void CamDivTime(CAM_WORK *cam, CAM_WORK *tcam, f32 *divtime) {
 }
 
 void CamMonOut(OBJWORK *objw, CAM_WORK *cam) {
-    VWork *vwrk;
+    VWork *vwrk = &ViCon;
     f32 angx;
     f32 angy;
     f32 angz;
 
-    vwrk = &ViCon;
     if (GameGbl.cam.mode == 3 || GameGbl.cam.mode == 9 || GameGbl.cam.mode == 7) {
         angx = (cam->ang[0] * 360.0f) / M_TWOPIf;
         angy = (cam->ang[1] * 360.0f) / M_TWOPIf;
@@ -804,9 +779,8 @@ void CamMonOut(OBJWORK *objw, CAM_WORK *cam) {
 }
 
 void CamTblCopy(VCONTBL *vt) {
-    VWork *vwrk;
+    VWork *vwrk = &ViCon;
 
-    vwrk = &ViCon;
     vt->AngX = (vwrk->angx / M_TWOPIf) * 360.0f;
     vt->AngY = (vwrk->angy / M_TWOPIf) * 360.0f;
     vt->Zoom = vwrk->zoom;
@@ -850,23 +824,18 @@ void CamNmlDiv(VWork *vwrk, nkCamNOR *nml) {
 }
 
 void CamCtrlTbl(OBJWORK *objw) {
-    VWork *vwrk;
-    nkCamMNG *mng;
-    nkCamNOR *nmr_p;
-    nkCamFIX *fix_p;
+    VWork *vwrk = &ViCon;
+    HERO_WORK *herow = objw->work;
+    nkCamMNG *mng = CamGetMNG(objw);
+    nkCamNOR *nmr_p = camNor;
+    nkCamFIX *fix_p = camFix;
     f32 fw1;
     f32 fw2;
     nkCamFIX *fix;
     s32 rtn;
-    HERO_WORK *herow;
     CAM_WORK *cam;
     CAM_WORK tcam;
 
-    vwrk = &ViCon;
-    herow = objw->work;
-    mng = CamGetMNG(objw);
-    nmr_p = camNor;
-    fix_p = camFix;
     if (mng == NULL) {
         CamNmlDiv(vwrk, vwrk->nml);
     } else {
@@ -918,27 +887,21 @@ void CamCtrlTbl(OBJWORK *objw) {
 }
 
 void SetBossCamTbl(s32 tbln) {
-    VWork *vwrk;
-
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     vwrk->tblcnt = tbln;
 }
 
 void CamBossTbl(OBJWORK *objw) {
-    VWork *vwrk;
-    nkCamNOR *nmr_p;
+    VWork *vwrk = &ViCon;
+    nkCamNOR *nmr_p = camNor;
 
-    vwrk = &ViCon;
-    nmr_p = camNor;
     nmr_p += vwrk->tblcnt;
     vwrk->nml = nmr_p;
     CamNmlDiv(vwrk, nmr_p);
 }
 
 void CamGetPrm(sceVu0FVECTOR posi, sceVu0FVECTOR ang, sceVu0FVECTOR div) {
-    VWork *vwrk;
-
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     posi[0] = vwrk->posix;
     posi[1] = vwrk->posiy;
     posi[2] = vwrk->zoom;
@@ -949,9 +912,7 @@ void CamGetPrm(sceVu0FVECTOR posi, sceVu0FVECTOR ang, sceVu0FVECTOR div) {
 }
 
 void CamExtCtrl(sceVu0FVECTOR posi, sceVu0FVECTOR ang, sceVu0FVECTOR div) {
-    VWork *vwrk;
-
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     vwrk->zoom = posi[2];
     vwrk->posix = posi[0];
     vwrk->posiy = posi[1];
@@ -963,16 +924,12 @@ void CamExtCtrl(sceVu0FVECTOR posi, sceVu0FVECTOR ang, sceVu0FVECTOR div) {
 }
 
 void CamSetFlwFlag(s32 flg) {
-    VWork *vwrk;
-
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     vwrk->flg = flg;
 }
 
 void CamRelease(f32 div) {
-    VWork *vwrk;
-
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     if (GameGbl.cam.mode == 7) {
         CamVWorkInit(GameGbl.klonoa, &camThr);
     }
@@ -985,11 +942,8 @@ void CamInitThr(OBJWORK *objw) {
 }
 
 void CamPadCtrl(OBJWORK *objw, CAM_WORK *cam) {
-    VWork *vwrk;
-    kPadDATA *kpd;
-
-    vwrk = &ViCon;
-    kpd = &GameGbl.kpd[1];
+    VWork *vwrk = &ViCon;
+    kPadDATA *kpd = &GameGbl.kpd[1];
 
     if (objw->bun1 != 4) {
         if (pPAD_LVL_R1(kpd) && vwrk->zoom > 60.0f) {
@@ -1038,23 +992,18 @@ void CamPadCtrl(OBJWORK *objw, CAM_WORK *cam) {
 }
 
 void _CamChangeOku() {
-    VWork *vwrk;
-
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     vwrk->angy = M_PI_2f;
 }
 
 void _CamChangeTemae() {
-    VWork *vwrk;
-
-    vwrk = &ViCon;
+    VWork *vwrk = &ViCon;
     vwrk->angy = -M_PI_2f;
 }
 
 void CamControl() {
-    VWork *vwrk;
+    VWork *vwrk = &ViCon;
 
-    vwrk = &ViCon;
     switch (GameGbl.cam.mode) {
         case 1:
             CamCtrlTbl(GameGbl.klonoa);
