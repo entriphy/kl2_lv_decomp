@@ -1,6 +1,7 @@
 #include "take/object.h"
 #include "take/sfxbios.h"
 #include "take/motsys.h"
+#include "harada/hr_tchr.h"
 
 ACTTBL DfMot[128] = {}; // TODO: This needs to be initialized
 static char OutLineStatusDef[64] = {};
@@ -30,7 +31,7 @@ GIMINFO SfxTexInfo[64] = {};
 u32 SfxTexInfoIndex = 0;
 qword_uni SpecGsEnv[64] = {};
 s32 SpecGsEnvInd = 0;
-qword_uni *SpecGsEnvAlpha2 = NULL; // ?
+qword_uni *SpecGsEnvAlpha = NULL; // ?
 kitOutlineDrawEnv OutlineEnv = {};
 sceVu0IVECTOR bboxTmp[2] = {};
 u32 *DataBuffPtr = NULL;
@@ -67,7 +68,7 @@ void ModelDraw(SFXOBJ *pObj) {
             f = 0.8f;
         }
         f = (f * 127.0f) / 0.8;
-        SpecGsEnvAlpha2->u_u64[0] = SCE_GS_SET_ALPHA_2(0, 2, 2, 1, (s32)f & 0xFF);
+        SpecGsEnvAlpha->u_u64[0] = SCE_GS_SET_ALPHA_2(0, 2, 2, 1, (s32)f & 0xFF);
         if (pObj->pMot->CoordNum != 0) {
             pObjTmp = pObj;
 

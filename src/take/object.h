@@ -49,6 +49,8 @@ typedef struct { // 0xf0
 extern DMAPTR pDma;
 extern SCRENV Scr;
 extern LIGHT3 Light3;
+extern char MemFlag[512];
+extern char *SfxWorkBuff;
 extern sceVu0FMATRIX SfxLsMtx[64];
 extern sceVu0FMATRIX SfxLvMtx[64];
 extern sceVu0FMATRIX SfxLvSpecMtx[64];
@@ -57,6 +59,11 @@ extern sceVu0FMATRIX SfxSkinMtx[64];
 extern sceVu0IVECTOR SfxVertexI[2048];
 extern sceVu0IVECTOR SfxColorI[2048];
 extern sceVu0IVECTOR SfxSpecUVI[2048];
+extern u32 SfxTexInfoIndex;
+extern qword_uni SpecGsEnv[64];
+extern s32 SpecGsEnvInd;
+extern qword_uni *SpecGsEnvAlpha;
+extern sceVu0IVECTOR bboxTmp[2];
 extern s32 SfxAllPause;
 
 extern void ModelDraw(SFXOBJ *pObj);
