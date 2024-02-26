@@ -29,9 +29,12 @@ void nkMirPopMatrix() {
     sceVu0CopyMatrix(GameGbl.wsm, mrwsm);
 }
 
-// TODO: fix
 s32 nkGetMirrFlag() {
-    return hfmircnt > 0 || hcmircnt > 0;
+    if (hfmircnt == 0 && hcmircnt == 0) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 void nkMirDraw() {
