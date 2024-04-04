@@ -25,7 +25,7 @@ jobs:
     - name: Print compile_commands.json
       run: cat build/compile_commands.json
     - name: Build
-      run: cmake --build build; exit 0
+      run: bash -c "cmake --build build; exit 0"
     - name: Download original ELF
       if: always()
       run: wget -q -O orig.elf $ELF_URL
