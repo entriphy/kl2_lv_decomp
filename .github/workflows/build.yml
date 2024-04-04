@@ -36,7 +36,7 @@ jobs:
       run: pip install pyelftools rabbitizer colorama
     - name: Run cabbiter
       if: always()
-      run: python tools/build_diff.py --target orig.elf --cmake build
+      run: python tools/cabbiter.py --target orig.elf --cmake build
       env:
         PARUU_API_URL: ${{secrets.PARUU_API_URL}}
         PARUU_TOKEN: ${{secrets.PARUU_TOKEN}}
