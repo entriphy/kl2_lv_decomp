@@ -22,6 +22,8 @@ jobs:
       run: sudo mkdir /sce; sudo tar -xf sdk.tar.xz -C /sce; sudo ln -s /sce /usr/local/sce
     - name: Configure CMake
       run: cmake -DCMAKE_TOOLCHAIN_FILE=cmake/ps2_ee.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DKL2_RETAIL=ON -Bbuild
+    - name: Print compile_commands.json
+      run: cat build/compile_commands.json
     - name: Build
       run: cmake --build build
     - name: Download original ELF
@@ -29,16 +31,14 @@ jobs:
       run: wget -q -O orig.elf $ELF_URL
       env:
         ELF_URL: ${{secrets.ELF_URL}}
-    - name: Download functions.json
-      if: always()
-      run: wget -q -O functions.json $JSON_URL
-      env:
-        JSON_URL: ${{secrets.JSON_URL}}
-    - name: Install diff dependencies
+    - name: Install cabbiter dependencies
       if: always()
       run: pip install pyelftools rabbitizer colorama
-    - name: Run diff
+    - name: Run cabbiter
       if: always()
-      run: python tools/build_diff.py orig.elf build --json functions.json
+      run: python tools/build_diff.py --target orig.elf --cmake build
+      env:
+        PARUU_API_URL: ${{secrets.PARUU_API_URL}}
+        PARUU_TOKEN: ${{secrets.PARUU_TOKEN}}
         
   
