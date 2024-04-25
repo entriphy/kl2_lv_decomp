@@ -20,6 +20,12 @@ jobs:
         SDK_URL: ${{secrets.SDK_URL}}
     - name: Untar SDK
       run: sudo mkdir /sce; sudo tar -xf sdk.tar.xz -C /sce; sudo ln -s /sce /usr/local/sce
+    - name: Download ccc
+      run: wget -q -O ccc.zip $CCC_URL
+      env:
+          CCC_URL: "https://github.com/chaoticgd/ccc/releases/download/v2.0/ccc_v2.0_linux.zip"
+    - name: Unzip ccc and copy demangle executable
+      run: unzip ccc.zip -d ccc; sudo mv ccc/*/demangle /usr/bin/demangle
     - name: Configure CMake
       run: cmake -DCMAKE_TOOLCHAIN_FILE=cmake/ps2_ee.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DKL2_RETAIL=ON -Bbuild
     - name: Print compile_commands.json
