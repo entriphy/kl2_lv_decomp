@@ -7,6 +7,12 @@ import rabbitizer
 import re
 import requests
 import struct
+import subprocess
+
+
+# Globals
+DEMANGLE_PATH = os.environ.get("DEMANGLE_PATH", "demangle")
+DEMANGLE_EXISTS = False
 
 
 class Function:
@@ -39,6 +45,7 @@ class GenericElf:
     functions: dict[str, Function]
     relocation_addrs: list[int]
     path: str
+    demangled: dict[str, str]
 
     def __init__(self, elf: ELFFile):
         self.elf = elf
@@ -46,6 +53,7 @@ class GenericElf:
         self.text = text_section.data()
         self.text_offset = text_section.header.sh_addr
         self.relocation_addrs = []
+        self.demangled = {}
 
     def get_function_instructions(self, name: str, size: int = -1) -> list[rabbitizer.Instruction]:
         func = self.functions.get(name)
@@ -68,7 +76,7 @@ class GenericElf:
 
 
 class ElfWithSymbols(GenericElf):
-    def __init__(self, elf: ELFFile):
+    def __init__(self, elf: ELFFile, cpp: bool = False):
         super().__init__(elf)
         symbol_table = next(s for s in elf.iter_sections() if isinstance(s, SymbolTableSection))
         relocation_sections = [s for s in elf.iter_sections() if isinstance(s, RelocationSection)]
@@ -80,6 +88,17 @@ class ElfWithSymbols(GenericElf):
         ))
         self.functions = {func.name: Function(func.name, func.entry.st_value, func.entry.st_size) for func in function_symbols}
         self.relocation_addrs = [r.entry.r_offset for r in relocations.iter_relocations()] if len(relocation_sections) > 0 else []
+        if cpp and DEMANGLE_EXISTS:
+            for key in self.functions.keys():
+                if "__" in key:
+                    demangle_result = subprocess.run([DEMANGLE_PATH, key], capture_output=True, text=True)
+                    if demangle_result.returncode == 0:
+                        demangled = demangle_result.stdout.split("(")[0]
+                        self.demangled[key] = demangled
+                    else:
+                        print(Fore.YELLOW + "Could not demangle symbol: " + key + Style.RESET_ALL)
+            for key, value in self.demangled.items():
+                self.functions[value] = self.functions[key]
 
 
 class ElfWithSymbolAddrs(GenericElf):
@@ -138,15 +157,15 @@ def compare_functions(target_elf: GenericElf, decomp_elf: GenericElf, name: str)
 
 def read_elf(elf_path: str, symbol_addrs: dict[int, SymbolAddr] = None) -> GenericElf:
     with open(elf_path, "rb") as f:
-        elf = ElfWithSymbolAddrs(ELFFile(f), symbol_addrs) if symbol_addrs is not None else ElfWithSymbols(ELFFile(f))
+        elf = ElfWithSymbolAddrs(ELFFile(f), symbol_addrs) if symbol_addrs is not None else ElfWithSymbols(ELFFile(f), cpp=".cc" in elf_path)
     elf.path = elf_path
     return elf
 
 
-def diff(target_elf: GenericElf, decomp_elf: GenericElf, symbol_addrs: dict[int, SymbolAddr]) -> dict[str, FunctionCompareResult]:
+def diff(target_elf: GenericElf, decomp_elf: GenericElf) -> dict[str, FunctionCompareResult]:
     ret = {}
     for func_name in decomp_elf.functions.keys():
-        if func_name not in target_elf.functions:
+        if func_name not in target_elf.functions and (func_name := decomp_elf.demangled.get(func_name)) not in target_elf.functions:
             continue
         result = compare_functions(target_elf, decomp_elf, func_name)
         ret[func_name] = result
@@ -177,7 +196,6 @@ def read_symbol_addrs(symbol_addrs_path: str) -> dict[int, SymbolAddr]:
             symbol_addrs[symbol.address] = symbol
     return symbol_addrs
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="cabbiter",
@@ -196,11 +214,22 @@ if __name__ == "__main__":
                         help="Path to symbol_addrs.txt file")
     args = parser.parse_args()
 
+    # Read ELF files
     symbol_addrs = read_symbol_addrs(args.symbol_addrs)
     target_elf = read_elf(args.target, symbol_addrs)
+
+    # Check if demangle is in PATH
+    try:
+        demangle_check = subprocess.run([DEMANGLE_PATH, "generateMT__6randMT"], capture_output=True, text=True)
+        DEMANGLE_EXISTS = demangle_check.stdout == "randMT::generateMT(void)"
+    except FileNotFoundError:
+        print(Fore.YELLOW + "Running without demangle" + Style.RESET_ALL)
+        DEMANGLE_EXISTS = False
+
     if args.decomp is not None:
         decomp_elf = read_elf(args.decomp)
-        diff(target_elf, decomp_elf, symbol_addrs)
+        results = diff(target_elf, decomp_elf)
+        print_diff(target_elf, decomp_elf, results)
     else:
         with open(os.path.join(args.cmake, "compile_commands.json"), "r") as f:
             compile_comands = json.load(f)
@@ -218,7 +247,7 @@ if __name__ == "__main__":
             object_path = os.path.join(args.cmake, out_file)
             try:
                 object_elf = read_elf(object_path)
-                results = diff(target_elf, object_elf, symbol_addrs)
+                results = diff(target_elf, object_elf)
                 print_diff(target_elf, object_elf, results)
                 for result in results.values():
                     paruu_results.append(ParuuUpdate(result.target_func.address, result.nonmatching_idx == -1, "/".join(in_file.split("/")[-2:])))
