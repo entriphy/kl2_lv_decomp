@@ -4,116 +4,6 @@
 #include "okanoyo.h"
 
 typedef struct {
-    u32 top;
-    u32 end;
-    u64 pad;
-} DEBMEM;
-
-typedef struct {
-    s32 stat;
-    u16 hstart;
-    u16 hend;
-    s64 col;
-} ZOSAN_DATA;
-
-typedef struct {
-    s32 scr_x;
-    s32 scr_y;
-    s32 fsz_x;
-    s32 fsz_y;
-    ZOSAN_DATA zd[16];
-    s32 z_id;
-    s32 pad0;
-    s32 pad1;
-    s32 pad2;
-} PERSONAL_DEB;
-
-typedef struct {
-    s32 tetton2_upspd;
-    s32 tetton2_upmax;
-    s32 tetton2_dwspd;
-    s32 tetton2_dwmax;
-    s32 tetton2_mcspd;
-    s32 tetton2_mcmax;
-    s32 tetton2_count;
-    s32 tetton2_ypmax;
-    s32 gomgumi_cntmax;
-    s32 gomgumi_ydown;
-    s32 gomgumi_mdown;
-    s32 gomgumi_nobih;
-    s32 trmprn_upspd0;
-    s32 trmprn_upspd1;
-    s32 jetimo_upspd;
-    s32 jetimo_acctim;
-    s32 jetimo_livtim;
-    s32 jetimo_dietim;
-    s32 klonoa_dwmax;
-    s32 rocketmuu_pspd;
-} ZAK_DEFAULT;
-
-typedef struct {
-    s32 hit_csr_pic;
-    s32 hit_csr_id;
-    s32 hit_csr_on;
-    f32 hit_csr_rot;
-    f32 csr_pos[4];
-    s32 csr_rno;
-    s32 csr_mcn;
-    s32 csr_mode;
-    s32 csr_trg;
-    f32 csr_yofs;
-    s32 csr_dis;
-    s32 csr_xzdis;
-    s32 csr_ydis;
-    s32 csr_keyhis;
-    s32 csr_dbkey;
-    s32 csr_wtkey;
-    s32 csr_dbcnt;
-    u8 *ITEMDataBuffp;
-    s32 itemdataflag;
-    s32 OkDebDPcnt;
-    s32 OkDebHTcnt;
-    s32 OkDebKLcnt;
-    s32 OkDebEXcnt;
-    s32 OkDebDPTrg;
-    s32 OkDebHTTrg;
-    s32 OkDebKLTrg;
-    s32 OkDebEXTrg;
-    s32 OkDebM_Elf;
-    s32 pad0;
-    ZAK_DEFAULT zak_com;
-    s32 okzcom_mode;
-    s32 okzcom_team;
-    s32 okzcom_csr;
-    s32 okzcom_set;
-    f32 okzcom_valf;
-    s32 okzcom_vali;
-    s32 OkDebugGameMode;
-    s32 texinfocnt;
-    s32 OkDebugCamCurMode;
-    s32 alive_mode;
-    s32 pad1;
-    s32 pad2;
-} OKDEBDATAEX;
-
-typedef struct {
-    OKDEBDATAEX *debp;
-    s32 pad0;
-    s32 pad1;
-    s32 pad2;
-} OKDEBDATA;
-
-typedef struct {
-    s32 fontID;
-    s32 menuID;
-    s32 modeID;
-    s32 plan;
-    s32 muteki;
-    s32 pad1;
-    s64 pad0;
-} PROFILE;
-
-typedef struct {
     sceVu0FVECTOR posdiv;
     sceVu0FVECTOR angdiv;
     sceVu0FVECTOR posdivbak;
@@ -193,30 +83,6 @@ typedef struct {
     s32 dum2;
 } OkCWork;
 
-typedef struct {
-    u64 tex0;
-    s32 flag;
-    u16 pbp;
-    u16 cbp;
-    u32 px;
-    u32 py;
-    u32 cx;
-    u32 cy;
-    u16 pw;
-    u16 ph;
-    u32 pad0;
-    u32 pad1;
-    u32 pad2;
-} TEXINFO;
-
-typedef struct { // 0x108
-    /* 0x000 */ u8  name[256];
-    /* 0x100 */ s16 pw;
-    /* 0x102 */ s16 ph;
-    /* 0x104 */ s16 px;
-    /* 0x106 */ s16 py;
-} TEXINFODEB;
-
 extern u8 *scr_p[9];
 extern TEXINFO texinfo[256];
 extern TEXINFODEB texdeb[256];
@@ -237,7 +103,7 @@ extern s32 prgBufPtrIdxMax[4];
 extern s32 zakodataflag;
 extern u8 *teki_shutugen;
 extern u8 *teki_Rshutugen;
-extern u8 *zoutflgBufp[32];
+extern char *zoutflgBufp[32];
 extern s32 *ioutflgBufp[32];
 extern s32 okzcom_mode;
 extern s32 OkDebugGameMode;
@@ -260,8 +126,7 @@ extern u8 *ITEMDataBuffp;
 extern s32 itemdataflag;
 extern s32 OkDebDPcnt;
 extern s32 OkDebDPStcnt;
-extern s32 OkDebHTcnt;
-extern s32 OkDebKLcnt;
+extern s32 OkDebEXId;
 extern s32 OkDebEXcnt;
 extern s32 OkDebDPTrg;
 extern s32 OkDebHTTrg;

@@ -858,6 +858,12 @@ void hr_restart_Tmpclear() {
     hr_resFg++;
 }
 
+void hr_restart_keep() {
+    hr_resKeep |= hr_resTmp;
+    hr_resTmp = 0;
+    hrAreaEnd();
+}
+
 void hr_restart_set(s32 id) {
     hr_resTmp |= 1 << id;
 }

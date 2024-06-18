@@ -8,6 +8,7 @@ extern s32 okitemflagX[9];
 extern s32 okitemflagD[9];
 extern s32 okitemflag2[33];
 extern s32 okitemKeyflag;
+extern s32 okitemKeyusedflag;
 extern s32 okitemKeyID;
 extern s32 okitemSwitchflag;
 extern s32 okitemSwitchID;

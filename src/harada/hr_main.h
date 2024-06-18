@@ -60,6 +60,7 @@ extern void hrMainDraw();
 extern void hr_retry_set();
 extern void hr_restart_clear();
 extern void hr_restart_Tmpclear();
+extern void hr_restart_keep();
 extern void hr_restart_set(s32 id);
 extern s32 hr_restart_check(s32 id);
 
