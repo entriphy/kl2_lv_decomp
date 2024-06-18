@@ -5,6 +5,7 @@ s32 okitemflagX[9] = {};
 s32 okitemflagD[9] = {};
 s32 okitemflag2[33] = {};
 s32 okitemKeyflag = 0;
+s32 okitemKeyusedflag = 0;
 s32 okitemKeyID = 0;
 s32 okitemSwitchflag = 0;
 s32 okitemSwitchID = 0;
