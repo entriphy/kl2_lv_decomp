@@ -1,7 +1,8 @@
-#include "okinit.h"
+#include "okanoyo/okinit.h"
+#include "okanoyo/okmain.h"
 #include "nakano/main.h"
-#include "okprofile.h"
-#include "okprint.h"
+#include "okanoyo/okprofile.h"
+
 
 s32 *pfdatap[6] = {
     &fontDispID,

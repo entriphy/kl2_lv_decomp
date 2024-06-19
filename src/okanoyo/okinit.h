@@ -2,7 +2,6 @@
 #define OKINIT_H
 
 #include "okanoyo.h"
-#include "okmain.h"
 
 extern s32 *pfdatap[6];
 extern OKDEBDATAEX testdb;

@@ -68,7 +68,7 @@ typedef struct { // 0x1a
     /* 0x16 */ DVECTOR adjust;
 } KZ_MC_INFO;
 
-enum {
+typedef enum {
     STAGE_01,
     STAGE_02,
     STAGE_04,
@@ -87,8 +87,8 @@ enum {
     STAGE_17,
     STAGE_EX1,
     STAGE_EX2,
-    STAGE_NUM
-};
+    // STAGE_NUM
+} STAGE_NUM;
 
 enum POINT_NUM {
     POINT_BUGJI,

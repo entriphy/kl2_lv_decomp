@@ -6,6 +6,7 @@
 #define COPYVECTOR(v0, v1) (v0[0] = v1[0], v0[1] = v1[1], v0[2] = v1[2], v0[3] = v1[3])
 #define SETVECTOR(v, x, y, z, w) (v[0] = x, v[1] = y, v[2] = z, v[3] = w)
 #define NORMRAD(x) ({if (x < -M_PIf) { x += M_TWOPIf; } else if (x > M_PIf) { x -= M_TWOPIf; }})
+#define FADR(x, i) ((void *)((u8 *)x + ((s32 *)x)[i]))
 
 typedef struct {
     s32 tetton2_upspd;
@@ -358,5 +359,17 @@ typedef struct { // 0xe0
     /* 0xc4 */ s32 test1;
     /* 0xc8 */ HITTBL2 hittbl2;
 } ZAKO_COMMON;
+
+typedef struct { // 0x10
+    /* 0x0 */ s32 itemcnt;
+    /* 0x4 */ s32 sisize;
+    /* 0x8 */ s32 flagsize;
+    /* 0xc */ s32 dispsize;
+} ITEM_DATA_HEAD;
+
+typedef struct { // 0x20
+    /* 0x00 */ sceVu0FVECTOR pos;
+    /* 0x10 */ sceVu0FVECTOR rot;
+} SI_WORK;
 
 #endif
