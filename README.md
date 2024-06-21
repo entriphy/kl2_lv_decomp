@@ -1,8 +1,8 @@
 # Klonoa 2: Lunatea's Veil (PS2) Decompilation
-Decompilation project for Klonoa 2: Lunatea's Veil (`SLUS_201.51`).
+Matching decompilation project for Klonoa 2: Lunatea's Veil NTSC (`SLUS_201.51`).
 
-Structs, classes, and function names are taken from decompiling the C# assembly of Klonoa Phantasy Reverie Series. 
-While this does not aim to be a fully matching decompilation, `ee-gcc 2.9-991111-01` (available on [decomp.me](https://decomp.me)) seems to produce matching code most of the time, though it is not 100% certain if this was the compiler used to compile the game.
+Structs, globals, and function info are taken from the debug symbols of the Klonoa 2 executable from [Demo Disc 2.3](http://redump.org/disc/33890/), as well as from decompiling the C# assembly of Klonoa Phantasy Reverie Series. 
+The `ee-gcc 2.9-991111-01` compiler (available on [decomp.me](https://decomp.me)) seems to produce matching code most of the time, though it is not 100% certain if this was the compiler used to compile the game.
 
 Support the series by purchasing & playing [Klonoa Phantasy Reverie Series](https://klonoa-at-blog.tumblr.com/post/145593146333/here-are-the-current-ways-you-can-officially)! :D
 
@@ -33,7 +33,9 @@ This repository does not contain any game assets, thus a legal copy of the game 
 ## Contributing
 (todo)
 
-[Decompilation Progress (Google Sheets)](https://docs.google.com/spreadsheets/d/190e6yPZklUfM2ye2Pkpta4B5KNp9lJFB0Ldx90eCVzU/edit?usp=sharing)
+[Decompilation Progress](https://decomp.klonoa.io)
+
+[Decompilation Progress Sheet (old)](https://docs.google.com/spreadsheets/d/190e6yPZklUfM2ye2Pkpta4B5KNp9lJFB0Ldx90eCVzU/edit?usp=sharing)
 
 ## Other Tools
 * [kl2_pine](https://github.com/entriphy/kl2_pine): Memory editor/visualizer for Klonoa 2 using [PINE](https://github.com/GovanifY/pine)
