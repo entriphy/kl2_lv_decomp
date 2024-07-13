@@ -19,6 +19,17 @@ typedef struct { // 0x10
     /* 0x8 */ u64 upper;
 } kitPACKED;
 
+typedef union { // 0x10
+    /* 0x0 */ u128 ul128;
+    /* 0x0 */ u_long ul[2];
+    /* 0x0 */ u_int ui[4];
+    /* 0x0 */ int in[4];
+    /* 0x0 */ float fl[4];
+    /* 0x0 */ u_char uc[8];
+    /* 0x0 */ char ch[8];
+    /* 0x0 */ kitADDR_DATA ad;
+} kitDMAPACKET;
+
 typedef struct { // 0x60
     /* 0x00 */ sceVu0IVECTOR bbox[4];
     /* 0x40 */ u32 fr_page;

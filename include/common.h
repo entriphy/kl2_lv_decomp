@@ -22,5 +22,15 @@
 #define SPR_MEM_IDX(i) ((void *)(0x70000000 + i * 0x10))
 #define SPR_SRC(x) ((void *)((u32)x | 0x80000000))
 #define SPR_SEND SPR_SRC(SPR_MEM)
+#define VIF_UNPACK_V3_16 9
+#define VIF_UNPACK_V4_8 14
+#define DMArefe (0<<28)
+#define DMAcnt  (1<<28)
+#define DMAnext (2<<28)
+#define DMAref  (3<<28)
+#define DMArefs (4<<28)
+#define DMAcall (5<<28)
+#define DMAret  (6<<28)
+#define DMAend  (7<<28)
 
 #endif

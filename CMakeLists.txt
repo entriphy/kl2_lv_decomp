@@ -23,7 +23,7 @@ set_target_properties(PS2_CRT0 PROPERTIES OUTPUT_NAME "crt0.o")
 set(EXECUTABLES)
 
 # C files
-set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo taka take okanoyo/debug okanoyo/linux)
+set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo taka take okanoyo/debug vtusr/taro okanoyo/linux)
 foreach (SUBDIR IN LISTS SUBDIRS)
     file(GLOB files src/${SUBDIR}/*.c)
     foreach (file ${files})
@@ -57,7 +57,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE SCE)
 target_link_options(${PROJECT_NAME} PRIVATE -T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0)
 target_include_directories(${PROJECT_NAME} PRIVATE ${SCESDK}/common/include ${SCESDK}/ee/include include src)
 target_link_directories(${PROJECT_NAME} PRIVATE ${SCESDK}/ee/lib)
-target_link_libraries(${PROJECT_NAME} PRIVATE m cdvd graph dma vu0 dev sdr pad)
+target_link_libraries(${PROJECT_NAME} PRIVATE m cdvd graph dma vu0 dev sdr pad ipu)
 
 if (DEFINED KL2_RETAIL)
     target_compile_definitions(${PROJECT_NAME} PRIVATE RETAIL)

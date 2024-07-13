@@ -2,6 +2,7 @@
 #define PS2_H
 
 #ifdef SCE
+#include <eetypes.h>
 #include <eekernel.h>
 #include <eestruct.h>
 #include <libdma.h>
