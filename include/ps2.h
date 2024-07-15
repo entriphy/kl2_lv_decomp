@@ -9,6 +9,7 @@
 #include <eeregs.h>
 #include <libgraph.h>
 #include <libvu0.h>
+#include <libipu.h>
 #else
 #include "ps2_stubs.h"
 #endif

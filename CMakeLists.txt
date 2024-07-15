@@ -23,7 +23,7 @@ set_target_properties(PS2_CRT0 PROPERTIES OUTPUT_NAME "crt0.o")
 set(EXECUTABLES)
 
 # C files
-set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo taka take okanoyo/debug vtusr vtusr/taro okanoyo/linux)
+set(SUBDIRS abe harada hato hoshino kazuya nakano okanoyo taka take okanoyo/debug vtusr hoshino/kit vtusr/taro okanoyo/linux)
 foreach (SUBDIR IN LISTS SUBDIRS)
     file(GLOB files src/${SUBDIR}/*.c)
     foreach (file ${files})
