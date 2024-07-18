@@ -18,6 +18,7 @@
 #define QWORD_SET128(x, y) { *(u128 *)&x = y; }
 #define QWORD_SET64(x, y, i) { *((u64 *)&x + i) = y; }
 #define QWORD_SET32(x, y, i) { *((u32 *)&x + i) = y; }
+#define ALIGN_BUF(x) ((void *)(((u32)x + 0xF) & ~0xF))
 
 #pragma endregion Defines
 

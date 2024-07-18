@@ -92,10 +92,10 @@ static void hr_draw_skin(HRVU1OBJ *hrobj, s32 maxmat, sceVu0FMATRIX *LsMat, sceV
     FlushCache(0);
 }
 
-void hr_draw_tkVU1(HRVU1OBJ *hrobj, s32 maxmat, sceVu0FMATRIX *LsMat, sceVu0FMATRIX *LcLight, sceVu0FMATRIX LColor) {
+void hr_draw_tkVU1(HRVU1OBJ *hrobj, s32 maxmat, sceVu0FMATRIX *LsMat, sceVu0FMATRIX *LcLight, sceVu0FMATRIX *LColor) {
     ATR_SFXVU1 *pp;
 
-    nkMakeUnpackVif1(&p1_packet,LColor, 0x384, 4);
+    nkMakeUnpackVif1(&p1_packet, *LColor, 0x384, 4);
     if (hr_objtype != 1) {
         hr_objtype = 1;
         hrgms_old = NULL;

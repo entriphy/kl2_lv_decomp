@@ -106,8 +106,12 @@ extern void SetSfxVariationGms(SFXOBJ *pObj, u32 GmsNum);
 extern s32 SetSyncTex(SFXOBJ *pObj);
 extern void SetSfxMotionSync(SFXOBJ *pObj0, SFXOBJ *pObj1);
 extern s32 SetSfxActSimple(u32 *DataBuff, SFXOBJ *pObj);
+extern SFXOBJ* SetSfxObject(u32 *DataAdrs);
+extern SFXOBJ* SetSvxObject(u32 *DataAdrs);
 extern void SetObjClipZone(SFXOBJ *pObj, f32 offset, f32 zone);
+extern s32 GetObjShadowData(SFXOBJ *pObj, sceVu0FVECTOR TmpVec);
 extern void SetObjShadow(SFXOBJ *pObj, s32 Type, f32 Size, f32 Offset, f32 Range);
+extern s32 SfxObjBallClipCheck(SFXOBJ *pObj);
 extern void SetObjAllPause(s32 flag);
 
 #endif

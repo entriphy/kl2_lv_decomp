@@ -74,6 +74,6 @@ typedef struct { // 0x80
 } ATR_SFXVU1D;
 
 extern void hr_decode_tkVU1(HRVU1OBJ *hrobj, u32 *buff, u32 *gms);
-extern void hr_draw_tkVU1(HRVU1OBJ *hrobj, s32 maxmat, sceVu0FMATRIX *LsMat, sceVu0FMATRIX *LcLight, sceVu0FMATRIX LColor);
+extern void hr_draw_tkVU1(HRVU1OBJ *hrobj, s32 maxmat, sceVu0FMATRIX *LsMat, sceVu0FMATRIX *LcLight, sceVu0FMATRIX *LColor);
 
 #endif
