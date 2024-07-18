@@ -1,11 +1,12 @@
 #include <eetypes.h>
 #include <libdev.h>
 #include "take/efftornado.h"
+#include "take/camera.h"
+#include "take/object.h"
 #include "nakano/drawof.h"
 #include "nakano/nkpad.h"
 #include "nakano/wmeter.h"
-#include "take/camera.h"
-#include "take/object.h"
+
 #include "abe/ab_init.h"
 #include "nakano/dma.h"
 #include "nakano/map00.h"

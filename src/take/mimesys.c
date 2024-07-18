@@ -194,9 +194,7 @@ void MimeSet(SFXOBJ *pObj, s32 StartNum, s32 EndNum, f32 Weight) {
 
                 pSfzParts0 = (TYPE_SFZ_TBL *)(pSfz0 + 1);
                 pSfzParts1 = (TYPE_SFZ_TBL *)(pSfz1 + 1);
-
-                i = 0;
-                while (i < pSfz0->parts_num) {
+                for (i = 0; i < pSfz0->parts_num; i++, pSfzParts0++, pSfzParts1++) {
                     id = pSfzParts0->parts_id;
                     pObjTmp->pParts[id].type = 3;
                     pObjTmp->pParts[id].vert_adrs_mime0 = (int *)((int)pSfz0 + (int)pSfzParts0->vert_adrs);
@@ -205,9 +203,6 @@ void MimeSet(SFXOBJ *pObj, s32 StartNum, s32 EndNum, f32 Weight) {
                     id = pSfzParts1->parts_id;
                     pObjTmp->pParts[id].vert_adrs_mime1 = (int *)((int)pSfz1 + (int)pSfzParts1->vert_adrs);
                     pObjTmp->pParts[id].norm_adrs_mime1 = (int *)((int)pSfz1 + (int)pSfzParts1->norm_adrs);
-                    i++;
-                    pSfzParts0++;
-                    pSfzParts1++;
                 }
             }
             pObjTmp = pObjTmp->pObjSub;

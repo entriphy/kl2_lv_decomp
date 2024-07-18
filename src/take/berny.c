@@ -62,7 +62,7 @@ static void BernyEnvInit(BERNY *pBe) {
     pBe->px[1] = texinfo[idx].px;
     pBe->py[1] = texinfo[idx].py;
     pBe->pw[1] = texinfo[idx].pw;
-    pBe->ph[1] = texinfo[idx].ph;\
+    pBe->ph[1] = texinfo[idx].ph;
     tex = texinfo[idx].tex0;
     pBe->tex0[1] = (tex | (1L << GS_TEX0_TCC_O)) & ~(3L << GS_TEX0_TFX_O);
 

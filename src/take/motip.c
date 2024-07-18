@@ -367,7 +367,7 @@ void GetInterPolateAxis(sceVu0FVECTOR Axis, sceVu0FMATRIX StartMtx, sceVu0FMATRI
         "vmove.xyz $vf8xyz,$vf1xyz\n"
         "vmove.xyz $vf9xyz,$vf2xyz\n"
     "_ei_cp_end:\n"
-        "lwc1    $f4,%3\n" // how 2 do dis
+        "li.s    $f4,0.00000000001\n"
         "c.lt.s  $f1,$f4\n"
         "bc1f    _ei_calc\n"
         "vsub.xyzw $vf15xyzw,$vf0xyzw,$vf0xyzw\n"
@@ -556,7 +556,7 @@ void GetInterPolateAxis(sceVu0FVECTOR Axis, sceVu0FMATRIX StartMtx, sceVu0FMATRI
     "_ei_end:\n"
         "sqc2    vf15,0(%0)\n"
         "nop\n"
-    : : "r" (Axis), "r" (StartMtx), "r" (EndMtx), "m" (0.00000000001f));
+    : : "r" (Axis), "r" (StartMtx), "r" (EndMtx));
 }
 
 f32 __sin(f32 rad) {
@@ -585,7 +585,6 @@ f32 __sin(f32 rad) {
         "vadd.x      $vf8, $vf8, $vf9\n"
         "qmfc2       $6, $vf8\n"
         "mtc1        $6, $f0\n"
-        "nop\n"
     : : "f" (rad));
 }
 
@@ -617,6 +616,5 @@ f32 __cos(f32 rad) {
         "qmfc2       $6, $vf8\n"
         "mtc1        $6, $f0\n"
         "qmfc2       $2, $vf8\n"
-        "nop\n"
     : : "f" (rad));
 }

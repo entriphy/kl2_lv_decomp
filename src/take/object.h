@@ -46,10 +46,13 @@ typedef struct { // 0xf0
     /* 0xb0 */ sceVu0FMATRIX LightColor;
 } LIGHT3;
 
+extern u128 *SfxPacketBuff[2];
+extern s32 SpActive;
 extern DMAPTR pDma;
 extern SCRENV Scr;
 extern LIGHT3 Light3;
 extern char MemFlag[512];
+extern char *SfxDataPtr;
 extern char *SfxWorkBuff;
 extern sceVu0FMATRIX SfxLsMtx[64];
 extern sceVu0FMATRIX SfxLvMtx[64];
@@ -59,12 +62,20 @@ extern sceVu0FMATRIX SfxSkinMtx[64];
 extern sceVu0IVECTOR SfxVertexI[2048];
 extern sceVu0IVECTOR SfxColorI[2048];
 extern sceVu0IVECTOR SfxSpecUVI[2048];
+extern GIMINFO SfxTexInfo[64];
 extern u32 SfxTexInfoIndex;
 extern qword_uni SpecGsEnv[64];
 extern s32 SpecGsEnvInd;
-extern qword_uni *SpecGsEnvAlpha;
+extern qword_uni *SpecGsEnvAlpha; // ?
+extern kitOutlineDrawEnv OutlineEnv;
 extern sceVu0IVECTOR bboxTmp[2];
+extern u32 *DataBuffPtr;
+extern u32 SfxFrame;
+extern u32 SfxInter;
+extern f32 ActCntSpd;
+extern f32 *pSfxClip;
 extern s32 SfxAllPause;
+extern s32 SfxDebugCnt;
 
 extern void ModelDraw(SFXOBJ *pObj);
 extern s32 GetSfxOutFlag(SFXOBJ *pObj);
@@ -97,5 +108,6 @@ extern void SetSfxMotionSync(SFXOBJ *pObj0, SFXOBJ *pObj1);
 extern s32 SetSfxActSimple(u32 *DataBuff, SFXOBJ *pObj);
 extern void SetObjClipZone(SFXOBJ *pObj, f32 offset, f32 zone);
 extern void SetObjShadow(SFXOBJ *pObj, s32 Type, f32 Size, f32 Offset, f32 Range);
+extern void SetObjAllPause(s32 flag);
 
 #endif

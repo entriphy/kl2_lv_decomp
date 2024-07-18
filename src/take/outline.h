@@ -17,6 +17,6 @@ extern kitEffectBufDisablePacket* EffectBufDisableNXY(kitEffectBufDisablePacket 
 extern kitInitEffectBufBPacket* InitEffectBufB(kitInitEffectBufBPacket *packet, kitOutlineDrawEnv *env);
 extern kitDrawSpritePacket* DrawSprite(kitDrawSpritePacket *packet, kitOutlineDrawEnv *env, u64 test, u8 alpha_switch, u8 tex_func);
 extern kitDrawSpriteRegSetPacket* DrawSpriteRegSet(kitDrawSpriteRegSetPacket *packet, kitOutlineDrawEnv *env);
-extern u128* SetGsRegister(u128 *packet, u_char addr, u_long data);
+extern u128* SetGsRegister(u128 *packet, u8 addr, u64 data);
 
 #endif

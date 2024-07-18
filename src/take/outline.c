@@ -83,9 +83,10 @@ u128* OutlineExecution(u128 *packet, kitOutlineDrawEnv *pOutlineEnv) {
 void OutlineColorDefine(kitOutlineDrawEnv *pOutlineEnv, kitOutlineObjEnv *objenv) {
     pOutlineEnv->spritez = pOutlineEnv->bbox[0][2];
     // wtf
-    pOutlineEnv->alpha = pOutlineEnv->spritez < 0x1000 ? 0 :
-        pOutlineEnv->spritez < 0x10000 ? ((pOutlineEnv->spritez - 0x1000) * 56) / 0xF000 :
-        pOutlineEnv->spritez >= 0x20000 ? (pOutlineEnv->spritez < 0x100000 ? ((pOutlineEnv->spritez - 0x20000) * 24) / 0xE0000 + 56 : 80) : 56;
+    pOutlineEnv->alpha = pOutlineEnv->spritez < 0x1000   ? 0                                               :
+                         pOutlineEnv->spritez < 0x10000  ? ((pOutlineEnv->spritez - 0x1000) * 56) / 0xF000 :
+                         pOutlineEnv->spritez >= 0x20000 ? (pOutlineEnv->spritez < 0x100000 ? ((pOutlineEnv->spritez - 0x20000) * 24) / 0xE0000 + 56 : 80)
+                         : 56;
 }
 
 kitInitEffectBufAllPacket* InitEffectBufAll(kitInitEffectBufAllPacket *packet) {
@@ -267,7 +268,7 @@ kitDrawSpriteRegSetPacket* DrawSpriteRegSet(kitDrawSpriteRegSetPacket *packet, k
     return packet;
 }
 
-u128* SetGsRegister(u128 *packet, u_char addr, u_long data) {
+u128* SetGsRegister(u128 *packet, u8 addr, u64 data) {
     ((u64 *)packet)[0] = SCE_GIF_SET_TAG(1, 1, 0, 0, 0, 1);
     ((u64 *)packet)[1] = SCE_GIF_PACKED_AD;
     ((u64 *)packet)[3] = addr;
