@@ -163,6 +163,10 @@ void hCdCueFlushBGM2() {
     }
 }
 
+void hCdCallback(s32 cb_reason) {
+    // Empty function
+}
+
 s32 hCdRead(u32 lsn, u32 sectors, void *buff, sceCdRMode *mode) {
     sceCdDiskReady(0);
     if (sceCdRead(lsn, sectors, buff, mode) == 0) {
@@ -212,6 +216,10 @@ s32 hCdReadSync() {
         return 1;
     else
         return 0;
+}
+
+s32 hCdDataStat() {
+    return cD->dataStat;
 }
 
 void hCdInit() {

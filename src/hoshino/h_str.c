@@ -1,10 +1,12 @@
-#include "h_str.h"
-#include "h_sound.h"
-#include "h_cdvd.h"
-#include "h_game.h"
-#include "h_rpc.h"
-#include "h_menu.h"
-#include "h_test.h"
+#include <eetypes.h>
+#include <libsdr.h>
+#include "hoshino/h_str.h"
+#include "hoshino/h_sound.h"
+#include "hoshino/h_cdvd.h"
+#include "hoshino/h_game.h"
+#include "hoshino/h_rpc.h"
+#include "hoshino/h_menu.h"
+#include "hoshino/h_test.h"
 
 KLTABLE *KlTable = NULL; // ?
 PPTTABLE *PptTable = NULL;

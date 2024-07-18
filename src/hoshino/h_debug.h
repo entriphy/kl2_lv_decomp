@@ -3,7 +3,7 @@
 
 #include "hoshino.h"
 
-extern void HsDeb2PtblInit();
-extern void HsDeb2Ptbl();
+extern void HsDeb2PTblInit();
+extern void HsDeb2PTbl();
 
 #endif

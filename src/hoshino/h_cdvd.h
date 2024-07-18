@@ -56,6 +56,7 @@ extern s32  hCdGetSize(s32 no);
 extern void hCdReadDataBlock(s32 no, s32 buff);
 extern void hCdReadData(s32 no, s32 buff);
 extern s32  hCdReadSync();
+extern s32  hCdDataStat();
 extern void hCdInit();
 extern void hCdMain();
 extern s32  hCdDiscStatOK();

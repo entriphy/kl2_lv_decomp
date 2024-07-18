@@ -1,12 +1,14 @@
-#include "h_sound.h"
-#include "h_rpc.h"
-#include "h_gamesnd.h"
-#include "h_menu.h"
-#include "h_str.h"
-#include "h_util.h"
-#include "h_cdvd.h"
+#include <eetypes.h>
+#include <libsdr.h>
+#include "hoshino/h_sound.h"
+#include "hoshino/h_rpc.h"
+#include "hoshino/h_gamesnd.h"
+#include "hoshino/h_menu.h"
+#include "hoshino/h_str.h"
+#include "hoshino/h_util.h"
+#include "hoshino/h_cdvd.h"
+#include "hoshino/h_file.h"
 #include "okanoyo/okio.h"
-#include "h_file.h"
 
 EFXSE efdm[1] = {
     {4, 0.1f, 0, 0, 1, 0.05f, 0.0f, 0, 0}
@@ -716,7 +718,7 @@ void hSndPkSetPitch(s32 voice, s32 pitch) {
     *sD->Pk++ = pitch >> 8;
 }
 
-void hSndPkSetPalPitch(s32 voice) {
+void hSndPkPalPitch(s32 voice) {
     sD->PkNum++;
     *sD->Pk++ = SNDCMD_PALPITCH;
     *sD->Pk++ = voice;

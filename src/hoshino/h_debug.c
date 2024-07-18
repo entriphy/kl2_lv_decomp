@@ -1,9 +1,9 @@
-#include "h_debug.h"
+#include "hoshino/h_debug.h"
 
-void HsDeb2PtblInit() {
+void HsDeb2PTblInit() {
     // Empty function
 }
 
-void HsDeb2Ptbl() {
+void HsDeb2PTbl() {
     // Empty function
 }

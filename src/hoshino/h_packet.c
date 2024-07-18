@@ -237,9 +237,9 @@ void hSetTEXnDefault() {
     *pk->p++ = c + SCE_GS_TEX1_1;
     *pk->p++ = SCE_GS_SET_CLAMP(1, 1, 0, 0, 0, 0);
     *pk->p++ = c + SCE_GS_CLAMP_1;
-    *pk->p++ = SCE_GS_SET_TEXA(0, 1, 1);
+    *pk->p++ = SCE_GS_SET_TEXA(0, 1, 128);
     *pk->p++ = SCE_GS_TEXA;
-    *pk->p++ = SCE_GS_SET_ALPHA(0, 1, 0, 1, 1);
+    *pk->p++ = SCE_GS_SET_ALPHA(0, 1, 0, 1, 128);
     *pk->p++ = c + SCE_GS_ALPHA_1;
     *pk->p++ = SCE_GS_SET_TEST(0, 0, 0, 0, 0, 0, 1, 2);
     *pk->p++ = c + SCE_GS_TEST_1;
