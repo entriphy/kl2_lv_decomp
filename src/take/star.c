@@ -226,3 +226,8 @@ static void DrawStarSub(sceVu0IVECTOR *Xyz, s32 px, s32 py, s32 pw, s32 ph) {
     sceDmaSync(pDma.Gif, 0, 0);
     sceDmaSend(pDma.Gif, SPR_SRC(spr2));
 }
+
+void EraseStar(OBJWORK *pObjw) {
+    pObjw->stat0 = 0;
+    freemem((void *)pObjw->reg0);
+}

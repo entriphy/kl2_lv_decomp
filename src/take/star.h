@@ -21,5 +21,6 @@ typedef struct {
 
 extern OBJWORK* SetStar(SFXOBJ *pObj);
 extern OBJWORK* SetPopStar(SFXOBJ *pObj);
+extern void EraseStar(OBJWORK *pObjw);
 
 #endif
