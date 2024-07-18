@@ -7,6 +7,7 @@
 #define M_PIf		3.141592f
 #define M_TWOPIf    6.283184f
 #define M_PI_2f		1.570796f
+#define M_PI_3f     1.047198f
 #define M_PI_4f		0.785398f
 #define M_PI_8f		0.392699f
 #define M_PI_32f    0.09817475f
@@ -56,6 +57,8 @@
 #define PAD_LVL_L2(kpd) (kpd.lvl & 0x1)
 #define PAD_LVL_R1(kpd) (kpd.lvl & 0x8)
 #define PAD_LVL_R2(kpd) (kpd.lvl & 0x2)
+#define PAD_LVL_START(kpd) (kpd.lvl & 0x800)
+#define PAD_LVL_SELECT(kpd) (kpd.lvl & 0x100)
 
 #define pPAD_TRG_UP(kpd) (kpd->trg & 0x1000)
 #define pPAD_TRG_DOWN(kpd) (kpd->trg & 0x4000)
@@ -89,5 +92,7 @@
 #define pPAD_LVL_L2(kpd) (kpd->lvl & 0x1)
 #define pPAD_LVL_R1(kpd) (kpd->lvl & 0x8)
 #define pPAD_LVL_R2(kpd) (kpd->lvl & 0x2)
+#define pPAD_LVL_START(kpd) (kpd->lvl & 0x800)
+#define pPAD_LVL_SELECT(kpd) (kpd->lvl & 0x100)
 
 #endif

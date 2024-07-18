@@ -4,7 +4,7 @@
 FUNCTBL MainFuncTbl[] = {
     // { tkMenuFuncTbl, -1 },
     // { tkViewerFuncTbl, -1 },
-    // { D_00395E10, -1 },
+    // { tkTornadoFuncTbl, -1 },
     // { tkTitleFuncTbl, -1 }
 };
 
