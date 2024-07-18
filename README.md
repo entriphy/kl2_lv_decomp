@@ -1,7 +1,12 @@
-# Klonoa 2: Lunatea's Veil (PS2) Decompilation
+# Klonoa 2: Lunatea's Veil Decompilation
+![Progress](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi.decomp.klonoa.io%2Fbadge%2Flv)
+
 Matching decompilation project for Klonoa 2: Lunatea's Veil NTSC (`SLUS_201.51`).
 
-Structs, globals, and function info are taken from the debug symbols of the Klonoa 2 executable from [Demo Disc 2.3](http://redump.org/disc/33890/), as well as from decompiling the C# assembly of Klonoa Phantasy Reverie Series. 
+Information relevant to reverse engineering and decompiling the game was retrieved from the following sources:
+* Debug symbols from the Klonoa 2 executable from [Demo Disc 2.3](http://redump.org/disc/33890/), extracted using [ccc](https://github.com/chaoticgd/ccc). This includes information about functions, structs, classes, local/global variables, and filenames.
+* The C# assembly (`Assembly-CSharp.dll`) from the Steam release of [Klonoa Phantasy Reverie Series](https://store.steampowered.com/app/1730680/Klonoa_Phantasy_Reverie_Series). This includes information about functions and structs that were not present in the demo version of the game.
+
 The `ee-gcc 2.9-991111-01` compiler (available on [decomp.me](https://decomp.me)) seems to produce matching code most of the time, though it is not 100% certain if this was the compiler used to compile the game.
 
 Support the series by purchasing & playing [Klonoa Phantasy Reverie Series](https://klonoa-at-blog.tumblr.com/post/145593146333/here-are-the-current-ways-you-can-officially)! :D
