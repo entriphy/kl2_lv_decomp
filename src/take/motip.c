@@ -1,4 +1,4 @@
-#include "motip.h"
+#include "take/motip.h"
 
 void TkGetLpMAtrix(sceVu0FMATRIX Mtx, sceVu0FVECTOR Pos, sceVu0FVECTOR Norm, sceVu0FVECTOR Rot) {
     sceVu0FVECTOR v;

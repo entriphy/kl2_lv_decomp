@@ -7,7 +7,6 @@
 #define NODE_EE		'E'
 #define NODE_HOST	'H'
 #define BUFSZ 0x10000
-#define UNCACHED(p) ((u8 *)((u32)p | 0x20000000))
 
 typedef struct { // 0x18
     /* 0x00 */ vs32 s;

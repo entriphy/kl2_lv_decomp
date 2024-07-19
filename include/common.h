@@ -22,6 +22,7 @@
 #define SPR_MEM_IDX(i) ((void *)(0x70000000 + i * 0x10))
 #define SPR_SRC(x) ((void *)((u32)x | 0x80000000))
 #define SPR_SEND SPR_SRC(SPR_MEM)
+#define UNCACHED(p) ((void *)((u32)p | 0x20000000))
 #define VIF_UNPACK_V3_16 9
 #define VIF_UNPACK_V4_8 14
 #define DMArefe (0<<28)
