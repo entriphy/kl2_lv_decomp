@@ -4,7 +4,7 @@
 #include "take.h"
 
 extern void TkGetLpMAtrix(sceVu0FMATRIX Mtx, sceVu0FVECTOR Pos, sceVu0FVECTOR Norm, sceVu0FVECTOR Rot);
-extern void GetJetMatrix(sceVu0FMATRIX Mtx, sceVu0FVECTOR VecNow);
+extern void GetJetMatrix(sceVu0FMATRIX Mtx, sceVu0FVECTOR VecNow, sceVu0FVECTOR unused_, sceVu0FVECTOR unused__);
 extern void LinerInterPolateMatrixBuff(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRIX m1, s32 num, u64 flag, f32 weight);
 extern void LinerInterPolateMatrix(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRIX m1, f32 Weight);
 extern void InterPolateMatrixLightTmp2(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRIX m1, f32 Weight);

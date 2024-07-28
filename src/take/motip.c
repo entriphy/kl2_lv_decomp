@@ -13,7 +13,7 @@ void TkGetLpMAtrix(sceVu0FMATRIX Mtx, sceVu0FVECTOR Pos, sceVu0FVECTOR Norm, sce
     sceVu0TransMatrix(Mtx, Mtx, Pos);
 }
 
-void GetJetMatrix(sceVu0FMATRIX Mtx, sceVu0FVECTOR VecNow) {
+void GetJetMatrix(sceVu0FMATRIX Mtx, sceVu0FVECTOR VecNow, sceVu0FVECTOR unused_, sceVu0FVECTOR unused__) {
     sceVu0FVECTOR v0, v1;
 
     sceVu0CopyVector(v0, VecNow);

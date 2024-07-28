@@ -1,7 +1,8 @@
-#include "motsys.h"
-#include "object.h"
-#include "motip.h"
-#include "sfxbios.h"
+#include "take/motsys.h"
+#include "take/object.h"
+#include "take/motip.h"
+#include "take/sfxbios.h"
+#include "take/motsys2.h"
 
 void GetMotion(SFXOBJ *pObj) {
     if (pObj->pObjTop->Pause == 0 && SfxAllPause == 0 && pObj->MotionSyncFlag != 1)
@@ -760,6 +761,146 @@ void ClearQwordMem(u32 Addrs, u32 Num) {
     : : "r" (Addrs), "r" (Num));
 }
 
+// Not matching: https://decomp.me/scratch/mb4nf
 void AcxDecodeMotion(sceVu0FMATRIX *DecodeBuff, MOTION *m, s32 Ind) {
-    // TODO
+	s32 i;
+	s16 *pInf;
+	ACX_HEADER *pAcxHeader;
+	s16 PartsNum;
+	s16 FrameNum;
+	ACT_HEADER *pActHeader;
+	f32 MotionCntFloat;
+	s16 MotionCnt;
+	s16 *pTraData;
+	s16 *pRotData;
+	s16 TraKeyNum;
+	s16 RotKeyNum;
+	f32 Scale;
+	f32 Weight;
+	sceVu0FVECTOR Offset;
+	sceVu0IVECTOR TraI;
+	sceVu0FVECTOR TraF;
+	sceVu0IVECTOR RotI;
+	sceVu0FVECTOR RotF;
+	sceVu0FVECTOR TraFloat[64];
+	sceVu0FVECTOR RotFloat0[64];
+	sceVu0FVECTOR RotFloat1[64];
+	sceVu0FMATRIX TmpMatrix; // This was originally a sceVu0FVECTOR...?
+	sceVu0FVECTOR RotMatrix[61];
+	s32 TopInd;
+	s32 LastInd;
+	s32 TmpInd;
+	s32 TmpInd2;
+	s32 TopKeyNum;
+	s32 LastKeyNum;
+
+    pActHeader = (ACT_HEADER *)m->Mb[Ind].pAct;
+    pAcxHeader = (ACX_HEADER *)((u32)pActHeader + pActHeader->CompressFlag);
+    MotionCnt = m->Mb[Ind].MotionCnt;
+    MotionCntFloat = m->Mb[Ind].MotionCnt;
+    PartsNum = pAcxHeader->PartsNum;
+    FrameNum = pAcxHeader->FrameNum;
+    Scale = pAcxHeader->Scale;
+    Offset[0] = pAcxHeader->Xoffset;
+    Offset[1] = pAcxHeader->Yoffset;
+    Offset[2] = pAcxHeader->Zoffset;
+    Offset[3] = 0.0f;
+    RotI[3] = 0;
+    TraI[3] = 1;
+    pInf = (s16 *)(m->pInf + 0xC);
+    
+    pTraData = (s16 *)++pAcxHeader;
+    for (i = 0; i < PartsNum; i++) {
+        TraKeyNum = *pTraData++;
+        TopInd = 0;
+        TopKeyNum = 0;
+        LastInd = TraKeyNum;
+        LastKeyNum = FrameNum;
+        
+        for (TmpInd = (LastInd * MotionCnt) / LastKeyNum; ; TmpInd = TopInd + (LastInd - TopInd) * (MotionCnt - TopKeyNum) / (LastKeyNum - TopKeyNum)) { // Line 1498
+            if (!(MotionCnt < pTraData[TmpInd])) { // Line 1499
+                TopInd = TmpInd + 1;
+                if (MotionCnt < pTraData[TmpInd + 1]) { // Line 1500
+                    break;
+                }
+                TopKeyNum = pTraData[TopInd]; // Line 1504
+            } else { // Line 1506
+                LastInd = TmpInd;
+                LastKeyNum = pTraData[LastInd]; // Line 1508
+            }
+        }
+        
+        pTraData += TraKeyNum + 1;
+        TraI[0] = (pTraData + TmpInd * 3)[0];
+        TraI[1] = (pTraData + TmpInd * 3)[1];
+        TraI[2] = (pTraData + TmpInd * 3)[2];
+        sceVu0ITOF0Vector(TraF, TraI);
+        sceVu0ScaleVectorXYZ(TraFloat[i], TraF, Scale);
+        if (*pInf < 0)
+            sceVu0AddVector(TraFloat[i], TraFloat[i], Offset);
+        
+        pTraData += TraKeyNum * 3;
+        pInf++;
+    }
+
+    pRotData = pTraData;
+    for (i = 0; i < PartsNum; i++) {
+        RotKeyNum = *pRotData++;
+        TopInd = 0;
+        LastInd = RotKeyNum;
+        TopKeyNum = 0;
+        LastKeyNum = FrameNum;
+
+        for (TmpInd = (LastInd * MotionCnt) / LastKeyNum; ; TmpInd = TopInd + (LastInd - TopInd) * (MotionCnt - TopKeyNum) / (LastKeyNum - TopKeyNum)) { // Line 1498
+            if (!(MotionCnt < pRotData[TmpInd])) {
+                TopInd = TmpInd + 1;
+                if (MotionCnt < pRotData[TmpInd + 1]) {
+                    break;
+                }
+                TopKeyNum = pRotData[TopInd];
+            } else {
+                LastInd = TmpInd;
+                LastKeyNum = pRotData[LastInd];
+            }
+        }
+        
+        RotI[0] = (pRotData + TmpInd)[0];
+        RotI[1] = (pRotData + TmpInd)[1];
+        sceVu0ITOF0Vector(RotF, RotI);
+        Weight = (MotionCntFloat - RotF[0]) / (RotF[1] - RotF[0]);
+        pRotData += RotKeyNum + 1;
+
+        if (Weight > 0.0001f) {
+            RotI[0] = (pRotData + TmpInd * 3)[0];
+            RotI[1] = (pRotData + TmpInd * 3)[1];
+            RotI[2] = (pRotData + TmpInd * 3)[2];
+            sceVu0ITOF0Vector(RotF, RotI);
+            sceVu0ScaleVectorXYZ(RotF, RotF, 0.000095f);
+            sceVu0UnitMatrix(DecodeBuff[i]);
+            sceVu0RotMatrix(DecodeBuff[i], DecodeBuff[i], RotF);
+            TmpInd2 = RotKeyNum != TmpInd + 1 ? TmpInd + 1 : 0;
+            RotI[0] = (pRotData + TmpInd2 * 3)[0];
+            RotI[1] = (pRotData + TmpInd2 * 3)[1];
+            RotI[2] = (pRotData + TmpInd2 * 3)[2];
+            sceVu0ITOF0Vector(RotF, RotI);
+            sceVu0ScaleVectorXYZ(RotF, RotF, 0.000095f);
+            sceVu0UnitMatrix(TmpMatrix);
+            sceVu0RotMatrix(TmpMatrix, TmpMatrix, RotF);
+            LinerInterPolateMatrix(DecodeBuff[i], DecodeBuff[i], TmpMatrix, Weight);
+        } else {
+            RotI[0] = (pRotData + TmpInd * 3)[0];
+            RotI[1] = (pRotData + TmpInd * 3)[1];
+            RotI[2] = (pRotData + TmpInd * 3)[2];
+            sceVu0ITOF0Vector(RotF, RotI);
+            sceVu0ScaleVectorXYZ(RotF, RotF, 0.000095f);
+            sceVu0UnitMatrix(DecodeBuff[i]);
+            sceVu0RotMatrix(DecodeBuff[i], DecodeBuff[i], RotF);
+        }
+
+        pRotData += RotKeyNum * 3;
+    }
+
+    for (i = 0; i < PartsNum; i++) {
+        sceVu0TransMatrix(DecodeBuff[i], DecodeBuff[i], TraFloat[i]);
+    }
 }

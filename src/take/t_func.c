@@ -1,9 +1,11 @@
 #include "take/t_func.h"
+#include "take/t_menu.h"
+#include "take/viewer.h"
 
 // TODO: uncomment these
 FUNCTBL MainFuncTbl[] = {
-    // { tkMenuFuncTbl, -1 },
-    // { tkViewerFuncTbl, -1 },
+    { tkMenuFuncTbl, -1 },
+    { tkViewerFuncTbl, -1 },
     // { tkTornadoFuncTbl, -1 },
     // { tkTitleFuncTbl, -1 }
 };
