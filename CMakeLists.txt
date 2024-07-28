@@ -40,7 +40,7 @@ foreach (SUBDIR IN LISTS SUBDIRS)
 endforeach()
 
 # DSM/VSM files
-file(GLOB files vu1/*.dsm)
+file(GLOB files vu/*.dsm)
 foreach (file ${files})
     list(APPEND EXECUTABLES ${file})
 endforeach()
@@ -51,7 +51,7 @@ set(CMAKE_EXECUTABLE_SUFFIX ".elf")
 target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<COMPILE_LANGUAGE:C>:-O1 -gstabs>
         $<$<COMPILE_LANGUAGE:CXX>:-O2 -gstabs -fno-exceptions>
-        $<$<COMPILE_LANGUAGE:DSM>:-I${PROJECT_SOURCE_DIR}/vu1/include -I${SCESDK}/ee/include>
+        $<$<COMPILE_LANGUAGE:DSM>:-I${PROJECT_SOURCE_DIR}/vu/include -I${SCESDK}/ee/include>
 )
 target_compile_definitions(${PROJECT_NAME} PRIVATE SCE)
 target_link_options(${PROJECT_NAME} PRIVATE -T${SCESDK}/ee/lib/app.cmd -Wall -Werror -Wa,-al -fno-common -mno-crt0)
