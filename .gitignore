@@ -40,4 +40,8 @@ build*/
 .vscode/
 .idea/
 
+# Clangd
+.cache
+.clangd
+
 ignore/
