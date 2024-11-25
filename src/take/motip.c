@@ -103,49 +103,62 @@ void LinerInterPolateMatrixBuff(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRI
 void LinerInterPolateMatrix(sceVu0FMATRIX dm, sceVu0FMATRIX m0, sceVu0FMATRIX m1, f32 Weight) {
     __asm__ volatile(
         "mfc1        $7, %3\n"
-        "qmtc2       $7, $vf1\n"
-        "vsubx.w     $vf2, $vf0, $vf1x\n"
-        "lqc2        $vf3, 0x0(%1)\n"
-        "lqc2        $vf4, 0x10(%1)\n"
-        "lqc2        $vf5, 0x20(%1)\n"
-        "lqc2        $vf6, 0x30(%1)\n"
-        "lqc2        $vf7, 0x0(%2)\n"
-        "lqc2        $vf8, 0x10(%2)\n"
-        "lqc2        $vf9, 0x20(%2)\n"
-        "lqc2        $vf10, 0x30(%2)\n"
-        "vmulaw.xyzw ACC, $vf3, $vf2w\n"
+        "qmtc2       $7, $vf1\n"             // vf1.x = Weight
+        "vsubx.w     $vf2, $vf0, $vf1x\n"    // vf2.w = 1.0 - Weight
+        "lqc2        $vf3, 0x0(%1)\n"        // vf3  = m0[0]
+        "lqc2        $vf4, 0x10(%1)\n"       // vf4  = m0[1]
+        "lqc2        $vf5, 0x20(%1)\n"       // vf5  = m0[2]
+        "lqc2        $vf6, 0x30(%1)\n"       // vf6  = m0[3]
+        "lqc2        $vf7, 0x0(%2)\n"        // vf7  = m1[0]
+        "lqc2        $vf8, 0x10(%2)\n"       // vf8  = m1[1]
+        "lqc2        $vf9, 0x20(%2)\n"       // vf9  = m1[2]
+        "lqc2        $vf10, 0x30(%2)\n"      // vf10 = m1[3]
+
+        "vmulaw.xyzw ACC, $vf3, $vf2w\n"     // vf11 = m0[0] * (1.0 - Weight) + m0[0] * Weight
         "vmaddx.xyzw $vf11, $vf7, $vf1x\n"
-        "vmulaw.xyzw ACC, $vf4, $vf2w\n"
+        "vmulaw.xyzw ACC, $vf4, $vf2w\n"     // vf12 = m0[1] * (1.0 - Weight) + m0[1] * Weight
         "vmaddx.xyzw $vf12, $vf8, $vf1x\n"
-        "vmulaw.xyzw ACC, $vf5, $vf2w\n"
+        "vmulaw.xyzw ACC, $vf5, $vf2w\n"     // vf13 = m0[2] * (1.0 - Weight) + m0[2] * Weight
         "vmaddx.xyzw $vf13, $vf9, $vf1x\n"
-        "vmulaw.xyzw ACC, $vf6, $vf2w\n"
+        "vmulaw.xyzw ACC, $vf6, $vf2w\n"     // vf14 = m0[3] * (1.0 - Weight) + m0[3] * Weight
         "vmaddx.xyzw $vf14, $vf10, $vf1x\n"
-        "vmul.xyz    $vf3, $vf11, $vf11\n"
-        "vaddy.x     $vf3, $vf3, $vf3y\n"
-        "vaddz.x     $vf3, $vf3, $vf3z\n"
-        "vrsqrt      Q, $vf0w, $vf3x\n"
-        "vsub.xyzw   $vf15, $vf0, $vf0\n"
-        "vaddw.xyzw  $vf15, $vf15, $vf11w\n"
+
+        "vmul.xyz    $vf3, $vf11, $vf11\n"   // vf3 = vf11 ^ 2
+        "vaddy.x     $vf3, $vf3, $vf3y\n"    // vf3.x += vf3.y
+        "vaddz.x     $vf3, $vf3, $vf3z\n"    // vf3.x += vf3.z
+        "vrsqrt      Q, $vf0w, $vf3x\n"      // Q = 1 / sqrt(vf3.x)
+        "vsub.xyzw   $vf15, $vf0, $vf0\n"    // vf15 = 0
+        "vaddw.xyzw  $vf15, $vf15, $vf11w\n" // vf15.w = vf11.w
         "vwaitq\n"
-        "vmulq.xyz   $vf15, $vf11, Q\n"
-        "vmul.xyz    $vf1, $vf12, $vf15\n"
-        "vaddy.x     $vf1, $vf1, $vf1y\n"
-        "vaddz.x     $vf1, $vf1, $vf1z\n"
-        "vmulx.xyzw  $vf2, $vf15, $vf1x\n"
-        "vsub.xyzw   $vf2, $vf12, $vf2\n"
-        "vmul.xyz    $vf3, $vf2, $vf2\n"
-        "vaddy.x     $vf3, $vf3, $vf3y\n"
-        "vaddz.x     $vf3, $vf3, $vf3z\n"
-        "vrsqrt      Q, $vf0w, $vf3x\n"
-        "vsub.xyzw   $vf16, $vf0, $vf0\n"
-        "vaddw.xyzw  $vf16, $vf16, $vf2w\n"
+        "vmulq.xyz   $vf15, $vf11, Q\n"      // vf15.xyz = vf11 * Q
+
+        "vmul.xyz    $vf1, $vf12, $vf15\n"   // vf1 = vf12 * vf15
+        "vaddy.x     $vf1, $vf1, $vf1y\n"    // vf1.x += vf1.y
+        "vaddz.x     $vf1, $vf1, $vf1z\n"    // vf1.x += vf1.z
+
+        "vmulx.xyzw  $vf2, $vf15, $vf1x\n"   // vf2 = vf15 * vf1.x
+        "vsub.xyzw   $vf2, $vf12, $vf2\n"    // vf2 = vf12 - vf2
+
+        "vmul.xyz    $vf3, $vf2, $vf2\n"     // vf3 = vf2 ^ 2
+        "vaddy.x     $vf3, $vf3, $vf3y\n"    // vf3.x += vf3.y
+        "vaddz.x     $vf3, $vf3, $vf3z\n"    // vf3.x += vf3.z
+        "vrsqrt      Q, $vf0w, $vf3x\n"      // Q = 1 / sqrt(vf3.x)
+        "vsub.xyzw   $vf16, $vf0, $vf0\n"    // vf16 = 0
+        "vaddw.xyzw  $vf16, $vf16, $vf2w\n"  // vf16.w = vf2.w
         "vwaitq\n"
-        "vmulq.xyz   $vf16, $vf2, Q\n"
+        "vmulq.xyz   $vf16, $vf2, Q\n"       // vf16.xyz = vf2 * Q
+
+        // vf17 = vf15 x vf16 (cross product)
+        // vf17.x = vf15.y * vf16.z - vf16.y * vf15.z
+        // vf17.y = vf15.z * vf16.x - vf16.z * vf15.x
+        // vf17.z = vf15.x * vf16.y - vf16.x * vf15.y
+        // vf17.w = 0
         "vopmula.xyz ACC, $vf15, $vf16\n"
         "vopmsub.xyz $vf17, $vf16, $vf15\n"
         "vsub.w      $vf17, $vf17, $vf17\n"
-        "vmove.xyzw  $vf18, $vf14\n"
+        
+        "vmove.xyzw  $vf18, $vf14\n"         // vf18 = vf14
+
         "sqc2        $vf15, 0x0(%0)\n"
         "sqc2        $vf16, 0x10(%0)\n"
         "sqc2        $vf17, 0x20(%0)\n"

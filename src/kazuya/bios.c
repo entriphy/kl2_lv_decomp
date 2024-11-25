@@ -396,8 +396,8 @@ void kz_Set_TileGT4UV(DVECTOR *sxy, u32 sz, DVECTOR *swh, DVECTOR *uv, DVECTOR *
     sceDmaSync(DmaChGIF, 0, 0);
 }
 
-void kz_Set_PolyF3(/* a0 4 */ sceVu0IVECTOR *crd0, /* a1 5 */ sceVu0IVECTOR *crd1, /* a2 6 */ sceVu0IVECTOR *crd2, /* a3 7 */ KZCOLOR *col) {
-    /* v1 3 */ GS_POLY_F3 *pp;
+void kz_Set_PolyF3(sceVu0IVECTOR *crd0, sceVu0IVECTOR *crd1, sceVu0IVECTOR *crd2, KZCOLOR *col) {
+    GS_POLY_F3 *pp;
 
     u16 x0;
     u16 y0;
@@ -1130,7 +1130,7 @@ void kz_Set_Box_VGrad(DVECTOR *sxy, u32 sz, DVECTOR *swh, s32 thick, KZCOLOR *co
     kz_Set_TileF4(&sxy2, sz, &swh0, col1);
 }
 
-void kz_Set_Box_HGrad(DVECTOR *sxy, u32 sz, DVECTOR *swh, s32 thick, KZCOLOR *col0,KZCOLOR *col1) {
+void kz_Set_Box_HGrad(DVECTOR *sxy, u32 sz, DVECTOR *swh, s32 thick, KZCOLOR *col0, KZCOLOR *col1) {
     static DVECTOR sxy0;
     static DVECTOR sxy1;
     static DVECTOR sxy2;

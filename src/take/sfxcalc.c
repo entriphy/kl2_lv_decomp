@@ -19,6 +19,20 @@ static void GetSpecUVWeight(u128 *vt, s32 nadrs, s32 nwadrs, s32 num);
 static void GetSpecUVMime(u128 *vt, s32 nm, s32 nm2, s32 nw, s32 num);
 static void GetRegister(sceVu0FVECTOR *min, sceVu0FVECTOR *max);
 
+// vi01: Vertex/normal address
+// vi02: Mime vertex/normal address
+// vi03: Vertex/normal weight address
+// vi04: ADC
+// vi05: MAC
+
+// vf01: Result
+// vf07: Min
+// vf08: Max
+// vf09: Clip
+// vf10: Scale
+// vf11: Clamp
+// vf12 - vf15: LightColor
+// vf16 - vf31: Matrix
 
 void SfxFixCalc(SFXOBJ *pObj, PARTS *pParts, u128 *pVertexI, u128 *pColorI, u128 *pSpecUVI) {
     s32 l_vnum;
@@ -63,7 +77,7 @@ void SfxFixCalc(SFXOBJ *pObj, PARTS *pParts, u128 *pVertexI, u128 *pColorI, u128
     clamp[2] = 255.0f;
     clamp[3] = 2048.0f;
 
-    Vu0RegisterInit(*pObj->pLightColor, &clamp, &Scale, &clip, &vmin, &vmax, 0x8000, 208);
+    Vu0RegisterInit(*pObj->pLightColor, &clamp, &Scale, &clip, &vmin, &vmax, 0x8000, 0xD0);
 
     pVertex = (u128 *)pParts->vert_adrs;
     pNormal = (u128 *)pParts->norm_adrs;
@@ -165,7 +179,7 @@ void SfxSkinCalc(SFXOBJ *pObj, PARTS *pParts, u128 *pVertexI, u128 *pColorI, u12
     clamp[2] = 255.0f;
     clamp[3] = 2048.0f;
 
-    Vu0RegisterInit(*pObj->pLightColor, &clamp, &Scale, &clip, &vmin, &vmax, 0x8000, 208);
+    Vu0RegisterInit(*pObj->pLightColor, &clamp, &Scale, &clip, &vmin, &vmax, 0x8000, 0xD0);
     
     for (i = 0, pBlock = (TYPE_JOINT_BLK *)pParts->jblock_adrs; i < pParts->jblock_num; i++, pBlock++) {
         pVertex = (u128 *)((u32)pParts->vert_adrs + (u32)pBlock->vert_ofs);
@@ -205,7 +219,7 @@ void SfxSkinCalc(SFXOBJ *pObj, PARTS *pParts, u128 *pVertexI, u128 *pColorI, u12
             *(u32 *)0x70002210 = DMArefe | vtwq_size;
             *(u32 *)0x70002214 = (u32)pVertWt;
             *(u32 *)0x7000221C = SCE_VIF0_SET_UNPACK(0x4000 | Vu0Mem + 0x80, vt_size, VIF_UNPACK_V4_8, 0);
-            DmaSend_Mac(pDma.Vif0, (u128 *)(0x70002200 | 0x80000000));
+            DmaSend_Mac(pDma.Vif0, SPR_SRC(SPR_MEM_IDX(0x220)));
             SetMatrix4(SfxLsMtx[mi[0]], SfxLsMtx[mi[1]], SfxLsMtx[mi[2]], SfxLsMtx[mi[3]]);
             DmaSync_Mac(pDma.Vif0);
             RotTransPersWeight(pVertexI, Vu0Mem, Vu0Mem + 0x80, vt_size);
@@ -214,7 +228,7 @@ void SfxSkinCalc(SFXOBJ *pObj, PARTS *pParts, u128 *pVertexI, u128 *pColorI, u12
             ((qword_uni *)0x70002230)->u_u32[0] = DMArefe | vtq_size;
             ((qword_uni *)0x70002230)->u_u32[1] = (u32)pNormal;
             ((qword_uni *)0x70002230)->u_u32[3] = SCE_VIF0_SET_UNPACK(Vu0Mem, vt_size, VIF_UNPACK_V3_16, 0);
-            DmaSend_Mac(pDma.Vif0, (u128 *)(0x70002230 | 0x80000000));
+            DmaSend_Mac(pDma.Vif0, SPR_SRC(SPR_MEM_IDX(0x230)));
             SetMatrix4(SfxLcLightMtx[mi[0]], SfxLcLightMtx[mi[1]], SfxLcLightMtx[mi[2]], SfxLcLightMtx[mi[3]]);
             sceDmaSync(pDma.Vif0, 0, 0);
 
@@ -290,7 +304,7 @@ void SfxMimeCalc(SFXOBJ *pObj, PARTS *pParts, u128 *pVertexI, u128 *pColorI, u12
     clamp[2] = 255.0f;
     clamp[3] = 2048.0f;
 
-    Vu0RegisterInit(*pObj->pLightColor, &clamp, &Scale, &clip, &vmin, &vmax, 0x8000, 208);
+    Vu0RegisterInit(*pObj->pLightColor, &clamp, &Scale, &clip, &vmin, &vmax, 0x8000, 0xD0);
 
     for (i = 0, pBlock = (TYPE_JOINT_BLK *)pParts->jblock_adrs; i < pParts->jblock_num; i++, pBlock++) {
         pVertex = (u128 *)((u32)pParts->vert_adrs_mime0 + (u32)pBlock->vert_ofs);

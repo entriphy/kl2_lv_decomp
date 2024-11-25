@@ -325,17 +325,17 @@ typedef struct tCOORD {
     s32 Flag;
 } tCOORD;
 
-typedef struct {
-    tCOORD Base;
-    sceVu0FMATRIX *pNormalLight;
-    sceVu0FMATRIX *pLightColor;
-    f32 Scale;
-    s32 Size;
-    s32 Fuku;
-    s32 OutLine;
-    SFXOBJ *pSfx;
-    MOTION *pMot;
-    s32 ret;
+typedef struct { // 0x1a0
+	/* 0x000 */ tCOORD Base;
+	/* 0x170 */ sceVu0FMATRIX *pNormalLight;
+	/* 0x174 */ sceVu0FMATRIX *pLightColor;
+	/* 0x178 */ f32 Scale;
+	/* 0x17c */ s32 Size;
+	/* 0x180 */ s32 Fuku;
+	/* 0x184 */ s32 OutLine;
+	/* 0x188 */ SFXOBJ *pSfx;
+	/* 0x18c */ MOTION *pMot;
+	/* 0x190 */ s32 ret;
 } tOBJECT;
 
 typedef tOBJECT HOT;

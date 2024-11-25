@@ -103,7 +103,7 @@ void InitSfxCoord(MOTION *m, u8 *pInf, tagCOORD *pCoord) {
     }
 }
 
-void InitCoord( MOTION *m, u8 *pInf, u8 *pItr, u8 *pItrW, tagCOORD *pCoord) {
+void InitCoord(MOTION *m, u8 *pInf, u8 *pItr, u8 *pItrW, tagCOORD *pCoord) {
     s32 i;
     s16 *pInfs;
 
@@ -238,39 +238,39 @@ void GetRotTransMatrixXYZ(sceVu0FMATRIX mtx, sceVu0FVECTOR rot, sceVu0FVECTOR tr
 void GetRotTransMatrixYXZ(sceVu0FMATRIX mtx, sceVu0FVECTOR rot, sceVu0FVECTOR tra) {
     sceVu0UnitMatrix(mtx);
     sceVu0RotMatrixZ(mtx, mtx, rot[2]);
-    sceVu0RotMatrixZ(mtx, mtx, rot[0]);
-    sceVu0RotMatrixZ(mtx, mtx, rot[1]);
+    sceVu0RotMatrixX(mtx, mtx, rot[0]);
+    sceVu0RotMatrixY(mtx, mtx, rot[1]);
     sceVu0TransMatrix(mtx, mtx, tra);
 }
 
 void GetRotTransMatrixXZY(sceVu0FMATRIX mtx, sceVu0FVECTOR rot, sceVu0FVECTOR tra) {
     sceVu0UnitMatrix(mtx);
-    sceVu0RotMatrixZ(mtx, mtx, rot[1]);
+    sceVu0RotMatrixY(mtx, mtx, rot[1]);
     sceVu0RotMatrixZ(mtx, mtx, rot[2]);
-    sceVu0RotMatrixZ(mtx, mtx, rot[0]);
+    sceVu0RotMatrixX(mtx, mtx, rot[0]);
     sceVu0TransMatrix(mtx, mtx, tra);
 }
 
 void GetRotTransMatrixZXY(sceVu0FMATRIX mtx, sceVu0FVECTOR rot, sceVu0FVECTOR tra) {
     sceVu0UnitMatrix(mtx);
-    sceVu0RotMatrixZ(mtx, mtx, rot[1]);
-    sceVu0RotMatrixZ(mtx, mtx, rot[0]);
+    sceVu0RotMatrixY(mtx, mtx, rot[1]);
+    sceVu0RotMatrixX(mtx, mtx, rot[0]);
     sceVu0RotMatrixZ(mtx, mtx, rot[2]);
     sceVu0TransMatrix(mtx, mtx, tra);
 }
 
 void GetRotTransMatrixYZX(sceVu0FMATRIX mtx, sceVu0FVECTOR rot, sceVu0FVECTOR tra) {
     sceVu0UnitMatrix(mtx);
-    sceVu0RotMatrixZ(mtx, mtx, rot[0]);
+    sceVu0RotMatrixX(mtx, mtx, rot[0]);
     sceVu0RotMatrixZ(mtx, mtx, rot[2]);
-    sceVu0RotMatrixZ(mtx, mtx, rot[1]);
+    sceVu0RotMatrixY(mtx, mtx, rot[1]);
     sceVu0TransMatrix(mtx, mtx, tra);
 }
 
 void GetRotTransMatrixZYX(sceVu0FMATRIX mtx, sceVu0FVECTOR rot, sceVu0FVECTOR tra) {
     sceVu0UnitMatrix(mtx);
-    sceVu0RotMatrixZ(mtx, mtx, rot[0]);
-    sceVu0RotMatrixZ(mtx, mtx, rot[1]);
+    sceVu0RotMatrixX(mtx, mtx, rot[0]);
+    sceVu0RotMatrixY(mtx, mtx, rot[1]);
     sceVu0RotMatrixZ(mtx, mtx, rot[2]);
     sceVu0TransMatrix(mtx, mtx, tra);
 }
@@ -518,8 +518,6 @@ f32 GetActEndCnt(SFXOBJ *pObj) {
 
     pObjTmp = GetActiveSfx(pObj);
     if (pObjTmp != NULL) {
-        // converts it to an int then back to a float
-        // ...ok????
         cnt = pObjTmp->pMot->Mb[pObjTmp->pMot->BaseIndex].MotionEndCnt;
         return cnt;
     } else {

@@ -306,19 +306,19 @@ void PartsEnvInit(SFXOBJ *pObj) {
         pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[1] = SCE_GS_TEX0_2;
         pObj->pParts[i].GsEnvInd++;
 
-        pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[0] = SCE_GS_SET_TEX1_2(0, 0, 3, 0, 0, 0, 0);
+        pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[0] = SCE_GS_SET_TEX1_2(0, 0, SCE_GS_LINEAR, SCE_GS_LINEAR, 0, 0, 0);
         pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[1] = SCE_GS_TEX1_2;
         pObj->pParts[i].GsEnvInd++;
 
-        pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[0] = SCE_GS_SET_TEST_2(1, 1, 0, 0, 0, 0, 1, 2);
+        pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[0] = SCE_GS_SET_TEST_2(SCE_GS_TRUE, SCE_GS_ALPHA_ALWAYS, 0, SCE_GS_AFAIL_KEEP, SCE_GS_FALSE, 0, SCE_GS_TRUE, SCE_GS_ZGEQUAL);
         pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[1] = SCE_GS_TEST_2;
         pObj->pParts[i].GsEnvInd++;
 
-        pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[0] = SCE_GS_SET_ALPHA_2(0, 1, 2, 1, 127);
+        pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[0] = SCE_GS_SET_ALPHA_2(SCE_GS_BLEND_RGB_SRC, SCE_GS_BLEND_RGB_DST, SCE_GS_BLEND_ALPHA_FIX, SCE_GS_BLEND_RGB_DST, 0x7F);
         pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[1] = SCE_GS_ALPHA_2;
         pObj->pParts[i].GsEnvInd++;
 
-        pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[0] = SCE_GS_SET_ZBUF_2(140, SCE_GS_PSMZ16S, 0);
+        pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[0] = SCE_GS_SET_ZBUF_2(0x8C, SCE_GS_PSMZ16S, 0);
         pObj->pParts[i].GsEnv[pObj->pParts[i].GsEnvInd].u_u64[1] = SCE_GS_ZBUF_2;
         pObj->pParts[i].GsEnvInd++;
 

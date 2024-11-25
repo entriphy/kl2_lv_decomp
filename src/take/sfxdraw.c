@@ -59,21 +59,22 @@ void SfxDrawOutLine(SFXOBJ *pObj) {
         }
 
         if (pObj->OutLineFlag != 0) {
-            if (bboxTmp[1][2] - 2 < 0xFFFFDU) {
+            if (bboxTmp[1][2] > 1 && bboxTmp[1][2] < 0xFFFFF) {
                 u128 *packet;
                 {
                     u128 *tmp_buf = UNCACHED(PacketBuffer1);
                     packet = OutlinePreRoutine(tmp_buf, &OutlineEnv, &LineObjEnv);
                     __asm__("sync");
                     PacketKickPath3((u32)tmp_buf, ((u32)packet - (u32)tmp_buf) / 16);
-                    sceVu0CopyVector(OutlineEnv.bbox[0], bboxTmp[0]);
-                    sceVu0CopyVector(OutlineEnv.bbox[1], bboxTmp[1]);
-                    SfxPacketMake(pObj, i, (long_uni *)pStrip, pUv, pColorI, pVertexI, pSpecUVI, pParts->prim_num);
-                    if (pObj->pParts[i].SpecType != 0) {
-                        SfxPacketMakeLight(pObj, i, (u64 *)pStrip, pUv, pColorI, pVertexI, pSpecUVI, pParts->prim_num);
-                    }
-                    OutlineColorDefine(&OutlineEnv, &LineObjEnv);
                 }
+
+                sceVu0CopyVector(OutlineEnv.bbox[0], bboxTmp[0]);
+                sceVu0CopyVector(OutlineEnv.bbox[1], bboxTmp[1]);
+                SfxPacketMake(pObj, i, (long_uni *)pStrip, pUv, pColorI, pVertexI, pSpecUVI, pParts->prim_num);
+                if (pObj->pParts[i].SpecType != 0) {
+                    SfxPacketMakeLight(pObj, i, (u64 *)pStrip, pUv, pColorI, pVertexI, pSpecUVI, pParts->prim_num);
+                }
+                OutlineColorDefine(&OutlineEnv, &LineObjEnv);
 
                 {
                     u128 *tmp_buf = UNCACHED(PacketBuffer2);

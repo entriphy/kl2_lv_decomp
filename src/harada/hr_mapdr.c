@@ -223,8 +223,8 @@ void hrSetMapREG() {
     pp->vif[0] = pp->vif[1] = 0;
     pp->vif[2] = SCE_VIF1_SET_FLUSH(0);
     pp->vif[3] = SCE_VIF1_SET_DIRECT(4, 0);
-    pp->gif[0] = 0x8003;
-    pp->gif[1] = 0x10000000;
+    pp->gif[0] = (u32)SCE_GIF_SET_TAG(3, 1, 0, 0, SCE_GIF_PACKED, 1);
+    pp->gif[1] = SCE_GIF_SET_TAG(3, 1, 0, 0, SCE_GIF_PACKED, 1) >> 32;
     pp->gif[2] = SCE_GIF_PACKED_AD;
     pp->gif[3] = 0;
     ((u64 *)pp->test)[0] = SCE_GS_SET_TEST_1(1, 6, 0, 0, 0, 0, 5, 0);
@@ -269,8 +269,8 @@ void hrInitAtrVu1mIv(u64 tag0, u64 tag2, s32 mpgno, HRSCRST *scrst) {
     pp->alpha[2] = 64;
     pp->alpha[3] = 128;
     hrSetObjAttrUnpack(pp->t07, 0x397, 1);
-    pp->gtag_tex0[0] = 1;
-    pp->gtag_tex0[1] = 0x10000000;
+    pp->gtag_tex0[0] = (u32)SCE_GIF_SET_TAG(1, 0, 0, 0, SCE_GIF_PACKED, 1);
+    pp->gtag_tex0[1] = SCE_GIF_SET_TAG(1, 0, 0, 0, SCE_GIF_PACKED, 1) >> 32;
     pp->gtag_tex0[2] = SCE_GIF_PACKED_AD;
     pp->gtag_tex0[3] = 0;
     FlushCache(0);

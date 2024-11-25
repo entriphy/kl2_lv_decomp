@@ -1302,7 +1302,7 @@ cringe:
 static void (*ObjFuncTbl[5])(OBJWORK *objw) = {
     ObjInit,
     ObjMain,
-    NULL, // TODO: KloSlideSide
+    KloSlideSide, // TODO: KloSlideSide
     NULL, // TODO: KloSlideBehind
     KloSlidePipe
 };

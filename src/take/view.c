@@ -4,6 +4,7 @@
 #include "take/motsys.h"
 #include "take/object.h"
 #include "take/sfxbios.h"
+#include "take/title.h"
 #include "take/viewsub.h"
 #include "abe/ab_init.h"
 #include "harada/hr_mapdr.h"

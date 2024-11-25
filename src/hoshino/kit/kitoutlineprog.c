@@ -123,7 +123,7 @@ kitInitEffectBufBPacket* kitInitEffectBufB(kitInitEffectBufBPacket *packet, kitO
     packet->sprite[1].addr = SCE_GS_XYZ2;
     packet->sprite[1].data = SCE_GS_SET_XYZ2(env->bbox[1][0] - 32, env->bbox[1][1] - 32, 0);
     packet->zbuf2.addr = SCE_GS_ZBUF_2;
-    packet->zbuf2.data = SCE_GS_SET_ZBUF_1(0x8C, SCE_GS_PSMCT16S, 0);
+    packet->zbuf2.data = SCE_GS_SET_ZBUF_2(0x8C, SCE_GS_PSMCT16S, 0);
     packet->test2.addr = SCE_GS_TEST_2;
     packet->test2.data = SCE_GS_SET_TEST_2(0, 0, 0, 0, 0, 0, 1, 3);
     packet++;

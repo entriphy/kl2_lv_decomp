@@ -1,6 +1,7 @@
 #include <sifdev.h>
 #include "take/sfxbios.h"
 #include "take/camera.h"
+#include "take/klsfxsub.h"
 #include "take/object.h"
 
 extern u32 Vu0Prg __attribute__((section(".vutext")));

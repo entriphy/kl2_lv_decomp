@@ -107,7 +107,7 @@ void BgDraw() {
     PacketIndex = 0;
     pPacket[PacketIndex].u_u128 = 0;
     pPacket[PacketIndex++].u_u32[0] = DMAend | 9;
-    pPacket[PacketIndex].u_u64[0] = SCE_GIF_SET_TAG(1, 1, 1, SCE_GS_SET_PRIM(SCE_GS_PRIM_TRISTRIP, 1, 0, 0, 0, 0, 0, 1, 0), 0, 8);
+    pPacket[PacketIndex].u_u64[0] = SCE_GIF_SET_TAG(1, 1, 1, SCE_GS_SET_PRIM(SCE_GS_PRIM_TRISTRIP, 1, 0, 0, 0, 0, 0, 1, 0), SCE_GIF_PACKED, 8);
     pPacket[PacketIndex++].u_u64[1] =
           (u64)SCE_GS_RGBAQ << 0x00 | (u64)SCE_GS_XYZ2 << 0x04
         | (u64)SCE_GS_RGBAQ << 0x08 | (u64)SCE_GS_XYZ2 << 0x0C

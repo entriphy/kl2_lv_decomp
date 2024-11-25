@@ -9,7 +9,7 @@ void SpecEnvInit() {
     if (index > 0) {
         tex0 = OkGetTex0(index);
     } else {
-        tex0 = SCE_GS_SET_TEX0(0x3D00, 2, SCE_GS_PSMT8, 6, 6, 0, 1, 0x3D20, SCE_GS_PSMCT32, 0, 0, 1);
+        tex0 = SCE_GS_SET_TEX0(0x3D00, 2, SCE_GS_PSMT8, 6, 6, 0, SCE_GS_DECAL, 0x3D20, SCE_GS_PSMCT32, 0, 0, 1);
     }
 
     SpecGsEnvInd = 1;
