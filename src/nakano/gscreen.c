@@ -786,6 +786,42 @@ void DrawGameScrHeart() {
     }
 }
 
+void DrawGameScrYumekake() {
+	/* s2 18 */ SFXOBJ *pObj;
+	/* s1 17 */ PsfxMODEL *model;
+	/* -0x110(sp) */ sceVu0FMATRIX nlm;
+	/* -0xd0(sp) */ sceVu0FMATRIX lcm;
+	/* -0x90(sp) */ sceVu0FMATRIX mat;
+	/* f20 58 */ f32 Scale;
+
+    nkGScreenMatrix();
+    model = &PsfxYumekake;
+    if (kzCheckGameClear() == 1 && OkDPSTcnt() > 149) {
+        model = &PsfxExitm;
+    }
+    pObj = model->pObj;
+
+    SetObjPause(pObj, GameGbl.pause_flag);
+    SetObjNormalLight(pObj, &nkgsNLM);
+    SetObjLightColor(pObj, &nkgsLCM);
+    model->Rot[1] += M_5PI_3f;
+    model->Rot[1] = nkRadMask(model->Rot[1]);
+    pObj->Condition = 1;
+    
+    sceVu0UnitMatrix(mat);
+    sceVu0RotMatrixZ(mat, mat, model->Rot[2]);
+    sceVu0RotMatrixX(mat, mat, model->Rot[0]);
+    sceVu0RotMatrixY(mat, mat, model->Rot[1]);
+    sceVu0TransMatrix(mat, mat, model->Trans);
+    Scale = 1.0f;
+    sceVu0ScaleVectorXYZ(mat[0], mat[0], Scale);
+    sceVu0ScaleVectorXYZ(mat[1], mat[1], Scale);
+    sceVu0ScaleVectorXYZ(mat[2], mat[2], Scale);
+    SetBaseMatrix2(pObj, mat);
+    nkGScreenMatrixXY(218.0f, -96.0f);
+    ModelDraw(pObj);
+}
+
 void DrawGameScrZanki(s32 boss_flag) {
     SFXOBJ *pObj;
     PsfxMODEL *model;
@@ -1090,7 +1126,7 @@ void DrawGameScrKagi() {
     model->Rot[1] = _sin(model->Rot[3]) * M_PIf / 8.0f;
     pObj->Condition = 1;
     Scale = 1.0f;
-    model->Rot[2] = M_PI_4f;
+    model->Rot[2] = -M_PI_4f;
 
     sceVu0UnitMatrix(mat);
     sceVu0RotMatrixZ(mat, mat, model->Rot[2]);

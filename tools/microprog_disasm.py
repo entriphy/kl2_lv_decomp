@@ -41,19 +41,22 @@ if __name__ == "__main__":
     parser.add_argument("output_dir", help="Name of directory to write all micropgrams to")
     args = parser.parse_args()
 
+    # Create out directory if it does not exist
+    output_dir = args.output_dir
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+
     # Read ELF file and VU section
     with open(args.elf_path, "rb") as f:
         elf = ELFFile(f)
         vu_section = elf.get_section_by_name("." + args.section)
         vu_address = vu_section.header.sh_addr
         vu_bytes = vu_section.data()
+        with open(f"{output_dir}/MAIN_{args.section}.bin", "wb") as v:
+            v.write(vu_bytes)
+            
         reader = BinaryReader(vu_bytes)
-
-    # Create out directory if it does not exist
-    output_dir = args.output_dir
-    if not os.path.exists(output_dir):
-        os.mkdir(output_dir)
-
+    
     # Read each microprogram
     prog_num = 0
     while True:

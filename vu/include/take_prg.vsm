@@ -1,0 +1,314 @@
+.include "vumacros.h"
+
+; vi01: Vertex/normal address
+; vi02: Mime vertex/normal address
+; vi03: Vertex/normal weight address
+; vi04: ADC
+; vi05: MAC
+
+; vf00: Reserved (0.0, 0.0, 0.0, 1.0)
+; vf07: Min
+; vf08: Max
+; vf09: Clip
+; vf10: Scale
+; vf11: Clamp
+; vf12 - vf15: LightColor
+; vf16 - vf19: 
+
+main4:
+    NOP                              B RTP                    
+    NOP                              NOP                             
+    NOP                              B RTP_W                    
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              B RTP_M                    
+    NOP                              NOP                             
+    NOP                              B GET_RGB                    
+    NOP                              NOP                             
+    NOP                              B GET_RGB_W                    
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              B GET_RGB_M                    
+    NOP                              NOP                             
+    NOP                              B GET_SPEC                    
+    NOP                              NOP                             
+    NOP                              B GET_SPEC_W                    
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              B GET_SPEC_M                    
+    NOP                              NOP                             
+    NOP                              B RTP_EFF                    
+    NOP                              NOP                             
+
+RTP:
+    NOP                              LQI.xyz vf01, (vi01++)          ; vf01 = vertex
+    NOP                              MOVE.w vf01, vf00               ; vf01.w = 1.0
+    NOP                              NOP                             
+    NOP                              NOP                             
+    ITOF0.xyz vf01, vf01             NOP                             ; Convert IVECTOR to FVECTOR
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    MULx.xyz vf01, vf01, vf10x       NOP                             ; vf01.xyz *= pObj->scale
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             ; vf06 = bone * vf01
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf18, vf01z     NOP                             
+    MADDw.xyzw vf06, vf19, vf01w     NOP                             
+
+RTP_COMMON:
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              DIV Q, vf00w, vf06w             ; Q = 1.0 / vf06.w
+    MULq.xyz vf06, vf06, Q           WAITQ                           ; vf06.xyz *= Q
+    SUB.xyw vf00, vf00, vf06         MFIR.w vf03, vi00               ; vf03.w = 0x0000, flags = 1.0 - vf06.xyw
+    SUB.xyw vf00, vf06, vf09         MFIR.w vf04, vi04               ; vf04.w = 0x8000, flags = vf06.xyw - clip
+    FTOI4.xyz vf03, vf06             NOP                             
+    FTOI4.xyz vf04, vf06             NOP                             
+    NOP                              FMAND vi06, vi05                ; vi06 = vf06.xxyw negative check
+    NOP                              FMAND vi06, vi06                ; vi06 &= vi06
+    NOP                              IBNE vi06, vi05, CLIP_SKIP      ; Clip if vf06.xyw are negative
+    NOP                              MOVE.xyzw vf01, vf04            
+    MINI.xyz vf07, vf07, vf06        MOVE.xyzw vf01, vf03            
+    MAX.xyz vf08, vf08, vf06         NOP                             
+    NOP                              NOP                             
+
+CLIP_SKIP:
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+
+RTP_W:
+    NOP                              LQI.xyz vf01, (vi01++)          ; vf01 = vertex
+    NOP                              LQI.xyzw vf02, (vi03++)         ; vf02 = vertex weight
+    NOP                              MOVE.w vf01, vf00               ; vf01.w = 1.0
+    NOP                              NOP                             
+    ITOF0.xyz vf01, vf01             NOP                             
+    ITOF0.xyzw vf02, vf02            NOP                             
+
+RTP_W_COMMON:
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    MULx.xyz vf01, vf01, vf10x       NOP                             ; vf01.xyz *= pObj->scale
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             ; vf03 = bone[0] * vf01
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf18, vf01z     NOP                             
+    MADDw.xyzw vf03, vf19, vf01w     NOP                             
+    MULAx.xyzw ACC, vf20, vf01x      NOP                             ; vf04 = bone[1] * vf01
+    MADDAy.xyzw ACC, vf21, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf22, vf01z     NOP                             
+    MADDw.xyzw vf04, vf23, vf01w     NOP                             
+    MULAx.xyzw ACC, vf24, vf01x      NOP                             ; vf05 = bone[2] * vf01
+    MADDAy.xyzw ACC, vf25, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf26, vf01z     NOP                             
+    MADDw.xyzw vf05, vf27, vf01w     NOP                             
+    MULAx.xyzw ACC, vf28, vf01x      NOP                             ; vf06 = bone[3] * vf01
+    MADDAy.xyzw ACC, vf29, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf30, vf01z     NOP                             
+    MADDw.xyzw vf06, vf31, vf01w     NOP                             
+    MULAx.xyzw ACC, vf03, vf02x      NOP                             ; vf06 *= weight
+    MADDAy.xyzw ACC, vf04, vf02y     NOP                             
+    MADDAz.xyzw ACC, vf05, vf02z     NOP                             
+    MADDw.xyzw vf06, vf06, vf02w     NOP                             
+    NOP                              B RTP_COMMON                    
+    NOP                              NOP                             
+
+RTP_M:
+    NOP                              LQI.xyzw vf01, (vi01++)         
+    NOP                              LQI.xyzw vf05, (vi02++)         
+    NOP                              LQI.xyzw vf02, (vi03++)         
+    NOP                              NOP                             
+    ITOF0.xyz vf01, vf01             NOP                             
+    ITOF0.xyz vf05, vf05             MOVE.w vf01, vf00               
+    ITOF0.xyzw vf02, vf02            MOVE.w vf05, vf00               
+    NOP                              NOP                             
+    MULz.xyz vf01, vf01, vf10z       NOP                             
+    MULw.xyz vf05, vf05, vf10w       NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              B RTP_W_COMMON                    
+    ADD.xyz vf01, vf01, vf05         NOP                             
+
+GET_RGB:
+    NOP                              LQI.xyzw vf01, (vi01++)         ; vf01 = normal
+    ITOF12.xyz vf01, vf01            NOP                             ; Convert IVECTOR to FVECTOR
+
+GET_RGBF_COMMON:
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             ; vf01 = NormalLight * vf01
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDz.xyzw vf01, vf18, vf01z     NOP                             
+
+GET_RGB_COMMON:
+    MAXx.xyz vf01, vf01, vf00x       NOP                             ; vf01.xyz >= 0
+    MUL.xyzw vf01, vf01, vf01        NOP                             ; Square vf01
+    MULAx.xyzw ACC, vf12, vf01x      NOP                             ; vf01 = LightColor * vf01
+    MADDAy.xyzw ACC, vf13, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf14, vf01z     NOP                             
+    MADDw.xyzw vf01, vf15, vf00w     NOP                             
+    MUL.xyzw vf02, vf01, vf11        NOP                             ; vf02 = vf01 * clamp (255, 255, 255, 2048)
+    MAXz.xyz vf02, vf02, vf00z       NOP                             ; vf02.xyz >= 0
+    MAXz.w vf02, vf02, vf11z         NOP                             ; vf02.w >= 255
+    MINIz.xyz vf02, vf02, vf11z      NOP                             ; vf02.xyz <= 255
+    FTOI0.xyzw vf01, vf02            NOP                             ; vf01 = vf02
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+
+GET_RGB_W:
+    NOP                              LQI.xyzw vf01, (vi01++)         ; vf01 = normal
+    NOP                              LQI.xyzw vf02, (vi03++)         ; vf02 = weights
+    ITOF12.xyz vf01, vf01            NOP                             
+    ITOF0.xyzw vf02, vf02            NOP                             
+
+GET_RGB_W_COMMON:
+    ; Divide weights by 255
+    MULy.xyzw vf02, vf02, vf10y      NOP                             
+
+    ; vf03 = mat4x3(NormalLight[0]) * vec3(Normal)
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDz.xyzw vf03, vf18, vf01z     NOP                             
+
+    ; vf04 = mat4x3(NormalLight[1]) * vec3(Normal)
+    MULAx.xyzw ACC, vf20, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf21, vf01y     NOP                             
+    MADDz.xyzw vf04, vf22, vf01z     NOP                             
+
+    ; vf05 = erm... what the scallop
+    MADDAy.xyzw ACC, vf25, vf01y     NOP                             
+    MADDz.xyzw vf05, vf26, vf01z     NOP                             
+
+    ; vf06 = mat4x3(NormalLight[3]) * vec3(Normal)
+    MULAx.xyzw ACC, vf28, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf29, vf01y     NOP                             
+    MADDz.xyzw vf06, vf30, vf01z     NOP                             
+
+    ; Apply weights to lights to get light vector
+    MULAx.xyzw ACC, vf03, vf02x      NOP                             
+    MADDAy.xyzw ACC, vf04, vf02y     NOP                             
+    MADDAz.xyzw ACC, vf05, vf02z     NOP                             
+    MADDw.xyzw vf01, vf06, vf02w     B GET_RGB_COMMON                    
+    NOP                              NOP                             
+
+GET_RGB_M:
+    NOP                              LQI.xyzw vf01, (vi01++)         
+    NOP                              LQI.xyzw vf05, (vi02++)         
+    NOP                              LQI.xyzw vf02, (vi03++)         
+    ITOF12.xyz vf01, vf01            NOP                             
+    ITOF12.xyz vf05, vf05            NOP                             
+    ITOF0.xyzw vf02, vf02            NOP                             
+    MULz.xyz vf01, vf01, vf10z       NOP                             
+    MULw.xyz vf05, vf05, vf10w       NOP                             
+    ADD.xyz vf01, vf01, vf05         B GET_RGB_W_COMMON                    
+    NOP                              NOP                             
+
+GET_SPEC:
+    NOP                              LQI.xyzw vf01, (vi01++)         
+    NOP                              NOP                             
+    ITOF12.xyz vf01, vf01            NOP  
+
+SPECF_COMMON:                           
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf18, vf01z     NOP                             
+    MADDw.xyzw vf01, vf00, vf01w     NOP                             
+
+SPEC_COMMON:
+    ADDw.xyzw vf01, vf01, vf00w      NOP                             ; vf01 += 1.0
+    MULz.xyzw vf01, vf01, vf09z      NOP                             ; vf01 *= 32.0
+    FTOI4.xyzw vf01, vf01            NOP                             ; vf01 *= 16.0
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+
+GET_SPEC_W:
+    NOP                              LQI.xyzw vf01, (vi01++)         ; vf01 = normal
+    NOP                              LQI.xyzw vf02, (vi03++)         ; vf02 = normal weights
+    ITOF12.xyz vf01, vf01            NOP                             
+    ITOF0.xyzw vf02, vf02            NOP                             
+
+SPEC_W_COMMON:
+    ; vf02 /= 255.0
+    MULy.xyzw vf02, vf02, vf10y      NOP                             
+
+    ; vf03 = Spec[0] * Normal
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf18, vf01z     NOP                             
+    MADDw.xyzw vf03, vf00, vf01w     NOP                             
+
+    ; vf04 = Spec[1] * Normal
+    MULAx.xyzw ACC, vf20, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf21, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf22, vf01z     NOP                             
+    MADDw.xyzw vf04, vf00, vf01w     NOP                             
+    
+    ; vf05 = Spec[2] * Normal
+    MULAx.xyzw ACC, vf24, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf25, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf26, vf01z     NOP                             
+    MADDw.xyzw vf05, vf00, vf01w     NOP                             
+    
+    ; vf06 = Spec[3] * Normal
+    MULAx.xyzw ACC, vf28, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf29, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf30, vf01z     NOP                             
+    MADDw.xyzw vf06, vf00, vf01w     NOP                             
+    
+    ; vf01 = UV
+    MULAx.xyzw ACC, vf03, vf02x      NOP                             
+    MADDAy.xyzw ACC, vf04, vf02y     NOP                             
+    MADDAz.xyzw ACC, vf05, vf02z     NOP                             
+    MADDw.xyzw vf01, vf06, vf02w     NOP                             
+    
+    NOP                              B SPEC_COMMON                    
+    NOP                              NOP                             
+
+GET_SPEC_M:
+    NOP                              LQI.xyzw vf01, (vi01++)         
+    NOP                              LQI.xyzw vf05, (vi02++)         
+    NOP                              LQI.xyzw vf02, (vi03++)         
+    ITOF12.xyz vf01, vf01            NOP                             
+    ITOF12.xyz vf05, vf05            NOP                             
+    ITOF0.xyzw vf02, vf02            NOP                             
+    MULz.xyz vf01, vf01, vf10z       NOP                             
+    MULw.xyz vf05, vf05, vf10w       NOP                             
+    ADD.xyz vf01, vf01, vf05         NOP                             
+    NOP                              B SPEC_W_COMMON                    
+    NOP                              NOP                             
+
+RTP_EFF:
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf18, vf01z     NOP                             
+    MADDw.xyzw vf06, vf19, vf01w     NOP                             
+    NOP                              MOVE.xyzw vf07, vf06            
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              DIV Q, vf00w, vf06w             
+    MULq.xy vf06, vf06, Q            WAITQ                           
+    SUB.xyw vf00, vf00, vf06         MFIR.w vf03, vi00               
+    SUB.xyw vf00, vf06, vf09         MFIR.w vf04, vi04               
+    FTOI4.xyz vf03, vf06             NOP                             
+    FTOI4.xyz vf04, vf06             NOP                             
+    NOP                              FMAND vi06, vi05                
+    NOP                              FMAND vi06, vi06                
+    NOP                              IBNE vi06, vi05, CLIP_SKIP_EFF_     
+    NOP                              MOVE.xyzw vf01, vf04            
+    NOP                              MOVE.xyzw vf01, vf03            
+    NOP                              NOP                             
+    NOP                              NOP                             
+
+CLIP_SKIP_EFF_:
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             

@@ -317,6 +317,45 @@ typedef struct { // 0xc0
     /* 0xb0 */ s64 otoM;
 } ZAKO_WORK;
 
+typedef struct { // 0x100
+	/* 0x00 */ s16 xzdis;
+	/* 0x02 */ s16 ydis;
+	/* 0x04 */ u16 timer;
+	/* 0x06 */ u16 count;
+	/* 0x08 */ s16 flag;
+	/* 0x0a */ s16 flag2;
+	/* 0x0c */ s16 flag3;
+	/* 0x0e */ s16 tekipic;
+	/* 0x10 */ void *movetbl;
+	/* 0x14 */ s16 look;
+	/* 0x16 */ s16 bomtimer;
+	/* 0x18 */ s32 motno;
+	/* 0x1c */ OBJWORK *prt;
+	/* 0x20 */ s32 seno[4];
+	/* 0x30 */ s32 sedat[4];
+	/* 0x40 */ OBJWORK *movebox;
+	/* 0x44 */ f32 gspd;
+	/* 0x48 */ OBJWORK *gmp;
+	/* 0x4c */ s32 gimspd;
+	/* 0x50 */ LT_WORK ltw;
+	/* 0x80 */ void *mp0;
+	/* 0x84 */ void *mp1;
+	/* 0x88 */ f32 tenoff;
+	/* 0x8c */ f32 ang;
+	/* 0x90 */ OBJWORK *bnd[4];
+	/* 0xa0 */ sceVu0FVECTOR hitpos;
+	/* 0xb0 */ sceVu0FVECTOR bakpos;
+	/* 0xc0 */ sceVu0FVECTOR scale;
+	/* 0xd0 */ sceVu0FVECTOR norm;
+	/* 0xe0 */ f32 yold;
+	/* 0xe4 */ s32 nageint;
+	/* 0xe8 */ f32 nagespd;
+	/* 0xec */ f32 g;
+	/* 0xf0 */ s32 pad0;
+	/* 0xf4 */ s32 pad1;
+	/* 0xf8 */ s16 idx[4];
+} ZAKO_WORK4;
+
 typedef struct { // 0xe0
     /* 0x00 */ s16 xzdis;
     /* 0x02 */ s16 ydis;
@@ -359,6 +398,43 @@ typedef struct { // 0xe0
     /* 0xc4 */ s32 test1;
     /* 0xc8 */ HITTBL2 hittbl2;
 } ZAKO_COMMON;
+
+typedef struct { // 0xd0
+	/* 0x00 */ s16 xzdis;
+	/* 0x02 */ s16 ydis;
+	/* 0x04 */ u16 timer;
+	/* 0x06 */ u16 count;
+	/* 0x08 */ s16 flag;
+	/* 0x0a */ s16 flag2;
+	/* 0x0c */ s16 flag3;
+	/* 0x0e */ s16 tekipic;
+	/* 0x10 */ void *movetbl;
+	/* 0x14 */ s16 look;
+	/* 0x16 */ s16 bomtimer;
+	/* 0x18 */ s32 motno;
+	/* 0x1c */ OBJWORK *prt;
+	/* 0x20 */ s32 seno[4];
+	/* 0x30 */ s32 sedat[4];
+	/* 0x40 */ OBJWORK *movebox;
+	/* 0x44 */ f32 gspd;
+	/* 0x48 */ OBJWORK *gmp;
+	/* 0x4c */ s32 gimspd;
+	/* 0x50 */ LT_WORK ltw;
+	/* 0x80 */ s32 id;
+	/* 0x84 */ s16 res0;
+	/* 0x86 */ s16 res1;
+	/* 0x88 */ f32 jumpspd;
+	/* 0x8c */ s32 pad0;
+	/* 0x90 */ f32 juryoku;
+	/* 0x94 */ s32 pad1;
+	/* 0x98 */ s32 test0;
+	/* 0xa0 */ sceVu0FVECTOR tmp;
+	/* 0xb0 */ sceVu0FVECTOR tmp1;
+	/* 0xc0 */ void *gmw;
+	/* 0xc4 */ s32 wspd;
+	/* 0xc8 */ s32 michinori;
+	/* 0xcc */ s32 pad;
+} GIMM_COMMON;
 
 typedef struct { // 0x10
     /* 0x0 */ s32 itemcnt;

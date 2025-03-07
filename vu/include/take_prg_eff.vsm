@@ -1,0 +1,80 @@
+.include "vumacros.h"
+
+main2:
+    NOP                              B RTP_KUMO                    
+    NOP                              NOP                             
+    NOP                              B RTP_NOR                    
+    NOP                              NOP                             
+
+RTP_NOR:
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf18, vf01z     NOP                             
+    MADDw.xyzw vf06, vf19, vf01w     NOP                             
+    NOP                              NOP                             
+    NOP                              NOP                             
+    NOP                              DIV Q, vf00w, vf06w             
+    MULq.xyz vf06, vf06, Q           WAITQ                           
+    SUB.xyw vf00, vf00, vf06         MFIR.w vf03, vi00               
+    SUB.xyw vf00, vf06, vf09         MFIR.w vf04, vi04               
+    FTOI4.xyz vf03, vf06             NOP                             
+    FTOI4.xyz vf04, vf06             NOP                             
+    ADDz.x vf10, vf10, vf10z         FMAND vi06, vi05                
+    NOP                              FMAND vi06, vi06                
+    NOP                              IBNE vi06, vi05, CLIP_SKIP_NOR     
+    NOP                              MOVE.xyzw vf01, vf04            
+    NOP                              MOVE.xyzw vf01, vf03            
+
+CLIP_SKIP_NOR:
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+
+RTP_KUMO:
+    MULAx.xyzw ACC, vf16, vf01x      NOP                             
+    MADDAy.xyzw ACC, vf17, vf01y     NOP                             
+    MADDAz.xyzw ACC, vf18, vf01z     NOP                             
+    MADDw.xyzw vf06, vf19, vf01w     NOP                             
+    SUB.xyzw vf02, vf00, vf00        NOP                             
+    ADDx.xyzw vf02, vf02, vf11x      NOP                             
+    MUL.xyz vf10, vf01, vf01         NOP                             
+    NOP                              DIV Q, vf00w, vf06w             
+    MULq.xyz vf06, vf06, Q           WAITQ                           
+    SUB.xyw vf00, vf00, vf06         MFIR.w vf03, vi00               
+    SUB.xyw vf00, vf06, vf09         MFIR.w vf04, vi04               
+    FTOI4.xyz vf03, vf06             NOP                             
+    FTOI4.xyz vf04, vf06             NOP                             
+    ADDz.x vf10, vf10, vf10z         FMAND vi06, vi05                
+    NOP                              FMAND vi06, vi06                
+    NOP                              IBNE vi06, vi05, CLIP_SKIP_EFF     
+    NOP                              MOVE.xyzw vf01, vf04            
+    NOP                              MOVE.xyzw vf01, vf03            
+
+CLIP_SKIP_EFF:
+    MULAx.xyzw ACC, vf16, vf05x      NOP                             
+    MADDAy.xyzw ACC, vf17, vf05y     NOP                             
+    MADDAz.xyzw ACC, vf18, vf05z     NOP                             
+    MADDw.xyzw vf06, vf19, vf05w     NOP                             
+    NOP                              DIV Q, vf00w, vf06w             
+    MULq.xyz vf06, vf06, Q           WAITQ                           
+    SUB.xyw vf00, vf00, vf06         MFIR.w vf03, vi00               
+    SUB.xyw vf00, vf06, vf09         MFIR.w vf04, vi04               
+    FTOI4.xyz vf03, vf06             NOP                             
+    FTOI4.xyz vf04, vf06             NOP                             
+    ADDz.x vf10, vf10, vf10z         FMAND vi06, vi05                
+    NOP                              FMAND vi06, vi06                
+    NOP                              IBNE vi06, vi05, CLIP_SKIP_EFF2     
+    NOP                              MOVE.xyzw vf05, vf04            
+    NOP                              MOVE.xyzw vf05, vf03            
+    NOP                              NOP                             
+
+CLIP_SKIP_EFF2:
+    NOP                              SQRT Q, vf10x                   
+    MULq.w vf03, vf11, Q             WAITQ                           
+    SUBw.w vf02, vf02, vf03w         NOP                             
+    MAXx.w vf02, vf02, vf00x         NOP                             
+    FTOI0.xyzw vf02, vf02            NOP                             
+    NOP                              NOP                             
+    NOP[E]                           NOP                             
+    NOP                              NOP                             
+    NOP                              NOP        

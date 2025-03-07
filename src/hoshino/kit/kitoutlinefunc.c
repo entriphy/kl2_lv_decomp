@@ -94,10 +94,11 @@ u128* kitOutlinePreRoutine(u128 *packet, kitOutlineDrawEnv *pOutlineEnv, kitOutl
 void kitOutlineColorDefine(kitOutlineDrawEnv *pOutlineEnv, kitOutlineObjEnv *objenv) {
     pOutlineEnv->spritez = pOutlineEnv->bbox[0][2];
     // wtf
-    pOutlineEnv->alpha = pOutlineEnv->spritez < 0x1000   ? 0                                               :
-                         pOutlineEnv->spritez < 0x8000  ? ((pOutlineEnv->spritez - 0x1000) * 48) / 0x7000 :
-                         pOutlineEnv->spritez >= 0xC000 ? (pOutlineEnv->spritez < 0x20000 ? ((pOutlineEnv->spritez - 0xC000) / 0x400) + 48 : 128)
-                         : 48;
+    pOutlineEnv->alpha =
+        pOutlineEnv->spritez < 0x1000 ? 0 :
+        pOutlineEnv->spritez < 0x8000 ? ((pOutlineEnv->spritez - 0x1000) * 48) / 0x7000 :
+        pOutlineEnv->spritez >= 0xC000 ?
+            (pOutlineEnv->spritez < 0x20000 ? ((pOutlineEnv->spritez - 0xC000) / 0x400) + 48 : 128) : 48;
 }
 
 kitInitEffectBufAllPacket* kitInitEffectBufAll(kitInitEffectBufAllPacket *packet) {

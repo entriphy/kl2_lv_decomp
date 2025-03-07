@@ -353,6 +353,63 @@ typedef struct { // 0x80
     /* 0x78 */ u64 texflush_addr;
 } GS_DRAWPIXEL;
 
+extern GAMEDATA gamdat;
+
+extern void kz_Set_Line(DVECTOR *sxy0, DVECTOR *sxy1, u32 sz, KZCOLOR *col);
+extern void kz_Set_SprtUV(DVECTOR *sxy, u32 sz, DVECTOR *swh, DVECTOR *uv, KZCOLOR *col);
+extern void kz_Set_SprtUV_Eff(DVECTOR *sxy, u32 sz, DVECTOR *swh, DVECTOR *uv, KZCOLOR *col);
+extern void kz_Set_TileF4(DVECTOR *sxy, u32 sz, DVECTOR *swh, KZCOLOR *col);
+extern void kz_Set_TileG4(DVECTOR *sxy, u32 sz, DVECTOR *swh, KZCOLOR *col0, KZCOLOR *col1, KZCOLOR *col2, KZCOLOR *col3);
+extern void kz_Set_TileFT4UV(DVECTOR *sxy, u32 sz, DVECTOR *swh, DVECTOR *uv, DVECTOR *twh, KZCOLOR *col);
+extern void kz_Set_TileGT4UV(DVECTOR *sxy, u32 sz, DVECTOR *swh, DVECTOR *uv, DVECTOR *twh, KZCOLOR *col0, KZCOLOR *col1, KZCOLOR *col2, KZCOLOR *col3);
+extern void kz_Set_PolyF3(sceVu0IVECTOR *crd0, sceVu0IVECTOR *crd1, sceVu0IVECTOR *crd2, KZCOLOR *col);
+extern void kz_Set_PolyF4(sceVu0IVECTOR *crd0, sceVu0IVECTOR *crd1, sceVu0IVECTOR *crd2, sceVu0IVECTOR *crd3, KZCOLOR *col);
+extern void kz_Set_PolyG4(sceVu0IVECTOR *crd0, sceVu0IVECTOR *crd1, sceVu0IVECTOR *crd2, sceVu0IVECTOR *crd3, KZCOLOR *col0, KZCOLOR *col1, KZCOLOR *col2, KZCOLOR *col3);
+extern void kz_Set_PolyFT4UV(sceVu0IVECTOR *crd0, sceVu0IVECTOR *crd1, sceVu0IVECTOR *crd2, sceVu0IVECTOR *crd3, DVECTOR *uv0, DVECTOR *uv1, DVECTOR *uv2, DVECTOR *uv3, KZCOLOR *col);
+extern void kz_Set_PolyFT4UV_NC(sceVu0IVECTOR *crd0, sceVu0IVECTOR *crd1, sceVu0IVECTOR *crd2, sceVu0IVECTOR *crd3, DVECTOR *uv0, DVECTOR *uv1, DVECTOR *uv2, DVECTOR *uv3, KZCOLOR *col);
+extern void kz_Set_PolyGT4UV(sceVu0IVECTOR *crd0, sceVu0IVECTOR *crd1, sceVu0IVECTOR *crd2, sceVu0IVECTOR *crd3, DVECTOR *uv0, DVECTOR *uv1, DVECTOR *uv2, DVECTOR *uv3, KZCOLOR *col0, KZCOLOR *col1, KZCOLOR *col2, KZCOLOR *col3);
+extern void kz_Set_Alpha(u32 ctxt, u64 A, u64 B, u64 C, u64 D, u64 FIX);
+extern void kz_Set_Clamp(u32 ctxt, u64 WMS, u64 WMT, u64 MINU, u64 MAXU, u64 MINV, u64 MAXV);
+extern void kz_Set_Fba(u32 ctxt, u64 FBA);
+extern void kz_Set_Frame(u32 ctxt, u64 FBP, u64 FBW, u64 PSM, u64 FBMSK);
+extern void kz_Set_Pabe(u64 PABE);
+extern void kz_Set_Test(u32 ctxt, u64 ATE, u64 ATST, u64 AREF, u64 AFAIL, u64 DATE, u64 DATM, u64 ZTE, u64 ZTST);
+extern void kz_Set_Tex0(u64 TBP0, u64 TBW, u64 PSM, u64 TW, u64 TH, u64 TCC, u64 TFX, u64 CBP, u64 CPSM, u64 CSM, u64 CSA, u64 CLD);
+extern void kz_Set_Tex0_Imd(u64 tex0);
+extern void kz_Set_Tex1(u32 ctxt, u64 LCM, u64 MXL, u64 MMAG, u64 MMIN, u64 MTBA, u64 L, u64 K);
+extern void kz_Set_Texa(u64 TA0, u64 AEM, u64 TA1);
+extern void kz_Set_Texflush();
+extern void kz_Set_Xyoffset(u32 ctxt, u64 OFX, u64 OFY);
+extern void kz_Set_Zbuf(u32 ctxt, u64 ZBP, u64 PSM, u64 ZMSK);
+extern void kz_Set_DrawPixel(u64 DBP, u64 DSAX, u64 DSAY, KZCOLOR *col0, KZCOLOR *col1);
+extern void kz_Set_FogDist(s32 near, s32 far);
+extern void kz_Set_FogCol(sceVu0IVECTOR col);
+extern void kz_Set_Box(DVECTOR *sxy, u32 sz, DVECTOR *swh, s32 thick, KZCOLOR *col);
+extern void kz_Set_Box_VGrad(DVECTOR *sxy, u32 sz, DVECTOR *swh, s32 thick, KZCOLOR *col0,KZCOLOR *col1);
+extern void kz_Set_Box_HGrad(DVECTOR *sxy, u32 sz, DVECTOR *swh, s32 thick, KZCOLOR *col0, KZCOLOR *col1);
 extern s32 kz_Get_KazuyaStageNo();
+extern s32 kz_Get_Cont_NormalStageNo();
+extern s32 kz_Get_Cont_BossStageNo();
+extern s32 kz_Get_AreaNo();
+extern s32 kz_Get_StageMode();
+extern s32 kz_Get_RetryVision();
+extern s32 kz_Check_Clear_CurrentStage();
+extern s32 kz_Get_PlaceStrNo();
+extern s32 kz_Check_GenjuTotalTime();
+extern s32 kz_Get_FinishedDolls();
+extern s32 kz_Get_YumeCompleteStages();
+extern void kz_Set_KL2System_Light(s32 light_no);
+extern BGM_LIST_INFO* kz_Get_Ptr_BgmListInfo();
+extern BGM_INFO* kz_Get_Ptr_BgmInfo(s32 index);
+extern s32 kz_Get_BgmIndex_Prev();
+extern s32 kz_Get_BgmIndex_Next();
+extern s32 kz_Get_BgmNameStr(s32 index);
+extern void kz_Init_SoundEffect(s32 se_no);
+extern void kz_KeyOn_SoundEffect(s32 se_no);
+extern void kz_Load_CompGms(s32 gms_no);
+extern f32 kz_Get_Coef_Intpl(s32 iNow, s32 iStart, s32 iEnd);
+extern void kz_Intpl_Color(f32 coef, KZCOLOR *dst, KZCOLOR *src0, KZCOLOR *src1);
+extern void func_00173BA0(void *out, s32 size, char *filename);
+
 
 #endif

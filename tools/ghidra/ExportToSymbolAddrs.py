@@ -10,6 +10,8 @@ symbolTable = program.getSymbolTable()
 with open(os.path.join(directory.absolutePath, "symbol_addrs.txt" if not all_funcs else "symbol_addrs_all.txt"), "w") as f:
     for symbol in list(symbolTable.getAllSymbols(False)):
         address = symbol.address.unsignedOffset
+        if address >= 0x10000000:
+            continue
         if symbol.symbolType.equals(symbol.symbolType.FUNCTION):
             if symbol.name.startswith("FUN"):
                 if all_funcs:
